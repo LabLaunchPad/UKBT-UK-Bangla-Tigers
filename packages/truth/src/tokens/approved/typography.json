@@ -1,0 +1,68 @@
+{
+  "font": {
+    "family": {
+      "base": {
+        "$value": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "$type": "fontFamily",
+        "$description": "PROPOSED \u2014 generic system stack, zero licence/rights surface, zero brand claim."
+      }
+    },
+    "size": {
+      "$description": "CLASSIFICATION: DERIVED. A standard 1.25 (major third) modular scale anchored at a 16px/1rem base \u2014 a generic typographic convention, not derived from Adelux or any brand fact.",
+      "0": {
+        "$value": "0.8rem",
+        "$type": "dimension"
+      },
+      "1": {
+        "$value": "1rem",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "1.25rem",
+        "$type": "dimension"
+      },
+      "3": {
+        "$value": "1.563rem",
+        "$type": "dimension"
+      },
+      "4": {
+        "$value": "1.953rem",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "2.441rem",
+        "$type": "dimension"
+      },
+      "6": {
+        "$value": "3.052rem",
+        "$type": "dimension"
+      }
+    },
+    "weight": {
+      "$description": "CLASSIFICATION: DERIVED \u2014 standard numeric weight values, not a brand/font-specific decision.",
+      "regular": {
+        "$value": "400",
+        "$type": "fontWeight"
+      },
+      "medium": {
+        "$value": "500",
+        "$type": "fontWeight"
+      },
+      "bold": {
+        "$value": "700",
+        "$type": "fontWeight"
+      }
+    },
+    "lineHeight": {
+      "$description": "CLASSIFICATION: DERIVED \u2014 standard readability ratios (WCAG 1.4.8 recommends at least 1.5 for body text).",
+      "tight": {
+        "$value": "1.2",
+        "$type": "number"
+      },
+      "body": {
+        "$value": "1.5",
+        "$type": "number"
+      }
+    }
+  }
+}

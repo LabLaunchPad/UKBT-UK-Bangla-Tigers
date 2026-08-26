@@ -1,11 +1,28 @@
 {
-  "$description": "UKBT-original structural spacing scale. Not derived from Adelux (no Track B dependency) and not a brand-identity claim (knowledge/07 organization_claims covers colours/crest, not a generic spacing scale) — a base-4 rem scale, the same convention used by most design systems. APPROVED per contracts/DESIGN-SYSTEM-CONTRACT.md as Foundation-proving infrastructure, not as a final design decision — open to revision once real component work begins.",
   "space": {
-    "1": { "$value": "0.25rem", "$type": "dimension" },
-    "2": { "$value": "0.5rem", "$type": "dimension" },
-    "3": { "$value": "0.75rem", "$type": "dimension" },
-    "4": { "$value": "1rem", "$type": "dimension" },
-    "6": { "$value": "1.5rem", "$type": "dimension" },
-    "8": { "$value": "2rem", "$type": "dimension" }
+    "1": {
+      "$value": "0.25rem",
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": "0.5rem",
+      "$type": "dimension"
+    },
+    "3": {
+      "$value": "0.75rem",
+      "$type": "dimension"
+    },
+    "4": {
+      "$value": "1rem",
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": "1.5rem",
+      "$type": "dimension"
+    },
+    "8": {
+      "$value": "2rem",
+      "$type": "dimension"
+    }
   }
 }

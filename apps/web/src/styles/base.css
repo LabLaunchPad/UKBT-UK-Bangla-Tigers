@@ -1,0 +1,50 @@
+/**
+ * Global base styles. Consumes only generated custom properties from
+ * tokens.css (contracts/CSS-CONTRACT.md) — no literal color/spacing value
+ * is hard-coded here.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ukbt-font-family-base);
+  font-size: var(--ukbt-font-size-1);
+  line-height: var(--ukbt-font-line-height-body);
+  background: var(--ukbt-color-surface-background);
+  color: var(--ukbt-color-surface-foreground);
+}
+
+.ukbt-container {
+  width: 100%;
+  max-width: var(--ukbt-container-max-width-xl);
+  margin-inline: auto;
+  padding-inline: var(--ukbt-container-gutter);
+}
+
+/* contracts/ACCESSIBILITY-CONTRACT.md: visible focus indicator on every
+   focusable element — never the invisible-outline SOURCE_DEFECT found in
+   the Adelux reference (INTERACTION-FORENSICS.md). */
+:focus-visible {
+  outline: 2px solid var(--ukbt-color-surface-foreground);
+  outline-offset: 2px;
+}
+
+/* contracts/ACCESSIBILITY-CONTRACT.md: prefers-reduced-motion respected
+   for any animation/transition. Not itself a token (motion.json's
+   $description note) — a global override disabling the motion tokens'
+   effect for users who request it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

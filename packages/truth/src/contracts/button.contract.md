@@ -9,11 +9,11 @@ without any Track B dependency.
 |---|---|
 | Purpose | A clickable action trigger. |
 | DOM structure | A single `<button>` (or `<a>` when `href` is provided), no wrapper. |
-| Variants | `primary`, `secondary`. |
+| Variants | `primary`, `secondary`, `danger`. |
 | States | default, `:hover`, `:focus-visible`, `:disabled`. `:focus-visible` MUST have a visible outline — no `SOURCE_DEFECT` is inherited here, since there is no source (`contracts/ACCESSIBILITY-CONTRACT.md`). |
 | Responsive behavior | None required — a button's own size does not change across the viewport matrix. |
 | Accessibility behavior | Native `<button>`/`<a>` semantics; `disabled` uses the native attribute, never an ARIA-only simulation; visible focus ring at every viewport. |
-| Token dependencies | `--ukbt-space-*` (approved, `packages/truth/src/tokens/approved/spacing.json`). No color token yet — none is `APPROVED` (color remains an `organization_claims` item, `knowledge/07`, pending real UKBT brand evidence, `U-05`); the Astro implementation uses `currentColor`/`Canvas`/`CanvasText` system colors so no brand decision is made by this scaffolding component. |
+| Token dependencies | `--ukbt-space-*`, `--ukbt-radius-md`, `--ukbt-font-weight-medium`, `--ukbt-motion-duration-base`/`--ukbt-motion-easing-standard`, `--ukbt-color-surface-*`, `--ukbt-color-neutral-*`, `--ukbt-color-feedback-danger` (all `APPROVED`, `packages/truth/src/tokens/approved/`). Color tokens are `PROPOSED` classification (`tokens/approved/README.md`) — no real UKBT brand evidence exists (`U-05`) — but are still real, compiled custom properties, not a scaffolding-only placeholder; a future brand-evidence update changes the token file, not this component. |
 | Asset dependencies | None. |
 | Content dependencies | `label: string` (UI string — exempt from the truth gate per `contracts/CONTENT-CONTRACT.md`'s `not_organization_claims`), `variant`, `disabled`, `href?`. |
 | Interaction requirements | None — no JS required; a native `<button>`/`<a>` is fully operable without it, consistent with Astro's zero-JS-by-default model. |

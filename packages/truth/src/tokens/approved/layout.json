@@ -1,0 +1,26 @@
+{
+  "container": {
+    "maxWidth": {
+      "sm": {
+        "$value": "640px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "768px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "1024px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "1280px",
+        "$type": "dimension"
+      }
+    },
+    "gutter": {
+      "$value": "1rem",
+      "$type": "dimension"
+    }
+  }
+}

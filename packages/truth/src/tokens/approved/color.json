@@ -1,0 +1,65 @@
+{
+  "color": {
+    "neutral": {
+      "$description": "A generic 0-900 greyscale ramp \u2014 the same convention used by nearly every design system, carrying no brand information.",
+      "0": {
+        "$value": "#ffffff",
+        "$type": "color"
+      },
+      "50": {
+        "$value": "#f7f7f8",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#e9e9ec",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#b8b9c0",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#71727d",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#3f4048",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#17181c",
+        "$type": "color"
+      }
+    },
+    "surface": {
+      "$description": "CSS system-color keywords, not literal values \u2014 these automatically track the user's OS/browser theme (including forced-colors/high-contrast mode) rather than asserting a UKBT-specific light/dark palette that does not exist yet.",
+      "background": {
+        "$value": "Canvas",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "CanvasText",
+        "$type": "color"
+      },
+      "link": {
+        "$value": "LinkText",
+        "$type": "color"
+      }
+    },
+    "feedback": {
+      "$description": "Generic, widely-recognized semantic hues (danger/success/warning) \u2014 a UI-communication convention, not a UKBT brand claim.",
+      "danger": {
+        "$value": "#b3261e",
+        "$type": "color"
+      },
+      "success": {
+        "$value": "#146c2e",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#8a5a00",
+        "$type": "color"
+      }
+    }
+  }
+}
