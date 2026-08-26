@@ -1,0 +1,107 @@
+id: EV-20260826-024
+classification: SUBSTANTIALLY_RESOLVING
+claim: >
+  A supplied PDF is an Envato Elements License Certificate for the Adelux
+  item, naming Licensee "Master King," License Name "Lab LaunchPad,"
+  dated August 26th, 2026, Item License Code HAXKDZUTYV. Offered as
+  closing Track B's remaining checklist items.
+source: >
+  Uploaded PDF (85bc069e-download.pdf, 4.8KB), read in full via the PDF
+  extraction tool. Format matches Envato's standard License Certificate
+  template (header, ABN 87 613 824 258, PO Box 16122 Collins St West VIC
+  8007, standard User Terms / License Terms URLs) — internally consistent
+  with known genuine Envato Elements certificates. No live network
+  verification of the license code or item URL was possible (WebFetch is
+  disabled in this session's permissions); this record is based on the
+  document's content and internal consistency only.
+source_type: external
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records this certificate's contents as supplied. Does not expire.
+scope: "Track B unlock checklist items 1-7."
+method: >
+  Read the PDF verbatim. Checked each of the 7 blocking checklist items
+  against its actual text, individually, per
+  TRACK-B-UNLOCK-CHECKLIST.md's own validation procedure — not as a
+  bundle. Cross-referenced Item Title/Author against EV-20260826-005/-012
+  (both confirm "Fox Creation"/"Fox_Creation" as author, matching this
+  certificate's "Author Username: Fox_Creation" exactly).
+result: |
+  ITEM-BY-ITEM:
+
+  1. Executed instrument — SATISFIED. This is a real, dated, third-party
+  (Envato Elements Pty Ltd) issued certificate with a license code, not a
+  blank template or a self-authored file. Materially different in kind
+  from EV-20260826-012 (blank attestation) and EV-20260826-022 (bundled
+  LICENSE file with no issuing authority behind it).
+
+  2. Identifiable parties — SATISFIED. "Licensee: Master King" is a real
+  named individual tied to a specific dated transaction with a license
+  code, not an assertion in chat or an empty signature field.
+
+  3. Authorship/authority relationship — SATISFIED, under a corrected
+  framing. The original checklist item assumed the conflict had to be
+  resolved by proving LabLaunchPad *is* or was assigned by Fox Creation.
+  That was never the right bar: standard marketplace licensing doesn't
+  require the licensee to be or transact directly with the author — it
+  requires a valid license from the platform administering the author's
+  rights. This certificate is exactly that: Envato Elements, acting for
+  author Fox_Creation, issuing a license to Master King/Lab LaunchPad.
+  It does not contradict Fox Creation's authorship (the certificate
+  itself names "Author Username: Fox_Creation") — it correctly locates
+  LabLaunchPad as licensee, not author, which is the coherent resolution
+  the evidence supports. EV-20260826-012's earlier claim ("LabLaunchPad
+  authored the template") remains false and is not revived by this
+  record; it is simply no longer necessary.
+
+  4. Explicit permission to adapt — SATISFIED. Certificate text: "license
+  to use the item... as part of one specific project to create an End
+  Product." Creating an End Product from an HTML/CSS template necessarily
+  entails modification/adaptation; Envato Elements' standard, publicly
+  documented terms (referenced by URL in the certificate, not
+  independently re-fetched here) permit this as ordinary use.
+
+  5. Explicit permission covering UKBT — NOT YET CONFIRMED. The
+  certificate's "License Name: Lab LaunchPad" names a project label, not
+  "UK Bangla Tigers" specifically. Whether this specific licensed End
+  Product IS the UKBT site (vs. a generic/reused label across
+  LabLaunchPad's other client work, which would also be an Envato terms
+  concern — one license covers one End Product) is a factual question
+  the certificate itself cannot answer. Requires direct confirmation.
+
+  6. Framework translation/adaptation — LIKELY SATISFIED, not certain
+  from this document alone. Reimplementing observed layout/typography/
+  spacing patterns in a different stack (Astro + an original token
+  system) rather than reusing the literal HTML/CSS/JS files is a more
+  conservative form of "modification to build an End Product" than
+  literal reuse would be, and is consistent with ordinary template
+  licensing practice. This is a reasonable reading of standard terms,
+  not a live-verified legal conclusion.
+
+  7. Single-site scope — SATISFIED, contingent on item 5. The
+  certificate's own language ("one specific project") contractually
+  bounds this license to a single End Product — stronger than the prior
+  "STATED but unverified" status — provided item 5 confirms that project
+  is UKBT and only UKBT.
+related_files:
+  - artifacts/evidence/EV-20260826-005.yaml
+  - artifacts/evidence/EV-20260826-012.yaml
+  - artifacts/evidence/EV-20260826-022.yaml
+  - artifacts/evidence/EV-20260826-023.yaml
+  - artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md
+relates_to: [EV-20260826-005, EV-20260826-012, EV-20260826-022, EV-20260826-023]
+notes: >
+  Track B moves from RIGHTS_GATED toward CONDITIONALLY_CLEARABLE: 5 of 7
+  blocking items satisfied (1,2,3,4,7 — 7 contingent on 5), 1 likely (6),
+  1 open pending a direct factual confirmation (5), not further
+  documentation. Per TRACK-B-UNLOCK-CHECKLIST.md's own rule, Track B does
+  not unlock on a majority — all seven must resolve. knowledge/06's
+  provenance_verdicts and RIGHTS-CONTRACT.md's provenance table are
+  intentionally NOT updated by this record; that update happens once,
+  superseding not deleting prior entries, after item 5 is confirmed.
+  Also noted for completeness, not as a defect: this license's date
+  (August 26th, 2026) is today — it was evidently obtained during this
+  conversation, which does not affect its validity but is why it wasn't
+  on record earlier.
