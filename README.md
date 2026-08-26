@@ -12,6 +12,7 @@ Read in this order:
 | File | What it gives you |
 |---|---|
 | `CLAUDE.md` | operating contract, authority order, hard invariants |
+| **`knowledge/`** | **compact decision substrate — read before any project-level decision** |
 | `AGENTS.md` | evidence and role doctrine |
 | `docs/10-fresh-repo-pipeline.md` | **the build order and the gate for each stage** |
 | `contracts/` | frozen, machine-checkable agreements |

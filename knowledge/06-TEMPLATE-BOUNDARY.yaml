@@ -1,0 +1,76 @@
+template:
+  name: Adelux
+  version: "1.0.0"
+  sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  status: NOT_ADMITTED           # excluded from the repository pending licence
+  license_status: STATED_BUT_UNVERIFIED
+  evidence: EV-20260826-005
+  in_repository: false
+
+# Actions permitted at the CURRENT status (NOT_ADMITTED, licence unverified).
+allowed_now:
+  - inspect                       # read-only, outside the repository
+  - analyze
+  - record_package_identity
+not_allowed_now:
+  - extract_design_patterns       # gated on licence — Stage 6
+  - adapt_layout
+  - adapt_components
+  - adapt_tokens
+  - copy_any_file_into_repository
+
+# Actions that become permitted once LICENSE_VERDICT = VERIFIED.
+allowed_when_verified:
+  - extract_design_patterns
+  - adapt_layout
+  - adapt_components
+  - adapt_tokens
+  - create_UKBT_implementation
+
+never_allowed_without_specific_evidence:
+  - claim_ownership
+  - claim_unrestricted_redistribution
+  - claim_resale_rights
+  - claim_sublicensing_rights
+  - redistribute_original_template
+  - assume_third_party_asset_rights
+  - use_adelux_own_branding        # Adelux-Logo.png etc. are the author's marks
+
+boundary:
+  Adelux:              {role: DESIGN_SOURCE}
+  UKBT_content:        {role: PROJECT_TRUTH}
+  third_party_assets:  {role: SEPARATE_RIGHTS_DOMAIN}
+  generated_code:      {role: UKBT_IMPLEMENTATION}
+
+leak_paths:
+  - id: LP-01
+    path: "template demo content → UKBT factual content"
+    control: "INV-001, INV-002; truth gate rejects template-sourced facts"
+  - id: LP-02
+    path: "REFERENCE-ANALYSIS.md → Stage 9 route/content matrix"
+    detail: >
+      The reference is a padel-club template. Its sections (courts, coaching,
+      membership tiers, booking) are TEMPLATE facts. Deriving UKBT's information
+      architecture from them makes the template a source of UKBT truth without
+      any single step looking like an invention.
+    control: "INV-014 — reference informs visual grammar only"
+  - id: LP-03
+    path: "template licence → bundled third-party component rights"
+    detail: "A licensor cannot sublicense rights it does not hold (DR-019)."
+    control: "third-party components verified independently, per component"
+
+third_party_rights:
+  rule: "Each bundled component is a separate rights domain. Verify individually."
+  verified_permissive: [bootstrap, jquery, swiper, flatpickr]
+  attribution_required: [font-awesome]           # CC BY 4.0 icons
+  requires_decision: [animate.css]               # Hippocratic License 2.1
+  blocked: [isotope]                             # GPLv3 or paid commercial licence
+  unknown: [fslightbox, odometer, lato, montserrat]
+  note: >
+    A10 proposes no third-party UI library, which cheaply avoids most of this.
+    Not adopting a component must be a RECORDED decision, not an accident.
+
+privacy:
+  finding: "Shipped font CSS loads Lato/Montserrat from fonts.gstatic.com."
+  consequence: "Third-party requests disclose visitor IPs. UK GDPR relevance (U-18)."
+  rule: "Self-host fonts, or record a lawful basis. Do not carry this over unexamined."

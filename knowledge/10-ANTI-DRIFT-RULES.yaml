@@ -1,0 +1,65 @@
+anti_drift:
+  - "Read knowledge/ before making project-level decisions."
+  - "Read current evidence before relying on historical decisions."
+  - "Never silently change a frozen decision."
+  - "Never silently downgrade an UNKNOWN to VERIFIED."
+  - "Never silently convert a proposal into a requirement."
+  - "Never treat generated documentation as independent evidence."
+  - "Never copy Adelux demo facts into UKBT factual content."
+  - "Never introduce a dependency without recording why."
+  - "Never create a package without a demonstrated boundary."
+  - "Never claim validation passed if it was not executed."
+  - "Never resolve legal ambiguity through model inference."
+  - "Never modify application code while a stage is explicitly planning-only."
+  - "Every material architecture change must identify which invariant or requirement caused it."
+  - "When uncertain, preserve the uncertainty explicitly."
+
+# Added from failure modes actually observed in this project.
+observed_drift_patterns:
+  - id: AD-01
+    pattern: "Citing evidence that does not exist here"
+    seen: "EV-0009 referenced in a task brief; absent from this repository"
+    rule: "A citation is not its referent. Not retrievable here → UNKNOWN (DR-016)."
+  - id: AD-02
+    pattern: "Restating a template's placeholder values as verified facts"
+    seen: >
+      A proposed 01-VERIFIED-FACTS.yaml carried admission_status and prior_evidence
+      values with no evidence in this repository.
+    rule: >
+      A file named VERIFIED-FACTS earns its name only if every entry is evidenced.
+      Populating it from a template is the exact drift it exists to prevent.
+  - id: AD-03
+    pattern: "Copying forward a constraint a red team already revised"
+    seen: >
+      C3 / INV-006 ("no build-time-only data access") was revised to deletion at
+      Stage 2, then reappeared verbatim in a proposed knowledge layer.
+    rule: >
+      Re-importing superseded text silently reverses a finding. Check current
+      state before restating a rule; note the revision where one exists.
+  - id: AD-04
+    pattern: "Authority laundering"
+    seen: >
+      "LabLaunchPad is the authorized builder" offered in support of "therefore
+      Adelux rights are verified".
+    rule: "Authority over a PROJECT is not rights over an ASSET (DR-004)."
+  - id: AD-05
+    pattern: "Marking one's own homework with a tool that cannot fail"
+    seen: "Stage 1 reported grep heuristics as PASS beside a deterministic check."
+    rule: "WEAK_EVIDENCE exists for this. Use it (DR-010)."
+
+escalation:
+  when:
+    - two authoritative sources conflict
+    - a rights-sensitive decision lacks evidence
+    - a frozen contract would need to change
+    - a fact would need to be invented to proceed
+  how: >
+    STOP the affected decision only — not unrelated work. State the conflict, the
+    affected scope, and the specific artifact that would resolve it. Do not choose
+    the more convenient interpretation. Do not widen a scoped blocker into a
+    general halt.
+
+review_cadence:
+  - "knowledge/ is re-read at the start of each stage."
+  - "A change here cites the evidence ID that caused it."
+  - "Anything asserted here without an evidence link is a defect in this directory."

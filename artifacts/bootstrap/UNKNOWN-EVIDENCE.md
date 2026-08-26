@@ -60,7 +60,7 @@ content. See `CONTENT-TRUTH-MODEL.md § 4`.
 
 | ID | Unknown | Status |
 |---|---|---|
-| U-21 | **Licence and entitlement for the "Adelux" reference template** | **BL-02 — OPEN, BLOCKING** |
+| U-21 | **Licence and entitlement for the "Adelux" reference template** | **BL-02 — OPEN.** Verified 2026-08-26: no licence document, purchase record, order ID or receipt exists in the package or repository. `LICENSE_VERDICT = STATED_BUT_UNVERIFIED` · `EV-20260826-005` |
 
 Observed from the supplied archive, read-only, in a scratch directory:
 
@@ -100,6 +100,7 @@ membership tiers, booking) are template facts, never UKBT facts.
 | BL-01 | No verified UKBT organization fact of any kind | all content publication |
 | BL-02 | Adelux licence unverified (U-21) | Stage 6 |
 | BL-03 | No approved architecture | all application code (Stages 3–4) |
+| BL-05 | Isotope v3.0.6 is GPLv3-or-paid-commercial (`EV-…-005`). No Adelux tier can convey it | adopting Isotope **only** |
 | BL-04 | Hosting/deployment target unknown (U-11) | deployment configuration |
 
 `prompts/06-release-gate.md` cannot return `PASS` while any of these is open.

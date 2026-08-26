@@ -1,0 +1,97 @@
+# Decision rules. The agent applies these autonomously; they do not need a human
+# in the loop to fire. They exist to make routine decisions fast and to make one
+# narrow class of decisions impossible.
+
+rules:
+  - id: DR-001
+    rule: "Never invent UKBT facts."
+    if: "a required fact has no authoritative evidence"
+    action: "mark UNKNOWN and continue only if the task permits"
+    severity: CRITICAL
+  - id: DR-002
+    rule: "Unknown is not false."
+    action: "preserve UNKNOWN rather than fabricate or infer"
+    severity: CRITICAL
+  - id: DR-003
+    rule: "Inference cannot override evidence."
+    action: "prefer evidence"
+  - id: DR-004
+    rule: "Builder authority does not imply asset ownership."
+    applies_to: [Adelux, fonts, images, icons, libraries]
+    action: "verify separately"
+    severity: CRITICAL
+  - id: DR-005
+    rule: "A missing license is not a verified license."
+    action: "record STATED_BUT_UNVERIFIED"
+    severity: CRITICAL
+  - id: DR-006
+    rule: "Do not architect hypothetical features prematurely."
+    action: "design the minimum reversible boundary"
+  - id: DR-007
+    rule: >
+      Future extensibility is justified only when migration cost materially
+      threatens a stated requirement.
+    action: "prefer the smallest defensible architecture"
+  - id: DR-008
+    rule: >
+      Do not create packages without an actual ownership, dependency,
+      deployment, or reuse boundary.
+    action: "reject premature package extraction"
+  - id: DR-009
+    rule: "ABSENT validation is not PASS."
+    action: "record ABSENT"
+  - id: DR-010
+    rule: "A test that cannot fail is not meaningful verification."
+    action: "reject vacuous verification"
+    severity: CRITICAL
+  - id: DR-011
+    rule: "Application code cannot resolve a planning blocker."
+    action: "stop and resolve the blocker"
+  - id: DR-012
+    rule: "A proposal is not a decision until explicitly accepted."
+  - id: DR-013
+    rule: "A decision is not evidence."
+  - id: DR-014
+    rule: "A model-generated explanation is not provenance."
+  - id: DR-015
+    rule: "When two authoritative sources conflict, do not choose silently."
+    action: "CONFLICTING → ESCALATE"
+    severity: CRITICAL
+
+# Added from observed failure modes in this project. Each names its origin.
+  - id: DR-016
+    rule: "A citation is not its referent."
+    detail: >
+      A reference to evidence held elsewhere (an ID, a document name, a prior
+      record) is not that evidence. If it is not retrievable here, it is UNKNOWN.
+    origin: "EV-0009 referenced but absent from this repository"
+    severity: CRITICAL
+  - id: DR-017
+    rule: "A gate must fail closed."
+    detail: >
+      Provenance is required by default; exemption is explicit. A field added
+      without annotation must fail the build, never publish unchecked.
+    origin: "Stage 2 finding F2"
+    severity: CRITICAL
+  - id: DR-018
+    rule: "Presence is not publishability."
+    detail: >
+      Checking that a field exists proves nothing about whether its content may
+      be published. Validate the property that matters, not its container.
+    origin: "Stage 2 finding F1"
+    severity: CRITICAL
+  - id: DR-019
+    rule: "A licensor cannot sublicense rights it does not hold."
+    detail: >
+      A template licence never conveys the rights of a bundled third party's
+      separately-licensed component.
+    origin: "Isotope GPLv3/commercial inside Adelux"
+    severity: CRITICAL
+  - id: DR-020
+    rule: "A document wrong about its own contents is weak evidence about anything."
+    detail: "Downgrade, do not discard; note the specific discrepancy."
+    origin: "Adelux docs claim Font Awesome 5x, package ships 6.7.2"
+  - id: DR-021
+    rule: "A constraint that excludes no option is not a constraint."
+    action: "delete it, or replace it with a decision-time check"
+    origin: "Stage 2 finding F6 (C1)"

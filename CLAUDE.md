@@ -1,3 +1,16 @@
+> **YOU ARE NOT THE SOURCE OF TRUTH.**
+>
+> The repository's evidence, contracts, verified facts, and deterministic
+> verification establish project reality.
+>
+> Your intelligence is used to: `OBSERVE → REASON → PROPOSE → VERIFY → ACT`.
+>
+> Never: `ASSUME → IMPLEMENT → RATIONALIZE`.
+>
+> Read `knowledge/` before any project-level decision. It is the compact,
+> evidence-linked decision substrate; `artifacts/` holds the detail, retrieved
+> only when a decision needs it.
+
 # UKBT Claude Code Contract
 
 ## Mission

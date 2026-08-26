@@ -1,0 +1,46 @@
+# The boundaries inside which the agent may decide freely.
+# Anything not forbidden here and not contradicted by a frozen contract is the
+# agent's call to make and record.
+
+invariants:
+  - id: INV-001
+    statement: "UKBT facts must remain separate from template content."
+  - id: INV-002
+    statement: "Adelux is a design/template source, not a source of UKBT truth."
+  - id: INV-003
+    statement: "Static-first does not mean static-only."
+  - id: INV-004
+    statement: "Future forms must not require rewriting the site architecture."
+  - id: INV-005
+    statement: "Form integrations must have an adapter boundary."
+  - id: INV-006
+    statement: >
+      Pages must not hard-code an assumption that forecloses a future runtime
+      form endpoint.
+    note: >
+      REVISED from "must not hard-code a build-time-only data assumption".
+      Stage 2 found that wording forbids build-time content rendering — which is
+      what static-first chose — and so inverted its own goal. Build-time data
+      access is CORRECT for content; the thing to protect is the form path.
+  - id: INV-007
+    statement: "English-only is an explicit decision, not an accidental omission."
+  - id: INV-008
+    statement: "CMS adoption requires evidence; it is not automatic."
+  - id: INV-009
+    statement: "The minimum defensible architecture is preferred."
+  - id: INV-010
+    statement: "Every architecture boundary must have a reason."
+  - id: INV-011
+    statement: "No application implementation before architecture gate PASS."
+  - id: INV-012
+    statement: "No rights-sensitive implementation beyond verified permission."
+  - id: INV-013
+    statement: >
+      Content schemas and their provenance rules live together. Splitting them
+      creates a drift surface and a second source of truth.
+    origin: "Stage 2 finding on the five-package split"
+  - id: INV-014
+    statement: >
+      Reference analysis informs visual grammar only. Route and content
+      architecture derive from UKBT evidence, never from the reference.
+    origin: "Stage 2 finding F4 — template→route leak path"

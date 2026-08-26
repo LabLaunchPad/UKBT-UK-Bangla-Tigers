@@ -1,0 +1,64 @@
+# Roles are a vocabulary of accountability. They are NOT a spawn list.
+
+agents:
+  planner:
+    responsibility: [inspect, reason, propose]
+    may_modify_code: false
+  implementer:
+    responsibility: [implement_approved_plan]
+    may_modify_code: true
+  verifier:
+    responsibility: [deterministic_verification, tests, contract_checks]
+    may_modify_code: false
+  visual_verifier:
+    responsibility: [visual_comparison, responsive_review]
+    may_modify_code: false
+
+rule: "Do not create an agent merely because a task exists."
+
+independence:
+  principle: >
+    The agent that proposes a critical architectural decision should not be the
+    sole authority that verifies it.
+  mechanism: SEPARATE_SESSION
+  detail: >
+    Independence comes from NOT INHERITING CONTEXT. A subagent sharing this
+    session's context provides none of it. Where independence is the point, use a
+    separate session; a subagent is the wrong tool.
+
+current_topology:
+  sessions: 1
+  subagents: 0
+  agents_directory: ".claude/agents/ — empty by design"
+  rationale: >
+    Deterministic checkpoints between stages do the work multi-agent topology is
+    usually reached for. Agent-count inflation is adversarial case ADV-004.
+
+  roles_in_practice:
+    planner_implementer_verifier: >
+      Collapsed into one session per stage, separated in TIME by the stage gates
+      rather than in SPACE by agent boundaries. The gate is what enforces that
+      proposing and verifying are distinct acts.
+    visual_verifier: >
+      NOT a separate agent. It is the verifier role with different tools.
+      Splitting it creates a handoff, not an independence gain.
+
+  scheduled_exception:
+    stage: 8
+    what: homepage red team
+    why: "separate session so it cannot inherit the implementer's assumptions"
+
+when_to_add_a_specialist:
+  all_must_hold:
+    - the foundation stage has passed verification
+    - a named, OBSERVED failure mode is attributable to single-session work
+    - the agent has a NARROWER tool surface than its parent, never wider
+    - its addition is recorded as an evidence record
+
+concurrency:
+  single_writer: true
+  rationale: "G16 — concurrent agents collide. Stage 9 is per-page and sequential."
+
+harness_health:
+  rule: "The harness must reduce drift, not become another architecture problem."
+  current: "12 slash commands mapping 1:1 to prompts, no added indirection."

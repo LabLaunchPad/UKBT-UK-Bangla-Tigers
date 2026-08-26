@@ -1,0 +1,123 @@
+# Only what has actually been established in THIS repository.
+# Every entry carries an evidence link or is marked as unestablished.
+# Adding an unevidenced entry here is a defect, not a shortcut.
+
+meta:
+  last_updated: 2026-08-26
+  established_at_sha: 0cd3129
+  rule: "If it is not evidenced, it does not belong in this file as true."
+
+project:
+  name: UK Bangla Tigers            # evidence: repository name + requester usage
+  code: UKBT
+  what_the_organization_is: UNKNOWN # U-01 — never inferred from the reference template
+  sport_or_activity: UNKNOWN        # U-02
+
+builder:
+  organization: LabLaunchPad        # evidence: git remote owner
+  authority_status: STATED_BUT_UNVERIFIED
+  authority_evidence: "requester statement, 2026-08-26 session"
+  note: >
+    Builder authority is a claim about ROLE. It is not evidence of asset
+    ownership or licence holding. See DR-004.
+
+template:
+  name: Adelux
+  version: "1.0.0"
+  sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  admission_status: NOT_ADMITTED
+  in_repository: false
+  license_status: STATED_BUT_UNVERIFIED
+  license_evidence: EV-20260826-005
+  license_document_exists: false
+  purchase_evidence_exists: false
+  note: >
+    The template has NOT been admitted to this repository. It is excluded pending
+    licence evidence. A prior record "EV-0009" and an admission status of
+    ADMITTED_WITH_RESTRICTIONS were referenced by the requester but do not exist
+    here; a repository search returns no match. Reported, not reconciled.
+
+third_party_assets:
+  verification_required: true
+  verified_permissive:                   # licence read from the shipped file header
+    - {name: bootstrap, licence: MIT}
+    - {name: jquery, version: "3.7.1", licence: MIT}
+    - {name: swiper, licence: MIT}
+    - {name: flatpickr, licence: MIT}
+  obligations_attached:
+    - name: font-awesome
+      version: "Free 6.7.2"
+      licence: "Icons CC BY 4.0; Fonts SIL OFL 1.1; Code MIT"
+      obligation: ATTRIBUTION_REQUIRED
+  requires_decision:
+    - name: animate.css
+      version: "4.1.1"
+      licence: "Hippocratic License 2.1"
+      issue: NOT_OSI_APPROVED_ETHICAL_USE_CONDITIONS
+  blocked:
+    - name: isotope
+      version: "3.0.6"
+      licence: "GPLv3 OR Isotope Commercial License"
+      rightsholder: Metafizzy
+      issue: COMMERCIAL_USE_REQUIRES_PAID_LICENCE
+      note: "No Adelux licence tier can convey this. Independent of BL-02."
+  unknown:
+    - {name: fslightbox, licence: UNKNOWN}
+    - {name: odometer, licence: UNKNOWN}
+    - {name: lato, licence: UNKNOWN, served_from: fonts.gstatic.com}
+    - {name: montserrat, licence: UNKNOWN, served_from: fonts.gstatic.com}
+
+content:
+  organization_facts_verified: false
+  organization_facts_count: 0
+  invented_facts_allowed: false
+  evidence_registry_populated: false
+
+language:
+  current_language: English
+  i18n_implemented: false
+  i18n_decision: EXPLICIT          # EV-20260826-002 — a decision, not an omission
+  reversal_cost: HIGH
+
+architecture:
+  current_stage: STAGE_2_COMPLETE_VERDICT_REVISE
+  architecture_stage_approved: false
+  frozen_contract_exists: false
+  workspace_shape: NOT_DECIDED     # five-package shape REJECTED by Stage 2
+  minimum_defensible: "apps/web + one package co-locating content schemas and the truth gate"
+
+forms:
+  static_first: true                        # EV-20260826-001
+  future_form_route_required: true
+  adapter_boundary_required: true           # C2 — PASS at Stage 2
+  serverless_required: false                # C1 REVISED — service route needs none
+  build_time_only_data_access_prohibited: false
+  note: >
+    C3 ("no build-time-only data access") was REVISED to deletion by the Stage 2
+    red team: read literally it forbids build-time content rendering, which is
+    what Astro content collections are and what static-first chose, so it
+    inverted its own goal. Its intent is folded into C2.
+
+validation:
+  ci_workflow_present: false
+  absent_ci_is_pass: false
+  gates_implemented: 0
+
+licensing:
+  adelux_license_fully_verified: false
+  builder_authority_recorded: true
+  third_party_asset_verification_required: true
+  note: >
+    builder_authority_recorded: true and adelux_license_fully_verified: false are
+    deliberately separate keys. Authority to build does not verify licence rights.
+
+blockers:
+  BL-01: {state: OPEN, blocks: "all content publication"}
+  BL-02: {state: OPEN, blocks: "Stage 6 and all Adelux-derived material", evidence: EV-20260826-005}
+  BL-03: {state: OPEN, blocks: "application code — no frozen architecture"}
+  BL-05: {state: OPEN, blocks: "adoption of Isotope only", evidence: EV-20260826-005}
+
+unknowns:
+  total: 24
+  open: 20
+  register: artifacts/bootstrap/UNKNOWN-EVIDENCE.md
