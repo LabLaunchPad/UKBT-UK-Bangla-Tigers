@@ -98,3 +98,58 @@ route list).
 
 REVERSIBLE. No route exists yet; this contract fixes the derivation
 process a future route list must follow.
+
+---
+
+## AMENDMENT 01 — template-mirrored route set
+
+**Date:** 2026-08-26 · **Authority:** `EV-20260826-032` / `CLIENT_REQ_009`
+· **Status:** AMENDED (frozen text above preserved verbatim)
+
+### What changed
+
+The route set now mirrors the reference template's page set. UKBT routes
+are added for page types the template carries, including ones with no
+current UKBT content.
+
+### Why this is not the behaviour the frozen text forbids
+
+The frozen "Forbidden behavior" clause names building a `booking` route
+"merely because Adelux has `booking.html`, **absent an evidenced UKBT
+booking need**." The change-authority clause resolves it: adding such a
+route "requires stating the independent UKBT evidence for that route's
+existence."
+
+That evidence now exists and is stated. `EV-20260826-032` records the
+site owner instructing what their own site should contain. A client
+instruction about their own IA is first-party UKBT evidence — the same
+class as `CLIENT_REQ_001`, which this contract already accepts as the
+source of the seven-page IA. The justification for each mirrored route is
+that instruction, **never** "the template has a page like this."
+
+`INV-014` is otherwise intact: reference analysis still informs visual
+grammar, and route *content* remains gated by the truth gate per item.
+
+### Conditions attached
+
+1. **No invented content.** A mirrored route with no UKBT evidence
+   renders its section shells with `CONTENT_STATUS = UNKNOWN`. Inventing
+   pricing tiers, membership benefits, testimonials, FAQ answers, or
+   articles to fill a shell remains forbidden (`CLAUDE.md` hard
+   invariant, unaffected by this amendment).
+2. **Commerce-shaped shells are not advertised.** Routes describing
+   offerings UKBT has no evidence of (`/membership`, `/join`,
+   `/services`) ship `noindex` and stay out of the primary navigation
+   until real content lands. A shell is scaffolding, not a claim that the
+   club sells the thing.
+3. **The rule survives this amendment.** A future route still needs its
+   own stated justification. This amendment authorises the template-
+   mirrored set recorded in `artifacts/ui/PAGE-PARITY-MATRIX.md`, not a
+   general licence to derive routes from any reference.
+
+### Route set authorised
+
+`/`, `/about`, `/club-captain`, `/players`, `/franchises`, `/tournaments`,
+`/contact` (CLIENT_REQ_001) · `/community`, `/coaching`, `/services`,
+`/membership`, `/join`, `/faq`, `/news`, `/news/[slug]` (CLIENT_REQ_009)
+· `/404` (routing hygiene, no organisational claim).

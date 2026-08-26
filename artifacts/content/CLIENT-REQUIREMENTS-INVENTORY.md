@@ -54,3 +54,19 @@ supplied; `knowledge/01-VERIFIED-FACTS.yaml` had no prior organization
 facts to conflict with (`organization_facts_count: 0` before this
 ingestion). See `knowledge/01-VERIFIED-FACTS.yaml` for the facts this
 document establishes.
+
+---
+
+## Later requirements (added 2026-08-26, template-parity direction)
+
+Source: `EV-20260826-032` — direct client direction in session, recorded
+verbatim in that record. These are **first-party instructions from the
+site owner about their own site**, the same evidence class as
+CLIENT_REQ_001-008 — not inferences drawn from the reference template.
+
+| CLIENT_REQ_ID | SOURCE | REQUIREMENT | TYPE | PRIORITY | AFFECTED_AREA | UKBT_SUPPORT | CONFLICT | DECISION | STATUS |
+|---|---|---|---|---|---|---|---|---|---|
+| CLIENT_REQ_009 | EV-032 | The UKBT site must reconstruct the reference template's UI system at page/section/component/wireframe level, and mirror its page set — "Mirror all template pages with section parity, shells where we will put UK Bangla's content and branding assets as per UI template pages" | Structure | HIGH | Whole site IA + all routes | Astro file-based routing supports any route set; token/component system exists but is scaled far below the template (see EV-032) | **Yes — `ROUTE-CONTRACT.md` INV-014.** Resolved by amendment: this requirement is independent UKBT evidence for the route set (a client instruction), which is exactly what that contract's change-authority clause asks for | Adopt. Amend ROUTE-CONTRACT with this record as the stated authority. Shells without evidence render `CONTENT_STATUS = UNKNOWN`, never invented copy | OPEN — Phases 1-6 |
+| CLIENT_REQ_010 | EV-032 | Treat all supplied photographs as usable UKBT club imagery — "Treat all supplied photos as usable club imagery" | Asset/rights | HIGH | All image slots site-wide | 20 gallery + hero + leadership + uppsala images staged in `artifacts/brand/raw/images/` | Supersedes the *affiliation caution* in EV-030/`image_affiliation_caution`. Does **not** supersede CLIENT_REQ_008 (named-person removal) | Adopt for affiliation only. `nordic-smash-slide.webp` stays excluded on CLIENT_REQ_008 grounds (visible "NIPO KHADEM"), not affiliation grounds | OPEN — Phase 3+ |
+| CLIENT_REQ_011 | EV-032 | Reproduce the template's interaction/motion behaviour, rebuilt in UKBT's own stack — "Same as template but tailored to UK by tech stacks frameworks and its assets and content" | Visual/behaviour | MEDIUM | Carousels, counters, scroll reveals | Requires original implementations; Isotope is `DO_NOT_ADOPT` (GPL/commercial), animate.css needs sign-off | None — this instruction *matches* the existing dependency policy rather than straining it | Adopt. Write original vanilla implementations; no new dependencies; honour `prefers-reduced-motion` | OPEN — Phase 4 |
+| CLIENT_REQ_012 | EV-032 | Exact template tokens/CSS must be ported, not approximated — "we do need to ensure exact token and css and these must be tailored and converted for our UK Bangla tigers frameworks tech stacks" | Visual/design | HIGH | `packages/truth` token set, all CSS | Style Dictionary DTCG pipeline already exists and is the correct conversion target | None | Adopt. Port measured constants into the token layer; colour *roles* preserved, *values* mapped to UKBT navy/gold with AA correction | OPEN — Phase 1 |

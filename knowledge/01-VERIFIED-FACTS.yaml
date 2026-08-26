@@ -73,8 +73,20 @@ sister_franchise_uppsala_tigers:      # NEW — EV-20260826-030, a real "Oversea
     - {name: "Shaheryar Butt", country: Belgium}
     - {name: "Nipo Khadem", country: Portugal, note: "Very likely the same person as 'MD Siraj Ullah Khadem Nipo', whose removal from the squad list was explicitly instructed (EV-20260826-027, CLIENT_REQ_008) — EXCLUDED from any published roster per that instruction"}
 
-image_affiliation_caution:            # NEW — EV-20260826-030
-  note: >
+image_affiliation_caution:            # EV-20260826-030 — SUPERSEDED as a blocker by EV-20260826-032
+  status: SUPERSEDED_BY_CLIENT_AUTHORISATION
+  superseded_by: EV-20260826-032      # CLIENT_REQ_010, "treat all supplied photos as usable club imagery"
+  supersession_note: >
+    The client has explicitly authorised all supplied photographs for UKBT
+    use. That resolves AFFILIATION doubt only, and it is recorded as the
+    client's authorisation, not as this project's verification — the
+    observation below remains factually accurate about what the images
+    show. Assets used under this authorisation are filed in the
+    ASSET-CONTRACT's "Client-authorised" class with an explicit
+    INDEPENDENT_VERIFICATION field. It does NOT override
+    image_excluded_person_caution below, which rests on a different client
+    instruction (CLIENT_REQ_008).
+  original_observation: >
     Two supplied images (leadership/join-us.webp; gallery/gallery-06.webp)
     show cricket kit/branding inconsistent with UK Bangla Tigers (no
     crest, different sponsor names: "MSG"/"BAS" and "Islami Bank"

@@ -93,3 +93,59 @@ extend at Stage 4.
 REVERSIBLE. No asset is currently committed to `apps/web` (it does not
 exist yet); this contract fixes the intake discipline before the first
 asset lands.
+
+---
+
+## AMENDMENT 01 — client-authorised provenance class
+
+**Date:** 2026-08-26 · **Authority:** `EV-20260826-032` / `CLIENT_REQ_010`
+· **Status:** AMENDED (frozen text above preserved verbatim)
+
+### The gap this closes
+
+The frozen four-class scheme has no slot for the situation actually in
+front of us: images **supplied by the client from their own material**,
+which the client has explicitly authorised for use, but whose UKBT
+affiliation this project could not independently confirm from the image
+itself. Filing them as `UKBT-owned` would overstate what we verified;
+filing them as `Unknown/uncleared` would ignore the actual rights-holder's
+explicit instruction. Neither is honest.
+
+### Fifth class
+
+| Class | Meaning | Example |
+|---|---|---|
+| Client-authorised | Supplied by the client from their own material and explicitly authorised by them for UKBT use; affiliation not independently verified by this project | The 20 supplied gallery photographs (`EV-20260826-032`) |
+
+Per-asset records in this class carry two extra fields:
+
+- `AUTHORISATION` — the evidence ID carrying the client's instruction.
+- `INDEPENDENT_VERIFICATION` — what this project could and could not
+  confirm from the asset itself, stated plainly. Never left blank, and
+  never backfilled with the authorisation.
+
+The distinction is the point: **the client's authorisation is recorded as
+theirs**, not restated as our verification. Anyone reading the manifest
+can see which is which.
+
+### Rules for this class
+
+1. **Affiliation only.** Client authorisation resolves doubt about
+   whether an image depicts UKBT. It does not resolve any other
+   objection.
+2. **Named-person instructions are not overridden.** An image is still
+   excluded if it displays a person the client has separately instructed
+   be removed — `nordic-smash-slide.webp` stays excluded on
+   `CLIENT_REQ_008` grounds (visible "NIPO KHADEM", `EV-20260826-031`),
+   notwithstanding `CLIENT_REQ_010`. Two client instructions, and the
+   narrower one governs.
+3. **Visual inspection before use is mandatory.** Every asset entering
+   this class is viewed at full resolution first, specifically checking
+   for names, captions, or third-party branding baked into the pixels.
+   `EV-20260826-031` is the reason: a text-content grep cannot see inside
+   a raster image, and an excluded person shipped to production for a
+   full stage because of it.
+4. **Third-party marks are recorded, not scrubbed.** Several supplied
+   photographs carry other organisations' sponsor logos and event
+   branding. Where such an asset is used, its `INDEPENDENT_VERIFICATION`
+   field names what is visible. This is disclosure, not clearance.

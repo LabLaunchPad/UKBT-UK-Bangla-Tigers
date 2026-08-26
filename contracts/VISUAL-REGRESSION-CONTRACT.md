@@ -135,3 +135,47 @@ must say so explicitly.
 REVERSIBLE at the tooling level (suite config). NOT REVERSIBLE for a
 regression that ships unnoticed because the gate was skipped — which is
 why this gate is mandatory and merge-blocking, not advisory.
+
+---
+
+## AMENDMENT 01 — 1920×1080 added to the viewport matrix
+
+**Date:** 2026-08-26 · **Authority:** `EV-20260826-032` (template-parity
+direction, §16 of the client's parity specification) · **Status:**
+AMENDED (frozen text above preserved verbatim)
+
+The frozen matrix said it must not change without a contract amendment.
+This is that amendment.
+
+### Matrix (canonical, 7 viewports)
+
+```
+1920×1080  (desktop XL)          ← ADDED by this amendment
+1440×900   (desktop large)
+1280×800   (desktop / laptop)
+1024×768   (tablet landscape / small laptop — nav-toggle breakpoint)
+768×1024   (tablet portrait)
+430×932    (mobile large)
+390×844    (mobile standard)
+```
+
+### Why
+
+The parity work compares UKBT renders against reference renders of the
+template. The template's container caps at `1340px`, so behaviour above
+that width — how the layout centres, and whether background/full-bleed
+sections extend correctly past the container — is only observable above
+1440. Without a 1920 row, the widest real-world desktop case is untested
+in both the reference and our build.
+
+### What this does not change
+
+Everything else in the frozen text stands: the pinned rendering
+environment, CI-vs-CI-only comparison, and the five required evidence
+kinds per page (structural, visual, responsive, interaction,
+accessibility). A page missing any one is still not `VERIFIED`.
+
+`artifacts/responsive/RESPONSIVE-MATRIX.yaml` recorded the original six
+against the reference pages; the 1920 row has no historical reference
+measurement behind it and is newly measured at Stage 9 for both the
+reference and UKBT builds.
