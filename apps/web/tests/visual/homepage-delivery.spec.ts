@@ -93,11 +93,20 @@ for (const t of TARGETS) {
     });
 
     fs.mkdirSync(outDir, { recursive: true });
-    const file = path.join(outDir, `homepage-${t.name}-${t.width}x${t.height}.png`);
-    await page.screenshot({ path: file, fullPage: true, animations: 'disabled' });
+    const file = path.join(
+      outDir,
+      `homepage-${t.name}-${t.width}x${t.height}.png`,
+    );
+    await page.screenshot({
+      path: file,
+      fullPage: true,
+      animations: 'disabled',
+    });
 
     const bytes = fs.statSync(file).size;
-    console.log(`CAPTURED ${t.name} -> ${path.basename(file)} (${bytes} bytes)`);
+    console.log(
+      `CAPTURED ${t.name} -> ${path.basename(file)} (${bytes} bytes)`,
+    );
     expect(bytes, 'screenshot should not be empty').toBeGreaterThan(20_000);
   });
 }
