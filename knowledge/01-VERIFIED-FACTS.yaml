@@ -20,6 +20,7 @@ builder:
   note: >
     Builder authority is a claim about ROLE. It is not evidence of asset
     ownership or licence holding. See DR-004.
+  full_chain: "See knowledge/06-TEMPLATE-BOUNDARY.yaml provenance_chain (A/B/C/D) and provenance_verdicts for the complete authorship/authority/permission distinction, including the contradiction with the package's own stated author (EV-20260826-012)."
 
 template:
   name: Adelux

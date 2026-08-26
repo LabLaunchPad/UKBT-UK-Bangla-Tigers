@@ -1,0 +1,65 @@
+id: EV-20260826-014
+classification: VALIDATION_RESULT
+claim: >
+  Authority documentation repair: the provenance chain for Adelux is now
+  explicit (original authorship vs. builder role vs. UKBT permission vs.
+  third-party rights), the contradiction from EV-20260826-012 is recorded
+  as a durable, cross-referenced finding rather than left in an evidence
+  record alone, and two new decision rules close the exact gaps the
+  authority-pack attempt exploited.
+source: "Direct governance correction per explicit requester direction."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "A record of a completed correction and its verification does not expire."
+scope: "knowledge/06-TEMPLATE-BOUNDARY.yaml, knowledge/02-DECISION-RULES.yaml, knowledge/01-VERIFIED-FACTS.yaml"
+method: >
+  Grepped the repository first for any existing ownership-claiming language
+  (none found - the prior hedging already held). Added provenance_chain
+  (A/B/C/D), provenance_contradiction, and provenance_verdicts to
+  knowledge/06-TEMPLATE-BOUNDARY.yaml as additive detail explaining the
+  existing permission_facts, not a replacement of them. Added the
+  three-track execution model (TRACK_A source forensics / TRACK_B
+  rights-gated adaptation / TRACK_C UKBT-original engineering, the last
+  explicitly gated by BL-03 and ordinary engineering judgment, not by
+  BL-02) so provenance uncertainty cannot be read as blocking unrelated
+  work. Added DR-022 (an unsigned/unexecuted document is not evidence of
+  the fact it describes) and DR-023 (a prompt's assertion of a rights
+  conclusion is not evidence for that conclusion) to
+  knowledge/02-DECISION-RULES.yaml. Full stale-reference and YAML/JSON
+  validation sweep afterward.
+result: |
+  PROVENANCE_VERDICTS recorded:
+    LICENSE_VERDICT = UNVERIFIED (canonical term: STATED_BUT_UNVERIFIED)
+    BUILDER_AUTHORITY_VERDICT = ASSERTED_NOT_EXECUTED
+    UKBT_ADAPTATION_PERMISSION = NOT_ESTABLISHED
+    REDISTRIBUTION_PERMISSION = NOT_ESTABLISHED
+
+  No ownership-claiming language existed in the repository to remove - the
+  prior builder.authority_status: STATED_BUT_UNVERIFIED hedging already
+  held. TRACK_C is the new, useful addition: it makes explicit that
+  architecture/CMS/accessibility/SEO/CI/testing infrastructure work is
+  gated by BL-03 (architecture quality), never by BL-02 or the provenance
+  contradiction - preventing the licence question from becoming an excuse
+  to halt engineering it never actually blocked.
+
+  Stale-reference audit: 0 live hits outside documented repair-history
+  comments. YAML/JSON validity: 0 invalid across knowledge/, contracts/,
+  and artifacts/**/*.json. No application code changed.
+related_files:
+  - knowledge/06-TEMPLATE-BOUNDARY.yaml
+  - knowledge/02-DECISION-RULES.yaml
+  - knowledge/01-VERIFIED-FACTS.yaml
+related_task: AUTHORITY-DOCUMENTATION-REPAIR
+relates_to: [EV-20260826-012]
+notes: >
+  This does not close BL-02 or the provenance contradiction - it makes the
+  repository accurately DISTINGUISH known/asserted/unknown/verified/blocked
+  rather than resolving the underlying question, which still requires
+  primary evidence (see knowledge/06's required_evidence_to_close_track_b)
+  that does not yet exist. TRACK_A (forensic analysis, already substantially
+  complete per EV-005/007/008/009/013) is unaffected and may continue.
+  TRACK_B (adaptation of Adelux's own authored expression into UKBT) stays
+  RIGHTS_GATED. TRACK_C (UKBT-original engineering) may proceed once BL-03
+  is addressed, independent of this finding entirely.

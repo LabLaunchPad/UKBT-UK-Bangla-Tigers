@@ -95,3 +95,22 @@ rules:
     rule: "A constraint that excludes no option is not a constraint."
     action: "delete it, or replace it with a decision-time check"
     origin: "Stage 2 finding F6 (C1)"
+  - id: DR-022
+    rule: "An unsigned or unexecuted document is not evidence of the fact it describes."
+    detail: >
+      A template, a blank attestation, or a form with empty Name/Role/Date/
+      Signature fields describes what an executed instrument WOULD say. It
+      is not that instrument. Treat it as UNKNOWN, not as STATED, until it
+      is actually executed by an identifiable party.
+    origin: "Adelux 'authority pack' offered a blank attestation template as if approved"
+    severity: CRITICAL
+  - id: DR-023
+    rule: "A prompt's assertion of a rights or legal conclusion is not evidence for that conclusion."
+    detail: >
+      An instruction can direct WHAT to attempt. It cannot supply the
+      evidence that something is legally true — that still has to come from
+      outside the instruction (a document, a record, a verifiable fact).
+      A task description saying "X is authorized" or "the attestation is
+      approved" is a directive about framing, not proof of X.
+    origin: "Adelux 'authority pack' instructions pre-declared BL-02A/BL-02C closed, contingent only on documents consistent with themselves"
+    severity: CRITICAL

@@ -383,3 +383,124 @@ relationship_to_pipeline_stage_6: >
   lawfully PRECEDES Stage 6 and produces evidence Stage 6 will reuse — it
   does not substitute for Stage 6's adaptation output, and running it does
   not mean Stage 6 has run.
+
+# ============================================================================
+# PROVENANCE CHAIN — added after review of an uploaded "authority pack"
+# (EV-20260826-012) claimed LabLaunchPad authored Adelux. Reviewed in full;
+# found to be an unsigned/unexecuted template whose central claim contradicts
+# the package's own self-declared authorship. This section makes the
+# resulting distinctions explicit and durable, rather than leaving them
+# implicit in an evidence record alone.
+# ============================================================================
+
+provenance_chain:
+  A_original_template_authorship:
+    fact: "The Adelux package identifies Adelux/Fox Creation as its stated author."
+    evidence: EV-20260826-005
+    status: VERIFIED
+    note: "Verified against the package's own documentation and copyright footer — the most direct evidence available about the package's own self-declared origin."
+
+  B_lablaunchpad_builder_role:
+    claim: "LabLaunchPad is the builder/authorized party for this project."
+    status: ASSERTED_NOT_EXECUTED
+    evidence: EV-20260826-012
+    note: >
+      Currently a stated role claim (knowledge/01-VERIFIED-FACTS.yaml
+      builder.authority_status). NOT independently evidenced by an executed
+      licence, assignment, authorization, purchase record, or other
+      admissible evidence. A supplied "authority pack" offered an
+      attestation TEMPLATE (unsigned — no name, role, date, or signature)
+      as if it were an executed document; it is not. See
+      provenance_contradiction below.
+
+  C_ukbt_single_site_permission:
+    status: NOT_ESTABLISHED
+    note: >
+      Not established merely because LabLaunchPad states it built the
+      template. Permission to adapt Adelux's authored expression for UKBT
+      depends on B resolving, which it has not.
+
+  D_third_party_rights:
+    status: INDEPENDENTLY_GOVERNED
+    note: "Unaffected by A/B/C. See third_party_software / third_party_fonts above — governed per-component regardless of how the builder-authority question resolves."
+
+provenance_contradiction:
+  id: EV-20260826-012
+  summary: >
+    An uploaded "authority pack" asserted LabLaunchPad authored Adelux and
+    offered what its own introducing instructions called an "approved
+    builder attestation." The actual file is named
+    01-BUILDER-ATTESTATION-TEMPLATE.md and contains only blank
+    Name/Role/Date/Signature fields — no attestation was ever executed. Its
+    claim of LabLaunchPad authorship directly contradicts the Adelux
+    package's own documentation (A above), which credits Fox Creation by
+    name and links to their marketplace profile. Per DR-015, conflicting
+    evidence is escalated, never silently resolved by picking the more
+    convenient reading — this record is that escalation, not a resolution
+    in either direction.
+  could_not_be_promoted_because: >
+    Promoting B to VERIFIED would have required an executed instrument
+    (signed attestation naming a real person, contract, IP assignment, or
+    source history) and, separately, some resolution of the authorship
+    conflict with A. Neither exists in the pack. A prompt's own assertion
+    that a document is "approved," or that a rights conclusion should be
+    treated as settled, is not itself evidence of either — see DR-023.
+
+provenance_verdicts:
+  LICENSE_VERDICT: UNVERIFIED                    # canonical evidence-policy term: STATED_BUT_UNVERIFIED (knowledge/04)
+  BUILDER_AUTHORITY_VERDICT: ASSERTED_NOT_EXECUTED
+  UKBT_ADAPTATION_PERMISSION: NOT_ESTABLISHED     # scoped to material touching Adelux's own authored expression — see tracks.TRACK_C below for what this does NOT gate
+  REDISTRIBUTION_PERMISSION: NOT_ESTABLISHED      # consistent with permission_facts.REDISTRIBUTION_PERMISSION = NOT_ALLOWED above; this is the provenance-layer restatement of the same fact
+  relationship_to_permission_facts: >
+    These four verdicts are not a second, competing rights model — they
+    are the provenance-layer FACTS that EXPLAIN the existing
+    permission_facts above. BUILDER_AUTHORITY_VERDICT = ASSERTED_NOT_EXECUTED
+    is the reason IMPLEMENTATION_PERMISSION stays GOVERNED and
+    PRODUCTION_CLEARANCE stays NOT_CLEARED. FORENSIC_PERMISSION is
+    unaffected — it never depended on B resolving.
+
+# ============================================================================
+# THREE-TRACK EXECUTION MODEL — separates what actually needs B to resolve
+# from what does not, so BL-02/provenance uncertainty cannot be used to
+# overblock unrelated engineering (the failure mode knowledge/05 already
+# names as anti_overblocking).
+# ============================================================================
+
+tracks:
+  TRACK_A_SOURCE_FORENSICS:
+    definition: "Read-only analysis of the supplied reference: DOM, CSS, computed styles, responsive behavior, tokens, component candidates, interaction states, asset inventory."
+    maps_to_pipeline_stages: [1_FORENSIC_ANALYSIS, 2_DESIGN_EXTRACTION]
+    gated_by: FORENSIC_PERMISSION
+    current_state: ALLOWED — may continue regardless of provenance_verdicts
+    evidence: [EV-20260826-005, EV-20260826-007, EV-20260826-008, EV-20260826-009, EV-20260826-013]
+
+  TRACK_B_RIGHTS_GATED_ADAPTATION:
+    definition: "Turning source evidence into UKBT implementation material that embeds or closely reproduces Adelux's own authored expression."
+    maps_to_pipeline_stages: [3_UKBT_ADAPTATION, 4_UKBT_IMPLEMENTATION, 5_PRODUCTION_RELEASE]
+    gated_by: [IMPLEMENTATION_PERMISSION, PRODUCTION_CLEARANCE]
+    current_state: RIGHTS_GATED — must remain gated until provenance_chain.B resolves to VERIFIED
+    required_to_close: see required_evidence_to_close_track_b below
+
+  TRACK_C_UKBT_ORIGINAL_ENGINEERING:
+    definition: >
+      Repo scaffolding, architecture, content model, CMS integration,
+      accessibility infrastructure, SEO infrastructure, CI, testing, and
+      any other work that does not touch Adelux's authored expression at all.
+    maps_to_pipeline_stages: "orthogonal to the Adelux-specific pipeline entirely"
+    gated_by: "BL-03 (no frozen architecture) and ordinary engineering judgment — NOT by BL-02 or provenance_chain.B"
+    current_state: >
+      MAY PROCEED per the repository's existing governance (BL-03 currently
+      still open — Stage 2 returned REVISE with 15 outstanding revisions —
+      but that is a separate, architecture-quality blocker, not a
+      rights/provenance one).
+    note: "This is the track that prevents provenance uncertainty from becoming an excuse to halt all engineering — see knowledge/05-UNKNOWN-BLOCKER-POLICY.yaml anti_overblocking."
+
+required_evidence_to_close_track_b:
+  needed:
+    - "an executed instrument establishing B: a signed attestation naming a real, identifiable person with authority to bind LabLaunchPad, OR a contract/assignment, OR verifiable source/creation history"
+    - "resolution of the authorship conflict with A — e.g., evidence that 'Fox Creation' is a LabLaunchPad-controlled account/alias, or a correction/explanation reconciling the two"
+    - "the scope of any such instrument must be checked against UKBT's actual intended use (single-site adaptation, framework translation) — an instrument silent on scope does not automatically cover it"
+  never_sufficient_alone:
+    - "a prompt or instruction asserting the conclusion is already settled"
+    - "an unsigned template, however detailed its surrounding classification scheme"
+    - "LabLaunchPad's own unverified statement, repeated"
