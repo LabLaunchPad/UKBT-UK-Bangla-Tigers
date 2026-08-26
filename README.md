@@ -2,8 +2,10 @@
 
 Repository for the UK Bangla Tigers website.
 
-**Status: bootstrap.** No application code exists yet. The repository currently
-holds its engineering governance and evidence layer only.
+**Status: active build.** A real, governed multi-page site exists
+(`apps/web`) and is being extended stage by stage. This line is
+intentionally the only status claim in this file — see "Current state"
+below for why, and where the real numbers live instead.
 
 ## Working here
 
@@ -30,10 +32,18 @@ Read in this order:
 
 ## Current state
 
-- Architecture: `PROPOSED`, not approved — `artifacts/bootstrap/ARCHITECTURE-PROPOSAL.md`
-- Requester decisions recorded: 4 (`artifacts/evidence/`) — static-first with a forms escape hatch, English only, JS/TS maintainers, licence pending
-- Verified UKBT organization facts: **0** — 17 unknowns open, `artifacts/bootstrap/UNKNOWN-EVIDENCE.md`
-- Open blockers: 3 (BL-01, BL-02, BL-03) — BL-04 narrowed by the hosting constraint
-- Next stage: 2 — architecture red team (`/architecture-redteam`)
+This file does not restate stage/gate numbers — three separate documents
+in this repository (this file included) were once found to have drifted
+out of date the same way, silently, because status was hand-copied into
+several places instead of living in one. Read the real, current state
+from whichever of these actually answers your question:
+
+| Question | Where the current answer lives |
+|---|---|
+| What stage is the project at, and what's the gate for each? | `docs/10-fresh-repo-pipeline.md` |
+| What's actually verified vs. still `UNKNOWN`? | `knowledge/01-VERIFIED-FACTS.yaml` |
+| Did the last build/test/accessibility pass actually run, and pass? | `artifacts/receipts/` (`FOUNDATION.md`, `HOMEPAGE.md`, `RELEASE.md`) |
+| Did an independent review find anything? | `artifacts/review/` (`HOMEPAGE-REDTEAM.md`, `replay.md`) |
+| What's blocked on the client, not on engineering? | `artifacts/content/CLIENT-ASK-LIST.md` |
 
 Scaffold integrity check: `node scripts/scaffold-self-test.mjs`

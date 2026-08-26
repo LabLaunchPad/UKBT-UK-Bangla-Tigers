@@ -29,8 +29,30 @@ export default defineConfig({
     // `pnpm --filter` resolves against the workspace root regardless of
     // the invoking cwd, so this works whether Playwright is invoked from
     // the repo root or from apps/web directly.
+    //
+    // `ASTRO_PREVIEW_BACKGROUND=false` is required as of Astro 7: `astro
+    // preview` now self-daemonizes (forks to background and exits 0
+    // immediately) whenever it detects it's being run by an agentic CLI
+    // tool — which this environment is — printing "Preview server
+    // running" and returning before Playwright's webServer can observe a
+    // live foreground process, which Playwright then reports as "Process
+    // from config.webServer exited early." Found by reproducing the
+    // failure directly (`astro preview --help` documents the opt-in
+    // `--background` flag; reading node_modules/astro/dist/cli/preview/
+    // showed the *automatic* agent-detection path this flag doesn't
+    // cover), not assumed from a changelog. This env var is Astro's own
+    // documented escape hatch and is set unconditionally so behavior is
+    // identical whether or not the invoking shell is ever detected as
+    // agentic — including on CI runners, which so far are not, but
+    // should not depend on staying that way.
+    //
+    // Invokes `astro preview` directly (not `pnpm run preview -- --port
+    // 4321`) because Astro 7's CLI now parses a literal `--` separator
+    // ahead of `--port` as an attempt to run a subcommand named
+    // "--port", failing with "Unknown command" — reproduced directly,
+    // not assumed. `pnpm exec` forwards flags without that extra `--`.
     command:
-      'pnpm --filter @ukbt/truth tokens:build && pnpm run build && pnpm run preview -- --port 4321',
+      'pnpm --filter @ukbt/truth tokens:build && pnpm run build && ASTRO_PREVIEW_BACKGROUND=false pnpm exec astro preview --port 4321',
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

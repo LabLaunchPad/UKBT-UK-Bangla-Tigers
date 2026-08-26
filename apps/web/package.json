@@ -12,12 +12,12 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "astro": "^5.1.1",
+    "astro": "^7.2.8",
     "@ukbt/truth": "workspace:*"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/cloudflare": "^12.5.0",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/cloudflare": "^14.2.5",
     "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.2",
