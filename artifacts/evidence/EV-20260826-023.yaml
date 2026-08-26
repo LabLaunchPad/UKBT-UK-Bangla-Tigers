@@ -1,0 +1,103 @@
+id: EV-20260826-023
+classification: PARTIALLY_CORROBORATING
+claim: >
+  A screen recording, supplied alongside a fresh copy of the Adelux
+  archive, is offered as evidence that Track B's authorship/authority
+  conflict is resolved and Track B should unblock. The accompanying chat
+  message also asserted "it's not from envato/themeforest."
+source: >
+  Uploaded video (SHA-256 not computed; QuickTime container, embedded
+  com.apple.quicktime.creationdate = 2026-08-26T19:55:09+06:00, i.e.
+  recorded today) and uploaded archive
+  adelux-padel-club-community-html-bootstrap-2026-01-07-04-03-17-utc(3).zip
+  (SHA-256 cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54).
+  26 frames extracted at 1fps and reviewed directly; archive's
+  Documentation/index.html extracted and read verbatim.
+source_type: external
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records this video/archive's contents as found on this date. Does not
+  expire; different/better-provenanced evidence would be new.
+scope: "Track B unlock checklist items 2 and 3. Does not affect FORENSIC_PERMISSION or pipeline stages 1-2."
+method: >
+  Extracted 26 PNG frames (ffmpeg) and read them directly. Extracted and
+  read Adelux_Main_File/Documentation/index.html from the new archive
+  verbatim; grepped for author/licence/copyright markers.
+result: |
+  FOUR FINDINGS:
+
+  1. THE VIDEO CONTRADICTS THE CLAIM IT WAS SUBMITTED TO SUPPORT. It shows
+  an Envato Elements item page for "Adelux - Padel Club & Community HTML
+  Bootstrap," byline "by Fox_Creation" (a live hyperlink, cursor-hover
+  underline visible on a later frame) — i.e. this item plainly IS on
+  Envato, directly contradicting the accompanying chat claim "it's not
+  from envato/themeforest." The re-supplied archive's own
+  Documentation/index.html independently confirms this: "Author: Fox
+  Creation" linked to themeforest.net/user/fox_creation, email
+  hello@foxcreation.net, footer "(c) 2025 Adelux... by Fox Creation" —
+  identical to the already-frozen EV-20260826-005/-012 finding. No
+  corruption, no discrepancy: this second copy says exactly what the
+  first one said.
+
+  2. GENUINE NEW SIGNAL: a persistent "Licensed to Lab LaunchPad" badge
+  is visible on the item thumbnail across multiple frames (not just at
+  the moment of a dropdown interaction), and a license-name dropdown
+  lists "Lab LaunchPad" alongside apparent teammate names (shakil ahamed,
+  Abu Hanifa, ovi, Asif Injamam). This is consistent with LabLaunchPad
+  (or someone with access to this Envato Elements account) having
+  actually licensed this specific item through Envato's own platform —
+  a materially stronger, more checkable signal than a bundled LICENSE
+  file, because it lives inside a real third-party platform's UI rather
+  than a file the requester controls entirely.
+
+  3. THIS UNDERCUTS, RATHER THAN SUPPORTS, LABLAUNCHPAD'S EARLIER
+  AUTHORSHIP CLAIM. EV-20260826-012 recorded LabLaunchPad's own pack
+  asserting "LabLaunchPad authored the Adelux template." This video's own
+  source page attributes authorship to Fox_Creation, same as before. What
+  this video actually shows is LabLaunchPad as a LICENSEE (a downstream
+  user under Envato's standard Elements terms) of Fox_Creation's item —
+  not as the item's author or IP owner. Those are different roles, and
+  item 3 asks about authority to grant adaptation rights, not about who
+  has a valid licence to use the item.
+
+  4. WHAT THIS DOES NOT ESTABLISH: (a) that Envato Elements' standard
+  licence terms extend to what this project needs — explicit permission
+  to adapt/reimplement Adelux's design specifically for UK Bangla Tigers
+  (items 4-5), which depends on Envato's actual published licence terms,
+  not on this recording, and was already flagged `LEGAL_REVIEW_REQUIRED`
+  in `ADELUX-CROSS-FRAMEWORK-RIGHTS-MATRIX.md`; (b) that the Envato
+  account shown is actually controlled by LabLaunchPad and not a third
+  party — the video is internally consistent but its own authenticity
+  (was this account genuinely navigated live, screen recorded today) is
+  not independently verifiable from inside this repository; (c) an
+  Envato Elements "license name" field is a free-text label the
+  subscriber types for their own bookkeeping — it is not vetted or
+  verified by Envato itself, so "Lab LaunchPad" appearing there is
+  self-declared by whoever controls the account, similar in kind (though
+  stronger in context) to the LICENSE file in EV-20260826-022.
+related_files:
+  - artifacts/evidence/EV-20260826-005.yaml
+  - artifacts/evidence/EV-20260826-012.yaml
+  - artifacts/evidence/EV-20260826-022.yaml
+  - artifacts/evidence/ADELUX-CROSS-FRAMEWORK-RIGHTS-MATRIX.md
+  - artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md
+relates_to: [EV-20260826-005, EV-20260826-006, EV-20260826-012, EV-20260826-022]
+notes: >
+  TRACK-B-UNLOCK-CHECKLIST.md re-checked: item 2 (identifiable parties)
+  moves from NOT PRESENT to PARTIALLY ESTABLISHED — "Lab LaunchPad" is
+  now tied to a real-looking platform license record, not just an
+  assertion, though this is still self-declared inside an account, not
+  an executed instrument. Item 3 (authorship/authority) STAYS
+  CONFLICTING — this evidence answers "does someone hold an Elements
+  licence for this item" (yes, plausibly), not "who has authority to
+  permit UKBT adaptation" (still unresolved, and if anything this
+  reinforces Fox_Creation as author rather than LabLaunchPad). Items 1,
+  4-7 unchanged. Track B stays RIGHTS_GATED. What would close item 3:
+  Envato Elements' own published licence terms confirming what an
+  Elements subscription permits (adaptation for one End Product is
+  typically standard and would likely cover this use — but needs to be
+  read from Envato's terms page, not inferred), plus something
+  reconciling "licensee" with "authority to instruct an adaptation
+  project" if those are meant to be treated as equivalent here.
