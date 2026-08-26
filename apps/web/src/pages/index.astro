@@ -1,0 +1,18 @@
+---
+// Placeholder homepage. Per the FOUNDATION gate: proves the build/CSS/
+// component pipeline executes end-to-end. This is NOT the real UKBT
+// homepage — no site-wide content population happens at this gate
+// (contracts/ROUTE-CONTRACT.md, contracts/CONTENT-CONTRACT.md). No
+// organizational fact appears below; the button label is a UI string
+// (exempt from the truth gate, contracts/CONTENT-CONTRACT.md).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="UK Bangla Tigers — Foundation build">
+  <main>
+    <h1>UK Bangla Tigers</h1>
+    <p>Foundation build placeholder — content, routes, and visual design are not yet implemented.</p>
+    <Button label="Placeholder action" variant="primary" />
+  </main>
+</BaseLayout>

@@ -12,7 +12,10 @@ export function deriveProvenance(
 
   for (const input of inputs) {
     for (const id of input.sources ?? []) sourceSet.add(id);
-    if (input.validUntil != null && (earliest == null || input.validUntil.getTime() < earliest.getTime())) {
+    if (
+      input.validUntil != null &&
+      (earliest == null || input.validUntil.getTime() < earliest.getTime())
+    ) {
       earliest = input.validUntil;
     }
   }

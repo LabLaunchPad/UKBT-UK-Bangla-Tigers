@@ -3,13 +3,11 @@
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "apps/**/*.ts",
-      "packages/**/*.ts",
-      "scripts/**/*.mjs",
-      "!apps/**/dist/**",
-      "!apps/**/.astro/**",
-      "!**/src/styles/generated/**"
+    "include": ["apps/**/*.ts", "packages/**/*.ts", "scripts/**/*.mjs"],
+    "ignore": [
+      "apps/**/dist/**",
+      "apps/**/.astro/**",
+      "**/src/styles/generated/**"
     ]
   },
   "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2 },
@@ -21,5 +19,7 @@
       "suspicious": { "noExplicitAny": "warn" }
     }
   },
-  "javascript": { "formatter": { "quoteStyle": "single", "semicolons": "always" } }
+  "javascript": {
+    "formatter": { "quoteStyle": "single", "semicolons": "always" }
+  }
 }

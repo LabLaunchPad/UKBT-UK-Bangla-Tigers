@@ -20,7 +20,8 @@ export interface RegistrySource {
 /** T2: sources are registry IDs, never free text. */
 export type SourceRegistry = ReadonlyMap<string, RegistrySource>;
 
-export type ContentStatus = 'draft' | 'pending_review' | 'approved' | 'published';
+import type { ContentStatus } from '../schema/provenance.js';
+export type { ContentStatus } from '../schema/provenance.js';
 
 export interface ContentRecord {
   readonly field: string;

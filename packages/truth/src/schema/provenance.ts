@@ -7,10 +7,20 @@ import { z } from 'zod';
  * which is what makes T1's fail-closed default mechanically real rather
  * than a lint suggestion.
  */
-export const ContentStatusSchema = z.enum(['draft', 'pending_review', 'approved', 'published']);
+export const ContentStatusSchema = z.enum([
+  'draft',
+  'pending_review',
+  'approved',
+  'published',
+]);
 export type ContentStatus = z.infer<typeof ContentStatusSchema>;
 
-export const RegistryIdSchema = z.string().min(1, 'a source must be a non-empty registry id, never a raw URL or free text (T2)');
+export const RegistryIdSchema = z
+  .string()
+  .min(
+    1,
+    'a source must be a non-empty registry id, never a raw URL or free text (T2)',
+  );
 
 export const ProvenanceMetaSchema = z.object({
   sources: z.array(RegistryIdSchema).nullable().default(null),
@@ -25,7 +35,9 @@ export function provenanced<T extends z.ZodTypeAny>(valueSchema: T) {
   return ProvenanceMetaSchema.extend({ value: valueSchema });
 }
 
-export type Provenanced<T> = z.infer<typeof ProvenanceMetaSchema> & { value: T };
+export type Provenanced<T> = z.infer<typeof ProvenanceMetaSchema> & {
+  value: T;
+};
 
 /**
  * knowledge/07 placeholder discipline: a placeholder is machine-
@@ -36,5 +48,7 @@ export function placeholderSentinel(fieldName: string): string {
 }
 
 export function isPlaceholderSentinel(value: unknown): boolean {
-  return typeof value === 'string' && /^__PLACEHOLDER_[A-Z0-9_]+__$/.test(value);
+  return (
+    typeof value === 'string' && /^__PLACEHOLDER_[A-Z0-9_]+__$/.test(value)
+  );
 }

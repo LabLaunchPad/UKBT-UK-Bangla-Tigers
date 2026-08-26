@@ -1,0 +1,55 @@
+---
+// Layer 7 adapter for packages/truth/src/contracts/button.contract.md.
+// UKBT-original primitive — no Adelux-derived DOM shape or styling.
+interface Props {
+  label: string;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+  href?: string;
+}
+
+const { label, variant = 'primary', disabled = false, href } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class={`ukbt-button ukbt-button--${variant}`}
+  href={href}
+  disabled={!href && disabled ? true : undefined}
+  aria-disabled={href && disabled ? 'true' : undefined}
+>
+  {label}
+</Tag>
+
+<style>
+  .ukbt-button {
+    display: inline-block;
+    padding: var(--ukbt-space-2, 0.5rem) var(--ukbt-space-4, 1rem);
+    border: 1px solid CanvasText;
+    border-radius: 0.25rem;
+    background: Canvas;
+    color: CanvasText;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .ukbt-button--secondary {
+    background: transparent;
+  }
+
+  .ukbt-button:hover {
+    background: color-mix(in srgb, CanvasText 10%, Canvas);
+  }
+
+  .ukbt-button:focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+
+  .ukbt-button[disabled],
+  .ukbt-button[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

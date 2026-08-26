@@ -52,7 +52,9 @@ describe('content schema — provenance envelope', () => {
 
 describe('placeholder discipline', () => {
   it('generates a machine-distinguishable sentinel, never a plausible value', () => {
-    expect(placeholderSentinel('player_name')).toBe('__PLACEHOLDER_PLAYER_NAME__');
+    expect(placeholderSentinel('player_name')).toBe(
+      '__PLACEHOLDER_PLAYER_NAME__',
+    );
     expect(isPlaceholderSentinel('__PLACEHOLDER_PLAYER_NAME__')).toBe(true);
   });
 
