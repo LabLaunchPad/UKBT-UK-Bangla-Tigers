@@ -14,6 +14,7 @@ interface Props {
   leaders: Leader[];
 }
 const { leaders } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-leadership">
@@ -28,7 +29,7 @@ const { leaders } = Astro.props;
     }
   </div>
   <div class="ukbt-leadership__title">
-    <p class="ukbt-eyebrow">Our Leadership</p>
+    <SubHeading label="Our Leadership" />
     <h2>Meet the People Behind the Tigers</h2>
     <p>
       The committee and playing leadership guiding UK Bangla Tigers on and
@@ -79,18 +80,6 @@ const { leaders } = Astro.props;
   .ukbt-leadership__title p:last-child {
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
-  }
-
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0;
-    align-self: flex-start;
   }
 
   /* Reference `.team-content-wrapper` at <=1025px: column-reverse, 50px gap. */

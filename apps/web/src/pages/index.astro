@@ -17,6 +17,7 @@ import CaptainSpotlight from '../components/CaptainSpotlight.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
+import SubHeading from '../components/SubHeading.astro';
 
 const stats = [
   { value: homepage.stats.players, label: 'Players' },
@@ -50,7 +51,7 @@ const structuredData = {
     </Section>
 
     <Section surface="alt">
-      <p class="ukbt-eyebrow">Upcoming Tournament</p>
+      <SubHeading label="Upcoming Tournament" />
       <h2>Join Us on the International Stage</h2>
       <TournamentGrid mainEvent={mainEvent} otherEvents={otherEvents} />
     </Section>
@@ -70,15 +71,5 @@ const structuredData = {
 <style>
   h2 {
     margin-block: 0 var(--ukbt-space-gap-5);
-  }
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0 0 var(--ukbt-space-2) 0;
   }
 </style>

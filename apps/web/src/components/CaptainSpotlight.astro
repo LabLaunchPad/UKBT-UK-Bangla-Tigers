@@ -9,11 +9,12 @@ interface Props {
   role: string;
 }
 const { name, role } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-captain">
   <div class="ukbt-captain__heading">
-    <p class="ukbt-captain__eyebrow">Club Captain</p>
+    <SubHeading label="Club Captain" />
     <h2>Leading from the Front</h2>
   </div>
   <div class="ukbt-captain__info">
@@ -35,16 +36,6 @@ const { name, role } = Astro.props;
   }
   .ukbt-captain__heading {
     flex: 1 1 auto;
-  }
-  .ukbt-captain__eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0 0 var(--ukbt-space-2) 0;
   }
   .ukbt-captain__heading h2 {
     margin: 0;

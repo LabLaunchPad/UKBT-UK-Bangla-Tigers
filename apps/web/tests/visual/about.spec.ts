@@ -28,8 +28,12 @@ test('mobile nav toggle works on the About Us page', async ({ page }) => {
   await page.goto('/about');
   const toggle = page.locator('.ukbt-header__toggle');
   await expect(toggle).toBeVisible();
+  // Below the collapse breakpoint the nav becomes an off-canvas drawer
+  // (reference `.sidebar`), not an inline expansion — assert the drawer.
+  const drawerLink = page.locator('.ukbt-header__drawer-menu a').first();
+  await expect(drawerLink).not.toBeInViewport();
   await toggle.click();
-  await expect(page.locator('.ukbt-header__nav a').first()).toBeVisible();
+  await expect(drawerLink).toBeInViewport();
 });
 
 test('no content-contamination strings appear anywhere in the rendered About Us page', async ({

@@ -27,7 +27,7 @@ test('every homepage nav link, the hero CTA, and every footer social link show a
 }) => {
   await page.goto('/');
   const focusable = page.locator(
-    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-footer__social a, .ukbt-footer__nav a',
+    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-footer__social a, .ukbt-footer__links a',
   );
   const count = await focusable.count();
   expect(count).toBeGreaterThan(0);
@@ -52,8 +52,12 @@ test('mobile nav toggle shows and hides the nav without a console error', async 
   await page.goto('/');
   const toggle = page.locator('.ukbt-header__toggle');
   await expect(toggle).toBeVisible();
+  // Below the collapse breakpoint the nav becomes an off-canvas drawer
+  // (reference `.sidebar`), not an inline expansion — assert the drawer.
+  const drawerLink = page.locator('.ukbt-header__drawer-menu a').first();
+  await expect(drawerLink).not.toBeInViewport();
   await toggle.click();
-  await expect(page.locator('.ukbt-header__nav a').first()).toBeVisible();
+  await expect(drawerLink).toBeInViewport();
 });
 
 test('no content-contamination strings appear anywhere in the rendered homepage', async ({

@@ -17,17 +17,24 @@ interface Props {
   stats: Stat[];
 }
 const { paragraphs, stats } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-story">
   <div class="ukbt-story__image-side">
-    <img src="/brand/crest-512.png" width="180" height="247" alt="UK Bangla Tigers crest" />
+    <img
+      src="/media/club-feature.webp"
+      width="1400"
+      height="933"
+      alt="A UK Bangla Tigers player on the field"
+      loading="lazy"
+    />
     <div class="ukbt-story__detail-card">
       <h4>A cricket franchise built on international competition and community.</h4>
     </div>
   </div>
   <div class="ukbt-story__content-side">
-    <p class="ukbt-eyebrow">Our Story</p>
+    <SubHeading label="Our Story" />
     <h2>More Than Just a Cricket Club, It's a Community.</h2>
     <div class="ukbt-story__paragraphs">
       {paragraphs.map((p) => <p>{p}</p>)}
@@ -53,28 +60,34 @@ const { paragraphs, stats } = Astro.props;
     align-items: center;
     gap: var(--ukbt-space-gap-100);
   }
+  /* Reference `.about-image-container` — the media panel the detail card
+     overlays. Holds a photograph (CLIENT_REQ_010). */
   .ukbt-story__image-side {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    width: 22rem;
+    position: relative;
+    flex: 0 0 40%;
+    max-width: 40%;
   }
   .ukbt-story__image-side img {
     display: block;
-    height: 18rem;
-    width: auto;
-    margin-inline: auto;
+    width: 100%;
+    height: 100%;
+    max-height: 30rem;
+    object-fit: cover;
+    border-radius: var(--ukbt-radius-ref-card);
   }
-  /* Stacked below the media, not overlaid — same reasoning as
-     ClubIntro.astro's detail card: the reference overlays a photograph,
-     our slot holds the crest, and an overlay covers the wordmark. */
+  /* Reference `.card-about-detail`: a true overlay on the media, with
+     the reference's asymmetric corner treatment. Restored now that a
+     photograph fills the slot rather than the crest. */
   .ukbt-story__detail-card {
+    position: absolute;
+    left: var(--ukbt-space-gap-2);
+    right: var(--ukbt-space-gap-2);
+    bottom: var(--ukbt-space-gap-2);
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: var(--ukbt-radius-ref-inner);
+    border-radius: var(--ukbt-radius-ref-card-asymmetric);
     padding: var(--ukbt-space-gap-2);
     box-shadow: var(--ukbt-shadow-md);
-    margin-top: var(--ukbt-space-gap-2);
   }
   .ukbt-story__detail-card h4 {
     margin: 0;
@@ -124,17 +137,6 @@ const { paragraphs, stats } = Astro.props;
     color: var(--ukbt-color-neutral-700);
   }
 
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0;
-  }
-
   /* Reference `.about-wrapper` at <=1025px: column-reverse, 50px gap,
      image container full width. Collapsing at 767px instead both missed
      the reference's breakpoint and overflowed at 768px, where the row
@@ -146,8 +148,8 @@ const { paragraphs, stats } = Astro.props;
       gap: var(--ukbt-space-gap-5);
     }
     .ukbt-story__image-side {
-      width: 100%;
-      align-items: center;
+      flex: 1 1 auto;
+      max-width: 100%;
     }
   }
   @media screen and (max-width: 767px) {

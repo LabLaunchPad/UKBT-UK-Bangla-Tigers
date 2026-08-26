@@ -1,61 +1,137 @@
 ---
-// Layer 7 adapter for packages/truth/src/contracts/button.contract.md.
-// UKBT-original primitive — no Adelux-derived DOM shape or styling.
+// Layer 7 adapter for packages/truth/src/contracts/button.contract.md,
+// rebuilt to the reference's measured button geometry (CLIENT_REQ_012).
+//
+// Reference `.btn`: inline-flex row, `border-radius: 100px`, `padding: 5px`,
+// `justify-content: space-between` — a pill whose own padding is only 5px
+// because the label carries its own (`.btn-title { padding: 17px }`) and
+// the trailing `.icon-circle` is a 48x48 circle sitting flush inside it.
+// That circle is the template's signature affordance; a plain rectangular
+// button reads as a different design system entirely.
+//
+// The arrow is inline SVG, not an icon font — Font Awesome is not a
+// dependency of this project (an earlier mapping doc wrongly assumed it
+// was) and the parity direction is to rebuild behaviour in our own stack.
 interface Props {
   label: string;
   variant?: 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
   href?: string;
+  /** Trailing circular arrow affordance (reference `.icon-circle`). */
+  icon?: boolean;
 }
 
-const { label, variant = 'primary', disabled = false, href } = Astro.props;
+const {
+  label,
+  variant = 'primary',
+  disabled = false,
+  href,
+  icon = true,
+} = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
 
 <Tag
-  class={`ukbt-button ukbt-button--${variant}`}
+  class={`ukbt-button ukbt-button--${variant}${icon ? ' ukbt-button--has-icon' : ''}`}
   href={href}
   disabled={!href && disabled ? true : undefined}
   aria-disabled={href && disabled ? 'true' : undefined}
 >
-  {label}
+  <span class="ukbt-button__title">{label}</span>
+  {
+    icon && (
+      <span class="ukbt-button__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    )
+  }
 </Tag>
 
 <style>
+  /* Reference `.btn` */
   .ukbt-button {
-    display: inline-block;
-    padding: var(--ukbt-space-2) var(--ukbt-space-4);
-    border: 1px solid var(--ukbt-color-surface-foreground);
-    border-radius: var(--ukbt-radius-md);
-    background: var(--ukbt-color-surface-background);
-    color: var(--ukbt-color-surface-foreground);
+    max-width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ukbt-space-gap-1);
+    border-radius: var(--ukbt-radius-ref-pill);
+    padding: 5px;
+    border: 1px solid transparent;
     font: inherit;
-    font-weight: var(--ukbt-font-weight-medium);
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard);
+    transition: background-color var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
+  }
+  /* Reference `.btn-title` — the label carries the button's real padding. */
+  .ukbt-button__title {
+    padding: 17px;
+    line-height: 1;
+  }
+  /* A pill with no trailing circle still needs symmetric end padding. */
+  .ukbt-button:not(.ukbt-button--has-icon) .ukbt-button__title {
+    padding-inline: 24px;
+  }
+
+  /* Reference `.icon-circle`: 48x48, 50% radius, dark fill, accent border
+     and glyph. Scaled to 44px so the pill's overall height stays within a
+     comfortable target size at our type scale. */
+  .ukbt-button__icon {
+    width: 44px;
+    height: 44px;
+    aspect-ratio: 1 / 1;
+    flex: none;
+    border-radius: var(--ukbt-radius-ref-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ukbt-color-brand-primary);
+    border: 1px solid var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent);
+  }
+
+  /* Accent (gold) pill with navy label — the reference's `.btn-accent`
+     role, mapped to UKBT values. Navy-on-gold measures 7.21:1 (AA). */
+  .ukbt-button--primary {
+    background: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+  }
+  .ukbt-button--primary:hover {
+    background: var(--ukbt-color-brand-accent-hover);
   }
 
   .ukbt-button--secondary {
     background: transparent;
+    border-color: currentcolor;
+    color: inherit;
+  }
+  .ukbt-button--secondary .ukbt-button__icon {
+    background: transparent;
   }
 
   .ukbt-button--danger {
+    background: transparent;
     border-color: var(--ukbt-color-feedback-danger);
     color: var(--ukbt-color-feedback-danger);
   }
-
-  .ukbt-button:hover {
-    background: var(--ukbt-color-neutral-100);
+  .ukbt-button--danger .ukbt-button__icon {
+    background: transparent;
+    border-color: currentcolor;
+    color: inherit;
   }
-
   .ukbt-button--danger:hover {
     background: var(--ukbt-color-feedback-danger);
     color: var(--ukbt-color-neutral-0);
   }
 
   /* :focus-visible base rule lives globally in styles/base.css; this only
-     adds the button-specific offset so the ring clears the border. */
+     adds the button-specific offset so the ring clears the pill. */
   .ukbt-button:focus-visible {
     outline-offset: 3px;
   }
@@ -64,5 +140,15 @@ const Tag = href ? 'a' : 'button';
   .ukbt-button[aria-disabled='true'] {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 767px) {
+    .ukbt-button__title {
+      padding: 14px;
+    }
+    .ukbt-button__icon {
+      width: 38px;
+      height: 38px;
+    }
   }
 </style>

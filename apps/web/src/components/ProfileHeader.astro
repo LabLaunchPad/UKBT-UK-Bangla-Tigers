@@ -12,12 +12,13 @@ interface Props {
   facts: Fact[];
 }
 const { name, role, facts } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-profile-header">
   <img src="/brand/crest-512.png" width="120" height="165" alt="UK Bangla Tigers crest" class="ukbt-profile-header__crest" />
   <div class="ukbt-profile-header__content">
-    <p class="ukbt-eyebrow">Club Captain</p>
+    <SubHeading label="Club Captain" />
     <h1>{name}</h1>
     <p class="ukbt-profile-header__role">{role}</p>
     <dl class="ukbt-profile-header__facts">
@@ -69,17 +70,6 @@ const { name, role, facts } = Astro.props;
   .ukbt-profile-header__facts dd {
     margin: 0;
     font-weight: var(--ukbt-font-weight-bold);
-  }
-
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0;
   }
 
   @media (max-width: 767px) {

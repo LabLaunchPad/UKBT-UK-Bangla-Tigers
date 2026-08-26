@@ -15,12 +15,13 @@ interface Props {
   facts: Fact[];
 }
 const { tagline, facts } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-mission">
   <div class="ukbt-mission__intro">
     <div class="ukbt-mission__heading">
-      <p class="ukbt-eyebrow">Welcome to UK Bangla Tigers</p>
+      <SubHeading label="Welcome to UK Bangla Tigers" />
       <h2>Where Passion Meets the Pitch</h2>
     </div>
     <p class="ukbt-mission__lede">{tagline}</p>
@@ -78,17 +79,6 @@ const { tagline, facts } = Astro.props;
     margin: 0;
     font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-700);
-  }
-
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0;
   }
 
   @media screen and (max-width: 1025px) {

@@ -23,6 +23,7 @@ const facts = [
   { label: 'Nordic Smash T20', body: 'Competed in the Nordic Smash T20 tournament, Sweden.' },
   { label: 'Overseas Signings', body: 'Fields international players from England, Bangladesh, Portugal and Belgium.' },
 ];
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-franchise">
@@ -36,7 +37,7 @@ const facts = [
     </div>
   </div>
   <div class="ukbt-franchise__content-side">
-    <p class="ukbt-franchise__eyebrow">Our Franchises</p>
+    <SubHeading label="Our Franchises" />
     <h2>One Tigers Family, Two Nations</h2>
     <ul class="ukbt-franchise__facts">
       {
@@ -92,16 +93,6 @@ const facts = [
     color: var(--ukbt-color-brand-accent);
     text-decoration: none;
     font-size: var(--ukbt-font-size-0);
-  }
-  .ukbt-franchise__eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0 0 var(--ukbt-space-2) 0;
   }
   .ukbt-franchise__content-side h2 {
     margin: 0 0 var(--ukbt-space-4) 0;

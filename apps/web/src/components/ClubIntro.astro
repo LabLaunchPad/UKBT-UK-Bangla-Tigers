@@ -15,17 +15,24 @@ interface Props {
   stats: Stat[];
 }
 const { tagline, stats } = Astro.props;
+import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-about">
   <div class="ukbt-about__image-side">
-    <img src="/brand/crest-512.png" width="180" height="247" alt="UK Bangla Tigers crest" />
+    <img
+      src="/media/club-feature.webp"
+      width="1400"
+      height="933"
+      alt="A UK Bangla Tigers player on the field"
+      loading="lazy"
+    />
     <div class="ukbt-about__detail-card">
       <h4>A cricket franchise built on international competition and community.</h4>
     </div>
   </div>
   <div class="ukbt-about__content-side">
-    <p class="ukbt-about__eyebrow">About Us</p>
+    <SubHeading label="About Us" />
     <h2>We're not just a team.</h2>
     <p class="ukbt-about__lede">{tagline}</p>
     <div class="ukbt-about__stats">
@@ -49,35 +56,38 @@ const { tagline, stats } = Astro.props;
     align-items: center;
     gap: var(--ukbt-space-gap-100);
   }
+  /* Reference `.about-image-container`: the media panel the detail card
+     overlays. Now holds a photograph (CLIENT_REQ_010), which is what this
+     slot was designed for. */
   .ukbt-about__image-side {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    width: 18rem;
+    position: relative;
+    flex: 0 0 40%;
+    max-width: 40%;
   }
   .ukbt-about__image-side img {
     display: block;
-    height: 14rem;
-    width: auto;
-    margin-inline: auto;
+    width: 100%;
+    height: 100%;
+    max-height: 26rem;
+    object-fit: cover;
+    border-radius: var(--ukbt-radius-ref-card);
   }
-  /* Mirrors `.card-about-detail`'s role — a caption card anchored to the
-     bottom of the media — but stacked BELOW the media rather than
-     overlaid on it.
-     Why the deviation: the reference overlays this card on a
-     photograph, where covering part of the frame is harmless. Our slot
-     currently holds the crest, and an overlay lands squarely on the
-     "UK BANGLA TIGERS" wordmark. Porting the reference's larger type
-     scale made the card taller and re-triggered exactly that collision.
-     Reverts to a true overlay once a photograph occupies this slot
-     (CLIENT_REQ_010 asset work). */
+  /* Reference `.card-about-detail`: a card overlaying the bottom-left of
+     the media panel, with the reference's asymmetric corner treatment.
+     This is now a true overlay again — it was temporarily stacked below
+     while the slot held the crest, where an overlay landed on the
+     "UK BANGLA TIGERS" wordmark. With a photograph in the slot, covering
+     part of the frame is exactly what the reference intends. */
   .ukbt-about__detail-card {
+    position: absolute;
+    left: var(--ukbt-space-gap-2);
+    right: var(--ukbt-space-gap-2);
+    bottom: var(--ukbt-space-gap-2);
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: var(--ukbt-radius-ref-inner);
+    border-radius: var(--ukbt-radius-ref-card-asymmetric);
     padding: var(--ukbt-space-gap-2);
     box-shadow: var(--ukbt-shadow-md);
-    margin-top: var(--ukbt-space-gap-2);
   }
   .ukbt-about__detail-card h4 {
     margin: 0;
@@ -86,16 +96,6 @@ const { tagline, stats } = Astro.props;
   }
   .ukbt-about__content-side {
     flex: 1 1 auto;
-  }
-  .ukbt-about__eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0 0 var(--ukbt-space-2) 0;
   }
   .ukbt-about__content-side h2 {
     margin: 0 0 var(--ukbt-space-2) 0;
@@ -138,8 +138,8 @@ const { tagline, stats } = Astro.props;
       gap: var(--ukbt-space-gap-5);
     }
     .ukbt-about__image-side {
-      width: 100%;
-      align-items: center;
+      flex: 1 1 auto;
+      max-width: 100%;
     }
   }
   @media screen and (max-width: 767px) {

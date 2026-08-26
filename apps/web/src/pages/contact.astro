@@ -15,6 +15,7 @@ import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
+import SubHeading from '../components/SubHeading.astro';
 ---
 
 <BaseLayout
@@ -32,7 +33,7 @@ import { homepage } from '../content/homepage-data';
     <Section paddingBottom="normal">
       <div class="ukbt-contact">
         <div>
-          <p class="ukbt-eyebrow">Get in Touch</p>
+          <SubHeading label="Get in Touch" />
           <h2>Reach the Tigers on Social Media</h2>
           <p class="ukbt-contact__lede">
             A direct phone line, email address, and venue are still being
@@ -57,16 +58,6 @@ import { homepage } from '../content/homepage-data';
 </BaseLayout>
 
 <style>
-  .ukbt-eyebrow {
-    color: var(--ukbt-color-brand-accent-contrast);
-    background: var(--ukbt-color-brand-accent);
-    display: inline-block;
-    padding: var(--ukbt-space-1) var(--ukbt-space-3);
-    border-radius: var(--ukbt-radius-pill);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: var(--ukbt-font-weight-bold);
-    margin: 0 0 var(--ukbt-space-2) 0;
-  }
   .ukbt-contact {
     display: grid;
     grid-template-columns: 1fr 1fr;
