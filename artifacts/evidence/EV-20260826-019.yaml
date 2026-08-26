@@ -1,0 +1,60 @@
+id: EV-20260826-019
+classification: VALIDATION_RESULT
+claim: >
+  Track C architecture proposal v3 evaluates every major decision on merit
+  with the requester's required DECISION/WHY/ALTERNATIVES/EVIDENCE/
+  REVERSIBILITY/RISK/CONSEQUENCE format, incorporates the new Cloudflare
+  deployment requirement, and passed a 15-vector adversarial red team with
+  6 genuine findings fixed directly rather than deferred.
+source: "Direct architecture work per explicit requester instruction."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Superseded only by a future re-planning trigger, not by elapsed time."
+scope: "Track C only, independent of Track A/B"
+method: >
+  Re-evaluated the framework decision on merit against Cloudflare
+  deployment (EV-20260826-018) as new evidence rather than carrying Astro
+  forward by default. Reversed one v2 decision (Style Dictionary, deferred
+  in v2) on explicit requester direction, recorded as a legitimate
+  engineering-preference update, not a rights/legal inference. Formalized
+  the ten-layer design-system boundary with explicit directory locations.
+  Ran a 15-vector adversarial attack per the requester's exact list.
+result: |
+  9 of 15 attacks survived outright, including the most important one
+  (#15: no part of Stage 4 foundation work requires a real Adelux-derived
+  value - only populating layers 4-7 with actual content depends on Track
+  B, which is what makes the parallel-track model actually work rather
+  than being an aspiration).
+
+  6 genuine findings surfaced and were fixed directly in the proposal
+  document during this pass: CSS fidelity was clarified to bind to
+  rendered outcome rather than literal (and genuinely deep - up to 4-level
+  descendant) selector structure found in the source; the forms adapter's
+  actual limit was stated explicitly (protects the UI from rewrite, not a
+  guarantee Cloudflare's edge runtime can do anything asked of it);
+  framework-neutral component contracts were disclosed as an unverified
+  design intent (zero exist yet); the DO_NOT_ADOPT third-party decisions
+  were given a CI-enforced dependency allowlist rather than remaining
+  policy-only; every gate including accessibility was made explicitly
+  merge-blocking rather than merely present; visual regression comparisons
+  were restricted to CI-vs-CI only with a pinned (non-latest) runner OS
+  image to prevent cross-platform font-rendering false positives.
+
+  0 critical findings. 0 findings requiring further revision after fixes
+  applied. ARCHITECTURE_VERDICT = PASS.
+related_files:
+  - artifacts/architecture/ARCHITECTURE-PROPOSAL-V3.md
+  - artifacts/architecture/ARCHITECTURE-REDTEAM-V3.md
+related_task: TRACK-C-BL03-ARCHITECTURE
+relates_to: [EV-20260826-016, EV-20260826-018]
+notes: >
+  No Adelux-derived visual expression was used in any decision - verified
+  by inspection of both documents. The Style Dictionary reversal from v2
+  is recorded as a legitimate engineering-preference update per explicit
+  requester direction (an ordinary architecture trade-off, not a rights
+  claim - DR-023 does not apply to engineering requirements the requester
+  is authorized to set). This closes BL-03. Track B remains RIGHTS_GATED
+  and unaffected, per attack #15's explicit finding that nothing in this
+  architecture depends on it.
