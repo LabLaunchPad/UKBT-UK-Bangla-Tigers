@@ -1,0 +1,107 @@
+---
+// Reference "Blog Section": `.blog-title-container` (the shared
+// eyebrow/heading + CTA row with a 3px accent underline) over a grid of
+// `.card-blog` — a media card with `.blog-content` absolutely positioned
+// over the bottom of the image and a `.meta-data` line in the accent
+// colour.
+//
+// SHELL ONLY where articles are concerned. `CONTENT_STATUS = UNKNOWN`:
+// no UKBT article, post, or news item exists in evidence. Dates,
+// headlines and categories are exactly the kind of thing that reads as
+// fact the moment it is rendered, so none are invented.
+//
+// The card grid itself is built and measured so real posts drop straight
+// into it.
+import PendingContent from './PendingContent.astro';
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  /** Set once real posts exist; the shell renders until then. */
+  posts?: { title: string; date: string; category: string; href: string }[];
+}
+const { posts = [] } = Astro.props;
+---
+
+<div class="ukbt-news">
+  <SectionHeader
+    eyebrow="Club News"
+    heading="Latest from the Tigers"
+    ctaLabel={posts.length ? 'All news' : undefined}
+    ctaHref={posts.length ? '/news' : undefined}
+  />
+
+  {
+    posts.length > 0 ? (
+      <div class="ukbt-news__grid">
+        {posts.map((p) => (
+          <a class="ukbt-news__card" href={p.href}>
+            <div class="ukbt-news__card-body">
+              <span class="ukbt-news__meta">
+                {p.date} · {p.category}
+              </span>
+              <h4>{p.title}</h4>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <PendingContent
+        what="Club news is not published yet."
+        detail="Match reports, signings and tournament updates will appear here. No placeholder posts are shown in the meantime."
+        minHeight="10rem"
+      />
+    )
+  }
+</div>
+
+<style>
+  .ukbt-news {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Reference blog grid: three media cards across at desktop. */
+  .ukbt-news__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ukbt-space-gap-2);
+  }
+  /* Reference `.card-blog` + `.blog-content`: content sits over the
+     bottom of the media panel. */
+  .ukbt-news__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 20rem;
+    overflow: hidden;
+    border-radius: var(--ukbt-radius-ref-card);
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    text-decoration: none;
+  }
+  .ukbt-news__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-2);
+    padding: 0 var(--ukbt-space-gap-3) var(--ukbt-space-gap-3);
+  }
+  .ukbt-news__card h4 {
+    margin: 0;
+  }
+  /* Reference `.meta-data`: accent-coloured, on the dark card. */
+  .ukbt-news__meta {
+    font-size: var(--ukbt-font-heading-h6-size);
+    color: var(--ukbt-color-brand-accent);
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-news__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-news__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

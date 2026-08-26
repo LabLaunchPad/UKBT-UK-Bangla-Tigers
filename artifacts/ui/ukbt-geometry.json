@@ -99,7 +99,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         },
         "desktop-1280x800": {
           "docScrollWidth": 1280,
@@ -189,7 +189,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         },
         "tablet-landscape-1024x768": {
           "docScrollWidth": 1024,
@@ -279,7 +279,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         },
         "tablet-portrait-768x1024": {
           "docScrollWidth": 768,
@@ -369,7 +369,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         },
         "mobile-large-430x932": {
           "docScrollWidth": 430,
@@ -459,7 +459,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         },
         "mobile-standard-390x844": {
           "docScrollWidth": 390,
@@ -549,7 +549,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 9
         }
       }
     },

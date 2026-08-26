@@ -1,0 +1,59 @@
+---
+// One honest treatment for a section whose STRUCTURE is built but whose
+// CONTENT does not yet exist (`CONTENT_STATUS = UNKNOWN`).
+//
+// CLIENT_REQ_009 directs that template sections be mirrored as shells
+// where UKBT content will later go. CLAUDE.md's hard invariant is that
+// facts are never invented. Both hold at once only if the shell says
+// plainly that it is waiting for content, rather than rendering lorem
+// text, fake testimonials, or placeholder pricing that a visitor would
+// read as real.
+//
+// Built once so the eight shell sections across the site share a single
+// treatment instead of eight ad-hoc ones — the same consolidation
+// applied to SubHeading and SectionHeader.
+//
+// `noindex` on the page is what keeps these out of search results; this
+// component handles what a human sees.
+interface Props {
+  /** What is missing, in the club's terms. */
+  what: string;
+  /** Optional detail on what would fill it. */
+  detail?: string;
+  /** Rough height of the real content, so the shell holds its place. */
+  minHeight?: string;
+}
+const { what, detail, minHeight = '12rem' } = Astro.props;
+---
+
+<div class="ukbt-pending" style={`min-height:${minHeight}`} data-content-status="UNKNOWN">
+  <p class="ukbt-pending__what">{what}</p>
+  {detail && <p class="ukbt-pending__detail">{detail}</p>}
+</div>
+
+<style>
+  .ukbt-pending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ukbt-space-gap-1);
+    text-align: center;
+    padding: var(--ukbt-space-gap-4);
+    border: 1px dashed var(--ukbt-color-neutral-300);
+    border-radius: var(--ukbt-radius-ref-card);
+    background: var(--ukbt-color-surface-background);
+  }
+  .ukbt-pending__what {
+    margin: 0;
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-pending__detail {
+    margin: 0;
+    max-width: 34rem;
+    font-size: var(--ukbt-font-heading-h6-size);
+    color: var(--ukbt-color-neutral-700);
+  }
+</style>

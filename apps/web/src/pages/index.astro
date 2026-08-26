@@ -7,9 +7,11 @@
 //
 // Section order follows the reference homepage's own sequence, with the
 // sections that have no UKBT counterpart omitted rather than filled:
-//   Banner → About → Why Choose Us → Academy → Tournament → Community
-//   → [Testimonial: no consented testimonials] → CTA
-//   → [Blog: no articles] → Footer
+//   Banner → About → Why Choose Us → Academy → Tournament → Captain
+//   → Community → Testimonial → CTA → News → Footer
+// Testimonial and News are structural shells (CONTENT_STATUS = UNKNOWN):
+// no consented member quote and no club article exist in evidence, and
+// both are content types that read as fact the instant they render.
 // The reference's Service and Padel Booking sections describe a
 // court-booking business and have no UKBT equivalent at all.
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -24,6 +26,8 @@ import TournamentGrid from '../components/TournamentGrid.astro';
 import CaptainSpotlight from '../components/CaptainSpotlight.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
 import AboutCTA from '../components/AboutCTA.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
+import NewsTeaser from '../components/NewsTeaser.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 
@@ -111,8 +115,16 @@ const structuredData = {
       <FranchiseTeaser name={homepage.sisterFranchise} />
     </Section>
 
-    <Section surface="alt" paddingBottom="normal">
+    <Section surface="alt">
+      <TestimonialSection />
+    </Section>
+
+    <Section>
       <AboutCTA social={homepage.social} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <NewsTeaser />
     </Section>
   </main>
 
