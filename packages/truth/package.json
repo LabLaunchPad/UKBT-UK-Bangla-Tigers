@@ -1,0 +1,25 @@
+{
+  "name": "@ukbt/truth",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "UKBT content schemas + truth gate. Owns no framework/UI code. See contracts/TRUTH-CONTRACT.md, contracts/CONTENT-CONTRACT.md.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./gate": "./src/gate/index.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "tokens:build": "style-dictionary build --config style-dictionary.config.json"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "style-dictionary": "^4.3.3"
+  }
+}

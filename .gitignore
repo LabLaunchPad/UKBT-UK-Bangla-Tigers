@@ -1,0 +1,24 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+*.log
+.env
+.env.*
+!.env.example
+
+# Generated CSS/token output — never hand-edited, never source of truth.
+# See contracts/CSS-CONTRACT.md and contracts/REPOSITORY-CONTRACT.md.
+**/src/styles/generated/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Visual regression actual/diff output (references stay committed, see
+# contracts/VISUAL-REGRESSION-CONTRACT.md — actual/diff artifacts are
+# per-run, not the immutable reference itself)
+**/tests/visual/**/*-actual.png
+**/tests/visual/**/*-diff.png
