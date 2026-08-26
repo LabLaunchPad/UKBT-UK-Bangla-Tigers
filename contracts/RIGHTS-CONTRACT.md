@@ -24,7 +24,7 @@ DOCUMENTATION_EXCLUDED    = 1
 ```
 FORENSIC_PERMISSION      = ALLOWED
 IMPLEMENTATION_PERMISSION = GOVERNED
-PRODUCTION_CLEARANCE     = NOT_CLEARED
+PRODUCTION_CLEARANCE     = CONDITIONALLY_CLEARABLE   # superseded from NOT_CLEARED, EV-20260826-024/-025 — still per-item, see knowledge/06
 REDISTRIBUTION_PERMISSION = NOT_ALLOWED
 ```
 
@@ -40,10 +40,12 @@ gated:**
 - Adaptation (pipeline stage 3, `UKBT_ADAPTATION`) — `GOVERNED`, requires
   every item classified by pipeline stage and token lifecycle state, never
   assumed clear by default.
-- Production (pipeline stage 5, `PRODUCTION_RELEASE`) — `NOT_CLEARED`.
-  No rights-gated Adelux-derived value may enter `APPROVED` production
-  tokens/components without the required external authority
-  (`required_evidence_to_close_track_b`, `knowledge/06`).
+- Production (pipeline stage 5, `PRODUCTION_RELEASE`) — `CONDITIONALLY_CLEARABLE`
+  (superseded from `NOT_CLEARED`, `EV-20260826-024`/`-025` — the required
+  external authority is now satisfied, see `knowledge/06`). Each item
+  still individually passes the truth/asset gates before entering
+  `APPROVED` — this removes the licence blocker, it does not pre-clear
+  unproduced or ungated content.
 - Redistribution — `NOT_ALLOWED`, regardless of how adaptation/production
   resolve. Prohibited by every licence tier examined
   (`EV-20260826-006`) and not the objective in any case.
@@ -62,20 +64,26 @@ conclusion is not itself evidence for that conclusion (`DR-023`).
 | Link | Status |
 |---|---|
 | A. Original template authorship (Fox Creation) | VERIFIED |
-| B. LabLaunchPad builder role | ASSERTED_NOT_EXECUTED |
-| C. UKBT single-site permission | NOT_ESTABLISHED |
+| B. LabLaunchPad builder/author role | ASSERTED_NOT_EXECUTED — unchanged; this specific claim (authorship) was never established and is not what closed Track B |
+| B2. LabLaunchPad licensee role (Envato Elements) | VERIFIED — `EV-20260826-024`/`-025`, License Code `HAXKDZUTYV` |
+| C. UKBT single-site permission | ESTABLISHED — superseded from `NOT_ESTABLISHED`, via B2 not B |
 | D. Third-party rights | INDEPENDENTLY_GOVERNED |
 
-`UKBT_ADAPTATION_PERMISSION = NOT_ESTABLISHED`, scoped specifically to
-material touching Adelux's own authored expression — this does **not**
-gate Track C (UKBT-original engineering untouched by Adelux's expression).
+`UKBT_ADAPTATION_PERMISSION = ESTABLISHED` (superseded from
+`NOT_ESTABLISHED`), scoped to the one End Product `EV-20260826-025`
+confirms is the UKBT site — this does **not** extend to redistributing
+the Adelux item itself (`REDISTRIBUTION_PERMISSION` stays `NOT_ALLOWED`)
+or to Fox Creation's own brand assets
+(`THIRD-PARTY-LICENSE-FIREWALL.md`, unaffected), and does not gate Track C
+(UKBT-original engineering untouched by Adelux's expression), which was
+never blocked by this in the first place.
 
 ## Three-track model (restated, authoritative in `knowledge/06`)
 
 | Track | Definition | Current state |
 |---|---|---|
 | A — Source forensics | Read-only analysis of the reference | ALLOWED, may continue |
-| B — Rights-gated adaptation | UKBT implementation material embedding/closely reproducing Adelux's authored expression | RIGHTS_GATED |
+| B — Rights-gated adaptation | UKBT implementation material embedding/closely reproducing Adelux's authored expression | UNLOCKED (superseded from `RIGHTS_GATED`, `EV-20260826-024`/`-025`) — scoped to the one End Product confirmed as UKBT |
 | C — UKBT-original engineering | Everything not touching Adelux's authored expression (this Stage-3 contract-freeze work included) | MAY PROCEED, gated only by architecture quality (BL-03, closed — `EV-20260826-019`), never by BL-02/provenance |
 
 ## Required evidence to close Track B (restated, authoritative in

@@ -1,0 +1,60 @@
+id: EV-20260826-025
+classification: REQUESTER_SCOPE_CONFIRMATION
+claim: >
+  Direct confirmation from the requester: Envato Elements license
+  HAXKDZUTYV (EV-20260826-024, Licensee "Master King", License Name "Lab
+  LaunchPad") is used exclusively for the UK Bangla Tigers site — not
+  shared or reused for any other LabLaunchPad client project.
+source: "Chat message: 'Yes, exclusively for UKBT'."
+source_type: requester_statement
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records the confirmation as given. Not independently re-verifiable from
+  inside this repository (no access to the requester's Envato Elements
+  account); accepted as the specific, narrow type of fact this checklist
+  item required — a first-person scope statement about the requester's
+  own license usage, not a rights conclusion asserted on the requester's
+  behalf. Distinguished from DR-022/DR-023-barred statements: those bar
+  chat assertions of legal/rights CONCLUSIONS ("this means it's fine now")
+  substituting for evidence; this is a factual scope confirmation only
+  the license-holder can give, which TRACK-B-UNLOCK-CHECKLIST.md item 5
+  explicitly named as sufficient once items 1-4/6-7 were independently
+  satisfied by EV-20260826-024.
+scope: "Track B unlock checklist item 5 — the sole remaining gap after EV-20260826-024."
+method: Direct question asked; direct answer received; recorded verbatim.
+result: |
+  Item 5 (explicit permission covering UKBT) is now satisfied: the
+  certificate's single-End-Product scope (EV-20260826-024) is confirmed
+  to BE the UKBT site, exclusively. Combined with EV-20260826-024's
+  resolution of items 1, 2, 3, 4, 6, all 7 blocking items on
+  TRACK-B-UNLOCK-CHECKLIST.md are now satisfied or contingently-satisfied
+  items resolved. Track B (`knowledge/06-TEMPLATE-BOUNDARY.yaml`
+  TRACK_B_RIGHTS_GATED_ADAPTATION) moves from RIGHTS_GATED to UNLOCKED,
+  scoped specifically to: adapting Adelux's observed visual grammar
+  (layout, typography, spacing, component composition — per
+  `prompts/16-reference-analysis.md`) into UKBT's own Astro
+  implementation, as the one End Product this license covers. This does
+  NOT establish: redistribution rights over the Adelux item itself
+  (still prohibited under standard Envato Elements terms); rights to
+  Adelux's own brand assets (Adelux-Logo.png etc. — still excluded per
+  `THIRD-PARTY-LICENSE-FIREWALL.md`, those are Fox Creation's own
+  trademark, not licensed template content); or anything beyond this one
+  scoped End Product.
+related_files:
+  - artifacts/evidence/EV-20260826-024.yaml
+  - artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md
+  - knowledge/06-TEMPLATE-BOUNDARY.yaml
+  - contracts/RIGHTS-CONTRACT.md
+relates_to: [EV-20260826-024]
+notes: >
+  This record, together with EV-20260826-024, is the basis for the one
+  permitted update to knowledge/06-TEMPLATE-BOUNDARY.yaml's
+  provenance_verdicts and contracts/RIGHTS-CONTRACT.md's provenance
+  table, per TRACK-B-UNLOCK-CHECKLIST.md's own validation procedure step
+  3: prior CONFLICTING/ASSERTED_NOT_EXECUTED entries are superseded, not
+  deleted or rewritten. LabLaunchPad's earlier claim of AUTHORSHIP
+  (EV-20260826-012) remains unverified/false and is not revived by this
+  unlock — what unlocked Track B is LICENSEE status under a valid
+  third-party-issued license, a different and now-satisfied claim.

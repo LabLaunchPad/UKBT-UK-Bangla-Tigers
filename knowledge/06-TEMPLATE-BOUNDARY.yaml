@@ -73,11 +73,14 @@ permission_facts:
   # "Governed" = every item is classified by pipeline stage and token
   # lifecycle state below, never assumed clear by default.
 
-  PRODUCTION_CLEARANCE: NOT_CLEARED
-  # Shipping any Adelux-informed material to a live, deployed UKBT site.
-  # Requires BL-02 to close (or the specific item to be independently
-  # cleared — e.g. an MIT-licensed vendor library) AND the truth/asset gates
-  # (knowledge/07) to pass for that item.
+  PRODUCTION_CLEARANCE: CONDITIONALLY_CLEARABLE
+  # Superseded from NOT_CLEARED — BL-02 has closed (EV-20260826-024/-025;
+  # see provenance_verdicts.LICENSEE_AUTHORITY_VERDICT), scoped to the one
+  # End Product confirmed as UKBT. "Conditionally" because clearance is
+  # still per-item: each piece of Adelux-informed material shipped to the
+  # live site must still individually pass the truth/asset gates
+  # (knowledge/07) — this fact removes the licence blocker, it does not
+  # pre-clear content that hasn't been produced or gate-checked yet.
 
   REDISTRIBUTION_PERMISSION: NOT_ALLOWED
   # Publishing, reselling, sublicensing, or distributing the Adelux source
@@ -405,20 +408,37 @@ provenance_chain:
     status: ASSERTED_NOT_EXECUTED
     evidence: EV-20260826-012
     note: >
-      Currently a stated role claim (knowledge/01-VERIFIED-FACTS.yaml
-      builder.authority_status). NOT independently evidenced by an executed
-      licence, assignment, authorization, purchase record, or other
-      admissible evidence. A supplied "authority pack" offered an
-      attestation TEMPLATE (unsigned — no name, role, date, or signature)
-      as if it were an executed document; it is not. See
-      provenance_contradiction below.
+      UNCHANGED, kept for history per DR-015 (superseded, not deleted).
+      This specific claim — that LabLaunchPad AUTHORED Adelux — remains
+      unverified and is contradicted by the package's own documentation
+      (A above). It was never resolved and does not need to be: see B2
+      below, which establishes permission through a different, correct
+      mechanism. See provenance_contradiction below.
+
+  B2_lablaunchpad_licensee_role:
+    claim: "LabLaunchPad holds a valid Envato Elements license for the Adelux item, as licensee (not author)."
+    status: VERIFIED
+    evidence: [EV-20260826-024, EV-20260826-025]
+    note: >
+      A genuine, dated, coded Envato Elements License Certificate (Item
+      License Code HAXKDZUTYV; Licensee "Master King"; License Name "Lab
+      LaunchPad"; Author Username "Fox_Creation" — consistent with A,
+      never contradicting it). This resolves the practical question B was
+      trying to answer (does LabLaunchPad have standing to adapt this
+      item) without requiring B to be true: a valid license from the
+      platform administering the author's rights is the correct bar, not
+      proof of authorship or assignment from Fox Creation. See
+      EV-20260826-024 for full item-by-item reasoning.
 
   C_ukbt_single_site_permission:
-    status: NOT_ESTABLISHED
+    status: ESTABLISHED
+    evidence: [EV-20260826-024, EV-20260826-025]
     note: >
-      Not established merely because LabLaunchPad states it built the
-      template. Permission to adapt Adelux's authored expression for UKBT
-      depends on B resolving, which it has not.
+      Established via B2, not B: the license certificate scopes the grant
+      to "one specific project to create an End Product"
+      (EV-20260826-024), and the requester directly confirmed that
+      project is the UKBT site, exclusively (EV-20260826-025). Superseded
+      NOT_ESTABLISHED verdict retained above in history.
 
   D_third_party_rights:
     status: INDEPENDENTLY_GOVERNED
@@ -447,17 +467,21 @@ provenance_contradiction:
     treated as settled, is not itself evidence of either — see DR-023.
 
 provenance_verdicts:
-  LICENSE_VERDICT: UNVERIFIED                    # canonical evidence-policy term: STATED_BUT_UNVERIFIED (knowledge/04)
-  BUILDER_AUTHORITY_VERDICT: ASSERTED_NOT_EXECUTED
-  UKBT_ADAPTATION_PERMISSION: NOT_ESTABLISHED     # scoped to material touching Adelux's own authored expression — see tracks.TRACK_C below for what this does NOT gate
-  REDISTRIBUTION_PERMISSION: NOT_ESTABLISHED      # consistent with permission_facts.REDISTRIBUTION_PERMISSION = NOT_ALLOWED above; this is the provenance-layer restatement of the same fact
+  LICENSE_VERDICT: VERIFIED                       # superseded from UNVERIFIED — EV-20260826-024, Envato Elements License Certificate HAXKDZUTYV
+  BUILDER_AUTHORITY_VERDICT: ASSERTED_NOT_EXECUTED  # UNCHANGED — LabLaunchPad-as-AUTHOR remains unverified; see LICENSEE_AUTHORITY_VERDICT for what actually resolved
+  LICENSEE_AUTHORITY_VERDICT: VERIFIED            # new — LabLaunchPad-as-LICENSEE, EV-20260826-024/-025; this, not builder authority, is what unlocks Track B
+  UKBT_ADAPTATION_PERMISSION: ESTABLISHED         # superseded from NOT_ESTABLISHED — scoped to the one End Product EV-20260826-025 confirms is UKBT; see tracks.TRACK_C below for what this was never gating
+  REDISTRIBUTION_PERMISSION: NOT_ESTABLISHED      # UNCHANGED — a licence to adapt into one End Product is not a licence to redistribute the Adelux item itself; standard Envato Elements terms prohibit that regardless
   relationship_to_permission_facts: >
-    These four verdicts are not a second, competing rights model — they
-    are the provenance-layer FACTS that EXPLAIN the existing
-    permission_facts above. BUILDER_AUTHORITY_VERDICT = ASSERTED_NOT_EXECUTED
-    is the reason IMPLEMENTATION_PERMISSION stays GOVERNED and
-    PRODUCTION_CLEARANCE stays NOT_CLEARED. FORENSIC_PERMISSION is
-    unaffected — it never depended on B resolving.
+    BUILDER_AUTHORITY_VERDICT stays ASSERTED_NOT_EXECUTED on its own
+    terms — LabLaunchPad was never shown to have authored Adelux, and
+    that claim is not revived. What changed is LICENSEE_AUTHORITY_VERDICT:
+    a valid third-party-issued license (not proof of authorship) is the
+    correct and sufficient basis for adaptation permission, per
+    EV-20260826-024's reasoning. UKBT_ADAPTATION_PERMISSION = ESTABLISHED
+    is downstream of LICENSEE_AUTHORITY_VERDICT, not
+    BUILDER_AUTHORITY_VERDICT. FORENSIC_PERMISSION was unaffected either
+    way — it never depended on this resolving.
 
 # ============================================================================
 # THREE-TRACK EXECUTION MODEL — separates what actually needs B to resolve
@@ -478,8 +502,16 @@ tracks:
     definition: "Turning source evidence into UKBT implementation material that embeds or closely reproduces Adelux's own authored expression."
     maps_to_pipeline_stages: [3_UKBT_ADAPTATION, 4_UKBT_IMPLEMENTATION, 5_PRODUCTION_RELEASE]
     gated_by: [IMPLEMENTATION_PERMISSION, PRODUCTION_CLEARANCE]
-    current_state: RIGHTS_GATED — must remain gated until provenance_chain.B resolves to VERIFIED
-    required_to_close: see required_evidence_to_close_track_b below
+    current_state: >
+      UNLOCKED as of EV-20260826-024/-025, superseded from RIGHTS_GATED.
+      Resolved via provenance_chain.B2 (licensee authority), not B
+      (builder/author authority, which stays unresolved and unneeded).
+      Scope: adapting Adelux's observed visual grammar into UKBT's Astro
+      implementation, as the one End Product license HAXKDZUTYV covers.
+      Does NOT cover redistribution of the Adelux item itself
+      (REDISTRIBUTION_PERMISSION stays NOT_ALLOWED) or Fox Creation's own
+      brand assets (THIRD-PARTY-LICENSE-FIREWALL.md, unaffected).
+    required_to_close: CLOSED — see required_evidence_to_close_track_b below for what was met and how
 
   TRACK_C_UKBT_ORIGINAL_ENGINEERING:
     definition: >
@@ -496,7 +528,7 @@ tracks:
     note: "This is the track that prevents provenance uncertainty from becoming an excuse to halt all engineering — see knowledge/05-UNKNOWN-BLOCKER-POLICY.yaml anti_overblocking."
 
 required_evidence_to_close_track_b:
-  needed:
+  needed_originally: # kept verbatim for history; see closed_by for what actually satisfied Track B
     - "an executed instrument establishing B: a signed attestation naming a real, identifiable person with authority to bind LabLaunchPad, OR a contract/assignment, OR verifiable source/creation history"
     - "resolution of the authorship conflict with A — e.g., evidence that 'Fox Creation' is a LabLaunchPad-controlled account/alias, or a correction/explanation reconciling the two"
     - "the scope of any such instrument must be checked against UKBT's actual intended use (single-site adaptation, framework translation) — an instrument silent on scope does not automatically cover it"
@@ -504,3 +536,16 @@ required_evidence_to_close_track_b:
     - "a prompt or instruction asserting the conclusion is already settled"
     - "an unsigned template, however detailed its surrounding classification scheme"
     - "LabLaunchPad's own unverified statement, repeated"
+  closed_by:
+    evidence: [EV-20260826-024, EV-20260826-025]
+    how: >
+      Not by resolving the authorship conflict with A as originally
+      specified above — that conflict is moot, not resolved. Closed
+      instead via B2: a genuine, dated, coded Envato Elements License
+      Certificate (an "executed instrument" in substance — third-party
+      issued, not self-authored, not a blank template) naming a real
+      licensee, scoped to one End Product, plus the requester's direct
+      confirmation that End Product is UKBT and only UKBT. This satisfies
+      the underlying concern the "needed_originally" list was protecting
+      against (an unverifiable, self-serving rights claim) through a
+      different, valid mechanism.

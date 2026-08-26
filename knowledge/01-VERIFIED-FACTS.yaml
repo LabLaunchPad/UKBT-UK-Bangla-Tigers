@@ -28,27 +28,33 @@ template:
   sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
   admission_status: NOT_ADMITTED
   in_repository: false
-  license_status: STATED_BUT_UNVERIFIED
-  license_evidence: [EV-20260826-005, EV-20260826-006]
-  license_document_exists: false
-  purchase_evidence_exists: false
+  license_status: VERIFIED  # superseded from STATED_BUT_UNVERIFIED — EV-20260826-024, Envato Elements License Certificate HAXKDZUTYV
+  license_evidence: [EV-20260826-005, EV-20260826-006, EV-20260826-024, EV-20260826-025]
+  license_document_exists: true  # superseded from false
+  purchase_evidence_exists: true  # superseded from false — the certificate is not a tax receipt/invoice per its own text, but is a genuine license-issuance record
   marketplace_identity:
     themeforest_item_id: "60543035"
     themeforest_url: "https://themeforest.net/item/adelux-padel-club-community-html-bootstrap-template/60543035"
     envato_elements_slug: "X3FTRWG"
+    envato_elements_item_id: "3acc4547-3059-449d-a632-944acef7bc53"  # from EV-20260826-024's certificate URL
     note: >
-      Two acquisition channels exist for the same product with DIFFERENT
-      licensing models (ThemeForest tiered purchase vs. Elements subscription).
-      Which one, if either, applies to this copy is UNKNOWN (U-25).
+      U-25 RESOLVED: the applicable channel is Envato Elements (subscription
+      model), confirmed via EV-20260826-024's license certificate — not the
+      ThemeForest tiered-purchase channel.
   other_website_reuse: PROHIBITED_ABSENT_ADDITIONAL_LICENCE
   other_website_reuse_note: >
     Structural finding, not a paperwork gap: every standard Envato acquisition
-    path caps at ONE end product. Confirmed via EV-20260826-006.
-  cross_framework_reimplementation: LEGAL_REVIEW_REQUIRED
+    path caps at ONE end product. Confirmed via EV-20260826-006, and this is
+    exactly why EV-20260826-025 (confirming this license's one End Product is
+    UKBT exclusively) was required before Track B could unlock.
+  cross_framework_reimplementation: LIKELY_PERMITTED  # softened from LEGAL_REVIEW_REQUIRED, EV-20260826-024
   cross_framework_note: >
     Literal code porting is VERIFIED permitted (bounded to one end product).
-    Full grammar reimplementation without copied expression is an unresolved
-    idea/expression question (U-26), not decided by marketplace FAQ language.
+    Full grammar reimplementation without copied expression (U-26) is
+    reasoned in EV-20260826-024 as a conservative, likely-permitted reading
+    of "modification to build an End Product" — not independently verified
+    against Envato's live terms text (WebFetch unavailable this session),
+    so treat as likely rather than certain.
   note: >
     The template has NOT been admitted to this repository. It is excluded pending
     licence evidence. A prior record "EV-0009" and an admission status of
