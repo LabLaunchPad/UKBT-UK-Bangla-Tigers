@@ -5,6 +5,7 @@
 meta:
   last_updated: 2026-08-26
   established_at_sha: 0cd3129
+  last_audited_sha: d08841d   # zoom-out state audit, 2026-08-26 — see architecture.stage_detail below
   rule: "If it is not evidenced, it does not belong in this file as true."
 
 project:
@@ -212,11 +213,33 @@ language:
   reversal_cost: HIGH
 
 architecture:
-  current_stage: STAGE_2_COMPLETE_VERDICT_REVISE
-  architecture_stage_approved: false
-  frozen_contract_exists: false
-  workspace_shape: NOT_DECIDED     # five-package shape REJECTED by Stage 2
+  current_stage: STAGE_9_SITE_SCALE_PARTIAL   # superseded from STAGE_2_COMPLETE_VERDICT_REVISE — this field went stale after Stage 2 and was never advanced through six subsequent stages of real work; corrected 2026-08-26
+  architecture_stage_approved: true    # superseded from false — ARCHITECTURE_VERDICT = PASS on the V3 track (15-vector red team, 0 critical findings, EV-20260826-019)
+  frozen_contract_exists: true         # superseded from false — 15 contracts FROZEN at Stage 3 (contracts/README.md, contracts/REPOSITORY-CONTRACT.md Status: FROZEN)
+  workspace_shape: "apps/web + packages/truth"   # superseded from NOT_DECIDED — DECIDED at Stage 3 (contracts/REPOSITORY-CONTRACT.md PACKAGES=)
   minimum_defensible: "apps/web + one package co-locating content schemas and the truth gate"
+  stage_detail: >
+    This block was last truthfully updated at Stage 2 and then went stale for
+    six subsequent stages of real work — a governance defect in itself,
+    corrected here by a zoom-out state audit (2026-08-26, sha d08841d).
+    Actual status against docs/10-fresh-repo-pipeline.md's 11 stages: Stages
+    1 (bootstrap), 2 (architecture red team), 3 (contract freeze), 5 (design
+    system), 6 (reference analysis) are DONE with their named artifacts.
+    Stage 4 (foundation) and 7 (homepage) have the underlying work done and
+    verified (apps/web + packages/truth build and pass a 9-job CI; homepage
+    implemented and visually QA'd) but never got their named receipt
+    (artifacts/receipts/FOUNDATION.md / HOMEPAGE.md — both dirs still hold
+    only .gitkeep). Stage 8 (independent homepage red team, required by
+    pipeline rule 5 to run in a session separate from Stage 7) NEVER RAN.
+    Stage 9 (site-scale) was substantially delivered via a client-directed
+    ad-hoc "Full Template UI Parity Reconstruction"
+    (artifacts/ui/PARITY-COMPLETION-REPORT.md) that built 7 new pages in one
+    batch — violating pipeline rule 6 (no batch page building; per-page
+    PLAN→IMPLEMENT→VERIFY→RECEIPT only) — and produced no per-page receipts,
+    though its own verification (axe, responsive, geometry-parity) is real
+    and its evidence is on record. Stages 10 (release-gate) and 11
+    (replay-stress) have never run. Full audit trail: the "Zoom-out" section
+    prepended to the session's plan file.
 
 forms:
   static_first: true                        # EV-20260826-001
@@ -231,9 +254,9 @@ forms:
     inverted its own goal. Its intent is folded into C2.
 
 validation:
-  ci_workflow_present: false
+  ci_workflow_present: true    # superseded from false — .github/workflows/ci.yml exists, all jobs merge-blocking
   absent_ci_is_pass: false
-  gates_implemented: 0
+  gates_implemented: 9         # superseded from 0 — Install, Governance scaffold self-test, Dependency allowlist, Lint (Biome), Typecheck, Build, Unit/integration tests, Playwright (structural/responsive/accessibility), Secret scan — all 9 green on PR #1 head d08841d as of this correction
 
 licensing:
   adelux_license_fully_verified: false
@@ -244,10 +267,10 @@ licensing:
     deliberately separate keys. Authority to build does not verify licence rights.
 
 blockers:
-  BL-01: {state: OPEN, blocks: "all content publication"}
-  BL-02: {state: OPEN, blocks: "Stage 6 and all Adelux-derived material", evidence: [EV-20260826-005, EV-20260826-006]}
-  BL-03: {state: OPEN, blocks: "application code — no frozen architecture"}
-  BL-05: {state: OPEN, blocks: "adoption of Isotope (moot — decided DO_NOT_ADOPT)", evidence: EV-20260826-005}
+  BL-01: {state: RESOLVED, blocks: "all content publication", evidence: EV-20260826-026, note: "superseded from OPEN — 12 verified organization facts on record (see content.organization_facts_count above)"}
+  BL-02: {state: RESOLVED, blocks: "Stage 6 and all Adelux-derived material", evidence: [EV-20260826-024, EV-20260826-025], note: "superseded from OPEN — Envato Elements license HAXKDZUTYV confirmed scoped to UKBT ('Track B UNLOCKED')"}
+  BL-03: {state: RESOLVED, blocks: "application code — no frozen architecture", evidence: "contracts/REPOSITORY-CONTRACT.md Status: FROZEN", note: "superseded from OPEN — see architecture block above"}
+  BL-05: {state: RESOLVED_BY_DECISION, blocks: "adoption of Isotope (moot — decided DO_NOT_ADOPT)", evidence: EV-20260826-005, note: "state label corrected from OPEN; the DO_NOT_ADOPT decision was already recorded in this same entry"}
 
 unknowns:
   total: 27
