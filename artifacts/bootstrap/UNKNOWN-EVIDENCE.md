@@ -40,6 +40,14 @@ content. See `CONTENT-TRUTH-MODEL.md § 4`.
 | U-15 | Existing web presence, domain, URL history to preserve | redirect requirements; SEO continuity |
 | U-18 | Data-protection posture — UK GDPR obligations | **now on the critical path.** `EV-20260826-001` means a form is expected eventually, and any contact form collects personal data |
 
+## B2. Raised by the Stage 2 architecture red team
+
+| ID | Unknown | Arises from |
+|---|---|---|
+| U-22 | Who maintains the **source registry**, and what makes a source admissible to it? | revision R1/T2 |
+| U-23 | **Who is the named human approver** for organization facts? `CONTENT-TRUTH-MODEL.md § 6` forbids an agent from signing but never says who does | revision R1/T6 |
+| U-24 | Which of the two form routes will be used, and does the eventual host support it? | revision R6 |
+
 ## C. Technical
 
 | ID | Unknown | Note |
@@ -123,4 +131,4 @@ requirement) · U-09 (dates/budget/volume) · U-11 (hosting vendor) · U-12
 U-15 (existing web presence) · U-18 (data protection) · U-19 (CI/dev
 toolchains) · U-20 (analytics/consent) · U-21 (licence).
 
-**17 open. 4 resolved. 21 total.**
+**20 open. 4 resolved. 24 total.** (Stage 2 raised U-22, U-23, U-24.)

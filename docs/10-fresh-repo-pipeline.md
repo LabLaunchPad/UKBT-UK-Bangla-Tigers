@@ -10,7 +10,7 @@ before hundreds of files make wrong assumptions expensive to undo.
 | # | Stage | Prompt | Primary artifact | Gate to pass |
 |---|---|---|---|---|
 | 1 | Bootstrap discovery | `prompts/11-bootstrap-discovery.md` | `artifacts/bootstrap/REPOSITORY-BOOTSTRAP.md` + 4 more | `BOOTSTRAP_STATUS = READY` |
-| 2 | Architecture red team | `prompts/12-architecture-redteam.md` | `artifacts/bootstrap/ARCHITECTURE-REDTEAM.md` | `ARCHITECTURE_VERDICT = PASS` |
+| 2 | Architecture red team | `prompts/12-architecture-redteam.md` | `artifacts/verification/ARCHITECTURE-REDTEAM.md` | `ARCHITECTURE_VERDICT = PASS` |
 | 3 | Freeze the foundation | `prompts/13-contract-freeze.md` | `contracts/REPOSITORY-CONTRACT.md` | `CONTRACT_STATUS = FROZEN` |
 | 4 | Foundation build | `prompts/14-foundation.md` | `artifacts/receipts/FOUNDATION.md` | `FOUNDATION_STATUS = PASS` |
 | 5 | Design system | `prompts/15-design-system.md` | `artifacts/ui/DESIGN-SYSTEM.md` (+ verification) | all checks green |

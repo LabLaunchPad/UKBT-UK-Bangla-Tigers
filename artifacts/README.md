@@ -11,7 +11,8 @@ should. Precedence: `docs/09-repository-reconciliation.md § 2`.
 | `receipts/` | task receipts per `schemas/receipt.schema.json` | Stage 4 |
 | `ui/` | design system + reference analysis | Stage 5–6 |
 | `pages/` | per-page contracts | Stage 7 |
-| `review/` | red-team reports, adversarial replay | Stage 2, 8 |
+| `verification/` | architecture red team + required revisions | Stage 2 ✅ |
+| `review/` | homepage red team, adversarial replay | Stage 8, 11 |
 
 Receipts are append-only and record real exit codes. A receipt asserting a result
 without the command that produced it is not a receipt.

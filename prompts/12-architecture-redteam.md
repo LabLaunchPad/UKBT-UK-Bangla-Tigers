@@ -25,7 +25,8 @@ reversible · expensive to reverse.
 Do NOT replace an architecture merely because another is fashionable. Novelty is
 not a defect report. Do NOT implement.
 
-Create `artifacts/bootstrap/ARCHITECTURE-REDTEAM.md`.
+Create `artifacts/verification/ARCHITECTURE-REDTEAM.md`, and
+`artifacts/verification/ARCHITECTURE-REVISIONS.md` if the verdict is REVISE or BLOCK.
 
 End with:
 
