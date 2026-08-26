@@ -1,0 +1,120 @@
+{
+  "$comment": "Per contracts/REPOSITORY-CONTRACT.md §Dependency-addition policy and contracts/CI-CONTRACT.md's dependency-allowlist gate. Every dependency declared in any package.json in this repo must have an entry here. scripts/check-dependency-allowlist.mjs enforces this at CI time. Adding a dependency without an entry here fails the build by design — this turns THIRD-PARTY-DISPOSITION.md's DO_NOT_ADOPT decisions into an enforced gate, not just documented policy (ARCHITECTURE-PROPOSAL-V3.md §11).",
+  "entries": [
+    {
+      "name": "astro",
+      "scope": "apps/web",
+      "type": "dependency",
+      "source": "npm",
+      "purpose": "Static site framework — the frozen architecture's chosen framework (ARCHITECTURE-PROPOSAL-V3.md §1).",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view astro license (verified 2026-08-26)"
+    },
+    {
+      "name": "@ukbt/truth",
+      "scope": "apps/web",
+      "type": "dependency",
+      "source": "workspace",
+      "purpose": "Internal workspace package (content schemas + truth gate) — not third-party.",
+      "license": "N/A (UKBT-owned, unpublished)",
+      "contractStatus": "REQUIRED",
+      "validation": "N/A — internal workspace reference, not an external dependency"
+    },
+    {
+      "name": "@astrojs/check",
+      "scope": "apps/web",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Astro's own TypeScript diagnostics CLI (`astro check`) — required for the typecheck gate.",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @astrojs/check license (verified 2026-08-26)"
+    },
+    {
+      "name": "@astrojs/cloudflare",
+      "scope": "apps/web",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Official first-party Cloudflare Pages/Functions adapter, present but not activated until a real form exists (contracts/FORM-CONTRACT.md, contracts/DEPLOYMENT-CONTRACT.md).",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @astrojs/cloudflare license (verified 2026-08-26); peer dependency compatibility with astro@^5 confirmed at install time (12.5.0 peers with astro ^5.0.0)"
+    },
+    {
+      "name": "@axe-core/playwright",
+      "scope": "apps/web",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "axe-core integration for Playwright — contracts/ACCESSIBILITY-CONTRACT.md's required automated a11y tool.",
+      "license": "MPL-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @axe-core/playwright license (verified 2026-08-26); MPL-2.0 is a file-level weak-copyleft license with no bearing on UKBT's own source (dev/test-only dependency, not bundled into shipped output)"
+    },
+    {
+      "name": "@playwright/test",
+      "scope": "apps/web",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "E2E/visual-regression/accessibility test runner — contracts/VISUAL-REGRESSION-CONTRACT.md, contracts/CI-CONTRACT.md.",
+      "license": "Apache-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @playwright/test license (verified 2026-08-26)"
+    },
+    {
+      "name": "typescript",
+      "scope": "root",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Language/typecheck tooling, shared root devDependency (also declared per-package for local tool resolution).",
+      "license": "Apache-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view typescript license (verified 2026-08-26)"
+    },
+    {
+      "name": "@biomejs/biome",
+      "scope": "root",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Lint + format — contracts/REPOSITORY-CONTRACT.md, contracts/CI-CONTRACT.md's lint gate (A13).",
+      "license": "MIT OR Apache-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @biomejs/biome license (verified 2026-08-26)"
+    },
+    {
+      "name": "zod",
+      "scope": "packages/truth",
+      "type": "dependency",
+      "source": "npm",
+      "purpose": "Runtime schema validation for content types (contracts/CONTENT-CONTRACT.md) and gate registry-id validation.",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view zod license (verified 2026-08-26)"
+    },
+    {
+      "name": "vitest",
+      "scope": "packages/truth",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Unit test runner for the truth gate and content schemas — contracts/CI-CONTRACT.md's unit/integration gate.",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view vitest license (verified 2026-08-26)"
+    },
+    {
+      "name": "style-dictionary",
+      "scope": "packages/truth",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Token compiler — contracts/CSS-CONTRACT.md's chosen compiler (reversal from a bespoke script, ARCHITECTURE-PROPOSAL-V3.md §5).",
+      "license": "Apache-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view style-dictionary license (verified 2026-08-26)"
+    }
+  ],
+  "permanently_blocked": [
+    { "name": "isotope", "reason": "GPLv3 or paid commercial licence — THIRD-PARTY-DISPOSITION.md DO_NOT_ADOPT" },
+    { "name": "isotope-layout", "reason": "GPLv3 or paid commercial licence (Metafizzy) — THIRD-PARTY-DISPOSITION.md DO_NOT_ADOPT" },
+    { "name": "animate.css", "reason": "Hippocratic License 2.1, not sign-off-cleared — THIRD-PARTY-DISPOSITION.md DO_NOT_ADOPT" }
+  ]
+}
