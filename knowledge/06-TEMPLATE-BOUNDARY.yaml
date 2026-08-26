@@ -4,26 +4,38 @@
 # "Template boundary" does NOT mean "Claude cannot inspect the template."
 # It means "Claude cannot confuse inspection with redistribution or rights
 # clearance." Reading, parsing, rendering, and measuring the immutable Adelux
-# source is core engineering work for the stated objective (exact visual
-# reconstruction of its UI, in a different framework, for UKBT). This file's
-# job is to keep that work from silently becoming a claim of rights it hasn't
-# earned — not to prevent the work.
+# source is core engineering work for the stated objective: forensic
+# extraction of its UI → token/CSS/DOM/interaction contracts → controlled
+# UKBT adaptation → exact visual reproduction, in a different framework, for
+# UKBT alone. This file's job is to keep that work from silently becoming a
+# claim of rights it hasn't earned — not to prevent the work.
 #
-# REPAIR HISTORY: this file previously carried TWO different, disagreeing
-# rights-boundary structures written on different days: an early
-# allowed_now/not_allowed_now/allowed_when_verified block that forbade
-# "extract_design_patterns/adapt_tokens" outright, and a later
-# lifecycle_states block that explicitly permitted css_ast_parsing/
-# computed_style_extraction/token_candidate_extraction. Both are REPLACED
-# here by the single four-state model below. Nothing is deleted without
-# record: the full contradiction and its resolution are in
-# artifacts/verification/CONTRACT-AUDIT.md.
+# REPAIR HISTORY:
+#   2026-08-26, repair 1: this file previously carried TWO different,
+#   disagreeing rights-boundary structures written on different turns of the
+#   same session (an allowed_now/not_allowed_now/allowed_when_verified block
+#   that forbade extract_design_patterns/adapt_tokens outright, alongside a
+#   lifecycle_states block that explicitly permitted css_ast_parsing/
+#   computed_style_extraction). Replaced with a single rights_states +
+#   operation_classes model. See artifacts/verification/CONTRACT-AUDIT.md.
+#   2026-08-26, repair 2 (this version): that model still conflated three
+#   different concepts under one four-way split — understanding the source,
+#   building the UKBT implementation from that understanding, and obtaining
+#   production/redistribution clearance. Replaced with the two-layer model
+#   below: four PERMISSION FACTS (unchanged in substance from repair 1,
+#   renamed to match the precise terms given at repair 2) that gate five
+#   PIPELINE STAGES (new — this is the layer that was missing). The prior
+#   operation_classes key is retired; its content is folded into each
+#   stage's own `permits` list below, so there are not three parallel
+#   structures that could drift out of agreement with each other again.
 # ============================================================================
 
 template:
   name: Adelux
   version: "1.0.0"
   sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  status: NOT_ADMITTED
+  license_status: STATED_BUT_UNVERIFIED
   in_repository: false
   evidence: [EV-20260826-005, EV-20260826-006]
   marketplace:
@@ -31,165 +43,270 @@ template:
     envato_elements_slug: "X3FTRWG"
     channel_used: UNKNOWN        # U-25 — two different licensing models possible
   other_website_reuse: PROHIBITED_ABSENT_ADDITIONAL_LICENCE
-  cross_framework_reimplementation: LEGAL_REVIEW_REQUIRED   # U-26 — see rights_states.IMPLEMENTATION below
+  cross_framework_reimplementation: LEGAL_REVIEW_REQUIRED   # U-26
+  note: >
+    NOT_ADMITTED means the original template package is not admitted as a
+    redistributable dependency or a generic company template — it is not in
+    this repository, and never will be while status stays NOT_ADMITTED. It
+    does NOT mean the source cannot be inspected: see reference_use_status
+    below and the pipeline_stages this file defines.
+  reference_use_status: FORENSIC_ANALYSIS_ALLOWED
+  implementation_status: GOVERNED_ADAPTATION
+  production_status: NOT_CLEARED
 
 # ============================================================================
-# THE FOUR RIGHTS STATES — explicit, not boolean. Do not collapse to one flag.
+# LAYER 1 — PERMISSION FACTS (four, explicit, never boolean)
 # ============================================================================
-# Each state answers a DIFFERENT question. A yes on one is not evidence for
-# another. Values here are the CURRENT state and change only when new
-# evidence justifies it — never by inference from a neighboring state.
+# Each answers a DIFFERENT question. A yes on one is never evidence for
+# another. These are the facts; the pipeline_stages below are what they gate.
 
-rights_states:
-  FORENSIC_ALLOWED: TRUE
+permission_facts:
+  FORENSIC_PERMISSION: ALLOWED
   # Reading, parsing, rendering, and measuring the immutable source to
-  # understand what it IS. This is analysis and documentation. It requires
-  # no licence because it makes no use of the licensed work beyond reading it
-  # — the same basis on which examining any published work to understand it
-  # has always been permitted, independent of whether one may reuse it.
+  # understand what it IS. Requires no licence — it makes no use of the
+  # licensed work beyond reading it, the same basis on which examining any
+  # published work to understand it has always been permitted, independent
+  # of whether one may reuse it.
 
-  IMPLEMENTATION_ALLOWED: CONDITIONAL / GOVERNED
-  # Building UKBT-original code/tokens/content that was INFORMED by forensic
-  # findings. Conditional on: (a) the specific artifact being genuinely
-  # original expression, not copied source, and (b) the idea/expression
-  # question (U-26) for anything closer to direct reimplementation of
-  # Adelux's specific grammar. "Governed" means: every item built this way is
-  # classified per operation_classification below, not assumed clear by
-  # default.
+  IMPLEMENTATION_PERMISSION: GOVERNED
+  # Building UKBT-original artifacts informed by forensic findings.
+  # "Governed" = every item is classified by pipeline stage and token
+  # lifecycle state below, never assumed clear by default.
 
-  PRODUCTION_ALLOWED: NOT_VERIFIED
+  PRODUCTION_CLEARANCE: NOT_CLEARED
   # Shipping any Adelux-informed material to a live, deployed UKBT site.
   # Requires BL-02 to close (or the specific item to be independently
-  # cleared, e.g. an MIT-licensed vendor library) AND the truth/asset gates
+  # cleared — e.g. an MIT-licensed vendor library) AND the truth/asset gates
   # (knowledge/07) to pass for that item.
 
-  REDISTRIBUTION_ALLOWED: FALSE
+  REDISTRIBUTION_PERMISSION: NOT_ALLOWED
   # Publishing, reselling, sublicensing, or distributing the Adelux source
-  # (original or modified) as a standalone thing, or building a reusable
-  # Adelux-derived template/theme/framework for use beyond this one site.
-  # FALSE regardless of how the other three states resolve — this is
-  # prohibited by every licence tier examined (EV-20260826-006), and is also
-  # simply not the objective. Changing this to TRUE requires evidence this
-  # project does not anticipate ever having.
+  # (original or modified), or building a reusable Adelux-derived
+  # template/theme/framework for use beyond this one site. NOT_ALLOWED
+  # regardless of how the other three resolve — prohibited by every licence
+  # tier examined (EV-20260826-006) and not the objective in any case.
 
-rights_states_change_log:
-  - date: 2026-08-26
-    state: FORENSIC_ALLOWED
-    from: "ambiguous (two contradicting blocks in this file)"
-    to: TRUE
-    evidence: "requester's explicit, specific authorization naming CSS AST/computed-style/token-candidate extraction"
-
-# ============================================================================
-# SOURCE vs. DESTINATION — operations are scoped to which side they touch
-# ============================================================================
-
-source_side:
-  location: "scratch directory, outside this repository — never copied in"
-  identity: template.sha256 above
-  allowed: [read, parse, measure, render, extract, hash, compare]
-  forbidden: [modify, delete, overwrite, redistribute]
-  note: >
-    The archive and its extracted contents are immutable reference material.
-    Every operation reads them; none writes to them. Verified before every
-    commit this session (grep + find checks for copied binaries/markup).
-
-destination_side:
-  location: "this repository, UKBT/ once Stage 4 creates it"
-  allowed: [create, implement, adapt, tokenize, test, refactor]
-  scope_limit: >
-    Single-site (UK Bangla Tigers) only. See architecture invariant on
-    single-site scope, knowledge/03-ARCHITECTURE-INVARIANTS.yaml.
-  forbidden: [copy_entire_adelux_package_in, embed_adelux_brand_assets]
+invalid_inferences_explicitly_rejected:
+  - "INVALID: FORENSIC_PERMISSION is ALLOWED, therefore PRODUCTION_CLEARANCE is granted."
+  - "INVALID: PRODUCTION_CLEARANCE is NOT_CLEARED, therefore FORENSIC_PERMISSION is forbidden."
+  - "INVALID: the framework changed, therefore a new licence right exists."
+  - "INVALID: forensic extraction is allowed, therefore the licence is verified."
+invalid_inferences_note: >
+  ADELUX_LICENSE_VERDICT stays STATED_BUT_UNVERIFIED until acquisition/
+  licence evidence says otherwise, independent of every other fact here.
 
 # ============================================================================
-# OPERATION CLASSIFICATION — machine-readable, one class per operation
+# LAYER 2 — FIVE PIPELINE STAGES (the layer that was missing)
 # ============================================================================
-# Every Adelux-related action falls into exactly one class. The class, not
-# the target file or the requester's stated intent, determines what's
-# permitted — this is what stops "we can inspect it" from drifting into
-# "therefore we can ship it."
+# Sequential. Each stage's permitted actions and gating permission_fact.
 
-operation_classes:
-  READ_ONLY_FORENSICS:
-    definition: "Reading the source without deriving new structured data from it."
-    examples: [read_html, read_css, read_js, inspect_assets, inspect_source,
-               inspect_font_usage, inspect_image_dimensions]
-    requires: []
-    gated_by_BL02: false
+pipeline_stages:
 
-  DERIVED_ANALYSIS:
-    definition: "Deterministically deriving structured facts ABOUT the source."
-    examples: [extract_css_ast, extract_css_values, extract_computed_styles,
-               extract_dom_structure, extract_selector_graph,
-               extract_specificity, extract_cascade, extract_media_queries,
-               extract_breakpoints, extract_pseudo_states, extract_animations,
-               extract_geometry, capture_reference_screenshots,
-               map_asset_usage, identify_component_patterns,
-               identify_token_candidates, identify_responsive_patterns,
-               structural_inventory, responsive_diff_analysis]
-    requires: []
-    gated_by_BL02: false
+  1_FORENSIC_ANALYSIS:
+    meaning: "Observe what the reference actually contains."
+    gated_by: FORENSIC_PERMISSION
+    permits:
+      - inspect
+      - parse
+      - read_html
+      - read_css
+      - read_js
+      - inspect_assets
+      - css_ast_parsing
+      - selector_graph_analysis
+      - selector_specificity_analysis
+      - cascade_tracing
+      - computed_style_extraction
+      - geometry_measurement
+      - responsive_analysis
+      - breakpoint_analysis
+      - pseudo_state_analysis
+      - interaction_state_analysis
+      - animation_analysis
+      - font_usage_analysis
+      - image_metadata_analysis
+      - screenshot_capture_for_comparison
+      - token_candidate_extraction
+      - component_candidate_discovery
+    forbids: [redistribute_source, modify_source, claim_production_clearance]
+    note: "This is read/derive/measure. It does NOT authorize redistribution."
+
+  2_DESIGN_EXTRACTION:
+    meaning: "Derive deterministic design facts from the reference."
+    gated_by: FORENSIC_PERMISSION
+    permits_generation_of:
+      - raw_design_values
+      - css_rule_maps
+      - selector_maps
+      - computed_style_manifests
+      - geometry_manifests
+      - responsive_manifests
+      - interaction_manifests
+      - asset_manifests
+      - font_manifests
+      - animation_manifests
+      - token_candidates
+      - component_candidates
+      - page_section_component_relationships
+    provenance_required_per_item: [source, file, line_where_available, selector,
+                                    property, viewport_or_state_where_applicable,
+                                    derivation_method, classification]
+    forbids: [automatic_semantic_approval]
     note: >
-      This is the class that the two prior contradicting blocks disagreed
-      about. It is explicitly ALLOWED. `capture_reference_screenshots` is
-      allowed as a DERIVED_ANALYSIS action (taking the screenshot, for local
-      comparison) but persisting one into this repository is not — see
-      golden_reference_rule below; the operation and its output's storage
-      location are classified separately.
+      Deterministic derived-data phase. Does not automatically approve
+      semantic meanings — see token_lifecycle below.
 
-  UKBT_IMPLEMENTATION:
-    definition: "Writing UKBT-original code/content, whether or not informed by DERIVED_ANALYSIS."
-    examples: [write_ukbt_css, write_ukbt_component, write_ukbt_content,
-               build_ukbt_original_tokens, promote_token_to_approved]
-    requires: "the item is original expression, or its idea/expression status is resolved (U-26)"
-    gated_by_BL02: "only for the portion that would embed Adelux's own expression directly"
+  3_UKBT_ADAPTATION:
+    meaning: >
+      Translate extracted facts into UKBT-owned implementation structures.
+      THE CRITICAL LAYER — the purpose is to translate the extracted visual
+      contract into UKBT without importing the entire Adelux package.
+    gated_by: IMPLEMENTATION_PERMISSION
+    translation_examples:
+      - {from: "Adelux CSS custom property", to: "UKBT design token"}
+      - {from: "Adelux layout rule", to: "UKBT CSS/layout contract"}
+      - {from: "Adelux repeated DOM pattern", to: "UKBT component contract"}
+      - {from: "Adelux responsive transition", to: "UKBT responsive rule"}
+      - {from: "Adelux button appearance", to: "UKBT button variant"}
+      - {from: "Adelux hero composition", to: "UKBT hero component"}
+    forbids:
+      - create_generic_adelux_framework
+      - create_marketplace_template
+      - preserve_adelux_branding_or_content
+      - copy_unrelated_demo_content
+    note: "The resulting implementation belongs to UKBT."
 
-  PRODUCTION:
-    definition: "Using a specific, individually-cleared item in the deployed UKBT site."
-    examples: [ship_verified_cleared_asset, deploy_ukbt_build]
-    requires: "PRODUCTION_ALLOWED for that specific item — see rights_states"
-    gated_by_BL02: true
+  4_UKBT_IMPLEMENTATION:
+    meaning: "Build the UKBT site."
+    gated_by: IMPLEMENTATION_PERMISSION
+    permits: [write_ukbt_css, write_ukbt_component, write_ukbt_content,
+              build_ukbt_original_tokens]
+    requires: "inputs came from stage 3 (UKBT_ADAPTATION), not directly from stage 1/2 source material"
+    scope_limit: "single-site (UK Bangla Tigers) only — see INV-016"
 
-  REDISTRIBUTION:
-    definition: "Distributing the Adelux source, a derivative of it, or a reusable Adelux-based product, to anyone beyond this one site's operation."
-    examples: [publish_adelux_source, sell_template, create_reusable_adelux_framework,
-               create_multi_client_template, sublicense_adelux]
-    requires: "N/A — see rights_states.REDISTRIBUTION_ALLOWED"
-    gated_by_BL02: "irrelevant — FALSE regardless of BL-02's outcome"
+  5_PRODUCTION_RELEASE:
+    meaning: "Ship — only after applicable rights/provenance gates are satisfied."
+    gated_by: PRODUCTION_CLEARANCE
+    permits: []
+    requires: >
+      Every RIGHTS_GATED and LICENSE_BLOCKED item catalogued anywhere in
+      artifacts/ must resolve to a cleared status before this stage, or be
+      excluded. Not implied by reaching a working local build. Visual
+      regression (below) is a first-class requirement of this stage, not a
+      polish step.
 
-golden_reference_rule: >
-  A screenshot of the rendered Adelux site is a reproduction of its licensed
-  visual expression — the same rights question as the source files, not a
-  separate one. Capturing one (DERIVED_ANALYSIS) is permitted for transient,
-  local comparison during analysis. PERSISTING one into this repository as a
-  "golden reference" is REDISTRIBUTION-adjacent storage of the source's own
-  expression and is forbidden while REDISTRIBUTION_ALLOWED is FALSE and
-  BL-02 is open. If BL-02 clears, screenshots become the same class of
-  material as the source and inherit whatever the cleared licence permits.
-
-# ============================================================================
-# FRAMEWORK TRANSLATION vs. LEGAL CLEARANCE — do not conflate these
-# ============================================================================
-# The engineering fact ("this can be rebuilt in another framework") and the
-# rights fact ("we may lawfully do so and ship it") are answered by different
-# evidence and must never be merged into one conclusion.
-
-framework_translation:
-  status: TECHNICALLY_SUPPORTED
-  basis: "Astro (or any component-based framework) can reproduce observed DOM/CSS/behaviour; this is an engineering capability finding."
-legal_clearance:
-  status: SEPARATE_QUESTION
-  basis: "Governed entirely by rights_states above. Framework choice has no bearing on it."
-explicit_prohibition: >
-  Do not conclude "the framework changed, therefore a new licence right
-  exists" or "forensic extraction is allowed, therefore the licence is
-  verified." Neither inference is valid. ADELUX_LICENSE_VERDICT stays
-  STATED_BUT_UNVERIFIED until acquisition/licence evidence says otherwise,
-  full stop, independent of every other fact in this file.
+retired_structure_note: >
+  The prior operation_classes key (READ_ONLY_FORENSICS / DERIVED_ANALYSIS /
+  UKBT_IMPLEMENTATION / PRODUCTION / REDISTRIBUTION) is retired. Its content
+  is folded into the five pipeline_stages above, which are more granular and
+  sequential rather than a flat classification — avoiding a third parallel
+  structure that could drift out of agreement with this one.
 
 # ============================================================================
-# EVERYTHING BELOW IS UNCHANGED CONTENT FROM THE PRIOR FILE, PRESERVED
+# TOKEN LIFECYCLE — four states, never skip one
 # ============================================================================
+
+token_lifecycle:
+  states: [RAW, CANDIDATE, ADAPTED, APPROVED]
+  definitions:
+    RAW: "Literal source observation (a value as it appears in Adelux's CSS)."
+    CANDIDATE: "Deterministically derived reusable value/pattern (recurs with a coherent semantic cluster, not just a repeated number)."
+    ADAPTED: "Representation translated into UKBT's own design-system vocabulary (stage 3, UKBT_ADAPTATION)."
+    APPROVED: "Explicitly accepted into the UKBT implementation."
+  rule: "Never skip directly from RAW to APPROVED. Every promotion is a recorded step."
+  semantic_trap: >
+    "Same value" is not "same semantic token." 20px appearing in five places
+    does not automatically mean one semantic token — preserve usage context
+    per occurrence before clustering (see artifacts/extraction/
+    token-candidates.json, which already applies this at the RAW/CANDIDATE
+    level for the Bootstrap gutter variables: 61 contextual redeclarations,
+    correctly NOT collapsed into one token).
+  existing_evidence_note: >
+    artifacts/extraction/token-candidates.json (EV-20260826-009) predates
+    this four-state model and uses only RAW/CANDIDATE — that remains valid;
+    nothing in it is wrong, it simply has not yet gone through ADAPTED or
+    APPROVED, which is accurate since stage 3 has not run.
+
+# ============================================================================
+# SCREENSHOTS — governed, not absolutely prohibited
+# ============================================================================
+
+reference_screenshot_storage:
+  transient_comparison: ALLOWED
+  repository_commit: GOVERNED
+  redistribution: NOT_ALLOWED_UNLESS_CLEARED
+  rule: >
+    Reference screenshots may be used transiently, or in an appropriately
+    controlled verification environment. GOVERNED (not an absolute
+    prohibition, corrected from repair 1's wording): if a screenshot IS
+    committed to this repository, its rights status and provenance
+    (source page, viewport, date, SHA-256 of the source page at capture
+    time) must be recorded alongside it — it does not become exempt from
+    BL-02 by being stored, and repository_commit while BL-02 is open is
+    still governed by PRODUCTION_CLEARANCE = NOT_CLEARED, not a free pass.
+  immutability: >
+    The reference must remain immutable. Do not alter a reference screenshot
+    to make a comparison pass — that would falsify the comparison it exists
+    to provide.
+
+# ============================================================================
+# VISUAL REGRESSION — mandatory, cross-referenced from 08-VALIDATION-POLICY
+# ============================================================================
+
+visual_regression:
+  mandatory: true
+  frozen_reference_environment: [browser, browser_version, viewport,
+                                  device_scale_factor, fonts, locale, timezone,
+                                  reduced_motion_setting, content_fixture]
+  compare_per_migrated_page: [screenshot, geometry, computed_styles,
+                               responsive_behavior, interaction_states]
+  rule: "See knowledge/08-VALIDATION-POLICY.yaml visual_fidelity_gate — a build passing, a token test passing, or a screenshot being merely 'close' is NOT visual parity."
+
+# ============================================================================
+# THIRD-PARTY RIGHTS — software and fonts tracked separately
+# ============================================================================
+
+third_party_software:
+  rule: "Each bundled component is a separate rights domain. Not automatically covered by the Adelux template licence."
+  verified_permissive: [bootstrap, jquery, swiper, flatpickr]
+  attribution_required: [font-awesome]           # CC BY 4.0 icons
+  requires_decision: [animate.css]                # Hippocratic License 2.1
+  blocked: [isotope]                              # GPLv3 or paid commercial licence
+  unknown: [fslightbox, odometer]
+
+third_party_fonts:
+  unknown: [lato, montserrat]                     # served from fonts.gstatic.com; OFL claimed, not independently reverified
+
+decisions:
+  - {component: isotope, decision: DO_NOT_ADOPT, reason: "no demonstrated need; independent GPLv3/commercial obligation", date: 2026-08-26}
+  - {component: animate.css, decision: DO_NOT_ADOPT, reason: "no demonstrated need; Hippocratic 2.1 not sign-off-cleared", date: 2026-08-26}
+
+privacy:
+  finding: "Shipped font CSS loads Lato/Montserrat from fonts.gstatic.com."
+  consequence: "Third-party requests disclose visitor IPs. UK GDPR relevance (U-18)."
+  rule: "Self-host fonts, or record a lawful basis. Do not carry this over unexamined."
+
+# ============================================================================
+# ASSET POLICY
+# ============================================================================
+
+asset_policy:
+  rule: "Do not copy Adelux demo assets into UKBT merely because they are useful."
+  record_per_asset: [SOURCE, IDENTITY, USAGE, RIGHTS_STATUS, UKBT_REQUIRED, ALTERNATIVE]
+  when_needed_but_not_clearable: >
+    Replace with a UKBT-cleared equivalent while preserving the visual role,
+    dimensions, crop, ratio, and composition as closely as possible. Never
+    silently replace an asset and call it equivalent — record the adaptation
+    (source asset, replacement, what was preserved, what changed, why).
+
+# ============================================================================
+# BRAND BOUNDARY
+# ============================================================================
+
+brand_boundary:
+  forbidden: [adelux_logo, adelux_name, adelux_demo_copy, adelux_contact_details,
+              adelux_club_facts, adelux_specific_business_claims, adelux_proprietary_branding]
+  allowed: [ukbt_content_occupying_the_equivalent_visual_structure]
 
 never_allowed_without_specific_evidence:
   - claim_ownership
@@ -223,33 +340,46 @@ leak_paths:
     detail: "A licensor cannot sublicense rights it does not hold (DR-019)."
     control: "third-party components verified independently, per component"
 
-third_party_rights:
-  rule: "Each bundled component is a separate rights domain. Verify individually."
-  verified_permissive: [bootstrap, jquery, swiper, flatpickr]
-  attribution_required: [font-awesome]           # CC BY 4.0 icons
-  requires_decision: [animate.css]               # Hippocratic License 2.1
-  blocked: [isotope]                             # GPLv3 or paid commercial licence
-  unknown: [fslightbox, odometer, lato, montserrat]
-  note: >
-    A10 proposes no third-party UI library, which cheaply avoids most of this.
-    Not adopting a component must be a RECORDED decision, not an accident.
+# ============================================================================
+# SINGLE-SITE SCOPE
+# ============================================================================
 
-decisions:
-  - {component: isotope, decision: DO_NOT_ADOPT, reason: "no demonstrated need; independent GPLv3/commercial obligation", date: 2026-08-26}
-  - {component: animate.css, decision: DO_NOT_ADOPT, reason: "no demonstrated need; Hippocratic 2.1 not sign-off-cleared", date: 2026-08-26}
+single_site_scope:
+  applies_to: "UK Bangla Tigers only"
+  forbidden: [generic_reusable_adelux_product, packaging_extracted_system_for_other_customers,
+              claim_lablaunchpad_owns_adelux, claim_sublicensing_rights, claim_unrestricted_redistribution]
+  control: "knowledge/03-ARCHITECTURE-INVARIANTS.yaml INV-016; permission_facts.REDISTRIBUTION_PERMISSION = NOT_ALLOWED"
 
-privacy:
-  finding: "Shipped font CSS loads Lato/Montserrat from fonts.gstatic.com."
-  consequence: "Third-party requests disclose visitor IPs. UK GDPR relevance (U-18)."
-  rule: "Self-host fonts, or record a lawful basis. Do not carry this over unexamined."
+# ============================================================================
+# LICENSE STATE
+# ============================================================================
+
+license_state:
+  ADELUX_LICENSE_VERDICT: STATED_BUT_UNVERIFIED
+  rule: "Keep this verdict until actual acquisition evidence is provided. Do not invent purchase ID, license holder, license tier, client entitlement, derivative-work rights, or cross-framework rights."
+  if_evidence_later_establishes_a_valid_licence: >
+    Update ONLY the applicable rights state, with provenance (a new EV-
+    record). Do not rewrite historical evidence — supersede, per
+    knowledge/04-EVIDENCE-POLICY.yaml's registry rules.
+
+# ============================================================================
+# FRAMEWORK TRANSLATION vs. LEGAL CLEARANCE — do not conflate these
+# ============================================================================
+
+framework_translation:
+  status: TECHNICALLY_SUPPORTED
+  basis: "Astro (or any component-based framework) can reproduce observed DOM/CSS/behaviour; this is an engineering capability finding."
+legal_clearance:
+  status: SEPARATE_QUESTION
+  basis: "Governed entirely by permission_facts above. Framework choice has no bearing on it."
 
 relationship_to_pipeline_stage_6: >
   docs/10-fresh-repo-pipeline.md and prompts/16-reference-analysis.md define
   "Stage 6" as producing PROPOSED_UKBT_ADAPTATION recommendations and
-  component-reuse decisions — that is UKBT_IMPLEMENTATION-class output under
-  this file's classification, and Stage 6 correctly stays gated on BL-02.
-  DERIVED_ANALYSIS work under FORENSIC_ALLOWED (CSS AST, cascade, computed
-  styles, token/component CANDIDATES) is a narrower, explicitly-authorized
-  activity that lawfully PRECEDES Stage 6 and produces evidence Stage 6 will
-  reuse — it does not substitute for Stage 6's adaptation output, and running
-  it does not mean Stage 6 has run.
+  component-reuse decisions — that is this file's stage 3 (UKBT_ADAPTATION)
+  and stage 4 (UKBT_IMPLEMENTATION), and Stage 6 correctly stays gated on
+  BL-02 for the Adelux-derived portion. Stages 1-2 here (FORENSIC_ANALYSIS,
+  DESIGN_EXTRACTION) are the narrower, explicitly-authorized activity that
+  lawfully PRECEDES Stage 6 and produces evidence Stage 6 will reuse — it
+  does not substitute for Stage 6's adaptation output, and running it does
+  not mean Stage 6 has run.

@@ -1,0 +1,61 @@
+id: EV-20260826-011
+classification: VALIDATION_RESULT
+claim: >
+  Second governance policy repair: the four-way rights model from the prior
+  repair still conflated understanding, implementation, and clearance under
+  one flat split. Restructured into two explicit layers - four permission
+  facts gating five sequential pipeline stages - and a full contradiction
+  audit passed.
+source: "Direct inspection and repair of this repository's governance files."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "A record of a completed repair and its verification does not expire."
+scope: "knowledge/06-TEMPLATE-BOUNDARY.yaml, knowledge/03 and 05 cross-references, prompts/16-reference-analysis.md"
+method: >
+  Full rewrite of knowledge/06-TEMPLATE-BOUNDARY.yaml per explicit
+  instruction. Grep sweep for retired vocabulary (rights_states.,
+  operation_classes:, FORENSIC_ALLOWED, IMPLEMENTATION_ALLOWED,
+  PRODUCTION_ALLOWED, REDISTRIBUTION_ALLOWED, DERIVED_ANALYSIS) across
+  knowledge/, prompts/, docs/. Structural verification of token_lifecycle,
+  reference_screenshot_storage, third_party_software/fonts split, and the
+  restored template.status/license_status literal fields against the exact
+  specification given. Full YAML validity sweep.
+result: |
+  Two stale cross-references found, both self-inflicted by this session's
+  own prior repair (not new contradictions from another source):
+  knowledge/03-ARCHITECTURE-INVARIANTS.yaml INV-016 cited the just-retired
+  rights_states.REDISTRIBUTION_ALLOWED key, and prompts/16-reference-
+  analysis.md cited the just-retired DERIVED_ANALYSIS/FORENSIC_ALLOWED
+  names. Both fixed to the new permission_facts/pipeline_stages vocabulary.
+  No other governance file redefined a conflicting rule.
+
+  New structure: permission_facts (FORENSIC_PERMISSION, IMPLEMENTATION_
+  PERMISSION, PRODUCTION_CLEARANCE, REDISTRIBUTION_PERMISSION) gate
+  pipeline_stages (1_FORENSIC_ANALYSIS, 2_DESIGN_EXTRACTION,
+  3_UKBT_ADAPTATION, 4_UKBT_IMPLEMENTATION, 5_PRODUCTION_RELEASE). Prior
+  operation_classes retired and folded into the five stages, avoiding a
+  third parallel structure. token_lifecycle expanded from RAW/CANDIDATE/
+  APPROVED to RAW/CANDIDATE/ADAPTED/APPROVED, with ADAPTED corresponding to
+  the newly-explicit UKBT_ADAPTATION stage. Screenshot policy changed from
+  an absolute persist-prohibition to governed (transient_comparison:
+  ALLOWED, repository_commit: GOVERNED with required provenance,
+  redistribution: NOT_ALLOWED_UNLESS_CLEARED).
+
+  CONTRACT_AUDIT = PASS. All 10 knowledge/*.yaml files remain valid YAML.
+  BL-02 unchanged: STATED_BUT_UNVERIFIED. No application code changed.
+related_files:
+  - artifacts/verification/CONTRACT-AUDIT-2.md
+  - knowledge/06-TEMPLATE-BOUNDARY.yaml
+  - knowledge/03-ARCHITECTURE-INVARIANTS.yaml
+  - knowledge/05-UNKNOWN-BLOCKER-POLICY.yaml
+  - prompts/16-reference-analysis.md
+related_task: GOVERNANCE-POLICY-REPAIR-2
+relates_to: [EV-20260826-010]
+notes: >
+  Both contradictions this round were caused BY the previous repair's own
+  renames not being propagated to every citing file - a real instance of
+  the exact drift class this project's anti-drift discipline exists to
+  catch, caught here by re-running the full sweep rather than trusting the
+  single-file edit was self-contained.

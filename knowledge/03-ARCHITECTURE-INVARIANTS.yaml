@@ -66,5 +66,5 @@ invariants:
     distinction: >
       GOOD: a UKBT Header component reused across UKBT pages.
       BAD: an "Adelux Framework" designed for future customers.
-    control: "knowledge/06-TEMPLATE-BOUNDARY.yaml rights_states.REDISTRIBUTION_ALLOWED = FALSE"
+    control: "knowledge/06-TEMPLATE-BOUNDARY.yaml permission_facts.REDISTRIBUTION_PERMISSION = NOT_ALLOWED"
     origin: "requester direction, single-site scope"

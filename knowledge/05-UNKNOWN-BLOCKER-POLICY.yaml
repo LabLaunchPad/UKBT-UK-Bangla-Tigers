@@ -59,10 +59,10 @@ evidence_reuse_rule:
     - existing evidence cannot answer the specific decision at hand
     - rights/security/production clearance specifically requires fresh verification
   when_requesting_more_evidence_state_all_four:
-    - "WHAT is missing"
-    - "WHY it matters"
-    - "WHAT decision it blocks"
-    - "WHY existing evidence cannot answer it"
+    - "MISSING_FACT — what is missing"
+    - "WHY_NEEDED — why it matters"
+    - "DECISION_BLOCKED — what decision it blocks"
+    - "WHY_EXISTING_EVIDENCE_IS_INSUFFICIENT — why current evidence cannot answer it"
   rule: >
     Do not ask for evidence merely because a topic is important. Importance is
     not one of the five reuse-triggering conditions above.

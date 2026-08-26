@@ -5,12 +5,14 @@ recorded as evidence. See `artifacts/bootstrap/UNKNOWN-EVIDENCE.md` (BL-02 / G21
 
 **Scope note (added after this session's forensic-analysis work):** this gate
 covers *this stage's* output — `PROPOSED_UKBT_ADAPTATION` recommendations and
-component-reuse decisions, which is `UKBT_IMPLEMENTATION`-class work per
+component-reuse decisions, which correspond to pipeline stages 3
+(`UKBT_ADAPTATION`) and 4 (`UKBT_IMPLEMENTATION`) in
 `knowledge/06-TEMPLATE-BOUNDARY.yaml`. It does not retroactively forbid the
-narrower `DERIVED_ANALYSIS` work (CSS AST, cascade tracing, computed styles,
-token/component *candidates*) already performed under that file's
-`FORENSIC_ALLOWED` state — that work lawfully precedes this stage and is
-reused here, not repeated. Running it is not the same as this stage having run.
+narrower stage 1/2 work (`FORENSIC_ANALYSIS`, `DESIGN_EXTRACTION` — CSS AST,
+cascade tracing, computed styles, token/component *candidates*) already
+performed under that file's `FORENSIC_PERMISSION: ALLOWED` fact — that work
+lawfully precedes this stage and is reused here, not repeated. Running it is
+not the same as this stage having run.
 
 I am providing a reference design/template. Treat the reference as **VISUAL
 EVIDENCE, not as application architecture.**
