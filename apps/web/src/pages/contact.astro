@@ -14,6 +14,7 @@ import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import Footer from '../components/Footer.astro';
+import AboutCTA from '../components/AboutCTA.astro';
 import { homepage } from '../content/homepage-data';
 import SubHeading from '../components/SubHeading.astro';
 ---
@@ -51,6 +52,10 @@ import SubHeading from '../components/SubHeading.astro';
           }
         </ul>
       </div>
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
     </Section>
   </main>
 

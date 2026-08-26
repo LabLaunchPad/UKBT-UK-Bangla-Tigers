@@ -11,6 +11,8 @@ import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import TournamentCard from '../components/TournamentCard.astro';
 import Footer from '../components/Footer.astro';
+import FranchiseTeaser from '../components/FranchiseTeaser.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
 import { homepage } from '../content/homepage-data';
 import { completedTournaments, upcomingTournaments } from '../content/tournaments-data';
 ---
@@ -39,6 +41,14 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
       <div class="ukbt-events-grid">
         {completedTournaments.map((t) => <TournamentCard {...t} />)}
       </div>
+    </Section>
+
+    <Section>
+      <FranchiseTeaser name={homepage.sisterFranchise} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <TestimonialSection />
     </Section>
   </main>
 

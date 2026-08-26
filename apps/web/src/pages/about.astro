@@ -14,9 +14,31 @@ import MissionWelcome from '../components/MissionWelcome.astro';
 import AboutStory from '../components/AboutStory.astro';
 import LeadershipGrid from '../components/LeadershipGrid.astro';
 import AboutCTA from '../components/AboutCTA.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { about } from '../content/about-data';
+
+// Restates facts already on record; no new claim about the club.
+const reasons = [
+  {
+    title: 'International Competition',
+    body: 'Competing across the Safari International T20 Cup, Nordic Smash T20 and the Asian Challengers Trophy.',
+  },
+  {
+    title: 'A Learning Institute',
+    body: 'The club describes itself as not only a team, but an institute for learning.',
+  },
+  {
+    title: 'A Franchise Network',
+    body: 'One family across two nations, alongside sister franchise Uppsala Tigers in Sweden.',
+  },
+  {
+    title: 'A Registered Club',
+    body: `Founded in ${about.founded} and registered as ${about.legalEntity}.`,
+  },
+];
 
 const storyStats = [
   { value: about.founded, label: 'Founded' },
@@ -54,8 +76,16 @@ const structuredData = {
       <AboutStory paragraphs={about.storyParagraphs} stats={storyStats} />
     </Section>
 
+    <Section surface="alt" wrapper={true}>
+      <WhyChooseUs reasons={reasons} />
+    </Section>
+
     <Section>
       <LeadershipGrid leaders={about.leaders} />
+    </Section>
+
+    <Section surface="alt">
+      <TestimonialSection />
     </Section>
 
     <Section surface="alt" paddingBottom="normal">
