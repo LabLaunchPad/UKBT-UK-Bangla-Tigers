@@ -15,10 +15,19 @@ recorded here with its provenance class before use. Source stage: 7
 | `public/fonts/lato-400.woff2` | `artifacts/brand/raw/fonts/lato-400.woff2` | Lato Regular | Body text, self-hosted | Third-party (cleared) — SIL Open Font License | Yes (PROPOSED typography) | System font stack |
 | `public/fonts/lato-700.woff2` | `artifacts/brand/raw/fonts/lato-700.woff2` | Lato Bold | Body emphasis, self-hosted | Third-party (cleared) — SIL Open Font License | Yes (PROPOSED typography) | System font stack |
 | `public/fonts/montserrat-variable.woff2` | `artifacts/brand/raw/fonts/montserrat-variable.woff2` | Montserrat Variable | Headings, self-hosted | Third-party (cleared) — SIL Open Font License | Yes (PROPOSED typography) | System font stack |
-| `public/brand/franchises/nordic-smash-slide.webp` | `artifacts/brand/raw/images/uppsala/nordic-smash-slide.webp` | Uppsala Tigers "Overseas Signings — Nordic Smash T20" graphic | Franchise teaser section image | UKBT-owned (client-supplied) — confirmed sister-franchise content, not one of the 3 excluded images | Yes | None confirmed as UKBT-affiliated |
 
-## Explicitly NOT staged to production (per Stage 7G exclusions)
+## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
-`home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event
-affiliation not confirmed as UK Bangla Tigers (`EV-20260826-030`). No
-other file from `artifacts/brand/raw/images/` is staged here.
+- `home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event
+  affiliation not confirmed as UK Bangla Tigers (`EV-20260826-030`).
+- `nordic-smash-slide.webp` — **removed after initial staging**: has
+  "NIPO KHADEM / PORTUGAL" baked into the photo itself, which
+  `CLIENT_REQ_008` requires excluded from any published content
+  (`EV-20260826-031`, found on direct visual inspection — a text-content
+  grep cannot catch a name inside a raster image). It shipped briefly on
+  the Homepage's FranchiseTeaser section before this was caught; both
+  that section and the new Our Franchises page now use the crest instead.
+  No alternative Uppsala Tigers photo excluding this player exists in
+  evidence.
+
+No other file from `artifacts/brand/raw/images/` is staged here.

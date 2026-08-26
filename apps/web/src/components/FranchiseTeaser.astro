@@ -3,11 +3,16 @@
 // template-columns 1fr 1fr, gap 100px — image with an adjacent CTA
 // caption on one side, heading + feature list on the other).
 // Reimplemented with the sister franchise's real, evidenced facts
-// (EV-20260826-026/-030) — no invented feature copy. The CTA caption
-// sits BELOW the image, not overlaid on it: an overlay was tried first
-// and found (in visual QA) to sit on top of a player's face or the
-// image's own "OVERSEAS SIGNINGS" title text wherever it was placed —
-// not worth guessing at a "safe" spot on a busy source graphic.
+// (EV-20260826-026/-030) — no invented feature copy.
+//
+// The image side does NOT use nordic-smash-slide.webp: that graphic has
+// "NIPO KHADEM / PORTUGAL" baked into the photo itself, and
+// CLIENT_REQ_008 requires that name excluded from any published content
+// (EV-20260826-031, found on direct visual inspection — a text-content
+// grep cannot catch a name baked into a raster image). No alternative
+// Uppsala Tigers photo excluding that player exists in evidence, so this
+// falls back to the crest, the same pattern already used wherever no
+// confirmed-safe photo exists.
 interface Props {
   name: string;
 }
@@ -22,7 +27,9 @@ const facts = [
 
 <div class="ukbt-franchise">
   <div class="ukbt-franchise__image-side">
-    <img src="/brand/franchises/nordic-smash-slide.webp" alt="Uppsala Tigers — Nordic Smash T20" />
+    <div class="ukbt-franchise__crest-panel">
+      <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
+    </div>
     <div class="ukbt-franchise__cta">
       <h4>Meet {name}</h4>
       <a href="/franchises">See the franchise &rarr;</a>
@@ -56,11 +63,18 @@ const facts = [
     display: flex;
     flex-direction: column;
   }
-  .ukbt-franchise__image-side img {
-    display: block;
-    width: 100%;
-    height: auto;
+  .ukbt-franchise__crest-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ukbt-color-surface-alt);
     border-radius: var(--ukbt-radius-lg) var(--ukbt-radius-lg) 0 0;
+    padding: var(--ukbt-space-8) var(--ukbt-space-4);
+  }
+  .ukbt-franchise__crest-panel img {
+    display: block;
+    height: 12rem;
+    width: auto;
   }
   /* Mirrors .community-cta's role (a CTA anchored to the image) without
      overlaying text on top of the photo itself. */

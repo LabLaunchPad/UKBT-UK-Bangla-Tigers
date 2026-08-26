@@ -81,7 +81,12 @@ test('excluded images are never referenced by the built homepage', async ({
 }) => {
   await page.goto('/');
   const html = await page.content();
-  const excluded = ['home-hero.webp', 'join-us.webp', 'gallery-06.webp'];
+  const excluded = [
+    'home-hero.webp',
+    'join-us.webp',
+    'gallery-06.webp',
+    'nordic-smash-slide.webp',
+  ];
   for (const file of excluded) {
     expect(
       html.includes(file),

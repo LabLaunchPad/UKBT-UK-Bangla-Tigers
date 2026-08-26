@@ -82,6 +82,19 @@ image_affiliation_caution:            # NEW — EV-20260826-030
     career with other clubs, not UKBT team photography. NOT to be used
     as UKBT club imagery without further confirmation.
 
+image_excluded_person_caution:        # NEW — EV-20260826-031
+  note: >
+    images/uppsala/nordic-smash-slide.webp ("Overseas Signings" graphic)
+    has "NIPO KHADEM / PORTUGAL" baked into the photo itself, not just
+    recorded as metadata. CLIENT_REQ_008 requires that name excluded from
+    any published content. Found on direct visual inspection during Stage
+    7 site-scale page work — a text-content contamination grep cannot
+    catch a name inside a raster image. This graphic briefly shipped on
+    the Homepage's FranchiseTeaser section (Stage 7G) before the defect
+    was caught; both that section and the Our Franchises page now use the
+    crest instead. NOT to be used anywhere unless a version excluding
+    that player becomes available.
+
 brand:                                # NEW — U-05 substantially narrowed, EV-20260826-029; full record: artifacts/brand/BRAND-DECISION.md
   logo_status: VERIFIED
   logo_asset: artifacts/brand/raw/brand/crest.png

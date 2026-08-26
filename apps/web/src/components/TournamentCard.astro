@@ -1,0 +1,62 @@
+---
+// Standalone card for the full tournament calendar page — same visual
+// language as the reference's `.card-tournament` (dark card, pill status
+// tags, meta row) already established in `TournamentGrid.astro` for the
+// Homepage, but this component is independent so the frozen Homepage
+// component/contract is never touched by this page's needs (a full
+// upcoming+completed calendar, not a main-event/CTA/others split).
+interface Props {
+  name: string;
+  when: string;
+  where: string;
+  status: 'Upcoming' | 'Completed';
+}
+const { name, when, where, status } = Astro.props;
+---
+
+<div class={`ukbt-event-card ukbt-event-card--${status.toLowerCase()}`}>
+  <span class="ukbt-event-card__tag">{status}</span>
+  <h3>{name}</h3>
+  <div class="ukbt-event-card__meta">
+    <span>{when}</span>
+    <span>{where}</span>
+  </div>
+</div>
+
+<style>
+  .ukbt-event-card {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+  }
+  .ukbt-event-card__tag {
+    align-self: flex-start;
+    border: 1px solid var(--ukbt-color-brand-accent);
+    border-radius: var(--ukbt-radius-pill);
+    padding: 0 var(--ukbt-space-2);
+    font-size: 0.7rem;
+    color: var(--ukbt-color-brand-accent);
+  }
+  /* Distinguish "Completed" via the tag colour only, not by dimming the
+     card: an earlier opacity()-based treatment blended the gold tag text
+     toward the page background and dropped it below AA contrast (4.12:1,
+     found via axe). Light neutral grey against the navy card keeps full
+     contrast (~8.5:1) while still reading as "muted." */
+  .ukbt-event-card--completed .ukbt-event-card__tag {
+    border-color: var(--ukbt-color-neutral-300);
+    color: var(--ukbt-color-neutral-300);
+  }
+  .ukbt-event-card h3 {
+    margin: 0;
+  }
+  .ukbt-event-card__meta {
+    display: flex;
+    gap: var(--ukbt-space-3);
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-300);
+  }
+</style>

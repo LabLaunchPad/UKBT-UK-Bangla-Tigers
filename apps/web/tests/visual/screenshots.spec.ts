@@ -23,6 +23,11 @@ const outDir = path.resolve(
 const pages = [
   { route: '/', slug: 'homepage' },
   { route: '/about', slug: 'about' },
+  { route: '/club-captain', slug: 'club-captain' },
+  { route: '/players', slug: 'players' },
+  { route: '/franchises', slug: 'franchises' },
+  { route: '/tournaments', slug: 'tournaments' },
+  { route: '/contact', slug: 'contact' },
 ];
 
 for (const viewport of VIEWPORT_MATRIX) {
@@ -35,7 +40,10 @@ for (const viewport of VIEWPORT_MATRIX) {
       await page.goto(p.route);
       await page.waitForLoadState('networkidle');
       await page.screenshot({
-        path: path.join(outDir, `${p.slug}-${viewport.width}x${viewport.height}.png`),
+        path: path.join(
+          outDir,
+          `${p.slug}-${viewport.width}x${viewport.height}.png`,
+        ),
         fullPage: true,
       });
     });

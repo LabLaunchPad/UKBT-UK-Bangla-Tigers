@@ -7,7 +7,9 @@ import { VIEWPORT_MATRIX } from './viewports.js';
  * criteria). Real, executing checks — not asserted.
  */
 
-test('axe-core scan reports zero violations on the About Us page', async ({ page }) => {
+test('axe-core scan reports zero violations on the About Us page', async ({
+  page,
+}) => {
   await page.goto('/about');
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
@@ -35,30 +37,56 @@ test('no content-contamination strings appear anywhere in the rendered About Us 
 }) => {
   await page.goto('/about');
   const html = await page.content();
-  const forbidden = ['Adelux', 'Padel Club', 'Fox Creation', 'Nipo Khadem', 'Nipo'];
+  const forbidden = [
+    'Adelux',
+    'Padel Club',
+    'Fox Creation',
+    'Nipo Khadem',
+    'Nipo',
+  ];
   for (const term of forbidden) {
-    expect(html.includes(term), `forbidden term "${term}" found in rendered HTML`).toBe(false);
+    expect(
+      html.includes(term),
+      `forbidden term "${term}" found in rendered HTML`,
+    ).toBe(false);
   }
 });
 
-test('excluded images are never referenced by the built About Us page', async ({ page }) => {
+test('excluded images are never referenced by the built About Us page', async ({
+  page,
+}) => {
   await page.goto('/about');
   const html = await page.content();
-  const excluded = ['home-hero.webp', 'join-us.webp', 'gallery-06.webp'];
+  const excluded = [
+    'home-hero.webp',
+    'join-us.webp',
+    'gallery-06.webp',
+    'nordic-smash-slide.webp',
+  ];
   for (const file of excluded) {
-    expect(html.includes(file), `excluded asset "${file}" referenced in rendered HTML`).toBe(
-      false,
-    );
+    expect(
+      html.includes(file),
+      `excluded asset "${file}" referenced in rendered HTML`,
+    ).toBe(false);
   }
 });
 
-test('no leadership photo is rendered on the About Us page', async ({ page }) => {
+test('no leadership photo is rendered on the About Us page', async ({
+  page,
+}) => {
   await page.goto('/about');
-  const leadershipImgs = await page.locator('.ukbt-leadership__card img').count();
-  expect(leadershipImgs, 'leadership cards must stay text-only, no unconfirmed photos').toBe(0);
+  const leadershipImgs = await page
+    .locator('.ukbt-leadership__card img')
+    .count();
+  expect(
+    leadershipImgs,
+    'leadership cards must stay text-only, no unconfirmed photos',
+  ).toBe(0);
 });
 
-test('no horizontal overflow on the About Us page at any frozen viewport', async ({ page }) => {
+test('no horizontal overflow on the About Us page at any frozen viewport', async ({
+  page,
+}) => {
   for (const size of VIEWPORT_MATRIX) {
     await page.setViewportSize(size);
     await page.goto('/about');
@@ -66,8 +94,9 @@ test('no horizontal overflow on the About Us page at any frozen viewport', async
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
     }));
-    expect(scrollWidth, `horizontal overflow at ${size.width}x${size.height}`).toBeLessThanOrEqual(
-      clientWidth,
-    );
+    expect(
+      scrollWidth,
+      `horizontal overflow at ${size.width}x${size.height}`,
+    ).toBeLessThanOrEqual(clientWidth);
   }
 });
