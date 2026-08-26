@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(//home/user/UKBT-UK-Bangla-Tigers/**)",
+      "Glob",
+      "Grep",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(node --version)",
+      "Bash(pnpm --version)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(pnpm test:*)",
+      "Bash(node scripts/scaffold-self-test.mjs)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/secrets/**)",
+      "Read(./**/credentials*)",
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git checkout -- :*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(npm publish:*)",
+      "Bash(pnpm publish:*)",
+      "Bash(vercel:*)",
+      "Bash(netlify:*)",
+      "Bash(gh secret:*)",
+      "Bash(sudo:*)",
+      "Bash(chmod 777:*)",
+      "Bash(dd:*)",
+      "Bash(mkfs:*)",
+      "WebFetch"
+    ]
+  },
+  "env": {
+    "UKBT_STAGE": "BOOTSTRAP",
+    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
+  }
+}
