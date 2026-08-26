@@ -68,3 +68,20 @@ current_state:
     - seo
     - accessibility
     - e2e
+
+# ============================================================================
+# VISUAL FIDELITY AS A FIRST-CLASS ACCEPTANCE GATE — added at requester direction
+# ============================================================================
+visual_fidelity_gate:
+  rule: >
+    An implementation cannot pass merely because build/typecheck/lint succeed
+    or components/tokens exist. It must ALSO pass: REFERENCE RENDER vs UKBT
+    RENDER, compared across the frozen viewport matrix. Visual comparison is
+    a first-class acceptance criterion, not a nice-to-have polish step.
+  anti_vacuity_visual:
+    never_accept_as_visual_proof:
+      - "looks identical"                 # unverified human impression
+      - "tokens match"                    # token equality is not rendered-output equality
+      - "CSS was migrated"                # migration is not verification
+    requires_instead: "an executed rendered comparison producing a recorded diff (or confirmed zero-diff), per element/viewport, per the visual-fidelity matrix format"
+    origin: "requester direction, visual-fidelity execution protocol §12"

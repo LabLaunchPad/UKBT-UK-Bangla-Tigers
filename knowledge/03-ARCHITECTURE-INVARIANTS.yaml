@@ -44,3 +44,27 @@ invariants:
       Reference analysis informs visual grammar only. Route and content
       architecture derive from UKBT evidence, never from the reference.
     origin: "Stage 2 finding F4 — template→route leak path"
+  - id: INV-015
+    statement: >
+      Changing implementation framework must not silently change visual
+      hierarchy, visually/behaviorally relevant DOM relationships, spacing,
+      typography, responsive behavior, interaction states, image treatment,
+      component dimensions, alignment, or visual density.
+    action_if_framework_forces_a_change: >
+      Record FRAMEWORK_CONSTRAINT (what forces it) → VISUAL_IMPACT (what
+      changes) → DECISION (what was chosen) → VALIDATION (how the choice was
+      verified against the reference render). Do not let a framework default
+      silently become a design decision.
+    origin: "requester direction, visual-fidelity execution protocol"
+  - id: INV-016
+    statement: >
+      This implementation is for UK Bangla Tigers only. Do not build a
+      generic Adelux-derived framework, a reusable multi-client template, a
+      marketplace product, or a LabLaunchPad Adelux product. UKBT components
+      may be reused WITHIN UKBT's own pages — that is ordinary component
+      design, not the prohibited kind of reuse.
+    distinction: >
+      GOOD: a UKBT Header component reused across UKBT pages.
+      BAD: an "Adelux Framework" designed for future customers.
+    control: "knowledge/06-TEMPLATE-BOUNDARY.yaml rights_states.REDISTRIBUTION_ALLOWED = FALSE"
+    origin: "requester direction, single-site scope"

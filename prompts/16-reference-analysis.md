@@ -3,6 +3,15 @@
 **Gate:** do not run this stage until the reference's licence is verified and
 recorded as evidence. See `artifacts/bootstrap/UNKNOWN-EVIDENCE.md` (BL-02 / G21).
 
+**Scope note (added after this session's forensic-analysis work):** this gate
+covers *this stage's* output — `PROPOSED_UKBT_ADAPTATION` recommendations and
+component-reuse decisions, which is `UKBT_IMPLEMENTATION`-class work per
+`knowledge/06-TEMPLATE-BOUNDARY.yaml`. It does not retroactively forbid the
+narrower `DERIVED_ANALYSIS` work (CSS AST, cascade tracing, computed styles,
+token/component *candidates*) already performed under that file's
+`FORENSIC_ALLOWED` state — that work lawfully precedes this stage and is
+reused here, not repeated. Running it is not the same as this stage having run.
+
 I am providing a reference design/template. Treat the reference as **VISUAL
 EVIDENCE, not as application architecture.**
 

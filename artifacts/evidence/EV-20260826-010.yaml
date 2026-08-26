@@ -1,0 +1,58 @@
+id: EV-20260826-010
+classification: VALIDATION_RESULT
+claim: >
+  Governance policy repair: knowledge/06-TEMPLATE-BOUNDARY.yaml's two
+  contradicting rights-boundary structures were unified into one four-state
+  model, and a full contradiction audit across the repository passed.
+source: "Direct inspection and repair of this repository's governance files."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  A record of a completed repair and its verification does not expire; a
+  future contradiction would be a new finding, not an expiry of this one.
+scope: "knowledge/*.yaml, prompts/16-reference-analysis.md"
+method: >
+  Full read of every knowledge/*.yaml file. Targeted grep across the whole
+  repository for FORENSIC_ANALYSIS, extract_css_values,
+  extract_computed_styles, BL-02, ADELUX_LICENSE, TEMPLATE_BOUNDARY,
+  RIGHTS_GATED, NOT_VERIFIED, REDISTRIBUTION. Ten verification greps run
+  against the repaired state.
+result: |
+  One real contradiction found and fixed: knowledge/06-TEMPLATE-BOUNDARY.yaml
+  carried an early allowed_now/not_allowed_now/allowed_when_verified block
+  (forbidding extract_design_patterns/adapt_tokens) alongside a later
+  lifecycle_states block (explicitly permitting css_ast_parsing/
+  computed_style_extraction/token_candidate_extraction) - both replaced by a
+  single rights_states (four explicit non-boolean states) + operation_classes
+  (five classes) structure. One overlap clarified, not contradicted: Stage 6
+  (prompts/16) vs this session's already-authorized DERIVED_ANALYSIS work -
+  a scope note added to both files. No other governance file redefined a
+  conflicting rule; all citations of BL-02/RIGHTS_GATED/REDISTRIBUTION
+  elsewhere were already consistent.
+
+  Also added, per requester instruction: framework-translation invariant
+  (INV-015) and single-site scope invariant (INV-016) in
+  03-ARCHITECTURE-INVARIANTS.yaml; visual-fidelity-as-first-class-gate plus
+  anti-vacuity-for-visual-claims in 08-VALIDATION-POLICY.yaml; evidence-reuse/
+  no-evidence-loop rule in 05-UNKNOWN-BLOCKER-POLICY.yaml.
+
+  CONTRACT_AUDIT = PASS. All 10 knowledge/*.yaml files remain valid YAML.
+  BL-02 unchanged: STATED_BUT_UNVERIFIED. No application code changed.
+related_files:
+  - artifacts/verification/CONTRACT-AUDIT.md
+  - knowledge/06-TEMPLATE-BOUNDARY.yaml
+  - knowledge/03-ARCHITECTURE-INVARIANTS.yaml
+  - knowledge/05-UNKNOWN-BLOCKER-POLICY.yaml
+  - knowledge/08-VALIDATION-POLICY.yaml
+  - prompts/16-reference-analysis.md
+related_task: GOVERNANCE-POLICY-REPAIR
+relates_to: [EV-20260826-009]
+notes: >
+  This is exactly the failure mode the requester predicted: an unrepaired
+  contradiction would have caused a future turn to stop again on
+  computed-style or token extraction, having to re-litigate an authorization
+  that had already been given. The repair removes the ambiguity at its
+  source rather than patching the two symptom terms named in the interrupted
+  instruction.
