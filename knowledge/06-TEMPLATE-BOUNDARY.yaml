@@ -91,15 +91,37 @@ privacy:
 # and state 2 may proceed for UKBT-original work that merely LEARNED from state 1.
 lifecycle_states:
   FORENSIC_ANALYSIS:
-    permits: [inspect, analyze, record_package_identity, structural_inventory]
-    forbids: [copy_asset_into_repo, extract_css_values, extract_computed_styles,
-              persist_screenshot_of_source, redistribute_source]
+    permits: [inspect, analyze, record_package_identity, structural_inventory,
+              css_ast_parsing, selector_specificity_analysis, cascade_tracing,
+              computed_style_extraction, geometry_measurement,
+              token_candidate_extraction, component_candidate_discovery,
+              interaction_state_measurement, responsive_diff_analysis]
+    forbids: [copy_asset_into_repo, persist_screenshot_of_source,
+              redistribute_source, promote_token_to_approved,
+              claim_production_clearance]
     gated_by_BL02: false
     note: >
-      Cataloguing what exists (pages, sections, third-party libs, forms) is
-      FORENSIC_ANALYSIS. Extracting actual CSS values/tokens/computed styles
-      from the source (the visual-fidelity protocol's Phase 3 onward) is NOT
-      analysis in this narrow sense — it is the gated activity, see below.
+      CORRECTED 2026-08-26, superseding the same-day version above. The
+      original list forbade "extract_css_values" and "extract_computed_styles"
+      under FORENSIC_ANALYSIS, which conflicts with the requester's explicit,
+      specific direction the same day: "Continue those activities as
+      controlled forensic analysis" naming CSS AST analysis, DOM analysis,
+      computed-style extraction, responsive analysis, and token CANDIDATE
+      extraction by name as things that do not stop merely because BL-02 is
+      open. Per CLAUDE.md's authority order, current user instruction outranks
+      a self-authored knowledge file — this was this file being wrong, not the
+      instruction being an exception to correctly-drawn rule. The line was
+      imprecise, not the direction.
+
+      The corrected line: FORENSIC_ANALYSIS permits deriving and recording
+      what the source's DOM/CSS/behaviour actually IS — including its
+      literal property:value declarations, computed styles, and specificity —
+      because that is analysis and documentation, not reuse. It still forbids
+      copying binary assets or screenshots into this repository, redistributing
+      the source itself, and — the line that actually matters — promoting a
+      token past CANDIDATE or claiming any of this is cleared for
+      PRODUCTION_RELEASE. That promotion/clearance boundary is BL-02's real
+      job, not a boundary around understanding the source at all.
   UKBT_IMPLEMENTATION:
     permits: [build_ukbt_original_code, build_ukbt_original_tokens,
               build_ukbt_original_content]

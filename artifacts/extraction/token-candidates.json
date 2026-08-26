@@ -1,0 +1,133 @@
+{
+  "classification_note": "Per DR-002/DR-018 and the semantic-token-trick discipline: root-level tokens are CANDIDATE (single, unconditional :root declaration = high confidence of being an actual design primitive). Grid-spacer utility values are RAW ONLY \u2014 same primitive values (e.g. 20px, 30px, 50px) recur across dozens of unrelated .grid-spacer-* utility classes for LOCAL, CONTEXT-SPECIFIC spacing overrides, not one semantic spacing scale. Collapsing them into a single 'spacing.gutter' token would be exactly the frequency-based false inference this project's own knowledge/02-DECISION-RULES.yaml (DR-018) and this session's semantic-token-trick instruction prohibit.",
+  "candidate_tokens": {
+    "color": [
+      {
+        "token": "--primary",
+        "value": "#272727"
+      },
+      {
+        "token": "--secondary",
+        "value": "#FFFFFF"
+      },
+      {
+        "token": "--text-color",
+        "value": "#5F5F5F"
+      },
+      {
+        "token": "--accent-color",
+        "value": "#000000"
+      },
+      {
+        "token": "--accent-color-2",
+        "value": "#C6EF2E"
+      },
+      {
+        "token": "--accent-color-3",
+        "value": "#F2F2F2"
+      },
+      {
+        "token": "--accent-color-4",
+        "value": "#FAFAFA"
+      },
+      {
+        "token": "--accent-color-5",
+        "value": "#E4E4E4"
+      },
+      {
+        "token": "--accent-color-6",
+        "value": "#EAFF9D"
+      },
+      {
+        "token": "--accent-color-7",
+        "value": "#D0D0D0"
+      },
+      {
+        "token": "--accent-color-8",
+        "value": "#C9C1C1"
+      },
+      {
+        "token": "--accent-color-9",
+        "value": "#8C8C8C14"
+      },
+      {
+        "token": "--accent-transparent-white",
+        "value": "#FFFFFF00"
+      },
+      {
+        "token": "--accent-transparent-white-2",
+        "value": "#FFFFFF14"
+      },
+      {
+        "token": "--accent-transparent-black",
+        "value": "#0000005C"
+      },
+      {
+        "token": "--accent-transparent-black-2",
+        "value": "#00000087"
+      }
+    ],
+    "typography": [
+      {
+        "token": "--font-family-1",
+        "value": "\"Montserrat\", sans-serif"
+      },
+      {
+        "token": "--font-family-2",
+        "value": "\"Lato\", sans-serif"
+      }
+    ],
+    "motion_duration": [
+      {
+        "token": "--animation-normal",
+        "value": "1.25s"
+      },
+      {
+        "token": "--animation-slow",
+        "value": "2.25s"
+      },
+      {
+        "token": "--animation-fast",
+        "value": "0.75s"
+      }
+    ]
+  },
+  "raw_only_local_utility_pattern": {
+    "note": "Bootstrap grid-gutter custom properties, redeclared per-usage on 40+ distinct .grid-spacer-* utility classes with different values each. NOT a semantic token until real per-usage-context clustering is done (deferred \u2014 see gaps).",
+    "distinct_declaring_selectors_count": 61,
+    "sample": {
+      ".grid-spacer-0": {
+        "--bs-gutter-x": "0px",
+        "--bs-gutter-y": "0px"
+      },
+      ".grid-spacer-1": {
+        "--bs-gutter-x": "10px",
+        "--bs-gutter-y": "10px"
+      },
+      ".grid-spacer-2": {
+        "--bs-gutter-x": "20px",
+        "--bs-gutter-y": "20px"
+      },
+      ".grid-spacer-3": {
+        "--bs-gutter-x": "30px",
+        "--bs-gutter-y": "30px"
+      },
+      ".grid-spacer-4": {
+        "--bs-gutter-x": "40px",
+        "--bs-gutter-y": "40px"
+      },
+      ".grid-spacer-5": {
+        "--bs-gutter-x": "50px",
+        "--bs-gutter-y": "50px"
+      },
+      ".grid-spacer-100": {
+        "--bs-gutter-x": "100px",
+        "--bs-gutter-y": "100px"
+      },
+      ".grid-spacer-x-0": {
+        "--bs-gutter-x": "0px"
+      }
+    }
+  },
+  "approved_tokens": "NONE YET \u2014 per DR-002, promotion to APPROVED requires an explicit engineering decision with contextual justification, not automatic promotion from CANDIDATE. That decision belongs to Stage 5 (design system), not to this forensic-analysis pass."
+}
