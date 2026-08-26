@@ -43,7 +43,7 @@ const { tagline, facts } = Astro.props;
   .ukbt-mission__intro {
     display: grid;
     grid-template-columns: 0.42fr 0.52fr;
-    gap: var(--ukbt-space-8);
+    gap: var(--ukbt-space-gap-100);
     align-items: end;
   }
   .ukbt-mission__heading h2 {
@@ -91,10 +91,13 @@ const { tagline, facts } = Astro.props;
     margin: 0;
   }
 
-  @media (max-width: 767px) {
+  @media screen and (max-width: 1025px) {
     .ukbt-mission__intro {
       grid-template-columns: 1fr;
+      gap: var(--ukbt-space-gap-5);
     }
+  }
+  @media screen and (max-width: 767px) {
     .ukbt-mission__facts {
       grid-template-columns: 1fr 1fr;
     }

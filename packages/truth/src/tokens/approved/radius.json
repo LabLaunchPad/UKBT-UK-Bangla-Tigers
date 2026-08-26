@@ -15,6 +15,47 @@
     "pill": {
       "$value": "999px",
       "$type": "dimension"
+    },
+    "$description": "CLASSIFICATION: sm/md/lg/pill are DERIVED (generic rem scale, Stage 5). The `ref*` entries below are MEASURED - ported verbatim from the reference template's own radius set per CLIENT_REQ_012 / EV-20260826-032, ordered by frequency of use in its stylesheet.",
+    "refCard": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "Dominant radius (14 uses) - cards, tinted sections, media panels."
+    },
+    "refInner": {
+      "$value": "17px",
+      "$type": "dimension",
+      "$description": "Secondary radius (10 uses) - nested elements inside a card, icon tiles."
+    },
+    "refBanner": {
+      "$value": "30px",
+      "$type": "dimension",
+      "$description": "Inner-page banner corners (.section-banner-inner)."
+    },
+    "refSm": {
+      "$value": "10px",
+      "$type": "dimension",
+      "$description": "Small controls/tags."
+    },
+    "refXs": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$description": "Smallest declared radius."
+    },
+    "refPill": {
+      "$value": "100px",
+      "$type": "dimension",
+      "$description": "Pill/eyebrow (.sub-heading) and button capsules. Reference also uses 1000px interchangeably; both fully round, so one token covers them."
+    },
+    "refCircle": {
+      "$value": "50%",
+      "$type": "dimension",
+      "$description": "Circular - .icon-circle arrow affordances, avatars."
+    },
+    "refCardAsymmetric": {
+      "$value": "0px 20px 0px 20px",
+      "$type": "dimension",
+      "$description": "Asymmetric corner treatment used on overlay/detail cards (e.g. .card-about-detail). Not decorative noise - it is what visually anchors an overlay card to the corner of its image."
     }
   }
 }

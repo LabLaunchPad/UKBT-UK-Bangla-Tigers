@@ -13,21 +13,91 @@
 body {
   margin: 0;
   font-family: var(--ukbt-font-family-base);
-  font-size: var(--ukbt-font-size-1);
+  font-size: var(--ukbt-font-body-size);
   line-height: var(--ukbt-font-line-height-body);
   background: var(--ukbt-color-surface-background);
   color: var(--ukbt-color-surface-foreground);
 }
 
+/* Reference type scale (CLIENT_REQ_012 / EV-20260826-032). The values are
+   tokens; only the breakpoint wiring lives here. Breakpoints match the
+   reference's own (<=1025px, <=767px) so headings step down exactly where
+   the reference's do, rather than overflowing at the 90px base size. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--ukbt-font-family-heading);
+  margin-block-end: 0;
+  /* UKBT headings are materially longer than the reference's ("International
+     Tournaments/Events" vs "Tournaments"), and a compound like that offers no
+     break opportunity — at the reference's 50px mobile size it measured 546px
+     against a 430px viewport. Per the parity spec's content-length rule, the
+     geometry stays and the text is allowed to wrap, rather than shrinking the
+     type scale to fit our longer copy. */
+  overflow-wrap: break-word;
 }
 
+h1 {
+  font-size: var(--ukbt-font-heading-h1-size);
+  font-weight: var(--ukbt-font-heading-h1-weight);
+  line-height: var(--ukbt-font-heading-h1-line-height);
+}
+h2 {
+  font-size: var(--ukbt-font-heading-h2-size);
+  font-weight: var(--ukbt-font-heading-h2-weight);
+  line-height: var(--ukbt-font-heading-h2-line-height);
+}
+h3 {
+  font-size: var(--ukbt-font-heading-h3-size);
+  font-weight: var(--ukbt-font-heading-h3-weight);
+  line-height: var(--ukbt-font-heading-h3-line-height);
+}
+h4 {
+  font-size: var(--ukbt-font-heading-h4-size);
+  font-weight: var(--ukbt-font-heading-h4-weight);
+  line-height: var(--ukbt-font-heading-h4-line-height);
+}
+h5 {
+  font-size: var(--ukbt-font-heading-h5-size);
+  font-weight: var(--ukbt-font-heading-h5-weight);
+  line-height: var(--ukbt-font-heading-h5-line-height);
+}
+h6 {
+  font-size: var(--ukbt-font-heading-h6-size);
+  font-weight: var(--ukbt-font-heading-h6-weight);
+  line-height: var(--ukbt-font-heading-h6-line-height);
+}
+
+p {
+  font-size: var(--ukbt-font-body-paragraph-size);
+  margin-block-end: var(--ukbt-font-body-paragraph-margin-bottom);
+}
+
+@media screen and (max-width: 1025px) {
+  h1 { font-size: var(--ukbt-font-heading-h1-size-md); }
+  h2 { font-size: var(--ukbt-font-heading-h2-size-md); }
+  h3 { font-size: var(--ukbt-font-heading-h3-size-md); }
+  h4 { font-size: var(--ukbt-font-heading-h4-size-md); }
+  h5 { font-size: var(--ukbt-font-heading-h5-size-md); }
+  h6 { font-size: var(--ukbt-font-heading-h6-size-md); }
+}
+
+@media screen and (max-width: 767px) {
+  h1 { font-size: var(--ukbt-font-heading-h1-size-sm); }
+  h2 { font-size: var(--ukbt-font-heading-h2-size-sm); }
+  h3 { font-size: var(--ukbt-font-heading-h3-size-sm); }
+  h4 { font-size: var(--ukbt-font-heading-h4-size-sm); }
+  h5 { font-size: var(--ukbt-font-heading-h5-size-sm); }
+  h6 { font-size: var(--ukbt-font-heading-h6-size-sm); }
+  p { font-size: var(--ukbt-font-body-paragraph-size-sm); }
+}
+
+/* Reference .hero-container: 1340px, centred. The inline padding matches
+   the reference's own .section inline padding so content never touches the
+   viewport edge below the container width. */
 .ukbt-container {
   width: 100%;
-  max-width: var(--ukbt-container-max-width-xl);
+  max-width: var(--ukbt-container-max-width-page);
   margin-inline: auto;
-  padding-inline: var(--ukbt-container-gutter);
+  padding-inline: var(--ukbt-space-section-padding-inline);
 }
 
 /* contracts/ACCESSIBILITY-CONTRACT.md: visible focus indicator on every

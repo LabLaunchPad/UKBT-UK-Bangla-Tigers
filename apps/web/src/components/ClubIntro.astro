@@ -47,37 +47,37 @@ const { tagline, stats } = Astro.props;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--ukbt-space-8);
+    gap: var(--ukbt-space-gap-100);
   }
   .ukbt-about__image-side {
-    position: relative;
     flex: 0 0 auto;
-    /* Reserves clearance below the image for the overlapping detail
-       card, so it never collides with the stats row in the sibling
-       column (a real overlap found in visual QA, not assumed away). */
-    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    width: 18rem;
   }
   .ukbt-about__image-side img {
     display: block;
     height: 14rem;
     width: auto;
+    margin-inline: auto;
   }
-  /* Mirrors .card-about-detail: an overlapping card anchored to the
-     bottom edge of the image. Constrained to the image's own rendered
-     width (left:0/right:0 within the relatively-positioned image-side),
-     not centered independently — a wider fixed-width card here was
-     found in visual QA to spill past the image into the paragraph text
-     beside it. */
+  /* Mirrors `.card-about-detail`'s role — a caption card anchored to the
+     bottom of the media — but stacked BELOW the media rather than
+     overlaid on it.
+     Why the deviation: the reference overlays this card on a
+     photograph, where covering part of the frame is harmless. Our slot
+     currently holds the crest, and an overlay lands squarely on the
+     "UK BANGLA TIGERS" wordmark. Porting the reference's larger type
+     scale made the card taller and re-triggered exactly that collision.
+     Reverts to a true overlay once a photograph occupies this slot
+     (CLIENT_REQ_010 asset work). */
   .ukbt-about__detail-card {
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
-    right: 0;
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-3);
+    border-radius: var(--ukbt-radius-ref-inner);
+    padding: var(--ukbt-space-gap-2);
     box-shadow: var(--ukbt-shadow-md);
+    margin-top: var(--ukbt-space-gap-2);
   }
   .ukbt-about__detail-card h4 {
     margin: 0;
@@ -130,15 +130,19 @@ const { tagline, stats } = Astro.props;
     color: var(--ukbt-color-neutral-700);
   }
 
-  @media (max-width: 767px) {
+  /* Reference `.about-wrapper` at <=1025px: column-reverse, 50px gap. */
+  @media screen and (max-width: 1025px) {
     .ukbt-about {
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: var(--ukbt-space-gap-5);
     }
     .ukbt-about__image-side {
-      align-self: center;
-      margin-bottom: var(--ukbt-space-6);
+      width: 100%;
+      align-items: center;
     }
+  }
+  @media screen and (max-width: 767px) {
     .ukbt-about__stats {
       grid-template-columns: 1fr;
     }

@@ -1,35 +1,50 @@
 ---
-// UKBT-original layout primitive, proposed in Stage 6
-// (artifacts/ui/REFERENCE-ANALYSIS.md §1/§6): independent top/bottom
-// padding per section, so adjacent sections can be "welded" (zero
-// padding) or given normal rhythm, as a per-page authoring decision —
-// never a single hard-coded global rhythm constant.
+// Page-rhythm primitive, carrying the reference's measured section
+// geometry (CLIENT_REQ_012 / EV-20260826-032): 120px block padding, 20px
+// inline, inside a 1340px container.
+//
+// `wrapper` mirrors the reference's `.section-wrapper` — a 30px inset
+// (20px <=1025px, 10px <=767px) used when a section needs to sit as a
+// rounded, tinted panel floating within the page rather than running
+// full-bleed. That inset is what produces the template's characteristic
+// rounded section blocks.
 interface Props {
   paddingTop?: 'none' | 'normal';
   paddingBottom?: 'none' | 'normal';
   surface?: 'default' | 'alt' | 'inverse';
+  /** Inset the section as a rounded panel (reference `.section-wrapper`). */
+  wrapper?: boolean;
   as?: 'section' | 'div';
 }
 const {
   paddingTop = 'normal',
   paddingBottom = 'normal',
   surface = 'default',
+  wrapper = false,
   as: Tag = 'section',
 } = Astro.props;
+
+const cls = [
+  'ukbt-section',
+  `ukbt-section--pt-${paddingTop}`,
+  `ukbt-section--pb-${paddingBottom}`,
+  `ukbt-section--surface-${surface}`,
+  wrapper ? 'ukbt-section--wrapper' : '',
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
-<Tag
-  class={`ukbt-section ukbt-section--pt-${paddingTop} ukbt-section--pb-${paddingBottom} ukbt-section--surface-${surface}`}
->
+<Tag class={cls}>
   <div class="ukbt-container">
     <slot />
   </div>
 </Tag>
 
 <style>
+  /* Reference `.section`: padding 120px 20px */
   .ukbt-section {
-    padding-top: var(--ukbt-space-8);
-    padding-bottom: var(--ukbt-space-8);
+    padding-block: var(--ukbt-space-section-padding);
   }
   .ukbt-section--pt-none {
     padding-top: 0;
@@ -48,5 +63,28 @@ const {
   .ukbt-section--surface-inverse {
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
+  }
+
+  /* Reference `.section-wrapper`: inset the panel and round its corners. */
+  .ukbt-section--wrapper {
+    margin-inline: var(--ukbt-space-section-wrapper);
+    border-radius: var(--ukbt-radius-ref-card);
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-section--wrapper {
+      margin-inline: var(--ukbt-space-section-wrapper-md);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-section--wrapper {
+      margin-inline: var(--ukbt-space-section-wrapper-sm);
+    }
+    /* The reference halves its vertical rhythm on mobile; 120px block
+       padding at 390px wide leaves almost no room for content. */
+    .ukbt-section {
+      padding-block: var(--ukbt-space-gap-5);
+    }
   }
 </style>
