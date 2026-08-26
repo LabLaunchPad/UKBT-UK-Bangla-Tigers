@@ -84,3 +84,51 @@ privacy:
   finding: "Shipped font CSS loads Lato/Montserrat from fonts.gstatic.com."
   consequence: "Third-party requests disclose visitor IPs. UK GDPR relevance (U-18)."
   rule: "Self-host fonts, or record a lawful basis. Do not carry this over unexamined."
+
+# Lifecycle states — added 2026-08-26 at the requester's explicit direction.
+# Distinguishes "we can inspect/analyze" from "we are licensed to distribute."
+# BL-02 gates state 3 for Adelux-derived material. It does not gate state 1,
+# and state 2 may proceed for UKBT-original work that merely LEARNED from state 1.
+lifecycle_states:
+  FORENSIC_ANALYSIS:
+    permits: [inspect, analyze, record_package_identity, structural_inventory]
+    forbids: [copy_asset_into_repo, extract_css_values, extract_computed_styles,
+              persist_screenshot_of_source, redistribute_source]
+    gated_by_BL02: false
+    note: >
+      Cataloguing what exists (pages, sections, third-party libs, forms) is
+      FORENSIC_ANALYSIS. Extracting actual CSS values/tokens/computed styles
+      from the source (the visual-fidelity protocol's Phase 3 onward) is NOT
+      analysis in this narrow sense — it is the gated activity, see below.
+  UKBT_IMPLEMENTATION:
+    permits: [build_ukbt_original_code, build_ukbt_original_tokens,
+              build_ukbt_original_content]
+    forbids: [embed_adelux_licensed_expression, embed_adelux_brand_assets]
+    gated_by_BL02: "only for the portion that embeds Adelux's own expression"
+    note: >
+      UKBT-original code informed by observed grammar (not copied expression)
+      may proceed per DR-... the idea/expression line itself is U-26,
+      LEGAL_REVIEW_REQUIRED — treat literal CSS/token/markup extraction from
+      Adelux as embedding its expression until that resolves.
+  PRODUCTION_RELEASE:
+    permits: []
+    forbids: [ship_any_rights_gated_material, ship_adelux_brand_assets,
+              ship_blocked_third_party_component]
+    gated_by_BL02: true
+    note: >
+      Every RIGHTS_GATED and LICENSE_BLOCKED item catalogued anywhere in
+      artifacts/ must resolve to a cleared status before this state, or be
+      excluded. This is Part 24 of the visual-fidelity protocol
+      (final license/provenance gate) — it is not optional and not implied by
+      reaching a working local build.
+
+golden_reference_rights_note: >
+  A screenshot of the rendered Adelux site is itself a reproduction of
+  Adelux's licensed visual expression — the same rights question as the
+  source files, not a separate one. Per FORENSIC_ANALYSIS above,
+  "persist_screenshot_of_source" is forbidden: such captures may be used
+  TRANSIENTLY for local comparison during analysis, but must never be
+  committed to this repository as "golden references" while BL-02 is open.
+  If BL-02 clears, screenshots become the same class of material as the
+  source itself and inherit whatever the cleared licence permits — no more,
+  no less.

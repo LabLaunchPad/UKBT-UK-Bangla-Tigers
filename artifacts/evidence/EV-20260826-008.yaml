@@ -1,0 +1,49 @@
+id: EV-20260826-008
+classification: OBSERVED
+claim: >
+  A complete structural inventory of all 13 Adelux site pages (sections, forms,
+  third-party library usage, image references, Adelux-brand-asset presence),
+  and a rights classification per page across two independent axes.
+source: "Static HTML parsing of the shipped source, read-only, in scratch."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  A structural fact about an immutable, fixed-SHA256 package does not expire.
+scope: "Phase 2 of the visual-fidelity execution protocol — FORENSIC_ANALYSIS state only"
+method: >
+  Python html.parser over each of the 13 HTML_TEMPLATE/*.html files. Extracted:
+  title, section-wrapper class identifiers in order, nav/footer presence, form
+  id/action, local vs vendor script references, stylesheet references, image
+  references (placeholder vs named), and third-party library markers (swiper,
+  isotope, flatpickr, fslightbox, odometer, animate__, fa-, wow) detected via
+  case-insensitive substring match on the raw markup. No CSS property, computed
+  style, or pixel measurement was extracted. No file was copied into this
+  repository.
+result: |
+  13 pages, 2-95 sections each. 12/13 pages carry Adelux-Logo.png or
+  Adelux-Black-Logo.png in shared chrome (brand_asset_rights =
+  PROHIBITED_ABSOLUTE, independent of BL-02). index.html uniquely uses Isotope
+  (BL-05, DO_NOT_ADOPT already decided). 4 pages (service, coaching, booking,
+  community) classified UKBT_RELEVANCE = UNKNOWN pending U-01/U-02, rather than
+  as implementation candidates, to avoid the template-leak pattern in INV-014.
+related_files:
+  - artifacts/design/ADELUX-PAGE-INVENTORY.md
+  - artifacts/design/ADELUX-PAGE-INVENTORY.json
+  - knowledge/06-TEMPLATE-BOUNDARY.yaml
+related_task: ADELUX-VISUAL-FIDELITY-PROTOCOL-PHASE-2
+relates_to: [EV-20260826-005, EV-20260826-006, EV-20260826-007]
+notes: >
+  This record is explicitly scoped to the FORENSIC_ANALYSIS lifecycle state
+  (added to knowledge/06-TEMPLATE-BOUNDARY.yaml this pass, at the requester's
+  direction). It does not authorize, and is not evidence toward, PRODUCTION_RELEASE
+  of any Adelux-derived material. BL-02 is unchanged: STATED_BUT_UNVERIFIED.
+
+  Separately, this pass found that the visual-fidelity protocol's proposed
+  "golden reference" screenshots of the rendered Adelux site would themselves
+  be reproductions of its licensed visual expression - not analysis, but a
+  copy in a different format. Recorded as a required revision in
+  artifacts/verification/ARCHITECTURE-REDTEAM-ADDENDUM-VISUAL-TOOLCHAIN.md:
+  such screenshots may be used transiently for local comparison but must never
+  be committed to this repository while BL-02 is open.

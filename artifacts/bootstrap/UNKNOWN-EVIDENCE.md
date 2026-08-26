@@ -64,6 +64,17 @@ content. See `CONTENT-TRUTH-MODEL.md § 4`.
 | U-26 | Whether framework-reimplementation of Adelux's visual grammar (no copied markup/CSS/JS) counts as a derivative work under copyright law, vs. independent expression | `LEGAL_REVIEW_REQUIRED` — not resolved by marketplace FAQ language; `EV-20260826-006`, `ADELUX-CROSS-FRAMEWORK-VERIFICATION.md` Part 3 |
 | U-27 | Upstream OFL confirmation for Lato/Montserrat, independent of Google's catalogue claim | Low priority — self-hosting under OFL is recommended regardless (Part 9) |
 
+**Phase 2 forensic-analysis finding (2026-08-26, non-distributive, `EV-20260826-008`):**
+12 of 13 Adelux pages carry the Adelux logo in shared chrome —
+`brand_asset_rights = PROHIBITED_ABSOLUTE`, independent of how BL-02 resolves.
+`index.html` uniquely depends on Isotope for what is likely a gallery/filter
+section; per BL-05 (`DO_NOT_ADOPT_ISOTOPE`), its UKBT equivalent needs a native
+CSS Grid/JS implementation. Four pages (`service`, `coaching`, `booking`,
+`community`) are marked `UNKNOWN` rather than implementation candidates because
+their content is padel-specific and U-01/U-02 (what UKBT is, what sport) remain
+open — marking them candidates now would repeat the template-leak pattern
+`INV-014` exists to prevent. See `artifacts/design/ADELUX-PAGE-INVENTORY.md`.
+
 **Structural finding, not merely an unknown:** every acquisition path
 researched (ThemeForest Regular, ThemeForest Extended, Envato Elements) caps at
 **one end product per licence**. Reuse of this design as a basis for a second,
