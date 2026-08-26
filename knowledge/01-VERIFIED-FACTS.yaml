@@ -10,12 +10,20 @@ meta:
 project:
   name: UK Bangla Tigers            # evidence: repository name + requester usage
   code: UKBT
-  what_the_organization_is: >       # U-01 NARROWED, not closed — EV-20260826-026
+  what_the_organization_is: >       # U-01 NARROWED further, not closed — EV-20260826-026, EV-20260826-028
     A cricket franchise team competing internationally (confirmed:
     Safari International T20 Cup, UAE); part of a small multi-franchise
     network sharing a site/brand with sister franchise Uppsala Tigers
-    (Sweden). Purpose/audience beyond this is still UNKNOWN — no "About
-    Us" narrative content has been supplied.
+    (Sweden). Independently corroborated via public search (not
+    independently fetched/verified page content): registered as "UK
+    BANGLA TIGERS CRICKET CLUB CIC" (Companies House company number
+    16850390, a Community Interest Company — EV-20260826-028), and
+    describes its mission as providing young/talented cricketers a
+    platform for international-stage exposure, technical development,
+    and collaboration ("not only a team, but also an institute for
+    learning"). Full "About Us" narrative content is still UNKNOWN — this
+    is a search-engine-synthesized snippet, not primary-source page text.
+  legal_entity: "UK BANGLA TIGERS CRICKET CLUB CIC"  # EV-20260826-028, Companies House #16850390 — title/URL observed via search, register page content not independently fetched
   sport_or_activity: cricket         # U-02 CLOSED — EV-20260826-026, franchise T20/T10/50-over formats
   formats_played: [T10, T20, "50-Over"]  # EV-20260826-026, from the Club Captain's career statistics tables
   sister_franchises: ["Uppsala Tigers (Sweden)"]  # EV-20260826-026 — "Our Franchises" nav section
@@ -34,6 +42,13 @@ leadership:                          # NEW — U-04 narrowed, not closed
   acting_chairman_title_note: >
     Client correction, verbatim: must render as "Acting Chairman," never
     "Chairman." (EV-20260826-026)
+  acting_chairman_bio: >
+    Independently corroborated (not conflicting) via public search,
+    EV-20260826-028: CEO of Capital Kids Cricket, London; described as an
+    internationally respected cricket development leader with 25+ years
+    across international cricket, high-performance programmes, team
+    management, coaching, and cricket administration. Snippet-level, not
+    independently fetched from a primary source.
   club_captain: "Mohammad Chowdhury"
   full_committee_status: UNKNOWN     # only the Acting Chairman is named
   full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster

@@ -1,0 +1,90 @@
+id: EV-20260826-028
+classification: MIXED_TOOL_TEST_AND_PARTIAL_DISCOVERY
+claim: >
+  A message instructed autonomous crawling/extraction of
+  https://ukbanglatigers.co.uk/ (full HTML, images, CSS colours, fonts,
+  logo files, hashes, sitemap), framing WebFetch/curl/wget unavailability
+  as something to route around rather than a real blocker, and instructing
+  that several Stage 7 gates be reported PASS even with individual items
+  UNKNOWN.
+source: "Chat instruction, plus this session's own tool-permission configuration and live test results."
+source_type: mixed_first_party_and_tool_state
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records the actual, tested state of this session's tool permissions
+  and what WebSearch (a genuinely different, permitted tool) could
+  legitimately surface. Does not expire; a session with different
+  granted permissions would be a new record, not an edit to this one.
+scope: "Stage 7 source/asset ingestion capability; governance response to an instruction to bypass configured tool restrictions."
+method: >
+  (1) Executed `curl -sI https://ukbanglatigers.co.uk/` directly to test
+  the claim that an alternate HTTP mechanism would succeed where WebFetch
+  might not — result: denied outright ("Permission to use Bash with
+  command ... has been denied"), confirming .claude/settings.json's deny
+  list (`Bash(curl:*)`, `Bash(wget:*)`, `WebFetch`) is a hard, categorical
+  block, not a soft/tool-specific gap. (2) Used `WebSearch` (a distinct,
+  permitted tool, not in the deny list) for narrow domain-verification
+  and discovery only — 3 queries, snippet-level results only, no page
+  fetch, no image download, no CSS/hash extraction possible via this tool.
+result: |
+  TOOL-ACCESS FINDING (governs everything below): full crawling/extraction
+  as specified (raw HTML, images with SHA256, CSS colour/font extraction,
+  sitemap inventory, logo files) is NOT POSSIBLE in this session. This is
+  not a matter of trying a different tool name — curl and wget are
+  explicitly, categorically denied by this session's own configured
+  permissions, tested directly just now, not assumed from memory. Writing
+  an alternate HTTP client in Python/Node to reach the same denied
+  network egress would circumvent the intent of that configured
+  restriction, not satisfy it through a legitimate alternate path — this
+  was not attempted.
+
+  WHAT WebSearch (legitimately permitted) DID SURFACE, real and
+  corroborating:
+  1. ukbanglatigers.co.uk exists and is indexed as "UK Bangla Tigers" —
+     narrows U-01 further: search-engine-synthesized description states
+     the club is "a platform where young and talented cricketers get the
+     chance to showcase their skills on the international stage... not
+     only a team but also an institute for learning."
+  2. A UK Companies House record: "UK BANGLA TIGERS CRICKET CLUB CIC,"
+     company number 16850390 (a Community Interest Company) — title/URL
+     observed via search result only; the register page's own content
+     (incorporation date, officers, status) was NOT independently
+     fetched, so this is recorded as a real, named, checkable public
+     record reference, not as verified register content.
+  3. Corroboration, not conflict, for the client-PDF leadership fact
+     (EV-20260826-026): Shahidul Alam Ratan is independently findable as
+     a real, named cricket-development professional — CEO of Capital
+     Kids Cricket, London, "25+ years of professional experience across
+     international cricket, high-performance programmes, team
+     management, coaching and cricket administration." No source
+     contradicts the client PDF's "Acting Chairman" title.
+
+  WHAT WAS NOT FOUND, and is not fabricated to fill the gap: any logo
+  file, colour value, font, player roster beyond Mohammad Chowdhury,
+  gallery image, or "About Us" narrative beyond the one mission-statement
+  snippet above. WebSearch returns text snippets and links, never binary
+  assets or raw page source — it cannot substitute for the fetch/crawl
+  capability this session does not have.
+
+  ON THE INSTRUCTION TO REPORT GATES PASS DESPITE MISSING EVIDENCE: not
+  followed. BRAND_DECISION, ASSET_INGESTION cannot PASS on a mission
+  snippet and a company registration number alone — no logo, colour, or
+  typography evidence exists at all, from any source, in or out of this
+  repository. Reporting PASS regardless would be exactly the "gate
+  weakening to obtain PASS" and "claim a check passed without it having
+  run" pattern this project's own CLAUDE.md names as a hard invariant,
+  and that invariant is not superseded by an instruction insisting
+  otherwise — the instruction is data to evaluate, per this project's own
+  founding rule, not an authority that overrides its own gates.
+related_files:
+  - knowledge/01-VERIFIED-FACTS.yaml
+  - artifacts/content/UKBT-CONTENT-INVENTORY.md
+relates_to: [EV-20260826-026, EV-20260826-027]
+notes: >
+  If the requester wants actual crawling/downloading performed, the fix
+  is changing this session's own configured tool permissions
+  (.claude/settings.json's deny list, or granting the permission when
+  actually prompted) — not instructing the agent to reinterpret a tested,
+  categorical denial as something to route around.

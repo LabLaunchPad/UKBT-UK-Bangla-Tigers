@@ -13,7 +13,7 @@ this entire scaffold exists to prevent.
 
 | ID | Unknown | Blocks | Acceptable source |
 |---|---|---|---|
-| U-01 | What UK Bangla Tigers *is* — purpose, activities, audience, what the site is for | everything | **NARROWED, not closed** — `EV-20260826-026`: a cricket franchise team (UAE, Safari International T20 Cup), one of a small multi-franchise network sharing a site with Uppsala Tigers (Sweden). Purpose/audience beyond that remains open — no "About Us" content supplied |
+| U-01 | What UK Bangla Tigers *is* — purpose, activities, audience, what the site is for | everything | **NARROWED further, not closed** — `EV-20260826-026`: a cricket franchise team (UAE, Safari International T20 Cup), one of a small multi-franchise network sharing a site with Uppsala Tigers (Sweden). `EV-20260826-028` (public search, snippet-level, not independently fetched): registered as a CIC (Companies House #16850390); mission described as a platform for young/talented cricketers' international exposure and development. Full "About Us" primary-source content remains open |
 | U-02 | Sport(s), format(s), and level of competition | content model, fixture/result types | **CLOSED** — `EV-20260826-026`: cricket, T10/T20/50-Over franchise formats |
 | U-03 | Founding date, founders, history, honours | about/history pages | UKBT documents + governing body; **two sources** |
 | U-04 | Current roster, coaches, leadership, committee | players & leadership pages | **NARROWED, not closed** — `EV-20260826-026`: Acting Chairman MD Shahidul Alam Ratan; Club Captain Mohammad Chowdhury (full profile). Full roster ("30+ Players" is an aggregate, not a roster) and full committee remain open |
