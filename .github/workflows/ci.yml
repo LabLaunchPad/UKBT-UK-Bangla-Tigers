@@ -154,23 +154,34 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # ---------------------------------------------------------------------------
-# CI-CONTRACT.md gates deliberately NOT wired yet, and why (ABSENT != PASS,
+# CI-CONTRACT.md gates NOT wired yet, and why (ABSENT != PASS,
 # knowledge/08-VALIDATION-POLICY.yaml — recorded honestly rather than
-# faked with a vacuous always-pass step):
+# faked with a vacuous always-pass step). Corrected 2026-08-26 (Stage 10
+# release gate, artifacts/receipts/RELEASE.md) — the reasons below used
+# to be "no real content/routes exist yet," which stopped being true once
+# 16 real routes and 12+ real organization facts landed; that stale
+# reasoning was itself a defect this receipt found and fixed:
 #
-#   - Content schema validation against real content: no content files
-#     exist yet (packages/truth/src/content/ is not created — CONTENT-
-#     CONTRACT.md, zero real UKBT facts, BL-01). Unit tests already
-#     validate the schemas themselves against synthetic fixtures.
-#   - Truth gate against real content: same reason. The gate's rule logic
-#     (T1-T9) is unit-tested; there is no real content to gate yet.
-#   - Placeholder detection in a production build: no page renders any
-#     content field yet — the placeholder homepage has no org-fact field
-#     to check.
-#   - Route/link integrity: only one route (the placeholder homepage)
-#     exists; a link-integrity check has nothing meaningful to traverse.
-#   - SEO metadata completeness: no metadata pipeline exists yet
-#     (contracts/SEO-CONTRACT.md) — Stage 4+ work once real routes exist.
+#   - Content schema validation against real content: real Zod schemas
+#     exist (packages/truth/src/schema/content-types.ts) but no file
+#     under apps/web/src/content/ actually uses them — real content is
+#     validated only by the truth gate's provenance rules (T1-T8) and
+#     TypeScript's structural typing, not this schema layer. This is
+#     schema drift between CONTENT-CONTRACT.md and the shape actually in
+#     use, not a missing-content problem. See RELEASE.md for the two
+#     ways to close it.
+#   - Truth gate against real content: NOT absent — enforced at build
+#     time. Every file under apps/web/src/content/ calls
+#     @ukbt/truth/gate's evaluate() and throws on failure; the `build`
+#     job above already re-runs this on every push. Real enforcement,
+#     just not a separately-named CI job.
+#   - Route/link integrity: still genuinely absent. 16 real routes with
+#     real cross-linking (nav/footer) exist now, so this is a real,
+#     currently-uncovered gap worth adding — smoke.spec.ts only checks
+#     the homepage's own network requests, not a site-wide link crawl.
+#   - SEO metadata completeness: partially covered (pages.spec.ts asserts
+#     the noindex/indexable split across all 16 routes) but no test
+#     asserts every indexable page has a non-empty title/description.
 #
 # These become real, addable jobs once packages/truth/src/content/ and
 # real routes exist (contracts/CONTENT-CONTRACT.md, contracts/ROUTE-
