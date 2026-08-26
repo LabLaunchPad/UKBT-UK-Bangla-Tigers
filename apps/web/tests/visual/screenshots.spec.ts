@@ -20,20 +20,24 @@ const outDir = path.resolve(
   'screenshots',
 );
 
+const pages = [
+  { route: '/', slug: 'homepage' },
+  { route: '/about', slug: 'about' },
+];
+
 for (const viewport of VIEWPORT_MATRIX) {
-  test(`homepage screenshot at ${viewport.name}`, async ({ page }) => {
-    await page.setViewportSize({
-      width: viewport.width,
-      height: viewport.height,
+  for (const p of pages) {
+    test(`${p.slug} screenshot at ${viewport.name}`, async ({ page }) => {
+      await page.setViewportSize({
+        width: viewport.width,
+        height: viewport.height,
+      });
+      await page.goto(p.route);
+      await page.waitForLoadState('networkidle');
+      await page.screenshot({
+        path: path.join(outDir, `${p.slug}-${viewport.width}x${viewport.height}.png`),
+        fullPage: true,
+      });
     });
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    await page.screenshot({
-      path: path.join(
-        outDir,
-        `homepage-${viewport.width}x${viewport.height}.png`,
-      ),
-      fullPage: true,
-    });
-  });
+  }
 }

@@ -1,0 +1,70 @@
+---
+// Inner-page title banner — mirrors the reference's real
+// `.section-banner-inner` pattern (large top padding, rounded corners,
+// centered title + breadcrumb over a tinted surface). Reusable across
+// every inner page (About, Club Captain, etc.), not About-specific.
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  title: string;
+  crumbs: Crumb[];
+}
+const { title, crumbs } = Astro.props;
+---
+
+<div class="ukbt-page-banner">
+  <div class="ukbt-container ukbt-page-banner__inner">
+    <h1>{title}</h1>
+    <nav class="ukbt-breadcrumb" aria-label="Breadcrumb">
+      {
+        crumbs.map((c, i) => (
+          <>
+            {i > 0 && <span class="ukbt-breadcrumb__sep" aria-hidden="true">/</span>}
+            {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+          </>
+        ))
+      }
+    </nav>
+  </div>
+</div>
+
+<style>
+  /* .section-banner-inner: large top padding, rounded corners, tinted overlay */
+  .ukbt-page-banner {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-lg);
+    margin: var(--ukbt-space-4);
+  }
+  .ukbt-page-banner__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    text-align: center;
+    padding-block: var(--ukbt-space-8) var(--ukbt-space-6);
+  }
+  .ukbt-page-banner h1 {
+    font-family: var(--ukbt-font-family-heading);
+    color: var(--ukbt-color-brand-accent);
+    margin: 0;
+  }
+  .ukbt-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ukbt-breadcrumb a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-breadcrumb__sep {
+    opacity: 0.6;
+  }
+</style>

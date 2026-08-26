@@ -1,0 +1,67 @@
+---
+// About Us page — implements artifacts/pages/ABOUT-CONTRACT.md. Content
+// bound to @ukbt/truth's gate (src/content/about-data.ts); shared nav/
+// social come from homepage-data.ts so they are gated exactly once.
+// Each section's geometry mirrors the reference's actual measured layout
+// (checked directly against the Adelux `about.html`/`main.css` source —
+// see per-component comments), reimplemented with UKBT content/branding.
+// No Adelux code, content, or branding appears anywhere below.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import MissionWelcome from '../components/MissionWelcome.astro';
+import AboutStory from '../components/AboutStory.astro';
+import LeadershipGrid from '../components/LeadershipGrid.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+import { about } from '../content/about-data';
+
+const storyStats = [
+  { value: about.founded, label: 'Founded' },
+  { value: about.stats.players, label: 'Players' },
+  { value: about.stats.tournaments, label: 'International Tournaments' },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  about: {
+    '@type': 'SportsOrganization',
+    name: 'UK Bangla Tigers',
+    sport: 'Cricket',
+    foundingDate: about.founded,
+  },
+};
+---
+
+<BaseLayout
+  title="About Us — UK Bangla Tigers"
+  description={about.tagline}
+  structuredData={structuredData}
+>
+  <Header nav={homepage.nav} />
+
+  <main>
+    <PageBanner title="About Us" crumbs={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
+
+    <Section>
+      <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />
+    </Section>
+
+    <Section surface="alt">
+      <AboutStory paragraphs={about.storyParagraphs} stats={storyStats} />
+    </Section>
+
+    <Section>
+      <LeadershipGrid leaders={about.leaders} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} />
+</BaseLayout>
