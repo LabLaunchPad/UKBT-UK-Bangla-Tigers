@@ -39,20 +39,32 @@ method: >
   ARCHITECTURE-PROPOSAL-V3.md §3 and §5, and left contracts/CSS-CONTRACT.md
   unmodified pending explicit authorization.
 result: |
-  CONTRACT_CONFLICT = YES, between contracts/CSS-CONTRACT.md and
-  contracts/REPOSITORY-CONTRACT.md. AUTHORITATIVE_EVIDENCE exists and is
-  HIGH confidence: ARCHITECTURE-PROPOSAL-V3.md §3 (lines 148-152 + its
-  stated WHY at lines 158-165) explicitly places RAW/CANDIDATE at
+  CONTRACT_CONFLICT = YES (now RESOLVED), between contracts/CSS-CONTRACT.md
+  and contracts/REPOSITORY-CONTRACT.md. AUTHORITATIVE_EVIDENCE was HIGH
+  confidence: ARCHITECTURE-PROPOSAL-V3.md §3 (lines 148-152 + its stated
+  WHY at lines 158-165) explicitly places RAW/CANDIDATE at
   artifacts/extraction/, outside both apps/web and packages/truth, with a
   reasoned justification (evidence must never be mistaken for UKBT's own
   approved design system). §5 (line 260), the source CSS-CONTRACT.md's
   diagram was drawn from, never actually specifies a package-relative
   path for raw/candidate — that implication was added during Stage 3
-  contract drafting. PROPOSED_RESOLUTION: amend CSS-CONTRACT.md's
-  pipeline diagram wording only, to state RAW/CANDIDATE's repo-root
-  location explicitly, matching the already-frozen architecture decision.
-  CONTRACT_MODIFICATION_REQUIRED = YES (CSS-CONTRACT.md only). Not applied
-  — awaiting explicit human authorization per contracts/README.md rule 4.
+  contract drafting.
+
+  RESOLUTION APPLIED 2026-08-26, by explicit human authorization
+  ("CONTRACT-CONFLICT-001 IS AUTHORIZED FOR SURGICAL RESOLUTION... APPLY
+  ONLY THIS CHANGE"): contracts/CSS-CONTRACT.md's pipeline diagram amended
+  to state RAW/CANDIDATE = artifacts/extraction/token-candidates.json
+  (repo root) and ADAPTED/APPROVED = packages/truth/tokens/{adapted,
+  approved}/ explicitly; one "Forbidden behavior" bullet's vague
+  tokens/raw//tokens/candidate/ reference corrected to name the repo-root
+  file explicitly. No other content in CSS-CONTRACT.md changed — Style
+  Dictionary approved-only compile, selector-fidelity rule, cascade
+  preservation, token lifecycle semantics, and ownership boundaries are
+  all unchanged. packages/truth/tokens/{raw,candidate}/ were NOT created
+  in either shape. Post-fix cross-reference audit (repo-wide grep for
+  packages/truth/tokens/raw, packages/truth/tokens/candidate, and
+  artifacts/extraction/token-candidates.json) found zero remaining
+  contradictory references. CONTRACT-CONFLICT-001 marked RESOLVED.
 related_files:
   - artifacts/verification/CONTRACT-CONFLICT-001.md
   - contracts/CSS-CONTRACT.md

@@ -1,7 +1,7 @@
 # Contract Conflict 001 — token RAW/CANDIDATE filesystem location
 
-**Status:** OPEN. Detected during Stage 4 (Foundation) implementation.
-**Detected:** 2026-08-26. **Resolved:** not yet — awaiting human decision.
+**Status:** RESOLVED. Detected during Stage 4 (Foundation) implementation.
+**Detected:** 2026-08-26. **Resolved:** 2026-08-26, by explicit human authorization — surgical wording correction applied to `contracts/CSS-CONTRACT.md` only, per the `PROPOSED_RESOLUTION` below (applied verbatim as proposed).
 
 ## CONTRACT_A
 
@@ -106,29 +106,35 @@ truth gate, content schemas, or the Button component primitive — none of
 which reference or depend on a `raw/`/`candidate/` path inside either
 package.
 
-## PROPOSED_RESOLUTION
+## PROPOSED_RESOLUTION — APPLIED
 
-Amend `contracts/CSS-CONTRACT.md`'s pipeline diagram to remove the
-co-location implication, e.g.:
+Amended `contracts/CSS-CONTRACT.md`'s pipeline diagram to remove the
+co-location implication, stating explicitly:
 
 ```
-DTCG-compatible token source
-  (RAW/CANDIDATE: artifacts/extraction/token-candidates.json, repo root —
-   frozen Track A evidence, per REPOSITORY-CONTRACT.md's layer table;
-   ADAPTED/APPROVED: packages/truth/tokens/{adapted,approved}/)
+RAW        → artifacts/extraction/token-candidates.json  (repo root — frozen Track A evidence)
+CANDIDATE  → artifacts/extraction/token-candidates.json  (same file)
+ADAPTED    → packages/truth/tokens/adapted/               (UKBT-owned, governed)
+APPROVED   → packages/truth/tokens/approved/               (UKBT-owned, governed)
 ```
 
-This is a **wording correction to match the frozen architecture
+Also corrected one "Forbidden behavior" bullet that referenced
+`tokens/raw/`/`tokens/candidate/` without a location qualifier, to name
+`artifacts/extraction/token-candidates.json` explicitly instead.
+
+This was a **wording correction to match the frozen architecture
 document's own already-stated, reasoned decision** — not a new design
-decision, not a reversal of anything CSS-CONTRACT.md's substantive rules
+decision, and no reversal of any of CSS-CONTRACT.md's substantive rules
 (Style Dictionary compiling `approved/**` only, the selector-fidelity
-rule, cascade preservation) depend on. No other content in
-`CSS-CONTRACT.md` requires change.
+rule, cascade preservation), all of which are unchanged. No other content
+in `CSS-CONTRACT.md` was touched.
 
-**This proposal is not applied.** `contracts/CSS-CONTRACT.md` has not
-been modified. Applying it requires explicit human authorization, per the
-project's change-control process (`contracts/README.md` rule 4 — a
-contract is amended, never quietly edited).
+**Applied 2026-08-26, by explicit human authorization**
+("CONTRACT-CONFLICT-001 IS AUTHORIZED FOR SURGICAL RESOLUTION... APPLY
+ONLY THIS CHANGE"), per the project's change-control process
+(`contracts/README.md` rule 4 — a contract is amended, never quietly
+edited; this amendment is recorded here and in `EV-20260826-021`, not a
+silent edit).
 
 ## CONFIDENCE
 
@@ -145,7 +151,11 @@ requires no change (it already matches the architecture document).
 
 ## Disposition
 
-Left **UNRESOLVED** pending explicit human authorization to amend
-`contracts/CSS-CONTRACT.md`. No contract was modified by this record. No
-Foundation work was built on the assumption of either filesystem shape
-for `raw/`/`candidate/`.
+**RESOLVED.** `contracts/CSS-CONTRACT.md` amended per the applied
+resolution above, under explicit human authorization. No Foundation work
+had been built on the assumption of either filesystem shape for
+`raw/`/`candidate/`, so no rework was required.
+`packages/truth/tokens/{raw,candidate}/` remain uncreated, per the
+authorized decision — RAW/CANDIDATE stay at
+`artifacts/extraction/token-candidates.json`. Post-fix cross-reference
+audit recorded in `EV-20260826-021` (updated) and the FOUNDATION report.

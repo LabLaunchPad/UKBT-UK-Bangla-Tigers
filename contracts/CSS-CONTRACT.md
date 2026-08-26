@@ -6,11 +6,17 @@
 decides when a selector may be simplified without weakening visual
 fidelity.
 
-## Outputs / Frozen pipeline (source: `ARCHITECTURE-PROPOSAL-V3.md` §5)
+## Outputs / Frozen pipeline (source: `ARCHITECTURE-PROPOSAL-V3.md` §3 and
+§5 — §3's ten-layer table is authoritative for filesystem location; §5 is
+authoritative for the pipeline's processing order, not its own separate
+location claim)
 
 ```
 DTCG-compatible token source
-  (packages/truth/tokens/{raw,candidate,adapted,approved}/)
+  RAW        → artifacts/extraction/token-candidates.json  (repo root — frozen Track A evidence)
+  CANDIDATE  → artifacts/extraction/token-candidates.json  (same file)
+  ADAPTED    → packages/truth/tokens/adapted/               (UKBT-owned, governed)
+  APPROVED   → packages/truth/tokens/approved/               (UKBT-owned, governed)
         ↓
 Style Dictionary
   (compiles tokens/approved/** ONLY — fail-closed; RAW/CANDIDATE/ADAPTED
@@ -27,6 +33,19 @@ Astro adapter
   (apps/web components import semantic CSS; Astro is a consumer of this
    pipeline, never its source of truth)
 ```
+
+**RAW and CANDIDATE are evidence/extraction artifacts** (design-system
+layers 2-3, `REPOSITORY-CONTRACT.md`'s layer table) — they live at the
+repository root, outside both `apps/web` and `packages/truth`, and are
+never created as `packages/truth/tokens/raw/` or `.../candidate/`
+directories. **ADAPTED and APPROVED are UKBT-owned, governed artifacts**
+(layers 4-5) and live inside `packages/truth/tokens/`. This wording
+corrects a Stage 3 transcription defect that previously implied all four
+stages were co-located inside `packages/truth/tokens/` — the underlying
+architecture (`ARCHITECTURE-PROPOSAL-V3.md` §3) was always explicit and
+consistent on this point; only this contract's diagram mis-transcribed it.
+See `artifacts/verification/CONTRACT-CONFLICT-001.md` (RESOLVED) and
+`EV-20260826-021`.
 
 `TOKEN_COMPILER = Style Dictionary` (reversal from v2's deferred bespoke
 script, on explicit requester direction, recorded in
@@ -77,8 +96,9 @@ part of this pipeline at any layer (`A09`/`A10`, unchanged).
 
 ## Forbidden behavior
 
-- Compiling `tokens/raw/`, `tokens/candidate/`, or `tokens/adapted/`
-  directly into shipped CSS (bypassing the APPROVED gate).
+- Compiling `artifacts/extraction/token-candidates.json` (RAW/CANDIDATE)
+  or `packages/truth/tokens/adapted/` directly into shipped CSS (bypassing
+  the APPROVED gate).
 - Introducing Tailwind or an equivalent utility framework as a styling
   source of truth.
 - Modernizing/refactoring CSS before the corresponding item passes visual
