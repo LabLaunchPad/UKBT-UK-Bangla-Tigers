@@ -85,6 +85,20 @@ result: |
   6. artifacts/external/ does not exist. No website-crawl evidence exists
      from any source (network access has not been granted at any point
      this session) — this is a real, checked absence, not an assumption.
+  7. RE-EXAMINED images/hero/home-hero.webp (originally described in
+     EV-20260826-029 as "a real photograph of a cricket team... consistent
+     with actual club photography") under the same scrutiny applied to
+     join-us.webp/gallery-06.webp, specifically because it is the
+     Homepage-critical hero-asset candidate. Finding: small shoulder/
+     sleeve patches are present on the kit but are NOT legible as the
+     UK Bangla Tigers crest at available resolution; the dominant kit
+     branding is a colourful heart/hands charity-event-style logo with
+     "Leaf Care" and what appears to be "Japan Stay" text, not the tiger
+     crest. Team affiliation is therefore NOT CONFIRMED for this image
+     either — recorded honestly rather than assumed safe because it was
+     filed under "hero/". Carried into the Homepage Contract as a
+     provisional hero candidate pending one specific confirmation, not
+     silently treated as settled.
 related_files:
   - artifacts/brand/BRAND-DECISION.md
   - artifacts/content/UKBT-CONTENT-INVENTORY.md
