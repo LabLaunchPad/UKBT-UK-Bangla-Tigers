@@ -1,0 +1,41 @@
+id: EV-20260826-027
+classification: FIRST_PARTY_CLIENT_SUPPLIED_UNACTIONABLE_PENDING_ACCESS
+claim: >
+  A relayed client message instructs: (1) use a supplied squad list and
+  player pictures on the Uppsala Tigers page; (2) remove "MD Siraj Ullah
+  Khadem Nipo" from that list; (3) squad-list pages show only player
+  name, picture, and country flag — no statistics/table; (4) Uppsala
+  Tigers players should also appear on the UK Bangla Tigers Players
+  list. The squad list and photos are referenced via two Google Drive
+  folder URLs, not attached directly.
+source: "Chat message, relayed as from the client, containing 2 Google Drive folder URLs."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records the instructions as given. The underlying files (squad list,
+  photos) are NOT retrievable in this session: curl, wget, and WebFetch
+  are all denied by .claude/settings.json's permission deny list, so a
+  Google Drive URL cannot be opened or downloaded from inside this
+  repository's tooling. This record documents the instruction only, not
+  its content.
+scope: "Stage 7 content ingestion — Players Profile / Uppsala Tigers page requirements."
+method: Read the message verbatim; attempted no fetch (none possible); recorded the access blocker explicitly rather than guessing at the Drive folders' contents.
+result: |
+  CLIENT_REQ_006, _007, _008 added to
+  artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md, each marked OPEN
+  and blocked on the same unmet precondition: the actual squad list and
+  player images must be supplied as direct uploads to this session, not
+  as a link. No player name other than Mohammad Chowdhury (EV-026) and
+  no player image of any kind exist in this repository. "MD Siraj Ullah
+  Khadem Nipo" cannot be removed from a list that has not been supplied.
+related_files:
+  - artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md
+  - artifacts/content/UKBT-CONTENT-INVENTORY.md
+relates_to: [EV-20260826-026]
+notes: >
+  Not a rights/evidence dispute (unlike EV-022/-023/-024) — a plain tool-
+  access limitation. Resolved the moment the requester uploads the actual
+  files directly, the same path every other piece of real evidence in
+  this project has come through.
