@@ -19,7 +19,18 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'pnpm run build && pnpm run preview -- --port 4321',
+    // `pnpm run build` here only runs this package's own "build" script
+    // (`astro build`) — it does NOT chain packages/truth's tokens:build
+    // first the way the root "build" script does. Without an explicit
+    // tokens:build first, `astro build`/`astro preview` fails outright:
+    // BaseLayout.astro imports the generated tokens.css, which does not
+    // exist until Style Dictionary runs (contracts/CSS-CONTRACT.md). This
+    // was caught by a real CI failure, not anticipated in advance —
+    // `pnpm --filter` resolves against the workspace root regardless of
+    // the invoking cwd, so this works whether Playwright is invoked from
+    // the repo root or from apps/web directly.
+    command:
+      'pnpm --filter @ukbt/truth tokens:build && pnpm run build && pnpm run preview -- --port 4321',
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
