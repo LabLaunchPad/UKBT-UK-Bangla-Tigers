@@ -56,6 +56,22 @@ content. See `CONTENT-TRUTH-MODEL.md § 4`.
 | U-19 | CI runner and developer machine toolchains | container fingerprint is not evidence about either |
 | U-20 | Whether an analytics/consent stack is required | affects performance budget and privacy policy |
 
+## D-prime. Raised by the Stage 2A cross-framework verification (2026-08-26)
+
+| ID | Unknown | Note |
+|---|---|---|
+| U-25 | Which acquisition channel (ThemeForest single-item, tier Regular/Extended; or Envato Elements subscription) applies to this copy | Two listings exist for the same product — item 60543035 (ThemeForest) and X3FTRWG (Elements) — with materially different licence models. Neither is confirmed |
+| U-26 | Whether framework-reimplementation of Adelux's visual grammar (no copied markup/CSS/JS) counts as a derivative work under copyright law, vs. independent expression | `LEGAL_REVIEW_REQUIRED` — not resolved by marketplace FAQ language; `EV-20260826-006`, `ADELUX-CROSS-FRAMEWORK-VERIFICATION.md` Part 3 |
+| U-27 | Upstream OFL confirmation for Lato/Montserrat, independent of Google's catalogue claim | Low priority — self-hosting under OFL is recommended regardless (Part 9) |
+
+**Structural finding, not merely an unknown:** every acquisition path
+researched (ThemeForest Regular, ThemeForest Extended, Envato Elements) caps at
+**one end product per licence**. Reuse of this design as a basis for a second,
+independent website is not something better paperwork resolves — it requires
+purchasing an additional licence. Recorded as `OTHER_WEBSITE_REUSE_VERDICT =
+NOT VERIFIED` and treated as the working assumption until a specific
+multi-use/extended licence is shown to have been purchased.
+
 ## D. Third-party reference — **legal blocker**
 
 | ID | Unknown | Status |
@@ -100,7 +116,7 @@ membership tiers, booking) are template facts, never UKBT facts.
 | BL-01 | No verified UKBT organization fact of any kind | all content publication |
 | BL-02 | Adelux licence unverified (U-21) | Stage 6 |
 | BL-03 | No approved architecture | all application code (Stages 3–4) |
-| BL-05 | Isotope v3.0.6 is GPLv3-or-paid-commercial (`EV-…-005`). No Adelux tier can convey it | adopting Isotope **only** |
+| BL-05 | Isotope v3.0.6 is GPLv3-or-paid-commercial (`EV-…-005`). No Adelux tier can convey it | adopting Isotope. **DECISION taken 2026-08-26: DO_NOT_ADOPT_ISOTOPE** (`ADELUX-CROSS-FRAMEWORK-VERIFICATION.md` Part 6) |
 | BL-04 | Hosting/deployment target unknown (U-11) | deployment configuration |
 
 `prompts/06-release-gate.md` cannot return `PASS` while any of these is open.
@@ -132,4 +148,4 @@ requirement) · U-09 (dates/budget/volume) · U-11 (hosting vendor) · U-12
 U-15 (existing web presence) · U-18 (data protection) · U-19 (CI/dev
 toolchains) · U-20 (analytics/consent) · U-21 (licence).
 
-**20 open. 4 resolved. 24 total.** (Stage 2 raised U-22, U-23, U-24.)
+**23 open. 4 resolved. 27 total.** (Stage 2 raised U-22, U-23, U-24; Stage 2A raised U-25, U-26, U-27.)

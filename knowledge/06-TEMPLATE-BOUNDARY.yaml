@@ -4,8 +4,14 @@ template:
   sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
   status: NOT_ADMITTED           # excluded from the repository pending licence
   license_status: STATED_BUT_UNVERIFIED
-  evidence: EV-20260826-005
+  evidence: [EV-20260826-005, EV-20260826-006]
   in_repository: false
+  marketplace:
+    themeforest_item_id: "60543035"
+    envato_elements_slug: "X3FTRWG"
+    channel_used: UNKNOWN        # U-25 — two different licensing models possible
+  other_website_reuse: PROHIBITED_ABSENT_ADDITIONAL_LICENCE
+  cross_framework_reimplementation: LEGAL_REVIEW_REQUIRED   # U-26
 
 # Actions permitted at the CURRENT status (NOT_ADMITTED, licence unverified).
 allowed_now:
@@ -69,6 +75,10 @@ third_party_rights:
   note: >
     A10 proposes no third-party UI library, which cheaply avoids most of this.
     Not adopting a component must be a RECORDED decision, not an accident.
+
+decisions:
+  - {component: isotope, decision: DO_NOT_ADOPT, reason: "no demonstrated need; independent GPLv3/commercial obligation", date: 2026-08-26}
+  - {component: animate.css, decision: DO_NOT_ADOPT, reason: "no demonstrated need; Hippocratic 2.1 not sign-off-cleared", date: 2026-08-26}
 
 privacy:
   finding: "Shipped font CSS loads Lato/Montserrat from fonts.gstatic.com."

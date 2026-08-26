@@ -1,0 +1,93 @@
+id: EV-20260826-006
+classification: VERIFIED
+claim: >
+  The general Envato/ThemeForest marketplace license terms that would govern
+  Adelux IF a standard tier applies — as opposed to who actually holds a
+  licence, which remains unverified.
+source: >
+  Envato's own published pages, retrieved via web search (WebFetch is
+  unavailable in this session; search-engine-indexed snippets of the
+  authoritative pages were used, not third-party commentary).
+source_type: external
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: 2027-08-26
+scope: "General Envato Market and Envato Elements license terms applicable to template items"
+method: >
+  WebSearch against themeforest.net/licenses/terms/regular,
+  themeforest.net/licenses/terms/extended, themeforest.net/licenses/faq,
+  help.market.envato.com, and help.elements.envato.com. Cross-checked across
+  three independent queries per claim where possible.
+result: |
+  ITEM IDENTIFIED (this is new — not previously located):
+    Title:    Adelux - Padel Club & Community HTML Bootstrap Template
+    Vendor:   Fox_Creation
+    Platform: ThemeForest
+    Item ID:  60543035
+    URL:      https://themeforest.net/item/adelux-padel-club-community-html-bootstrap-template/60543035
+    Price:    $19 (single-item ThemeForest listing)
+    ALSO LISTED on Envato Elements (subscription catalogue), slug X3FTRWG,
+      URL: https://elements.envato.com/adelux-padel-club-community-html-bootstrap-X3FTRWG
+    -> TWO DIFFERENT ACQUISITION CHANNELS EXIST for the same product, each
+       with a DIFFERENT licensing model (see below). Which channel, if either,
+       was used for this copy is UNKNOWN.
+
+  THEMEFOREST REGULAR LICENSE (per themeforest.net/licenses/terms/regular):
+    - One End Product only, for yourself or ONE client ("single application").
+    - End Product may be distributed FREE only. Cannot Sell the End Product
+      except a one-time transfer to that one client for a fee.
+    - Modification and derivative works ARE permitted, bounded by End Product
+      scope.
+    - Cannot extract and use a single component on a stand-alone basis.
+    - Cannot redistribute the Item itself (as template/source/stock), modified
+      or not, even for free.
+
+  THEMEFOREST EXTENDED LICENSE (per themeforest.net/licenses/terms/extended):
+    - Still ONE End Product only ("single application" — this does not change
+      between tiers).
+    - End Product MAY be sold/resold to many end users.
+    - Same redistribution and component-extraction prohibitions as Regular.
+
+  BOTH TIERS, PER ENVATO'S OWN MULTI-END-PRODUCT GUIDANCE:
+    "For most items, each license allows you to make ONE unique end product...
+    the license can only be activated once per domain." Making a second,
+    independent end product (e.g. a second website) requires purchasing an
+    ADDITIONAL licence. Neither Regular nor Extended is a multi-use licence for
+    a standard template item.
+
+  ATTRIBUTION: not a legal requirement of the standard licence (courtesy only)
+    — distinct from Font Awesome/Isotope/animate.css, which impose their OWN,
+    separate attribution/compliance obligations regardless of the Adelux tier.
+
+  ENVATO ELEMENTS (the OTHER channel, if that is how this copy was acquired):
+    - Licensed per PROJECT, one licence per end product, via subscription.
+    - Once an end product is completed while the subscription is active, that
+      use becomes perpetual even after the subscription lapses.
+    - A second project needs a new licence created for it (not a new purchase
+      necessarily, but a new licensing event tied to an active subscription at
+      the time of completion).
+    - No Regular/Extended tier distinction on this channel — one set of terms.
+
+  CONFIDENCE: HIGH for the terms as Envato states them generally, on the
+  pages cited. LOW for which terms apply to THIS copy, because the specific
+  channel, tier, purchaser, and date are not established by anything in this
+  repository or the supplied package (EV-20260826-005).
+related_files:
+  - artifacts/evidence/ADELUX-CROSS-FRAMEWORK-VERIFICATION.md
+  - artifacts/evidence/ADELUX-CROSS-FRAMEWORK-RIGHTS-MATRIX.md
+  - artifacts/evidence/THIRD-PARTY-LICENSE-FIREWALL.md
+related_task: LICENCE-BL02-STAGE-2A
+relates_to: EV-20260826-005
+notes: >
+  This record establishes what the RULES ARE, sourced to Envato's own pages.
+  It does NOT establish which rules apply to this copy, and does not by itself
+  move BL-02 toward closure. Per DR-005 (a missing licence is not a verified
+  licence) and the task's own instruction, general public terms cannot close
+  BL-02 in the absence of purchase-specific evidence.
+
+  The most consequential finding for UKBT's stated long-term goal (reuse as a
+  basis for another website) is structural and tier-independent: EVERY standard
+  Envato acquisition path caps at ONE end product. Reuse for a second,
+  independent website is not a licence-verification question that gets easier
+  with better paperwork — it requires an ADDITIONAL licence (or Elements
+  project) regardless of which tier this copy turns out to be.

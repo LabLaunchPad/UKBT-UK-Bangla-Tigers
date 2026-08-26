@@ -28,9 +28,26 @@ template:
   admission_status: NOT_ADMITTED
   in_repository: false
   license_status: STATED_BUT_UNVERIFIED
-  license_evidence: EV-20260826-005
+  license_evidence: [EV-20260826-005, EV-20260826-006]
   license_document_exists: false
   purchase_evidence_exists: false
+  marketplace_identity:
+    themeforest_item_id: "60543035"
+    themeforest_url: "https://themeforest.net/item/adelux-padel-club-community-html-bootstrap-template/60543035"
+    envato_elements_slug: "X3FTRWG"
+    note: >
+      Two acquisition channels exist for the same product with DIFFERENT
+      licensing models (ThemeForest tiered purchase vs. Elements subscription).
+      Which one, if either, applies to this copy is UNKNOWN (U-25).
+  other_website_reuse: PROHIBITED_ABSENT_ADDITIONAL_LICENCE
+  other_website_reuse_note: >
+    Structural finding, not a paperwork gap: every standard Envato acquisition
+    path caps at ONE end product. Confirmed via EV-20260826-006.
+  cross_framework_reimplementation: LEGAL_REVIEW_REQUIRED
+  cross_framework_note: >
+    Literal code porting is VERIFIED permitted (bounded to one end product).
+    Full grammar reimplementation without copied expression is an unresolved
+    idea/expression question (U-26), not decided by marketplace FAQ language.
   note: >
     The template has NOT been admitted to this repository. It is excluded pending
     licence evidence. A prior record "EV-0009" and an admission status of
@@ -61,6 +78,10 @@ third_party_assets:
       rightsholder: Metafizzy
       issue: COMMERCIAL_USE_REQUIRES_PAID_LICENCE
       note: "No Adelux licence tier can convey this. Independent of BL-02."
+      decision: DO_NOT_ADOPT_ISOTOPE   # taken 2026-08-26, not required by any UKBT need
+  decisions_not_to_adopt:
+    - {name: isotope, reason: "no demonstrated requirement; independent licence obligation"}
+    - {name: animate.css, reason: "not required; Hippocratic License 2.1 needs sign-off if ever reconsidered"}
   unknown:
     - {name: fslightbox, licence: UNKNOWN}
     - {name: odometer, licence: UNKNOWN}
@@ -113,11 +134,11 @@ licensing:
 
 blockers:
   BL-01: {state: OPEN, blocks: "all content publication"}
-  BL-02: {state: OPEN, blocks: "Stage 6 and all Adelux-derived material", evidence: EV-20260826-005}
+  BL-02: {state: OPEN, blocks: "Stage 6 and all Adelux-derived material", evidence: [EV-20260826-005, EV-20260826-006]}
   BL-03: {state: OPEN, blocks: "application code — no frozen architecture"}
-  BL-05: {state: OPEN, blocks: "adoption of Isotope only", evidence: EV-20260826-005}
+  BL-05: {state: OPEN, blocks: "adoption of Isotope (moot — decided DO_NOT_ADOPT)", evidence: EV-20260826-005}
 
 unknowns:
-  total: 24
-  open: 20
+  total: 27
+  open: 23
   register: artifacts/bootstrap/UNKNOWN-EVIDENCE.md
