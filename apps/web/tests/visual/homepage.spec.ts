@@ -102,52 +102,104 @@ test('excluded images are never referenced by the built homepage', async ({
 /**
  * Real WCAG contrast computation (same relative-luminance method used
  * throughout this project) against the ACTUAL rendered computed styles
- * of the elements that use the verified accent (gold) colour — proves
- * the binding rule in artifacts/brand/UKBT-BRAND-FOUNDATION.md holds in
- * the real page, not just in the design doc.
+ * of EVERY element that paints text in the verified accent (gold), on
+ * every route — not one hand-picked element.
+ *
+ * Why it scans rather than samples: gold-on-light has now been
+ * reintroduced three separate times in this build (ProfileHeader's role
+ * line, TournamentCard's "Completed" tag, WhyChooseUs's card index).
+ * axe catches it, but only after a full page scan and only on the routes
+ * axe runs against. This states the brand rule from
+ * artifacts/brand/UKBT-BRAND-FOUNDATION.md directly: gold is an
+ * accent on dark surfaces, never text on a light one.
+ *
+ * KNOWN BLIND SPOT, kept deliberately rather than papered over: this
+ * compares computed `color`, which does not reflect `opacity`. A
+ * half-transparent navy over gold blends to something failing, and this
+ * check will not see it — that exact case slipped past here and was
+ * caught by axe instead. The two guards are complementary; neither alone
+ * is sufficient, so both run.
  */
-test('gold accent text never renders against a white/light background on the homepage', async ({
+test('gold accent text always meets contrast, on every route', async ({
   page,
 }) => {
-  await page.goto('/');
+  const GOLD = [204, 164, 79]; // #CCA44F
 
-  function relLum([r, g, b]: number[]): number {
-    const lin = (c: number) => {
-      const v = c / 255;
-      return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-    };
-    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-  }
-  function contrast(a: number[], b: number[]): number {
-    const la = relLum(a);
-    const lb = relLum(b);
-    const [lighter, darker] = la > lb ? [la, lb] : [lb, la];
-    return (lighter + 0.05) / (darker + 0.05);
-  }
-  function parseRgb(s: string): number[] {
-    const m = s.match(/\d+(\.\d+)?/g);
-    if (!m) throw new Error(`unparseable colour: ${s}`);
-    return m.slice(0, 3).map(Number);
-  }
+  for (const route of [
+    '/',
+    '/about',
+    '/club-captain',
+    '/tournaments',
+    '/franchises',
+    '/contact',
+  ]) {
+    await page.goto(route);
 
-  const el = page.locator('.ukbt-hero__tagline-short');
-  const { color, bg } = await el.evaluate((node) => {
-    let bgNode: Element | null = node;
-    let bg = 'rgba(0, 0, 0, 0)';
-    while (bgNode) {
-      const c = getComputedStyle(bgNode).backgroundColor;
-      if (c && c !== 'rgba(0, 0, 0, 0)') {
-        bg = c;
-        break;
+    const offenders = await page.evaluate((gold) => {
+      const parseRgb = (s: string): number[] | null => {
+        const m = s.match(/\d+(\.\d+)?/g);
+        return m ? m.slice(0, 3).map(Number) : null;
+      };
+      const relLum = ([r, g, b]: number[]) => {
+        const lin = (c: number) => {
+          const v = c / 255;
+          return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+        };
+        return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+      };
+      const contrast = (a: number[], b: number[]) => {
+        const la = relLum(a);
+        const lb = relLum(b);
+        const [hi, lo] = la > lb ? [la, lb] : [lb, la];
+        return (hi + 0.05) / (lo + 0.05);
+      };
+      const near = (a: number[], b: number[]) =>
+        a.every((v, i) => Math.abs(v - b[i]) <= 6);
+
+      const out: string[] = [];
+      for (const el of Array.from(
+        document.querySelectorAll<HTMLElement>('*'),
+      )) {
+        if (!el.textContent?.trim()) continue;
+        // Only leaf-ish nodes actually paint the text.
+        if (
+          el.children.length > 0 &&
+          el.childElementCount === el.childNodes.length
+        )
+          continue;
+        const cs = getComputedStyle(el);
+        const fg = parseRgb(cs.color);
+        if (!fg || !near(fg, gold as number[])) continue;
+
+        let n: Element | null = el;
+        let bg: number[] | null = null;
+        while (n) {
+          const c = getComputedStyle(n).backgroundColor;
+          if (c && c !== 'rgba(0, 0, 0, 0)' && !c.endsWith(', 0)')) {
+            bg = parseRgb(c);
+            break;
+          }
+          n = n.parentElement;
+        }
+        if (!bg) continue;
+
+        const size = Number.parseFloat(cs.fontSize);
+        const bold = Number.parseInt(cs.fontWeight, 10) >= 700;
+        const large = size >= 24 || (size >= 18.66 && bold);
+        const need = large ? 3 : 4.5;
+        const ratio = contrast(fg, bg);
+        if (ratio < need) {
+          out.push(
+            `${el.tagName.toLowerCase()}.${String(el.className).trim().split(/\s+/)[0]} ${ratio.toFixed(2)}:1 (needs ${need}) "${el.textContent.trim().slice(0, 24)}"`,
+          );
+        }
       }
-      bgNode = bgNode.parentElement;
-    }
-    return { color: getComputedStyle(node).color, bg };
-  });
+      return out;
+    }, GOLD);
 
-  const ratio = contrast(parseRgb(color), parseRgb(bg));
-  expect(
-    ratio,
-    `gold-on-background contrast for .ukbt-hero__tagline-short: ${color} on ${bg}`,
-  ).toBeGreaterThanOrEqual(4.5);
+    expect(
+      offenders,
+      `gold text failing contrast on ${route}:\n${offenders.join('\n')}`,
+    ).toEqual([]);
+  }
 });

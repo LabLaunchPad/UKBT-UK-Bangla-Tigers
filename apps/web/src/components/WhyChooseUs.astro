@@ -1,0 +1,128 @@
+---
+// Reference "Why Choose Us" section: `.section-chooseus` (tinted, 20px
+// radius) containing a 40/60 split — `.chooseus-title-container` (flex
+// column, 50px gap) beside `.chooseus-card-container`, whose cards
+// (`.card-chooseus`: column, 40px gap, 20px radius, 40px padding,
+// centred) sit in a 2x2 grid with one card carrying the accent fill.
+//
+// Populated only with facts already on record. Each card restates
+// something evidenced elsewhere in this repo rather than asserting a new
+// claim — the reference's own copy here is marketing about padel
+// facilities, which has no UKBT counterpart.
+import SectionHeader from './SectionHeader.astro';
+
+interface Reason {
+  title: string;
+  body: string;
+}
+interface Props {
+  reasons: Reason[];
+}
+const { reasons } = Astro.props;
+---
+
+<div class="ukbt-chooseus">
+  <div class="ukbt-chooseus__title">
+    <SectionHeader
+      eyebrow="Why the Tigers"
+      heading="A Club Built for the International Stage"
+      lede="What the club is, stated from what is on record — not a sales pitch."
+      rule="none"
+    />
+  </div>
+  <div class="ukbt-chooseus__cards">
+    {
+      reasons.map((r, i) => (
+        <div class={`ukbt-chooseus__card${i === 1 ? ' ukbt-chooseus__card--accent' : ''}`}>
+          <span class="ukbt-chooseus__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h4>{r.title}</h4>
+          <p>{r.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  /* Reference: `.chooseus-title-container` 40% / `.chooseus-card-container` 60% */
+  .ukbt-chooseus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-gap-100);
+  }
+  .ukbt-chooseus__title {
+    flex: 0 0 40%;
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-5);
+  }
+  .ukbt-chooseus__cards {
+    flex: 1 1 60%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-gap-2);
+  }
+  /* Reference `.card-chooseus`: column, 20px radius, 40px padding. */
+  .ukbt-chooseus__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-1);
+    border-radius: var(--ukbt-radius-ref-card);
+    padding: var(--ukbt-space-gap-4);
+    background: var(--ukbt-color-surface-background);
+  }
+  /* The reference fills one card of the grid with its accent. */
+  .ukbt-chooseus__card--accent {
+    background: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+  }
+  /* Navy, not gold. Gold on the white card measures 2.33:1 and fails even
+     the 3:1 large-text threshold — the same trap already hit in
+     ProfileHeader and TournamentCard this build. Gold is legible on the
+     accent-filled card and on dark surfaces, never as text on a light one. */
+  .ukbt-chooseus__index {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-heading-h3-size);
+    font-weight: var(--ukbt-font-weight-bold);
+    line-height: 1;
+    color: var(--ukbt-color-brand-primary);
+  }
+  /* Solid navy, no opacity. A 0.55 alpha here blended to an effective
+     #5c5a43 on gold — 2.99:1, just under the 3:1 large-text threshold.
+     Opacity is invisible to a computed-`color` check, so only the axe
+     scan caught it; solid values keep both guards effective. */
+  .ukbt-chooseus__card--accent .ukbt-chooseus__index {
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-chooseus__card h4 {
+    margin: 0;
+  }
+  .ukbt-chooseus__card p {
+    margin: 0;
+    font-size: var(--ukbt-font-heading-h6-size);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-chooseus__card--accent p {
+    color: inherit;
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-chooseus {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--ukbt-space-gap-5);
+    }
+    .ukbt-chooseus__title {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-chooseus__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

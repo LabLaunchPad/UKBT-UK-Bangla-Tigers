@@ -28,6 +28,11 @@ const { label, variant = 'default' } = Astro.props;
 </span>
 
 <style>
+  /* Neutral grey, not the cream `surface-alt`. `surface-alt` IS the
+     background of every tinted section, so a cream pill on a cream
+     section rendered as invisible — the shape vanished even though the
+     text contrast was fine. Neutral-100 reads as a chip against both the
+     white and the cream section surfaces. */
   .ukbt-subheading {
     display: inline-flex;
     flex-direction: row;
@@ -35,7 +40,7 @@ const { label, variant = 'default' } = Astro.props;
     gap: var(--ukbt-space-gap-1);
     padding: 7px 14px;
     border-radius: var(--ukbt-radius-ref-pill);
-    background: var(--ukbt-color-surface-alt);
+    background: var(--ukbt-color-neutral-100);
     color: var(--ukbt-color-brand-primary);
   }
   .ukbt-subheading--inverse {

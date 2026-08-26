@@ -1,0 +1,82 @@
+---
+// Reference "Academy Section": `.section-academy` (accent-filled, 20px
+// radius) with `.academy-title-container` — flex row, 50px gap,
+// `border-bottom: 3px solid <primary>` — over a counter row.
+//
+// This is the reference section with the strongest UKBT counterpart. The
+// club's own corroborated tagline is "we are not only a team, but also an
+// institute for learning" (EV-20260826-028 and -029, two independent
+// sources), so an academy/development block states something the club
+// actually says about itself rather than borrowing the reference's
+// coaching-programme copy.
+//
+// The counters are the real aggregate figures already used elsewhere on
+// the site, not invented programme statistics.
+import SectionHeader from './SectionHeader.astro';
+
+interface Counter {
+  value: string;
+  label: string;
+}
+interface Props {
+  tagline: string;
+  counters: Counter[];
+}
+const { tagline, counters } = Astro.props;
+---
+
+<div class="ukbt-academy">
+  <SectionHeader
+    eyebrow="Development"
+    heading="Not Only a Team — an Institute for Learning"
+    lede={tagline}
+    rule="primary"
+    inverse={true}
+  />
+  <div class="ukbt-academy__counters">
+    {
+      counters.map((c) => (
+        <div class="ukbt-academy__counter">
+          <span class="ukbt-academy__value">{c.value}</span>
+          <span class="ukbt-academy__label">{c.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .ukbt-academy {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Reference `.academy-counter-container`: a counter row beneath the
+     rule, evenly distributed. */
+  .ukbt-academy__counters {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ukbt-space-gap-4);
+  }
+  .ukbt-academy__counter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-1);
+  }
+  .ukbt-academy__value {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-heading-h2-size);
+    font-weight: var(--ukbt-font-weight-bold);
+    line-height: 1;
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-academy__label {
+    font-size: var(--ukbt-font-heading-h6-size);
+    opacity: 0.85;
+  }
+
+  @media screen and (max-width: 767px) {
+    .ukbt-academy__counters {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,23 +1,31 @@
 ---
-// UK Bangla Tigers homepage — Stage 7G implementation of
-// artifacts/pages/HOMEPAGE-CONTRACT.md. Content is bound to
-// @ukbt/truth's gate (src/content/homepage-data.ts), not hard-coded past
-// the truth architecture. Each section's geometry mirrors the reference's
-// actual measured layout (checked directly against the Adelux source
-// HTML/CSS per section — see per-component comments), reimplemented with
-// UKBT content/branding. No Adelux code, content, or branding appears
-// anywhere below.
+// UK Bangla Tigers homepage. Content is bound to @ukbt/truth's gate
+// (src/content/homepage-data.ts), not hard-coded past the truth
+// architecture. Each section mirrors the reference's actual measured
+// layout — see per-component comments. No Adelux code, content, or
+// branding appears anywhere below.
+//
+// Section order follows the reference homepage's own sequence, with the
+// sections that have no UKBT counterpart omitted rather than filled:
+//   Banner → About → Why Choose Us → Academy → Tournament → Community
+//   → [Testimonial: no consented testimonials] → CTA
+//   → [Blog: no articles] → Footer
+// The reference's Service and Padel Booking sections describe a
+// court-booking business and have no UKBT equivalent at all.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import ClubIntro from '../components/ClubIntro.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import AcademySection from '../components/AcademySection.astro';
 import TournamentGrid from '../components/TournamentGrid.astro';
 import CaptainSpotlight from '../components/CaptainSpotlight.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
+import AboutCTA from '../components/AboutCTA.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
-import SubHeading from '../components/SubHeading.astro';
 
 const stats = [
   { value: homepage.stats.players, label: 'Players' },
@@ -26,6 +34,33 @@ const stats = [
 ];
 
 const [mainEvent, ...otherEvents] = homepage.upcomingTournaments;
+
+// Each restates a fact already established elsewhere in this repository.
+// Nothing here is a new claim about the club.
+const reasons = [
+  {
+    title: 'International Competition',
+    body: 'Competing across the Safari International T20 Cup, Nordic Smash T20 and the Asian Challengers Trophy.',
+  },
+  {
+    title: 'A Learning Institute',
+    body: 'The club describes itself as not only a team, but an institute for learning.',
+  },
+  {
+    title: 'A Franchise Network',
+    body: 'One family across two nations, alongside sister franchise Uppsala Tigers in Sweden.',
+  },
+  {
+    title: 'A Registered Club',
+    body: 'Founded in 2020 and registered as UK Bangla Tigers Cricket Club CIC.',
+  },
+];
+
+const academyCounters = [
+  { value: homepage.stats.players, label: 'Players across the squad' },
+  { value: homepage.stats.countries, label: 'Countries internationals' },
+  { value: homepage.stats.tournaments, label: 'International tournaments' },
+];
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -46,30 +81,40 @@ const structuredData = {
   <main>
     <Hero taglineShort={homepage.taglineShort} social={homepage.social} />
 
-    <Section paddingTop="normal" paddingBottom="normal">
+    <Section>
       <ClubIntro tagline={homepage.tagline} stats={stats} />
     </Section>
 
-    <Section surface="alt">
-      <SubHeading label="Upcoming Tournament" />
-      <h2>Join Us on the International Stage</h2>
-      <TournamentGrid mainEvent={mainEvent} otherEvents={otherEvents} />
+    <Section surface="alt" wrapper={true}>
+      <WhyChooseUs reasons={reasons} />
+    </Section>
+
+    <Section surface="inverse" wrapper={true}>
+      <AcademySection tagline={homepage.tagline} counters={academyCounters} />
     </Section>
 
     <Section>
+      <SectionHeader
+        eyebrow="Upcoming Tournament"
+        heading="Join Us on the International Stage"
+        ctaLabel="All tournaments"
+        ctaHref="/tournaments"
+      />
+      <TournamentGrid mainEvent={mainEvent} otherEvents={otherEvents} />
+    </Section>
+
+    <Section surface="alt">
       <CaptainSpotlight name={homepage.captain.name} role={homepage.captain.role} />
     </Section>
 
-    <Section surface="alt" paddingBottom="normal">
+    <Section>
       <FranchiseTeaser name={homepage.sisterFranchise} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
     </Section>
   </main>
 
   <Footer social={homepage.social} nav={homepage.nav} />
 </BaseLayout>
-
-<style>
-  h2 {
-    margin-block: 0 var(--ukbt-space-gap-5);
-  }
-</style>
