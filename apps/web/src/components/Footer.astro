@@ -47,7 +47,7 @@ const year = new Date().getFullYear();
     <div class="ukbt-footer__columns">
       <div class="ukbt-footer__col">
         <img src="/brand/crest-512.png" width="72" height="99" alt="" class="ukbt-footer__logo" />
-        <h4>UK Bangla Tigers</h4>
+        <h3>UK Bangla Tigers</h3>
         <p>A cricket franchise built on international competition and community.</p>
         <ul class="ukbt-footer__social" aria-label="UK Bangla Tigers on social media">
           {
@@ -70,7 +70,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="ukbt-footer__col">
-        <h4>Quick Links</h4>
+        <h3>Quick Links</h3>
         <div class="ukbt-footer__rule"></div>
         <nav aria-label="Footer">
           <ul class="ukbt-footer__links">
@@ -81,7 +81,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="ukbt-footer__col">
-        <h4>Get in Touch</h4>
+        <h3>Get in Touch</h3>
         <div class="ukbt-footer__rule"></div>
         <p class="ukbt-footer__note">
           A direct phone line, email address and venue are still being
@@ -91,7 +91,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="ukbt-footer__col">
-        <h4>Follow the Tigers</h4>
+        <h3>Follow the Tigers</h3>
         <div class="ukbt-footer__rule"></div>
         <p class="ukbt-footer__note">
           Every match, signing and tournament, straight from the club.
@@ -129,8 +129,12 @@ const year = new Date().getFullYear();
     flex-direction: column;
     gap: var(--ukbt-space-gap-2);
   }
-  .ukbt-footer__col h4 {
+  .ukbt-footer__col h3 {
     margin: 0;
+    /* Promoted from h4 to h3 (Stage 8 red team F4: h4 columns skipped a
+       level whenever nothing preceding the footer happened to be h3).
+       Explicit size keeps the pre-existing visual weight. */
+    font-size: var(--ukbt-font-heading-h4-size);
   }
   .ukbt-footer__col p {
     margin: 0;
@@ -220,6 +224,14 @@ const year = new Date().getFullYear();
   .ukbt-footer a:focus-visible {
     outline: 2px solid var(--ukbt-color-brand-accent);
     outline-offset: 2px;
+  }
+  /* Stage 8 red team F3: the social icons' own fill is already gold, so
+     the rule above paints a gold ring on a gold tile (~1:1). Navy
+     contrasts 7.2:1 against gold (Button.astro) — override back to it
+     for just this element. Higher specificity than the rule above
+     (adds the element type) so it wins regardless of source order. */
+  a.ukbt-footer__social-icon:focus-visible {
+    outline-color: var(--ukbt-color-brand-primary);
   }
 
   @media screen and (max-width: 1025px) {

@@ -10,8 +10,13 @@ test('axe-core scan reports zero violations on the homepage', async ({
   page,
 }) => {
   await page.goto('/');
+  // HOMEPAGE-CONTRACT.md acceptance criterion 3 says "0 violations", with
+  // no tag-scope qualifier. A wcag-tags-only scan missed a real
+  // best-practice-tagged heading-order violation (Stage 8 red team F4) —
+  // widened to include it rather than narrowing the criterion to match
+  // what was actually being checked.
   const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
+    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa', 'best-practice'])
     .analyze();
   if (results.violations.length > 0) {
     console.log(JSON.stringify(results.violations, null, 2));
@@ -22,27 +27,111 @@ test('axe-core scan reports zero violations on the homepage', async ({
   ).toEqual([]);
 });
 
-test('every homepage nav link, the hero CTA, and every footer social link show a visible focus outline', async ({
+/**
+ * Presence AND contrast of the focus ring. Presence alone (outlineStyle
+ * !== 'none', outlineWidth > 0) is exactly what the Stage 7 suite
+ * checked and why it stayed green through a real defect (Stage 8 red
+ * team F3): 13 elements had a real, non-zero-width outline painted in a
+ * color effectively invisible against its own background (1.0-1.25:1).
+ * This asserts the same real WCAG 1.4.11 minimum (3:1) that the
+ * gold-contrast test below already computes for text.
+ */
+test('every homepage nav link, CTA, and social link shows a visible AND contrast-safe focus outline', async ({
   page,
 }) => {
   await page.goto('/');
   const focusable = page.locator(
-    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-footer__social a, .ukbt-footer__links a',
+    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-hero__social a, .ukbt-franchise__cta a, .ukbt-about-cta__social a, .ukbt-footer__social a, .ukbt-footer__links a',
   );
   const count = await focusable.count();
   expect(count).toBeGreaterThan(0);
   for (let i = 0; i < count; i++) {
     await focusable.nth(i).focus();
-    const style = await focusable.nth(i).evaluate((el) => {
+    const result = await focusable.nth(i).evaluate((el) => {
       const s = getComputedStyle(el);
-      return { outlineStyle: s.outlineStyle, outlineWidth: s.outlineWidth };
+      const parseRgb = (str: string): number[] | null => {
+        const m = str.match(/\d+(\.\d+)?/g);
+        return m ? m.slice(0, 3).map(Number) : null;
+      };
+      const relLum = ([r, g, b]: number[]) => {
+        const lin = (c: number) => {
+          const v = c / 255;
+          return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+        };
+        return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+      };
+      const contrast = (a: number[], b: number[]) => {
+        const la = relLum(a);
+        const lb = relLum(b);
+        const [hi, lo] = la > lb ? [la, lb] : [lb, la];
+        return (hi + 0.05) / (lo + 0.05);
+      };
+      const outline = parseRgb(s.outlineColor);
+      // Walk up for the nearest painted background — the ring is drawn
+      // in the space just outside the element, so what matters is the
+      // background it actually sits against, not the element's own fill.
+      let n: Element | null = el.parentElement;
+      let bg: number[] | null = null;
+      while (n) {
+        const c = getComputedStyle(n).backgroundColor;
+        if (c && c !== 'rgba(0, 0, 0, 0)' && !c.endsWith(', 0)')) {
+          bg = parseRgb(c);
+          break;
+        }
+        n = n.parentElement;
+      }
+      const ratio = outline && bg ? contrast(outline, bg) : null;
+      return {
+        outlineStyle: s.outlineStyle,
+        outlineWidth: s.outlineWidth,
+        ratio,
+      };
     });
-    expect(style.outlineStyle, `element ${i} focus outline`).not.toBe('none');
+    expect(result.outlineStyle, `element ${i} focus outline`).not.toBe('none');
     expect(
-      Number.parseFloat(style.outlineWidth),
+      Number.parseFloat(result.outlineWidth),
       `element ${i} outline width`,
     ).toBeGreaterThan(0);
+    expect(
+      result.ratio,
+      `element ${i} outline-vs-background contrast could not be computed`,
+    ).not.toBeNull();
+    expect(
+      result.ratio ?? 0,
+      `element ${i} outline-vs-background contrast ${result.ratio?.toFixed(2)}:1, needs 3:1`,
+    ).toBeGreaterThanOrEqual(3);
   }
+});
+
+test('the mobile nav drawer is fully keyboard-operable', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const toggle = page.locator('#ukbt-nav-toggle');
+  await page.locator('.ukbt-header__brand').focus();
+  await page.keyboard.press('Tab');
+  await expect(toggle).toBeFocused();
+
+  const firstDrawerLink = page.locator('.ukbt-header__drawer-menu a').first();
+  await expect(firstDrawerLink).not.toBeInViewport();
+
+  await page.keyboard.press('Enter');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(firstDrawerLink).toBeInViewport();
+
+  // The drawer must actually be reachable by Tab once open, not just
+  // visible — this is what F1 found broken (inert kept it out of the
+  // tab order even while transformed on-screen). The close button sits
+  // before the link list in the drawer's own markup, so it's the next
+  // stop, then the first nav link.
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#ukbt-nav-close')).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(firstDrawerLink).toBeFocused();
+
+  await page.keyboard.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toBeFocused();
 });
 
 test('mobile nav toggle shows and hides the nav without a console error', async ({

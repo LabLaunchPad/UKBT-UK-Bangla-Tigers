@@ -67,6 +67,7 @@ const facts = {
     value: '7+',
     sources: ['EV-026'],
   },
+  founded: { field: 'org.founded', value: '2020', sources: ['EV-029'] },
   captainName: {
     field: 'org.captain_name',
     value: 'Mohammad Chowdhury',
@@ -154,6 +155,12 @@ for (const rec of allRecords) {
 export const homepage = {
   tagline: facts.taglineLong.value,
   taglineShort: facts.taglineShort.value,
+  // HOMEPAGE-CONTRACT.md assigns the founding year to "Club introduction"
+  // (ClubIntro.astro) specifically — Stage 8 red team F2 found it was
+  // rendering only inside WhyChooseUs, a section outside the frozen
+  // structure, so it would have silently vanished if that section were
+  // ever removed. Same gated fact as about-data.ts's org.founded.
+  founded: facts.founded.value,
   stats: {
     players: facts.statPlayers.value,
     countries: facts.statCountries.value,

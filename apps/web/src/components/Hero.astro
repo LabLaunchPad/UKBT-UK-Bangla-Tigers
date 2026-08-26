@@ -53,7 +53,7 @@ const icons: Record<string, string> = {
       <div class="ukbt-hero__community-card">
         <span class="ukbt-hero__community-stat">30+</span>
         <div>
-          <h5>Players. One Club</h5>
+          <h2>Players. One Club</h2>
           <p>A cricket franchise built on international competition and community.</p>
         </div>
       </div>
@@ -70,6 +70,10 @@ const icons: Record<string, string> = {
   .ukbt-hero {
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
+    /* Gold-on-navy measures 7+:1 (Button.astro) — repaints the global
+       focus ring for every descendant without its own override. Stage 8
+       red team F3: the black default ring measured 1.25:1 here. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-hero__inner {
     display: flex;
@@ -155,6 +159,10 @@ const icons: Record<string, string> = {
   .ukbt-hero__community-card {
     background: var(--ukbt-color-surface-inverse-foreground);
     color: var(--ukbt-color-brand-primary);
+    /* Light card nested inside the navy hero — re-override the ring back
+       to a light-surface-safe value so a future focusable element here
+       doesn't inherit the hero's gold-on-dark ring onto a light bg. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-primary);
     display: flex;
     align-items: center;
     gap: var(--ukbt-space-4);
@@ -164,7 +172,7 @@ const icons: Record<string, string> = {
     font-size: var(--ukbt-font-size-5);
     font-weight: var(--ukbt-font-weight-bold);
   }
-  .ukbt-hero__community-card h5 {
+  .ukbt-hero__community-card h2 {
     margin: 0 0 var(--ukbt-space-1) 0;
     font-size: var(--ukbt-font-size-1);
   }
@@ -181,6 +189,12 @@ const icons: Record<string, string> = {
     flex-direction: column;
     gap: var(--ukbt-space-2);
     align-items: flex-start;
+    /* Gold card nested inside the navy hero. The outer `.ukbt-hero` rule
+       repaints the ring gold for the hero generally, which is exactly
+       wrong here since this card's own fill IS gold (measured 1:1 by the
+       new focus-contrast test) — re-override back to navy, which
+       contrasts 7+:1 against gold (Button.astro). */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-primary);
   }
   .ukbt-hero__cta-card h3 {
     margin: 0;

@@ -3,8 +3,15 @@
 // (`.card-membership-cta.cta-content` + `.cta-benefit`). The reference's
 // specific membership-perks bullet list (priority booking, discounted
 // coaching, etc.) has no UKBT equivalent evidence and is not invented —
-// this card carries only evidenced content: a join CTA and the real
+// this card carries only evidenced content: a follow CTA and the real
 // social handles.
+//
+// The button used to repeat "Join the Club" → /contact verbatim, the
+// same CTA already in the header and hero — a real duplicate found by
+// the Stage 8 red team (F5). This card's own copy ("Follow the Tigers")
+// asks the visitor to follow, not join, so the button now does that:
+// it links to the first listed social platform rather than restating
+// the site-wide join CTA a third time.
 import Button from './Button.astro';
 
 interface Social {
@@ -15,13 +22,21 @@ interface Props {
   social: Social[];
 }
 const { social } = Astro.props;
+const primarySocial = social[0];
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <div class="ukbt-about-cta">
   <div class="ukbt-about-cta__content">
     <h3>Follow the Tigers</h3>
     <p>Stay with every match, signing, and tournament as it happens.</p>
-    <Button label="Join the Club" href="/contact" variant="primary" />
+    {primarySocial && (
+      <Button
+        label={`Follow on ${capitalize(primarySocial.platform)}`}
+        href={primarySocial.url}
+        variant="primary"
+      />
+    )}
   </div>
   <div class="ukbt-about-cta__benefit">
     <p class="ukbt-about-cta__benefit-lede">
@@ -74,6 +89,9 @@ const { social } = Astro.props;
     flex-direction: column;
     justify-content: center;
     gap: var(--ukbt-space-4);
+    /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
+       this navy panel; gold-on-navy measures 7+:1. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-about-cta__benefit-lede {
     margin: 0;

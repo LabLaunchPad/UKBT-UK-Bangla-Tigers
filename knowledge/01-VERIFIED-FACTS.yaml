@@ -227,11 +227,14 @@ architecture:
     system), 6 (reference analysis) are DONE with their named artifacts.
     Stage 4 (foundation) and 7 (homepage) have the underlying work done and
     verified (apps/web + packages/truth build and pass a 9-job CI; homepage
-    implemented and visually QA'd) but never got their named receipt
-    (artifacts/receipts/FOUNDATION.md / HOMEPAGE.md — both dirs still hold
-    only .gitkeep). Stage 8 (independent homepage red team, required by
-    pipeline rule 5 to run in a session separate from Stage 7) NEVER RAN.
-    Stage 9 (site-scale) was substantially delivered via a client-directed
+    implemented and visually QA'd); both now have their receipts backfilled
+    (artifacts/receipts/FOUNDATION.md / HOMEPAGE.md). Stage 8 (independent
+    homepage red team, required by pipeline rule 5 to run in a session
+    separate from Stage 7) has now run, in a genuinely separate session:
+    HOMEPAGE_VERDICT = FAIL, 8 real findings (3 HIGH), all fixed and
+    re-verified in this session afterward — see
+    artifacts/review/HOMEPAGE-REDTEAM.md and the Stage 8 section of
+    artifacts/receipts/HOMEPAGE.md. Stage 9 (site-scale) was substantially delivered via a client-directed
     ad-hoc "Full Template UI Parity Reconstruction"
     (artifacts/ui/PARITY-COMPLETION-REPORT.md) that built 7 new pages in one
     batch — violating pipeline rule 6 (no batch page building; per-page

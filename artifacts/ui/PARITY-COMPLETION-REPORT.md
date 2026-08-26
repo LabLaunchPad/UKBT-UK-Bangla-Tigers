@@ -53,9 +53,14 @@ padel-court business:
   condition 2): an indexed page is a public claim the club sells the
   thing.
 - **Maps** (contact) — no venue is on record (U-16).
-- **Testimonial** — present as structure on 4 routes, empty by decision.
-  No consented member quote exists, and a testimonial is the worst thing
-  on a site to invent: it puts words in a named person's mouth.
+- **Testimonial** — present as structure on 3 routes (`/about`,
+  `/tournaments`, `/contact`), empty by decision. No consented member
+  quote exists, and a testimonial is the worst thing on a site to
+  invent: it puts words in a named person's mouth. It was also on the
+  homepage until the Stage 8 red team (`artifacts/review/HOMEPAGE-REDTEAM.md`,
+  F2) found that shipping a visibly-empty box on the site's primary
+  indexed route was worse than omitting the section — removed there,
+  along with `NewsTeaser` for the same reason.
 - **Blog / Single Post** — no UKBT article exists. The article template
   is committed and reviewable; `getStaticPaths` returns an empty set.
 

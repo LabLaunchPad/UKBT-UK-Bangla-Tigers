@@ -43,7 +43,7 @@ import SubHeading from './SubHeading.astro';
       {
         facts.map((f) => (
           <li>
-            <h4>{f.label}</h4>
+            <h3>{f.label}</h3>
             <p>{f.body}</p>
           </li>
         ))
@@ -84,6 +84,9 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-surface-inverse-foreground);
     border-radius: 0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg);
     padding: var(--ukbt-space-3) var(--ukbt-space-4);
+    /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
+       this navy panel; gold-on-navy measures 7+:1. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-franchise__cta h4 {
     margin: 0 0 var(--ukbt-space-1) 0;
@@ -105,7 +108,7 @@ import SubHeading from './SubHeading.astro';
     flex-direction: column;
     gap: var(--ukbt-space-4);
   }
-  .ukbt-franchise__facts h4 {
+  .ukbt-franchise__facts h3 {
     margin: 0;
     font-size: var(--ukbt-font-size-1);
   }

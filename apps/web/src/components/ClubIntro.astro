@@ -13,8 +13,9 @@ interface Stat {
 interface Props {
   tagline: string;
   stats: Stat[];
+  founded: string;
 }
-const { tagline, stats } = Astro.props;
+const { tagline, stats, founded } = Astro.props;
 import SubHeading from './SubHeading.astro';
 ---
 
@@ -35,6 +36,7 @@ import SubHeading from './SubHeading.astro';
     <SubHeading label="About Us" />
     <h2>We're not just a team.</h2>
     <p class="ukbt-about__lede">{tagline}</p>
+    <p class="ukbt-about__founded">Founded in {founded}.</p>
     <div class="ukbt-about__stats">
       {
         stats.map((s) => (
@@ -104,6 +106,11 @@ import SubHeading from './SubHeading.astro';
     max-width: 42rem;
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-about__founded {
+    margin: var(--ukbt-space-2) 0 0 0;
+    color: var(--ukbt-color-neutral-700);
+    font-weight: var(--ukbt-font-weight-bold);
   }
   /* .about-highlight-box row: 3-column, border-top accent, big number + label */
   .ukbt-about__stats {

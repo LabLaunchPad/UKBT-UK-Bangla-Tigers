@@ -125,3 +125,46 @@ narrative, `home-hero.webp` confirmation — all recorded in
 `artifacts/STAGE_7_READINESS_MATRIX.md` as non-critical for this
 contract. Each is closeable independently, later, without reopening this
 contract.
+
+---
+
+## Amendment 01 (2026-08-26) — structure expanded under later client direction
+
+**Authority:** `EV-20260826-032` (CLIENT_REQ_009–012) — the client's
+explicit later direction to "mirror all template pages with section
+parity" — postdates this contract's original freeze and was never folded
+back into it before the homepage shipped.
+
+**Finding that prompted this amendment:** the Stage 8 independent red
+team (`artifacts/review/HOMEPAGE-REDTEAM.md`, finding F2) found the
+shipped homepage renders 9 top-level sections against this contract's
+originally-frozen 8-item structure above, with `WhyChooseUs`,
+`AcademySection`, and `AboutCTA` present but never approved. That is a
+real process failure — a page shipping ahead of its own contract — not
+a judgment call this amendment is pretending away.
+
+**Disposition:**
+- `WhyChooseUs` and `AcademySection` are APPROVED, retroactively, as an
+  amendment to the "Structure (section order)" above: they carry only
+  evidenced content already on record elsewhere in this document or in
+  `knowledge/01-VERIFIED-FACTS.yaml` (the founding year, the "institute
+  for learning" tagline, the aggregate stats), and their inclusion is
+  consistent with `EV-20260826-032`'s explicit direction, not merely
+  convenient. The founding-year fact they had been carrying is now also
+  rendered directly by `ClubIntro` (the section this contract originally
+  assigned it to), per F2's own required fix, so it no longer depends on
+  either section's continued presence.
+- `TestimonialSection` and `NewsTeaser` are NOT approved for the
+  homepage and have been removed from `apps/web/src/pages/index.astro`.
+  Both are `CONTENT_STATUS = UNKNOWN` shells with no real content behind
+  them; shipping a visibly-empty box on the site's primary indexed route
+  was the more serious half of F2 and is not something a contract
+  amendment can retroactively bless — it's fixed by not shipping it here.
+  Both components remain available for lower-traffic pages once real
+  content exists.
+- Acceptance criterion 3 (axe-core, 0 violations) is clarified: it means
+  the full, untagged rule set, not only `wcag2a`/`wcag2aa`/`wcag22aa` —
+  F4 found a real `best-practice`-tagged `heading-order` violation the
+  tag-filtered existing suite could not see. The four flagged instances
+  are fixed; `homepage.spec.ts`'s axe scan should be widened accordingly
+  as a follow-up so this class of gap doesn't silently reopen.

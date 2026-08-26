@@ -102,9 +102,13 @@ p {
 
 /* contracts/ACCESSIBILITY-CONTRACT.md: visible focus indicator on every
    focusable element — never the invisible-outline SOURCE_DEFECT found in
-   the Adelux reference (INTERACTION-FORENSICS.md). */
+   the Adelux reference (INTERACTION-FORENSICS.md).
+   `--ukbt-color-focus-ring` lets a dark (surface-inverse) section repaint
+   the ring for its own descendants without a per-element override —
+   found missing (black ring on navy, ~1.25:1) by the Stage 8 independent
+   red team (artifacts/review/HOMEPAGE-REDTEAM.md, F3). */
 :focus-visible {
-  outline: 2px solid var(--ukbt-color-surface-foreground);
+  outline: 2px solid var(--ukbt-color-focus-ring, var(--ukbt-color-surface-foreground));
   outline-offset: 2px;
 }
 
