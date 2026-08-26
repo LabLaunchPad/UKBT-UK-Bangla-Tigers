@@ -1,0 +1,81 @@
+id: EV-20260826-015
+classification: MEASURED
+claim: >
+  Resolved the 13-vs-14 page count discrepancy with a fresh re-verification
+  (not memory), froze the canonical 14-entry page inventory, extended
+  responsive forensics to the full 6-viewport matrix across all 13 pages,
+  exercised Swiper interaction (honestly recording an inconclusive drag
+  result), and deepened component/third-party disposition with cross-page
+  evidence - all as Track A (forensic analysis), no Track B adaptation
+  performed.
+source: "Direct re-verification of the immutable source archive plus Playwright/Chromium rendering."
+source_type: command
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Derived from an immutable, fixed-SHA256 source; does not expire unless the source or method changes."
+scope: "Track A (FORENSIC_ANALYSIS / DESIGN_EXTRACTION) only"
+method: >
+  find + sha256sum re-verification of all HTML files in the archive (14,
+  0 duplicates by hash, 0 meta-refresh files). Playwright 6-viewport
+  (1440x900/1280x800/1024x768/768x1024/430x932/390x844) structural snapshot
+  across all 13 renderable pages. Live mouse-drag simulation against both
+  Swiper instances. Live focus-state computed-style diff on the primary
+  button. grep for fslightbox/odometer markup invocation across all 13
+  pages. Component-candidate cross-page class-occurrence counts. CSS AST
+  cross-reference (no re-parse) linking each of the 4 component candidates
+  to its matching rules and token references.
+result: |
+  PAGE COUNT RESOLVED: 14 source HTML files (0 duplicates, 0 redirects),
+  13 renderable site pages, 1 excluded (vendor documentation page, distinct
+  content and title, confirmed by hash and title comparison). Both prior
+  numbers were correct for their own scope; neither changed to match the
+  other.
+
+  RESPONSIVE: full 6-viewport matrix run across all 13 pages. Nav-toggle
+  breakpoint behaviorally confirmed between 1280x800 and 1024x768, matching
+  the CSS AST's stated ~1025px breakpoint - real cross-validation, not
+  restated media-query text. Horizontal overflow found on 4/13 pages
+  (service, coaching at desktop widths; community, event at tablet/mobile),
+  recorded as an observed source characteristic, not corrected.
+
+  INTERACTION: mobile nav toggle live-verified on 12/12 applicable pages
+  (unchanged from EV-013). Swiper initialization verified (slide counts
+  match source config exactly on both instances). Swiper drag-to-advance
+  ATTEMPTED via mouse-event simulation - did not trigger a slide change,
+  honestly recorded as inconclusive rather than claimed either way; native
+  touch-event simulation not yet attempted. Focus-state test on the primary
+  button found outline stays "none" in both states - a real accessibility
+  defect in the source (no visible focus indicator), recorded rather than
+  silently noted. fsLightbox and Odometer confirmed invoked by ZERO of 13
+  pages - a new fact simplifying their disposition to REMOVE regardless of
+  their unknown licence status.
+
+  COMPONENTS: cross-page occurrence counts obtained for all 4 candidates
+  (.btn-accent 56/13 pages, .nav-link 72/12, .card-blog 19/4,
+  .card-chooseus 8/2), plus a CSS rule-count and token-reference
+  cross-check per candidate. Candidate count held at 4, not inflated;
+  .card-chooseus explicitly not promoted further given thin (2-page,
+  1-rule) evidence.
+
+  TOKENS: held at RAW=61/CANDIDATE=20/ADAPTED=0/APPROVED=0. The example
+  adaptation naming convention in the requesting instruction was treated as
+  illustrative of the FORMAT only - no token was actually adapted or given
+  a UKBT semantic name this pass, since that is Track B (rights-gated).
+related_files:
+  - artifacts/source/PAGE-INVENTORY.yaml
+  - artifacts/responsive/RESPONSIVE-MATRIX.yaml
+  - artifacts/extraction/INTERACTION-FORENSICS.md
+  - artifacts/extraction/COMPONENT-CANDIDATES.md
+  - artifacts/extraction/THIRD-PARTY-DISPOSITION.md
+  - artifacts/extraction/CSS-EVIDENCE-GRAPH.md
+  - artifacts/extraction/FORENSIC-EXTRACTION-VERDICT.md
+related_task: FORENSIC-EXTRACTION-DEEPENING
+relates_to: [EV-20260826-008, EV-20260826-009, EV-20260826-013]
+notes: >
+  No governance file was modified this pass, per explicit instruction not
+  to redesign governance again absent a concrete contradiction - none was
+  found. Six genuine remaining unknowns are named in
+  FORENSIC-EXTRACTION-VERDICT.md, none of which block Track C work. BL-02/
+  provenance_chain.B is unchanged and is not one of the six items this pass
+  could resolve - it requires primary evidence from outside this repository.
