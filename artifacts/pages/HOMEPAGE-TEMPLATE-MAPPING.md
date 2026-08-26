@@ -1,10 +1,31 @@
 # Homepage Template Mapping
 
-**Date:** 2026-08-26 · Maps `artifacts/ui/REFERENCE-ANALYSIS.md`'s
+**Date:** 2026-08-26, revised same day · Maps `artifacts/ui/REFERENCE-ANALYSIS.md`'s
 observed visual grammar (Stage 6) to actual UKBT content and assets
 (Stage 7). No Adelux content, branding, or fictional material appears in
 any `UKBT_CONTENT`/`UKBT_ASSET` column — every value below traces to a
 Stage 7 evidence record.
+
+**Revision note:** the table below was revised after implementation to
+mirror each section's *actual measured geometry* from the Adelux source
+(`HTML_TEMPLATE/index.html` + `assets/css/main.css`), read directly a
+second time at the requester's instruction, rather than a looser
+generic reinterpretation. Real CSS values used: `.banner-home-top`/
+`.banner-home-bottom` (flex row, `justify-content: space-between`, `gap:
+100px`) → the Hero's two-row layout; `.about-wrapper` (flex row, `gap:
+100px`, `align-items: center`, with `.about-highlight-box`'s
+border-top-accent 3-stat row) → Club Intro (which absorbed the
+originally-separate "stat strip" section, since the reference has no
+standalone strip — its stats live inside the About section); `.tournament-grid`
+(`grid-template-columns: 0.32fr 0.68fr`) + `.card-tournament.tournament-cta`
+(1fr 1fr) + `.other-tournament-container` (1fr 1fr) → the Tournament
+section's main-event/CTA/secondary-cards layout; `.academy-title-container`
+(flex row, `align-items: center`, `border-bottom: 3px solid var(--primary)`)
+→ Club Captain spotlight; `.community-grid` (`grid-template-columns: 1fr
+1fr`, `gap: 100px`) → Franchises teaser. The reference's "Testimonial"
+and "Service/Booking" sections have no real UKBT content to populate
+them (no consented member testimonials exist, no court-booking product
+exists) and are correctly omitted, not filled with placeholder content.
 
 | TEMPLATE_COMPONENT | PURPOSE | UKBT_CONTENT | UKBT_ASSET | SOURCE | TRUTH_STATUS | CLIENT_REQUIREMENT | DESIGN_DECISION | STATUS |
 |---|---|---|---|---|---|---|---|---|

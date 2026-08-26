@@ -1,18 +1,85 @@
 ---
-// Placeholder homepage. Per the FOUNDATION gate: proves the build/CSS/
-// component pipeline executes end-to-end. This is NOT the real UKBT
-// homepage — no site-wide content population happens at this gate
-// (contracts/ROUTE-CONTRACT.md, contracts/CONTENT-CONTRACT.md). No
-// organizational fact appears below; the button label is a UI string
-// (exempt from the truth gate, contracts/CONTENT-CONTRACT.md).
+// UK Bangla Tigers homepage — Stage 7G implementation of
+// artifacts/pages/HOMEPAGE-CONTRACT.md. Content is bound to
+// @ukbt/truth's gate (src/content/homepage-data.ts), not hard-coded past
+// the truth architecture. Each section's geometry mirrors the reference's
+// actual measured layout (checked directly against the Adelux source
+// HTML/CSS per section — see per-component comments), reimplemented with
+// UKBT content/branding. No Adelux code, content, or branding appears
+// anywhere below.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Button from '../components/Button.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ClubIntro from '../components/ClubIntro.astro';
+import TournamentGrid from '../components/TournamentGrid.astro';
+import CaptainSpotlight from '../components/CaptainSpotlight.astro';
+import FranchiseTeaser from '../components/FranchiseTeaser.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+
+const stats = [
+  { value: homepage.stats.players, label: 'Players' },
+  { value: homepage.stats.countries, label: 'Countries Internationals' },
+  { value: homepage.stats.tournaments, label: 'International Tournaments' },
+];
+
+const [mainEvent, ...otherEvents] = homepage.upcomingTournaments;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsOrganization',
+  name: 'UK Bangla Tigers',
+  sport: 'Cricket',
+  sameAs: homepage.social.map((s) => s.url),
+};
 ---
 
-<BaseLayout title="UK Bangla Tigers — Foundation build">
+<BaseLayout
+  title="UK Bangla Tigers — Cricket Club"
+  description={homepage.taglineShort}
+  structuredData={structuredData}
+>
+  <Header nav={homepage.nav} />
+
   <main>
-    <h1>UK Bangla Tigers</h1>
-    <p>Foundation build placeholder — content, routes, and visual design are not yet implemented.</p>
-    <Button label="Placeholder action" variant="primary" />
+    <Hero taglineShort={homepage.taglineShort} social={homepage.social} />
+
+    <Section paddingTop="normal" paddingBottom="normal">
+      <ClubIntro tagline={homepage.tagline} stats={stats} />
+    </Section>
+
+    <Section surface="alt">
+      <p class="ukbt-eyebrow">Upcoming Tournament</p>
+      <h2>Join Us on the International Stage</h2>
+      <TournamentGrid mainEvent={mainEvent} otherEvents={otherEvents} />
+    </Section>
+
+    <Section>
+      <CaptainSpotlight name={homepage.captain.name} role={homepage.captain.role} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <FranchiseTeaser name={homepage.sisterFranchise} />
+    </Section>
   </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} />
 </BaseLayout>
+
+<style>
+  h2 {
+    font-size: var(--ukbt-font-size-4);
+    margin-block: 0 var(--ukbt-space-6);
+  }
+  .ukbt-eyebrow {
+    color: var(--ukbt-color-brand-accent-contrast);
+    background: var(--ukbt-color-brand-accent);
+    display: inline-block;
+    padding: var(--ukbt-space-1) var(--ukbt-space-3);
+    border-radius: var(--ukbt-radius-pill);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: var(--ukbt-font-weight-bold);
+    margin: 0 0 var(--ukbt-space-2) 0;
+  }
+</style>

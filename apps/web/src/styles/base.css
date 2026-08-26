@@ -19,6 +19,10 @@ body {
   color: var(--ukbt-color-surface-foreground);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ukbt-font-family-heading);
+}
+
 .ukbt-container {
   width: 100%;
   max-width: var(--ukbt-container-max-width-xl);

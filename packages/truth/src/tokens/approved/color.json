@@ -1,5 +1,16 @@
 {
   "color": {
+    "brand": {
+      "$description": "CLASSIFICATION: VERIFIED (primary/accent) / DERIVED (hover/active, tonal formula) — Stage 7, artifacts/brand/BRAND-DECISION.md and artifacts/brand/UKBT-BRAND-FOUNDATION.md, EV-20260826-029. Primary/accent sampled directly from the club's own crest logo (artifacts/brand/raw/brand/crest.png), not invented, not copied from any reference template.",
+      "primary": { "$value": "#001E3A", "$type": "color" },
+      "primaryHover": { "$value": "#001A33", "$type": "color" },
+      "primaryActive": { "$value": "#00172D", "$type": "color" },
+      "primaryContrast": { "$value": "#FFFFFF", "$type": "color" },
+      "accent": { "$value": "#CCA44F", "$type": "color" },
+      "accentHover": { "$value": "#B49046", "$type": "color" },
+      "accentActive": { "$value": "#9F803E", "$type": "color" },
+      "accentContrast": { "$value": "#001E3A", "$type": "color" }
+    },
     "neutral": {
       "$description": "A generic 0-900 greyscale ramp \u2014 the same convention used by nearly every design system, carrying no brand information.",
       "0": {
@@ -43,6 +54,20 @@
       },
       "link": {
         "$value": "LinkText",
+        "$type": "color"
+      },
+      "alt": {
+        "$value": "#F8F4E8",
+        "$type": "color",
+        "$description": "CLASSIFICATION: PROPOSED — 'Cream', real colour sampled from the crest (EV-20260826-029) but only a minor artwork presence there; used here as a light section background alternative to Canvas, not asserted as a decided brand surface."
+      },
+      "inverse": {
+        "$value": "#001E3A",
+        "$type": "color",
+        "$description": "Dark section background (e.g. hero, footer) — same literal value as color.brand.primary (kept duplicated, not referenced, per this token set's existing no-alias convention)."
+      },
+      "inverseForeground": {
+        "$value": "#FFFFFF",
         "$type": "color"
       }
     },

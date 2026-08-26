@@ -2,9 +2,14 @@
   "font": {
     "family": {
       "base": {
-        "$value": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "$value": "'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
         "$type": "fontFamily",
-        "$description": "PROPOSED \u2014 generic system stack, zero licence/rights surface, zero brand claim."
+        "$description": "CLASSIFICATION: PROPOSED, not VERIFIED (artifacts/brand/UKBT-BRAND-FOUNDATION.md) \u2014 Lato, self-hosted (packages/truth/../apps/web font files sourced from artifacts/brand/raw/fonts/, SIL OFL). Adopted as an assumption carried from the Adelux reference (EV-20260826-029's own framing), not confirmed by the club. System stack remains as fallback."
+      },
+      "heading": {
+        "$value": "'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "$type": "fontFamily",
+        "$description": "CLASSIFICATION: PROPOSED, not VERIFIED \u2014 same basis as font.family.base."
       }
     },
     "size": {
@@ -36,6 +41,11 @@
       "6": {
         "$value": "3.052rem",
         "$type": "dimension"
+      },
+      "display": {
+        "$value": "clamp(2.25rem, 1.4rem + 3.5vw, 3.75rem)",
+        "$type": "dimension",
+        "$description": "CLASSIFICATION: DERIVED — Stage 6 (artifacts/ui/REFERENCE-ANALYSIS.md §2) observed a large hero headline that steps down in discrete bands at the same breakpoints as structural changes. Implemented here as a fluid clamp() covering a comparable size range instead of copying the reference's literal step values — a disclosed improvement (continuous scaling vs. discrete jumps), not a literal port."
       }
     },
     "weight": {

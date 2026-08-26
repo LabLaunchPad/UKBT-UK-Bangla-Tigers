@@ -1,0 +1,206 @@
+---
+// Homepage hero — mirrors the reference's actual measured banner
+// geometry (Adelux HTML_TEMPLATE/index.html "Banner Home Section":
+// .banner-home-top / .banner-home-bottom, each `display:flex; flex-
+// direction:row; justify-content:space-between; gap:100px`), reimplemented
+// with UKBT content/branding, never Adelux copy or imagery. Per
+// HOMEPAGE-CONTRACT.md: the crest/wordmark treatment is the committed
+// hero — home-hero.webp is excluded (EV-20260826-030, team affiliation
+// unconfirmed).
+import Button from './Button.astro';
+
+interface Props {
+  taglineShort: string;
+  social: { platform: string; url: string }[];
+}
+const { taglineShort, social } = Astro.props;
+
+const icons: Record<string, string> = {
+  facebook: 'M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12',
+  instagram: 'M12 2c2.7 0 3.1 0 4.1.1 1.1 0 1.8.2 2.5.5.7.3 1.2.6 1.7 1.1.5.5.9 1 1.1 1.7.3.7.5 1.4.5 2.5.1 1 .1 1.4.1 4.1s0 3.1-.1 4.1c0 1.1-.2 1.8-.5 2.5-.3.7-.6 1.2-1.1 1.7-.5.5-1 .9-1.7 1.1-.7.3-1.4.5-2.5.5-1 .1-1.4.1-4.1.1s-3.1 0-4.1-.1c-1.1 0-1.8-.2-2.5-.5-.7-.3-1.2-.6-1.7-1.1-.5-.5-.9-1-1.1-1.7-.3-.7-.5-1.4-.5-2.5C2 15.1 2 14.7 2 12s0-3.1.1-4.1c0-1.1.2-1.8.5-2.5.3-.7.6-1.2 1.1-1.7.5-.5 1-.9 1.7-1.1.7-.3 1.4-.5 2.5-.5C8.9 2 9.3 2 12 2Zm0 2c-2.6 0-3 0-4 .1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.8-.3 1.7C4.2 9 4.2 9.4 4.2 12s0 3 .1 4c0 .9.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.8.3 1.7.3 1 .1 1.4.1 4 .1s3 0 4-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.3.3-.8.3-1.7.1-1 .1-1.4.1-4s0-3-.1-4c0-.9-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.8-.3-1.7-.3-1-.1-1.4-.1-4-.1Zm0 3.5A4.5 4.5 0 1 1 12 16a4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm4.8-2.7a1 1 0 1 1 0 2.1 1 1 0 0 1 0-2.1Z',
+  tiktok: 'M14 2h3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-1.7V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.1a3 3 0 1 0 2 2.8V2Z',
+  x: 'M3 3l7.4 9.5L3.2 21H6l5.7-6.4L16 21h5l-7.7-9.9L20.6 3h-2.8l-5.3 5.9L8 3H3Z',
+};
+---
+
+<div class="ukbt-hero">
+  <div class="ukbt-container ukbt-hero__inner">
+    <!-- Top row: mirrors .banner-home-top (heading left, social+highlight right) -->
+    <div class="ukbt-hero__top">
+      <div class="ukbt-hero__title">
+        <img src="/brand/crest-512.png" width="100" height="137" alt="UK Bangla Tigers crest" class="ukbt-hero__crest" fetchpriority="high" />
+        <h1 class="ukbt-hero__headline">UK Bangla Tigers</h1>
+        <p class="ukbt-hero__tagline-short">{taglineShort}</p>
+      </div>
+      <div class="ukbt-hero__network">
+        <ul class="ukbt-hero__social">
+          {
+            social.map((s) => (
+              <li>
+                <a href={s.url} aria-label={`UK Bangla Tigers on ${s.platform}`} rel="me noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d={icons[s.platform]} /></svg>
+                  <span>{s.platform}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom row: mirrors .banner-home-bottom (community/stat card left, CTA card right) -->
+    <div class="ukbt-hero__bottom">
+      <div class="ukbt-hero__community-card">
+        <span class="ukbt-hero__community-stat">30+</span>
+        <div>
+          <h5>Players. One Club</h5>
+          <p>A cricket franchise built on international competition and community.</p>
+        </div>
+      </div>
+      <div class="ukbt-hero__cta-card">
+        <h3>Join the Tigers</h3>
+        <p>Be part of the next chapter, on and off the pitch.</p>
+        <Button label="Join the Club" href="/contact" variant="primary" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ukbt-hero {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+  }
+  .ukbt-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-8);
+    padding-block: var(--ukbt-space-8);
+  }
+
+  /* .banner-home-top: flex row, justify-content space-between, gap 100px */
+  .ukbt-hero__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--ukbt-space-8);
+    flex-wrap: wrap;
+  }
+  .ukbt-hero__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ukbt-space-3);
+  }
+  .ukbt-hero__crest {
+    height: 5rem;
+    width: auto;
+    flex: none;
+  }
+  .ukbt-hero__headline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-display);
+    line-height: var(--ukbt-font-line-height-tight);
+    margin: 0;
+  }
+  .ukbt-hero__tagline-short {
+    font-family: var(--ukbt-font-family-heading);
+    color: var(--ukbt-color-brand-accent);
+    font-size: var(--ukbt-font-size-3);
+    font-weight: var(--ukbt-font-weight-bold);
+    margin: 0;
+  }
+  .ukbt-hero__network {
+    display: flex;
+    align-items: center;
+  }
+  .ukbt-hero__social {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ukbt-hero__social a {
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    color: inherit;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-hero__social a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+
+  /* .banner-home-bottom: flex row, justify-content space-between, gap 100px */
+  .ukbt-hero__bottom {
+    display: flex;
+    flex-direction: row;
+    gap: var(--ukbt-space-6);
+    flex-wrap: wrap;
+  }
+  .ukbt-hero__community-card,
+  .ukbt-hero__cta-card {
+    flex: 1 1 20rem;
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-6);
+  }
+  /* Mirrors .banner-home-community: image/stat card, light surface */
+  .ukbt-hero__community-card {
+    background: var(--ukbt-color-surface-inverse-foreground);
+    color: var(--ukbt-color-brand-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-hero__community-stat {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-5);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-hero__community-card h5 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-hero__community-card p {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+  /* Mirrors .banner-home-cta: accent-forward CTA card */
+  .ukbt-hero__cta-card {
+    background: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+    align-items: flex-start;
+  }
+  .ukbt-hero__cta-card h3 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-3);
+  }
+  .ukbt-hero__cta-card p {
+    margin: 0 0 var(--ukbt-space-2) 0;
+  }
+  .ukbt-hero :global(.ukbt-button--primary) {
+    background: var(--ukbt-color-brand-primary);
+    border-color: var(--ukbt-color-brand-primary);
+    color: var(--ukbt-color-brand-primary-contrast);
+  }
+  .ukbt-hero :global(.ukbt-button--primary:hover) {
+    background: var(--ukbt-color-brand-primary-hover);
+    border-color: var(--ukbt-color-brand-primary-hover);
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-hero__top,
+    .ukbt-hero__bottom {
+      flex-direction: column;
+    }
+  }
+</style>

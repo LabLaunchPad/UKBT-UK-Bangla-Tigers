@@ -16,6 +16,11 @@
       "xl": {
         "$value": "1280px",
         "$type": "dimension"
+      },
+      "xxl": {
+        "$value": "1440px",
+        "$type": "dimension",
+        "$description": "CLASSIFICATION: DERIVED — Stage 6 measured a ~1360-1440px content width at desktop-large viewports (RESPONSIVE-MATRIX.yaml). Added for the homepage's wide-desktop sections; not present at Stage 5."
       }
     },
     "gutter": {

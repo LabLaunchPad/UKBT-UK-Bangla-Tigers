@@ -1,0 +1,164 @@
+---
+// Reconstructs the reference's measured nav geometry (artifacts/ui/
+// REFERENCE-ANALYSIS.md §4): one site-wide collapse breakpoint, active
+// link resolved via Astro's own routing at build time (not a client
+// script — the Stage 6-proposed improvement), CSS-only toggle (no JS
+// dependency introduced). Never reproduces the reference's client-side
+// active-link mechanism.
+interface NavItem {
+  label: string;
+  href: string;
+}
+interface Props {
+  nav: NavItem[];
+}
+const { nav } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<header class="ukbt-header">
+  <div class="ukbt-container ukbt-header__bar">
+    <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
+      <img
+        src="/brand/crest-512.png"
+        width="40"
+        height="55"
+        alt="UK Bangla Tigers crest"
+        class="ukbt-header__logo"
+      />
+      <span class="ukbt-header__wordmark">UK Bangla Tigers</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="ukbt-header__toggle-input" aria-hidden="true" />
+    <label for="nav-toggle" class="ukbt-header__toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="ukbt-header__nav" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={currentPath === item.href ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .ukbt-header {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    height: var(--ukbt-geometry-header-height);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .ukbt-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .ukbt-header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-3);
+    color: inherit;
+    text-decoration: none;
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-header__logo {
+    height: calc(var(--ukbt-geometry-header-height) - var(--ukbt-space-4));
+    width: auto;
+  }
+  .ukbt-header__wordmark {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-2);
+    letter-spacing: 0.02em;
+  }
+  .ukbt-header__toggle-input {
+    display: none;
+  }
+  .ukbt-header__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: var(--ukbt-space-2);
+  }
+  .ukbt-header__toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ukbt-color-surface-inverse-foreground);
+  }
+  .ukbt-header__nav ul {
+    display: flex;
+    gap: var(--ukbt-space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ukbt-header__nav a {
+    color: inherit;
+    text-decoration: none;
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-header__nav a[aria-current='page'] {
+    color: var(--ukbt-color-brand-accent);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-header__nav a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+
+  /* Single site-wide collapse breakpoint (Stage 6 §4: one breakpoint
+     governs the whole nav, not per-page values). */
+  @media (max-width: 1023px) {
+    .ukbt-header__toggle {
+      display: flex;
+    }
+    .ukbt-header__nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--ukbt-color-surface-inverse);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard);
+    }
+    .ukbt-header__nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--ukbt-space-4) var(--ukbt-container-gutter);
+    }
+    .ukbt-header__nav a {
+      display: block;
+      padding: var(--ukbt-space-3) 0;
+    }
+    .ukbt-header__toggle-input:checked ~ .ukbt-header__nav {
+      max-height: 32rem;
+    }
+  }
+
+  /* :focus-visible base rule lives globally; ensure it's visible against
+     the dark header surface specifically (never the reference's
+     invisible-outline defect). */
+  .ukbt-header a:focus-visible,
+  .ukbt-header__toggle:focus-visible {
+    outline: 2px solid var(--ukbt-color-brand-accent);
+    outline-offset: 2px;
+  }
+</style>

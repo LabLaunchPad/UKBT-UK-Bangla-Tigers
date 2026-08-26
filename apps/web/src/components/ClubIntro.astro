@@ -1,0 +1,146 @@
+---
+// Mirrors the reference's "About Section" (.about-wrapper: flex row,
+// gap 100px, align-items center — image side with an overlapping detail
+// card, content side with heading/paragraph and a 3-column stat row,
+// .about-highlight-box: border-top accent + big number + label).
+// Reimplemented with UKBT content — crest instead of a stock/unconfirmed
+// photo (no confirmed real UKBT "about" photograph exists yet,
+// EV-20260826-030), real corroborated tagline, real aggregate stats.
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  tagline: string;
+  stats: Stat[];
+}
+const { tagline, stats } = Astro.props;
+---
+
+<div class="ukbt-about">
+  <div class="ukbt-about__image-side">
+    <img src="/brand/crest-512.png" width="180" height="247" alt="UK Bangla Tigers crest" />
+    <div class="ukbt-about__detail-card">
+      <h4>A cricket franchise built on international competition and community.</h4>
+    </div>
+  </div>
+  <div class="ukbt-about__content-side">
+    <p class="ukbt-about__eyebrow">About Us</p>
+    <h2>We're not just a team.</h2>
+    <p class="ukbt-about__lede">{tagline}</p>
+    <div class="ukbt-about__stats">
+      {
+        stats.map((s) => (
+          <div class="ukbt-about__stat">
+            <span class="ukbt-about__stat-value">{s.value}</span>
+            <span class="ukbt-about__stat-label">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  /* .about-wrapper: flex row, gap 100px, align-items center */
+  .ukbt-about {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-about__image-side {
+    position: relative;
+    flex: 0 0 auto;
+    /* Reserves clearance below the image for the overlapping detail
+       card, so it never collides with the stats row in the sibling
+       column (a real overlap found in visual QA, not assumed away). */
+    margin-bottom: 4rem;
+  }
+  .ukbt-about__image-side img {
+    display: block;
+    height: 14rem;
+    width: auto;
+  }
+  /* Mirrors .card-about-detail: an overlapping card anchored to the
+     bottom edge of the image. Constrained to the image's own rendered
+     width (left:0/right:0 within the relatively-positioned image-side),
+     not centered independently — a wider fixed-width card here was
+     found in visual QA to spill past the image into the paragraph text
+     beside it. */
+  .ukbt-about__detail-card {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-3);
+    box-shadow: var(--ukbt-shadow-md);
+  }
+  .ukbt-about__detail-card h4 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    text-align: center;
+  }
+  .ukbt-about__content-side {
+    flex: 1 1 auto;
+  }
+  .ukbt-about__eyebrow {
+    color: var(--ukbt-color-brand-accent-contrast);
+    background: var(--ukbt-color-brand-accent);
+    display: inline-block;
+    padding: var(--ukbt-space-1) var(--ukbt-space-3);
+    border-radius: var(--ukbt-radius-pill);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: var(--ukbt-font-weight-bold);
+    margin: 0 0 var(--ukbt-space-2) 0;
+  }
+  .ukbt-about__content-side h2 {
+    margin: 0 0 var(--ukbt-space-2) 0;
+  }
+  .ukbt-about__lede {
+    max-width: 42rem;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-1);
+  }
+  /* .about-highlight-box row: 3-column, border-top accent, big number + label */
+  .ukbt-about__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ukbt-space-4);
+    margin-top: var(--ukbt-space-6);
+  }
+  .ukbt-about__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+    border-top: 2px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-2);
+  }
+  .ukbt-about__stat-value {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-4);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-about__stat-label {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-about {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ukbt-about__image-side {
+      align-self: center;
+      margin-bottom: var(--ukbt-space-6);
+    }
+    .ukbt-about__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+{
+  "geometry": {
+    "$description": "CLASSIFICATION: DERIVED — Stage 6 (artifacts/ui/REFERENCE-ANALYSIS.md §§1,4,5) measured structural proportions (nav height, hero scale, control sizing), reimplemented here as UKBT's own values in the same proportional relationship, never copied pixel-for-pixel from the reference's own CSS.",
+    "header": {
+      "height": { "$value": "4.5rem", "$type": "dimension" }
+    },
+    "hero": {
+      "minHeight": { "$value": "clamp(20rem, 60vh, 34rem)", "$type": "dimension" }
+    },
+    "control": {
+      "height": { "$value": "2.75rem", "$type": "dimension" }
+    }
+  }
+}

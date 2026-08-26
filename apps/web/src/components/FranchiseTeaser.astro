@@ -1,0 +1,118 @@
+---
+// Mirrors the reference's "Community Section" (.community-grid: grid-
+// template-columns 1fr 1fr, gap 100px — image with an adjacent CTA
+// caption on one side, heading + feature list on the other).
+// Reimplemented with the sister franchise's real, evidenced facts
+// (EV-20260826-026/-030) — no invented feature copy. The CTA caption
+// sits BELOW the image, not overlaid on it: an overlay was tried first
+// and found (in visual QA) to sit on top of a player's face or the
+// image's own "OVERSEAS SIGNINGS" title text wherever it was placed —
+// not worth guessing at a "safe" spot on a busy source graphic.
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+
+const facts = [
+  { label: 'Based in Sweden', body: 'UK Bangla Tigers’ sister franchise, competing internationally.' },
+  { label: 'Nordic Smash T20', body: 'Competed in the Nordic Smash T20 tournament, Sweden.' },
+  { label: 'Overseas Signings', body: 'Fields international players from England, Bangladesh, Portugal and Belgium.' },
+];
+---
+
+<div class="ukbt-franchise">
+  <div class="ukbt-franchise__image-side">
+    <img src="/brand/franchises/nordic-smash-slide.webp" alt="Uppsala Tigers — Nordic Smash T20" />
+    <div class="ukbt-franchise__cta">
+      <h4>Meet {name}</h4>
+      <a href="/franchises">See the franchise &rarr;</a>
+    </div>
+  </div>
+  <div class="ukbt-franchise__content-side">
+    <p class="ukbt-franchise__eyebrow">Our Franchises</p>
+    <h2>One Tigers Family, Two Nations</h2>
+    <ul class="ukbt-franchise__facts">
+      {
+        facts.map((f) => (
+          <li>
+            <h4>{f.label}</h4>
+            <p>{f.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  /* .community-grid: grid-template-columns 1fr 1fr, gap 100px */
+  .ukbt-franchise {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-8);
+    align-items: center;
+  }
+  .ukbt-franchise__image-side {
+    display: flex;
+    flex-direction: column;
+  }
+  .ukbt-franchise__image-side img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--ukbt-radius-lg) var(--ukbt-radius-lg) 0 0;
+  }
+  /* Mirrors .community-cta's role (a CTA anchored to the image) without
+     overlaying text on top of the photo itself. */
+  .ukbt-franchise__cta {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: 0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-3) var(--ukbt-space-4);
+  }
+  .ukbt-franchise__cta h4 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-franchise__cta a {
+    color: var(--ukbt-color-brand-accent);
+    text-decoration: none;
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-franchise__eyebrow {
+    color: var(--ukbt-color-brand-accent-contrast);
+    background: var(--ukbt-color-brand-accent);
+    display: inline-block;
+    padding: var(--ukbt-space-1) var(--ukbt-space-3);
+    border-radius: var(--ukbt-radius-pill);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: var(--ukbt-font-weight-bold);
+    margin: 0 0 var(--ukbt-space-2) 0;
+  }
+  .ukbt-franchise__content-side h2 {
+    margin: 0 0 var(--ukbt-space-4) 0;
+  }
+  .ukbt-franchise__facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-franchise__facts h4 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-franchise__facts p {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-franchise {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

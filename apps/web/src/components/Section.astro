@@ -1,0 +1,52 @@
+---
+// UKBT-original layout primitive, proposed in Stage 6
+// (artifacts/ui/REFERENCE-ANALYSIS.md §1/§6): independent top/bottom
+// padding per section, so adjacent sections can be "welded" (zero
+// padding) or given normal rhythm, as a per-page authoring decision —
+// never a single hard-coded global rhythm constant.
+interface Props {
+  paddingTop?: 'none' | 'normal';
+  paddingBottom?: 'none' | 'normal';
+  surface?: 'default' | 'alt' | 'inverse';
+  as?: 'section' | 'div';
+}
+const {
+  paddingTop = 'normal',
+  paddingBottom = 'normal',
+  surface = 'default',
+  as: Tag = 'section',
+} = Astro.props;
+---
+
+<Tag
+  class={`ukbt-section ukbt-section--pt-${paddingTop} ukbt-section--pb-${paddingBottom} ukbt-section--surface-${surface}`}
+>
+  <div class="ukbt-container">
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .ukbt-section {
+    padding-top: var(--ukbt-space-8);
+    padding-bottom: var(--ukbt-space-8);
+  }
+  .ukbt-section--pt-none {
+    padding-top: 0;
+  }
+  .ukbt-section--pb-none {
+    padding-bottom: 0;
+  }
+  .ukbt-section--surface-default {
+    background: var(--ukbt-color-surface-background);
+    color: var(--ukbt-color-surface-foreground);
+  }
+  .ukbt-section--surface-alt {
+    background: var(--ukbt-color-surface-alt);
+    color: var(--ukbt-color-surface-foreground);
+  }
+  .ukbt-section--surface-inverse {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+  }
+</style>
