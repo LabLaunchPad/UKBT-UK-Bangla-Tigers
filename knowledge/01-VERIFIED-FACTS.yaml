@@ -39,6 +39,7 @@ project:
   founded: 2020                      # U-03 NARROWED — EV-20260826-029, "EST 2020" read directly off the crest logo
   tagline: >                         # EV-20260826-028 (search snippet) + EV-20260826-029 (management-team graphic), independently corroborated twice
     "We are not only a team, but also an institute for learning."
+  tagline_short: "United by Passion. Driven by Cricket."  # EV-20260826-030, from the official social-card (OG) image — distinct from, not conflicting with, the mission-statement tagline above
 
 leadership:                          # U-04 further narrowed, not closed — EV-20260826-029
   founder_and_ceo: "Mohammad Chowdhury"  # EV-20260826-029 — same person as club_captain below; a real management-team graphic, not text claimed by a README
@@ -61,6 +62,25 @@ leadership:                          # U-04 further narrowed, not closed — EV-
   club_captain: "Mohammad Chowdhury"
   full_committee_status: UNKNOWN     # Founder/CEO, Chairman, Vice-Chairman now named; still not a complete committee
   full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster
+  homepage_critical: false           # explicit: full roster/committee are NOT required for the Homepage Contract (see artifacts/STAGE_7_READINESS_MATRIX.md)
+
+sister_franchise_uppsala_tigers:      # NEW — EV-20260826-030, a real "Overseas Signings" graphic
+  overseas_signings:                  # name, country as shown on the graphic — not independently verified beyond the image itself
+    - {name: "Mohammad Chowdhury", country: England}
+    - {name: "Shakibal Hasan", country: Bangladesh, note: "Name closely resembles a well-known Bangladeshi international cricketer spelled slightly differently ('Shakib Al Hasan') — recorded as shown, identity NOT asserted"}
+    - {name: "Chad Potgieter", country: Portugal}
+    - {name: "Jeremy Martins", country: Portugal}
+    - {name: "Shaheryar Butt", country: Belgium}
+    - {name: "Nipo Khadem", country: Portugal, note: "Very likely the same person as 'MD Siraj Ullah Khadem Nipo', whose removal from the squad list was explicitly instructed (EV-20260826-027, CLIENT_REQ_008) — EXCLUDED from any published roster per that instruction"}
+
+image_affiliation_caution:            # NEW — EV-20260826-030
+  note: >
+    Two supplied images (leadership/join-us.webp; gallery/gallery-06.webp)
+    show cricket kit/branding inconsistent with UK Bangla Tigers (no
+    crest, different sponsor names: "MSG"/"BAS" and "Islami Bank"
+    respectively) — very likely photos from a leader's broader playing
+    career with other clubs, not UKBT team photography. NOT to be used
+    as UKBT club imagery without further confirmation.
 
 brand:                                # NEW — U-05 substantially narrowed, EV-20260826-029; full record: artifacts/brand/BRAND-DECISION.md
   logo_status: VERIFIED

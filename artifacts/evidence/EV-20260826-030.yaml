@@ -1,0 +1,100 @@
+id: EV-20260826-030
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Exhaustion pass over the remaining, previously-unexamined images in
+  `artifacts/brand/raw/` (per an instruction to exhaust existing evidence
+  before treating anything as unsupplied). No new files were added; all
+  images were already in the repository from EV-20260826-029.
+source: "Direct visual inspection of images already committed to this repository (artifacts/brand/raw/images/)."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records what direct visual inspection of these specific files shows.
+  Does not expire.
+scope: "Stage 7 exhaustion pass: player/leadership imagery, sponsors, roster, tagline."
+method: >
+  Viewed images/social-card/default.jpg, images/uppsala/nordic-smash-
+  slide.webp, images/leadership/management-portrait.webp, images/
+  leadership/join-us.webp, images/gallery/gallery-02.webp, images/
+  gallery/gallery-06.webp directly (in addition to home-hero.webp and
+  leadership/management-team.webp already examined in EV-20260826-029).
+  Also confirmed artifacts/external/ does not exist (no website-crawl
+  evidence exists from any source — network access was never granted).
+result: |
+  SUBSTANTIAL NEW FINDINGS:
+
+  1. A second, shorter tagline: "United by Passion. Driven by Cricket."
+     (images/social-card/default.jpg, alongside the crest and "UK BANGLA
+     TIGERS / CRICKET CLUB" wordmark). Distinct from, not conflicting
+     with, the mission-statement tagline already on record
+     (EV-20260826-028/-029) — likely a shorter marketing line used
+     alongside the longer mission statement.
+
+  2. images/uppsala/nordic-smash-slide.webp is a real "OVERSEAS SIGNINGS
+     — UPPSALA TIGERS" graphic naming 6 players with country tags:
+     Mohammad Chowdhury (England), Shakibal Hasan (Bangladesh), Chad
+     Potgieter (Portugal), Jeremy Martins (Portugal), Shaheryar Butt
+     (Belgium), Nipo Khadem (Portugal). Two things to flag precisely:
+     (a) "Shakibal Hasan" closely resembles the name of a very well-known
+     Bangladeshi international cricketer spelled slightly differently
+     ("Shakib Al Hasan") — recorded exactly as it appears in the image,
+     NOT asserted to be that person, since nothing in the image confirms
+     identity beyond the name string; (b) "Nipo Khadem" is very likely
+     the same person as "MD Siraj Ullah Khadem Nipo," whose removal from
+     the squad list was already instructed (EV-20260826-027,
+     CLIENT_REQ_008) — cross-referenced here, not silently acted on:
+     CLIENT_REQ_008 still governs, and this person is excluded from any
+     published roster.
+
+  3. images/leadership/management-portrait.webp: an unlabeled individual
+     portrait (older man, grey blazer, England lapel pin, striped tie).
+     No caption in the file itself names him. Plausibly MD Shahidul Alam
+     Ratan (Chairman) given the formal attire and English-cricket-
+     administration context, but this is NOT confirmed by anything in
+     the image — recorded as UNCONFIRMED IDENTITY, not asserted.
+
+  4. TWO IMAGES APPEAR NOT TO DEPICT UK BANGLA TIGERS AT ALL — flagged,
+     not silently included as "UKBT gallery photos":
+     - images/leadership/join-us.webp: a squad photo with "MSG" and
+       "BAS" branding on the kit, no crest, no tiger mark, no "Bangla
+       Tigers" text anywhere. "BAS" strongly suggests BAS Vampire — a
+       team explicitly named in Mohammad Chowdhury's OWN prior-franchise
+       history (EV-20260826-026, "Previous Franchise Team Played For:
+       ...BAS Vampire, England"). This is very likely a photo from a
+       leader's broader playing career, not a UK Bangla Tigers squad
+       photo — using it under a "join us" (UKBT recruitment) heading
+       without that context would misrepresent which team is shown.
+     - images/gallery/gallery-06.webp: a celebration photo in
+       green/red Bangladesh-flag-motif kit, banner reading approximately
+       "Islami Ba[nk]... Bangladesh Di[stric]t... Cup 2022" — no crest or
+       tiger mark visible. Likely a different club/tournament entirely
+       (possibly cricket in Bangladesh itself, or a different diaspora
+       team), not confirmed as UK Bangla Tigers.
+     Neither is being classified as "UKBT team photography" going
+     forward without further confirmation — corrects the earlier, too-
+     broad characterization of the whole gallery folder in
+     UKBT-CONTENT-INVENTORY.md's C-016.
+
+  5. images/leadership/management-portrait.webp and join-us.webp were
+     the only two previously-unexamined leadership images; both are now
+     accounted for (one unconfirmed-identity portrait, one likely-
+     different-team photo) — nothing was skipped.
+
+  6. artifacts/external/ does not exist. No website-crawl evidence exists
+     from any source (network access has not been granted at any point
+     this session) — this is a real, checked absence, not an assumption.
+related_files:
+  - artifacts/brand/BRAND-DECISION.md
+  - artifacts/content/UKBT-CONTENT-INVENTORY.md
+  - artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md
+  - knowledge/01-VERIFIED-FACTS.yaml
+relates_to: [EV-20260826-026, EV-20260826-027, EV-20260826-028, EV-20260826-029]
+notes: >
+  Per the Homepage-critical/non-critical distinction now in effect:
+  none of these findings block the Homepage Contract. Full roster,
+  committee, and sponsor identity remain genuinely evidence-dependent
+  (not "unsupplied" — the available evidence has now been exhausted for
+  what it can and cannot establish), and are non-critical for the
+  Homepage specifically per that same framework.
