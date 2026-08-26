@@ -8,5 +8,13 @@
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "tests/visual/**"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "tests/visual/**",
+    "playwright-report",
+    "test-results",
+    "blob-report",
+    "playwright/.cache"
+  ]
 }
