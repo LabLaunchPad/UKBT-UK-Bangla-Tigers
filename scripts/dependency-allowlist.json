@@ -62,6 +62,16 @@
       "validation": "npm view @playwright/test license (verified 2026-08-26)"
     },
     {
+      "name": "@types/node",
+      "scope": "apps/web",
+      "type": "devDependency",
+      "source": "npm",
+      "purpose": "Node.js type definitions — required for typecheck to resolve `process.env` in playwright.config.ts.",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "npm view @types/node license (verified 2026-08-26)"
+    },
+    {
       "name": "typescript",
       "scope": "root",
       "type": "devDependency",
