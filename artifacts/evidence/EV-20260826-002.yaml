@@ -1,0 +1,23 @@
+id: EV-20260826-002
+classification: APPROVED
+claim: "Site content is English only. Bengali and bilingual delivery are not required."
+source: "Requester decision, bootstrap session (AskUserQuestion, U-13)"
+source_type: user
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Requirements decision; superseded by a new decision, not by elapsed time."
+scope: "Architecture decision A20 (i18n)"
+method: "Direct question to the requester, with the retrofit cost stated explicitly"
+result: >
+  A20 resolved: no i18n layer, no locale routing, no language switcher.
+  Typeface selection is not constrained by Bengali script support.
+related_files:
+  - artifacts/bootstrap/ARCHITECTURE-PROPOSAL.md
+related_task: BOOTSTRAP-001
+notes: >
+  Resolves U-13. The requester was shown the "English now, Bengali later" option
+  and chose English only, so the i18n-shaped-routing hedge is deliberately NOT
+  built. Reversal is genuinely expensive — it touches routing, layout,
+  typography and every content file — and that cost was stated before the
+  decision was taken. `lang="en"` is still declared per accessibility rule A8.

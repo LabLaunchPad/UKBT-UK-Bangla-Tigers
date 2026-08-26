@@ -30,8 +30,9 @@ Read in this order:
 ## Current state
 
 - Architecture: `PROPOSED`, not approved — `artifacts/bootstrap/ARCHITECTURE-PROPOSAL.md`
-- Verified UKBT organization facts: **0** — `artifacts/bootstrap/UNKNOWN-EVIDENCE.md`
-- Open blockers: 4 (BL-01…BL-04)
+- Requester decisions recorded: 4 (`artifacts/evidence/`) — static-first with a forms escape hatch, English only, JS/TS maintainers, licence pending
+- Verified UKBT organization facts: **0** — 17 unknowns open, `artifacts/bootstrap/UNKNOWN-EVIDENCE.md`
+- Open blockers: 3 (BL-01, BL-02, BL-03) — BL-04 narrowed by the hosting constraint
 - Next stage: 2 — architecture red team (`/architecture-redteam`)
 
 Scaffold integrity check: `node scripts/scaffold-self-test.mjs`

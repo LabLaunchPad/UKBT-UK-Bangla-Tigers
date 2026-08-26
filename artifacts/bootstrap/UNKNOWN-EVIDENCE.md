@@ -33,18 +33,18 @@ content. See `CONTENT-TRUTH-MODEL.md § 4`.
 |---|---|---|
 | U-08 | Whether WCAG 2.2 AA is the agreed target | proposed as binding anyway; asymmetric failure cost |
 | U-09 | Launch date, budget, content volume, page count | affects whether the proposed structure is over-built |
-| U-10 | **Who maintains this after handover, and their stack familiarity** | the single largest input to framework choice (A01) |
+| ~~U-10~~ | ~~Who maintains this after handover~~ | **RESOLVED** — developers comfortable with JS/TS tooling · `EV-20260826-003` |
 | U-12 | Whether a non-technical editor needs a CMS, and who they are | A18 stays "no CMS" until named |
-| U-13 | **Whether Bengali (or bilingual) content is required** | retrofitting i18n touches routing, layout, typography, every content file |
-| U-14 | Whether any dynamic feature is needed — forms, login, ticketing, booking, live scores, payments | invalidates static-first (A05); expands the security boundary |
+| ~~U-13~~ | ~~Whether Bengali or bilingual content is required~~ | **RESOLVED** — English only · `EV-20260826-002` |
+| ~~U-14~~ | ~~Whether any dynamic feature is needed~~ | **RESOLVED** — static at launch, forms escape hatch preserved · `EV-20260826-001` |
 | U-15 | Existing web presence, domain, URL history to preserve | redirect requirements; SEO continuity |
-| U-18 | Data-protection posture — any personal data collected, UK GDPR obligations | privacy policy, form handling, hosting region |
+| U-18 | Data-protection posture — UK GDPR obligations | **now on the critical path.** `EV-20260826-001` means a form is expected eventually, and any contact form collects personal data |
 
 ## C. Technical
 
 | ID | Unknown | Note |
 |---|---|---|
-| U-11 | Hosting vendor, domain, DNS control, CI/CD account access | A16 specifies capability, not vendor, until resolved |
+| U-11 | Hosting vendor, domain, DNS control, CI/CD account access | **narrowed** by `EV-20260826-001`: the host must support serverless functions, or at minimum not preclude them |
 | U-19 | CI runner and developer machine toolchains | container fingerprint is not evidence about either |
 | U-20 | Whether an analytics/consent stack is required | affects performance budget and privacy policy |
 
@@ -96,16 +96,31 @@ membership tiers, booking) are template facts, never UKBT facts.
 
 `prompts/06-release-gate.md` cannot return `PASS` while any of these is open.
 
-## Questions that block Stage 3
+## Questions that blocked Stage 3 — status
 
-Most of the register can be resolved later, in parallel with foundation work.
-**These four cannot** — they change the architecture itself, and getting them
-wrong is expensive to reverse:
+Four unknowns were identified as architecture-deciding. Three are now resolved by
+requester decision; one has a disposition but no evidence.
 
-1. **U-14** — is anything dynamic required (forms, login, booking, payments,
-   live scores)? Decides static-first.
-2. **U-13** — is Bengali or bilingual content required? Decides i18n, and
-   retrofitting it is expensive.
-3. **U-10** — who maintains this after handover? Decides the framework more than
-   any technical merit does.
-4. **U-21** — the template licence. Decides whether Stage 6 exists at all.
+| # | Was | Now |
+|---|---|---|
+| U-14 | dynamic features? | **RESOLVED** — static at launch; forms escape hatch preserved (`EV-…-001`) |
+| U-13 | Bengali/bilingual? | **RESOLVED** — English only (`EV-…-002`) |
+| U-10 | who maintains it? | **RESOLVED** — JS/TS-comfortable developers (`EV-…-003`) |
+| U-21 | template licence | **STILL OPEN** — requester will supply the record; the record does not yet exist (`EV-…-004`) |
+
+**Stage 3 is no longer blocked on architecture-deciding unknowns.** It is still
+gated on Stage 2 returning `ARCHITECTURE_VERDICT = PASS`.
+
+**Stage 6 remains gated.** An undertaking to supply a licence record is not a
+licence record (ADV-010). Stages 2–5 are unaffected — none of them depend on the
+reference.
+
+### Still open, not architecture-deciding
+
+U-01…U-07, U-16, U-17 (all organization facts) · U-08 (a11y as a client
+requirement) · U-09 (dates/budget/volume) · U-11 (hosting vendor) · U-12
+(non-technical editor — distinct from U-10, which was about maintainers) ·
+U-15 (existing web presence) · U-18 (data protection) · U-19 (CI/dev
+toolchains) · U-20 (analytics/consent) · U-21 (licence).
+
+**17 open. 4 resolved. 21 total.**

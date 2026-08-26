@@ -13,11 +13,11 @@ anything.
 
 | # | Decision | Value | Class |
 |---|---|---|---|
-| A01 | Framework | Astro 5.x | `PROPOSED` |
+| A01 | Framework | Astro 5.x | `PROPOSED` (maintainer-fit risk closed by `EV-…-003`) |
 | A02 | Language | TypeScript, `strict: true` | `PROPOSED` |
 | A03 | Package manager | pnpm, pinned via `packageManager` field | `PROPOSED` |
 | A04 | Node engine | `>=22.11 <23` | `PROPOSED` |
-| A05 | Rendering | static-first (`output: 'static'`) | `PROPOSED` |
+| A05 | Rendering | static-first, with a preserved forms escape hatch | **`APPROVED`** `EV-…-001` |
 | A06 | Repo shape | pnpm workspace, 5 packages | `PROPOSED` — flagged premature |
 | A07 | Content source | Astro content collections, Zod-typed | `PROPOSED` |
 | A08 | Truth layer | provenance record required per publishable org claim | **`REQUIREMENT`** |
@@ -28,11 +28,11 @@ anything.
 | A13 | Lint / format | one of ESLint+Prettier *or* Biome — **not both** | `PROPOSED` |
 | A14 | Structured data | schema.org JSON-LD emitted from typed content only | **`REQUIREMENT`** |
 | A15 | Accessibility target | WCAG 2.2 AA | **`REQUIREMENT`** |
-| A16 | Hosting | a static host with preview deploys; vendor undecided | `PROPOSED` |
+| A16 | Hosting | static host with preview deploys **and serverless-function support**; vendor undecided | `PROPOSED` (constraint `APPROVED`) |
 | A17 | CI | GitHub Actions, full gate set per PR | `PROPOSED` |
 | A18 | CMS | none initially; Git-based authoring | `PROPOSED` |
 | A19 | Images | build-time optimisation, explicit dimensions, licence per asset | **`REQUIREMENT`** |
-| A20 | i18n | English only until a Bengali requirement is confirmed | `UNKNOWN` |
+| A20 | i18n | none — English only | **`APPROVED`** `EV-…-002` |
 
 ---
 
@@ -61,16 +61,31 @@ maintains this after handover*, and that is `UNKNOWN` (U-10). A technically
 superior stack that the maintainers cannot operate is the wrong stack. This is
 flagged as the single most consequential open question in the proposal.
 
-## A05 `PROPOSED`: static-first
+## A05 **`APPROVED`**: static-first, with a preserved escape hatch
 
-`DERIVED` from A01 + a content-first site. Every page renders at build time;
-interactivity is added per component, never per page.
+Resolved by requester decision `EV-20260826-001`: **static at launch, but the
+architecture must not foreclose adding forms later** — via a third-party form
+service or serverless functions.
 
-**Failure mode this creates:** the reference template ships PHP form handlers.
-Static hosting cannot run them. Contact and newsletter forms will need either a
-form service, a serverless function, or removal. **That is a decision, not a
-detail** — deciding it at homepage time means retrofitting a runtime. Registered
-as U-14.
+That phrasing is load-bearing. It is not "static forever", so three constraints
+follow and are binding, not optional:
+
+| # | Constraint | Why |
+|---|---|---|
+| C1 | The host must support serverless functions, or at minimum not preclude them | Narrows A16. A pure object-storage deploy with no function path would foreclose the stated future |
+| C2 | Form submission sits behind an **adapter boundary** — one module, one interface | Makes service-vs-function a configuration change rather than a rewrite. This is the whole point of the hedge |
+| C3 | No page may assume build-time-only data access | Prevents a design that quietly makes C1 and C2 unusable |
+
+Astro suits this well: the site builds fully static today, and adding an adapter
+for a single endpoint later is genuinely incremental rather than a migration.
+That is a real point in A01's favour and the red team should test it.
+
+**Two consequences worth stating plainly.** The reference template's bundled PHP
+handlers (`assets/php/form-contact.php`, `form-newsletter.php`) are not usable
+and are not a migration target. And **U-18 (UK GDPR) moves onto the critical
+path**: any contact form collects personal data, so a privacy policy, a lawful
+basis, and a retention position are needed *before* the first form ships, not
+after.
 
 ## 4. Workspace structure — A06 `PROPOSED`, self-flagged as possibly premature
 
@@ -159,6 +174,20 @@ the truth model, not beside it.
 `PROPOSED`: AVIF/WebP with fallback, build-time optimisation, responsive
 `srcset`, lazy-loading below the fold.
 
+## A20 **`APPROVED`**: no i18n — English only
+
+Resolved by requester decision `EV-20260826-002`. No locale routing, no language
+switcher, no bilingual content pipeline. Typeface selection is not constrained by
+Bengali script coverage.
+
+**Recorded honestly:** the requester was offered the "English now, Bengali later"
+hedge — i18n-shaped routing at small cost — and chose English only. The hedge is
+therefore deliberately **not** built. Reversal is expensive: it touches routing,
+layout, typography, and every content file. That cost was stated before the
+decision was taken, which is what makes this a decision rather than an oversight.
+
+`lang="en"` is still declared on every page per accessibility rule A8.
+
 ## 13. CMS — A18 `PROPOSED`: none yet
 
 Git-based authoring until a **named** non-technical editor exists (U-12). A CMS
@@ -184,12 +213,18 @@ A CMS that lets an editor publish an unsourced claim has defeated A08.
    reference (a padel-club template) and the pipeline's mention of players and
    fixtures — **inference, not evidence** (U-02).
 3. That static-first suffices — i.e. no login, ticketing, or live scores (U-14).
-4. That a maintaining team can operate a TypeScript/pnpm/Astro stack (U-10).
-5. That English-only is acceptable for a British-Bangladeshi organization (U-13).
-   This one may be materially wrong.
+4. ~~That a maintaining team can operate a TypeScript/pnpm/Astro stack.~~
+   **No longer an assumption** — confirmed, `EV-20260826-003`.
+5. ~~That English-only is acceptable.~~ **No longer an assumption** — decided
+   with the retrofit cost stated, `EV-20260826-002`.
 6. That the container's toolchain resembles CI and developer machines.
 
-Assumptions 1, 2 and 5 are the ones that would invalidate real work if wrong.
+Assumptions **1 and 2 remain the ones that would invalidate real work if wrong**,
+and both are still unevidenced. Everything in the content model rests on what
+UKBT actually is and does, and nobody has told us. Note the asymmetry: three
+architecture assumptions were closed by four questions, while every
+organization-fact unknown remains open — architecture is cheap to ask about,
+and evidence is not.
 
 ### What did I invent?
 
@@ -215,6 +250,10 @@ template are template facts, not UKBT facts.
 A11 test runner · A13 lint toolchain · A17 CI provider · A19 image mechanics ·
 A12 a11y tooling.
 
+**Now decided, and deliberately not hedged:** A20 (English only) is *expensive*
+to reverse and was chosen over the cheap hedge with that cost on the table. A05
+is the opposite — decided *with* its hedge (C1–C3), so adding forms stays cheap.
+
 **Moderate (days):** A09/A10 tokens and primitives — cheap *if* the no-hard-coded-
 values rule held, expensive if it did not. This is exactly why A10 is a rule
 rather than a preference.
@@ -224,9 +263,9 @@ rather than a preference.
 | Decision | Lock-in risk | Mitigation in this proposal |
 |---|---|---|
 | A01 framework | **High** — rewriting pages, layouts, build | keep content as portable Markdown/YAML; keep framework-specific logic out of `packages/content` and `packages/truth` |
-| A05 static-first | **High** if auth/dynamic features later appear | resolve U-14 before Stage 3 freezes it |
+| A05 static-first | **Reduced to Medium** — constraints C1–C3 keep the forms path open | U-14 resolved; login/booking/payments would still force a rewrite, and were declined |
 | A07 content shape | **High** — schema changes cascade into every page and the CMS | keep schemas narrow; add fields, avoid reshaping |
-| A16 vendor primitives | **Medium** | specify capability, not vendor, until U-11 resolves |
+| A16 vendor primitives | **Medium** | specify capability, not vendor, until U-11 resolves — now including function support (C1) |
 | A18 CMS choice | **Medium→High** if a DB-backed CMS is adopted | require Git-backed, require truth-gate submission |
 | Reference template | **High legal risk** | excluded from the repo until licence is verified — BL-02 |
 
@@ -249,10 +288,13 @@ Ranked by cost × likelihood:
 3. **Discovering the reference template is unlicensed after building the design
    system from it** (BL-02). Cost: legal exposure plus a visual redesign. Which
    is why Stage 6 is gated on licence evidence, not on the ZIP existing.
-4. **Adding Bengali after building an English-only site** (U-13). Retrofitting
-   i18n touches routing, layout, typography, and every content file.
-5. **Handing over to a team that cannot operate the stack** (U-10). Cost: the
-   site rots, which is the worst outcome and the least visible in a receipt.
+4. **Adding Bengali after building an English-only site.** Now an *accepted*
+   risk rather than an unknown one — decided at `EV-20260826-002` with the cost
+   stated. It stays on this list because accepting a risk does not remove it.
+5. ~~Handing over to a team that cannot operate the stack.~~ **Closed** —
+   `EV-20260826-003`.
 
-Items 1, 3, 4 and 5 are all resolvable by **asking a human**, not by more
-analysis. They are the questions that block Stage 3.
+Items 1, 3, 4 and 5 were resolvable by **asking a human** rather than by more
+analysis, and four questions closed three of them. Item 1 is now bounded by
+constraints C1–C3; item 3 (the licence) is the one that remains genuinely open,
+and it gates Stage 6 alone.

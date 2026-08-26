@@ -1,0 +1,27 @@
+id: EV-20260826-004
+classification: UNKNOWN
+claim: >
+  The Adelux reference template is licensed for use on this project.
+source: "Requester intent stated, bootstrap session (AskUserQuestion, U-21)"
+source_type: user
+retrieved_at: 2026-08-26
+verified_at: null
+valid_until: null
+scope: "Blocker BL-02; pipeline Stage 6 (reference analysis)"
+method: "Direct question to the requester"
+result: >
+  DISPOSITION DECIDED, EVIDENCE NOT YET SUPPLIED. The requester has undertaken
+  to provide the licence record. The claim itself remains UNKNOWN until that
+  record exists. BL-02 stays OPEN and Stage 6 stays gated.
+related_files:
+  - artifacts/bootstrap/UNKNOWN-EVIDENCE.md
+related_task: BOOTSTRAP-001
+notes: >
+  An intention to supply evidence is not evidence. Per ADV-010, "the licence is
+  probably fine because someone said so" is explicitly the wrong answer, and an
+  undertaking to produce a record is not the record.
+  To close this, four things are needed: the purchase record or licence
+  identifier; the licence TYPE (single vs. extended — they differ materially in
+  what an end product may do); confirmation it covers this client and this
+  deployment; and confirmation of whether derivative/adapted use is permitted.
+  Recorded as a new record on receipt; this one is then SUPERSEDED.

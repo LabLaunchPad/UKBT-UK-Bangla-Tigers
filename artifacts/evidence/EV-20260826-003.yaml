@@ -1,0 +1,26 @@
+id: EV-20260826-003
+classification: APPROVED
+claim: >
+  The repository will be maintained after handover by developers comfortable
+  with JavaScript/TypeScript tooling.
+source: "Requester decision, bootstrap session (AskUserQuestion, U-10)"
+source_type: user
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Requirements decision; superseded by a new decision, not by elapsed time."
+scope: "Architecture decisions A01, A02, A03, A11, A12, A13, A18"
+method: "Direct question to the requester"
+result: >
+  Removes the principal argument against the proposed stack. Astro + TypeScript
+  strict + pnpm + Vitest + Playwright is operable by the stated maintainers.
+  A18 (no CMS initially, Git-based authoring) is consistent with this.
+related_files:
+  - artifacts/bootstrap/ARCHITECTURE-PROPOSAL.md
+related_task: BOOTSTRAP-001
+notes: >
+  Resolves U-10, identified in the bootstrap self-review as the largest single
+  input to framework choice. This makes the Stage 2 red team's job narrower: it
+  should now attack Astro on technical merit, not on maintainer fit.
+  U-12 (a named non-technical content editor) remains OPEN and separate — this
+  answer is about maintainers, not editors.
