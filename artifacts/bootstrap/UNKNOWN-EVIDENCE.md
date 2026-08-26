@@ -13,12 +13,12 @@ this entire scaffold exists to prevent.
 
 | ID | Unknown | Blocks | Acceptable source |
 |---|---|---|---|
-| U-01 | What UK Bangla Tigers *is* — purpose, activities, audience, what the site is for | everything | UKBT directly (T1) |
-| U-02 | Sport(s), format(s), and level of competition | content model, fixture/result types | UKBT (T1), governing body (T2) |
+| U-01 | What UK Bangla Tigers *is* — purpose, activities, audience, what the site is for | everything | **NARROWED, not closed** — `EV-20260826-026`: a cricket franchise team (UAE, Safari International T20 Cup), one of a small multi-franchise network sharing a site with Uppsala Tigers (Sweden). Purpose/audience beyond that remains open — no "About Us" content supplied |
+| U-02 | Sport(s), format(s), and level of competition | content model, fixture/result types | **CLOSED** — `EV-20260826-026`: cricket, T10/T20/50-Over franchise formats |
 | U-03 | Founding date, founders, history, honours | about/history pages | UKBT documents + governing body; **two sources** |
-| U-04 | Current roster, coaches, leadership, committee | players & leadership pages | UKBT (T1) — plus consent for named individuals |
-| U-05 | Brand assets: logo, crest, colours, typefaces, usage rules | design system (Stage 5) | UKBT brand files (T1) |
-| U-06 | Fixtures, results, statistics, standings; and their upstream feed | fixtures/results pages | league/governing body (T2) |
+| U-04 | Current roster, coaches, leadership, committee | players & leadership pages | **NARROWED, not closed** — `EV-20260826-026`: Acting Chairman MD Shahidul Alam Ratan; Club Captain Mohammad Chowdhury (full profile). Full roster ("30+ Players" is an aggregate, not a roster) and full committee remain open |
+| U-05 | Brand assets: logo, crest, colours, typefaces, usage rules | design system (Stage 5) | UKBT brand files (T1) — **unaffected by `EV-20260826-026`**, zero logo/colour/typography evidence in that document |
+| U-06 | Fixtures, results, statistics, standings; and their upstream feed | fixtures/results pages | **NARROWED, not closed** — `EV-20260826-026`: 5 named tournaments with status/date/country, and one player's full career statistics. Match-by-match fixtures/results/standings remain open |
 | U-07 | Sponsors, partners, funders and their permitted usage | sponsor page, logo display | UKBT + each sponsor's own approval |
 | U-16 | Home ground / venue / addresses / contact details | contact page, `LocalBusiness` JSON-LD | UKBT (T1) |
 | U-17 | Photography: what exists, who owns it, who is depicted, what consent exists | every page carrying imagery | UKBT + per-image licence and consent |

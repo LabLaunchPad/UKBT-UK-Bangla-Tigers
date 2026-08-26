@@ -10,8 +10,33 @@ meta:
 project:
   name: UK Bangla Tigers            # evidence: repository name + requester usage
   code: UKBT
-  what_the_organization_is: UNKNOWN # U-01 — never inferred from the reference template
-  sport_or_activity: UNKNOWN        # U-02
+  what_the_organization_is: >       # U-01 NARROWED, not closed — EV-20260826-026
+    A cricket franchise team competing internationally (confirmed:
+    Safari International T20 Cup, UAE); part of a small multi-franchise
+    network sharing a site/brand with sister franchise Uppsala Tigers
+    (Sweden). Purpose/audience beyond this is still UNKNOWN — no "About
+    Us" narrative content has been supplied.
+  sport_or_activity: cricket         # U-02 CLOSED — EV-20260826-026, franchise T20/T10/50-over formats
+  formats_played: [T10, T20, "50-Over"]  # EV-20260826-026, from the Club Captain's career statistics tables
+  sister_franchises: ["Uppsala Tigers (Sweden)"]  # EV-20260826-026 — "Our Franchises" nav section
+  aggregate_stats:                   # EV-20260826-026, site-wide banner copy — not individually itemized
+    players: "30+"
+    countries_internationals: "15+"
+    international_tournaments: "7+"
+  official_social_media:             # EV-20260826-026
+    facebook: "https://www.facebook.com/UKBanglaTigers"
+    instagram: "https://www.instagram.com/ukbanglatigers/"
+    tiktok: "https://www.tiktok.com/@uk.bangla.tigers"
+    x: "https://x.com/ukbanglatigers"
+
+leadership:                          # NEW — U-04 narrowed, not closed
+  acting_chairman: "MD Shahidul Alam Ratan"
+  acting_chairman_title_note: >
+    Client correction, verbatim: must render as "Acting Chairman," never
+    "Chairman." (EV-20260826-026)
+  club_captain: "Mohammad Chowdhury"
+  full_committee_status: UNKNOWN     # only the Acting Chairman is named
+  full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster
 
 builder:
   organization: LabLaunchPad        # evidence: git remote owner
@@ -96,10 +121,10 @@ third_party_assets:
     - {name: montserrat, licence: UNKNOWN, served_from: fonts.gstatic.com}
 
 content:
-  organization_facts_verified: false
-  organization_facts_count: 0
+  organization_facts_verified: true    # superseded from false — EV-20260826-026, first-party client-supplied
+  organization_facts_count: 12         # C-001..C-012, artifacts/content/UKBT-CONTENT-INVENTORY.md
   invented_facts_allowed: false
-  evidence_registry_populated: false
+  evidence_registry_populated: true    # superseded from false
 
 language:
   current_language: English
@@ -147,5 +172,6 @@ blockers:
 
 unknowns:
   total: 27
-  open: 23
+  open: 22    # superseded from 23 — U-02 CLOSED, EV-20260826-026
+  narrowed_not_closed: [U-01, U-04, U-06]  # EV-20260826-026 — see register for exactly what remains open in each
   register: artifacts/bootstrap/UNKNOWN-EVIDENCE.md
