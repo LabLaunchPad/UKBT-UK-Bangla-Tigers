@@ -16,8 +16,16 @@ interface Props {
   title: string;
   description?: string;
   structuredData?: Record<string, unknown>;
+  /**
+   * Keep the page out of search results. Required by
+   * `contracts/ROUTE-CONTRACT.md` Amendment 01 condition 2 for the
+   * commerce-shaped shells (`/services`, `/membership`, `/join`): their
+   * structure is built, but UKBT has no evidence it offers those things,
+   * and an indexed page is a public claim that it does.
+   */
+  noindex?: boolean;
 }
-const { title, description, structuredData } = Astro.props;
+const { title, description, structuredData, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,6 +35,7 @@ const { title, description, structuredData } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />

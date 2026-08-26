@@ -14,6 +14,30 @@ const routes = [
   { path: '/franchises', name: 'Our Franchises' },
   { path: '/tournaments', name: 'International Tournaments/Events' },
   { path: '/contact', name: 'Contact Us' },
+  // Template-mirrored routes (CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01).
+  { path: '/community', name: 'Community' },
+  { path: '/coaching', name: 'Coaching & Development' },
+  { path: '/services', name: 'What We Do' },
+  { path: '/membership', name: 'Membership' },
+  { path: '/join', name: 'Join the Club' },
+  { path: '/faq', name: 'FAQ' },
+  { path: '/news', name: 'Club News' },
+];
+
+/**
+ * ROUTE-CONTRACT Amendment 01 condition 2: the commerce-shaped shells
+ * describe offerings UKBT has no evidence of, so they must not be
+ * indexed. An indexed page is a public claim that the club sells the
+ * thing. This asserts the condition rather than trusting it was applied.
+ */
+const NOINDEX_ROUTES = ['/services', '/membership', '/join'];
+const INDEXABLE_ROUTES = [
+  '/',
+  '/about',
+  '/community',
+  '/coaching',
+  '/faq',
+  '/news',
 ];
 
 for (const route of routes) {
@@ -136,4 +160,58 @@ test('Contact Us page renders no submission form (no live backend exists)', asyn
     forms,
     'no fake/non-functional form should ship without a real backend',
   ).toBe(0);
+});
+
+for (const route of NOINDEX_ROUTES) {
+  test(`${route} is noindex (ROUTE-CONTRACT Amendment 01 condition 2)`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    const robots = await page
+      .locator('meta[name="robots"]')
+      .getAttribute('content');
+    expect(robots, `${route} must carry a noindex robots meta`).toContain(
+      'noindex',
+    );
+  });
+}
+
+for (const route of INDEXABLE_ROUTES) {
+  test(`${route} is indexable`, async ({ page }) => {
+    await page.goto(route);
+    const count = await page.locator('meta[name="robots"]').count();
+    const robots =
+      count > 0
+        ? await page.locator('meta[name="robots"]').getAttribute('content')
+        : '';
+    expect(robots ?? '', `${route} must not be noindex`).not.toContain(
+      'noindex',
+    );
+  });
+}
+
+/**
+ * Shell sections must say plainly that they are waiting for content.
+ * Rendering an empty skeleton, or lorem text, would both fail the point
+ * of CLIENT_REQ_009's "shells where UKBT content will go".
+ */
+test('every shell section declares CONTENT_STATUS = UNKNOWN and explains itself', async ({
+  page,
+}) => {
+  for (const route of ['/services', '/membership', '/join', '/faq', '/news']) {
+    await page.goto(route);
+    const pending = page.locator('[data-content-status="UNKNOWN"]');
+    const n = await pending.count();
+    expect(
+      n,
+      `${route} should render at least one pending-content block`,
+    ).toBeGreaterThan(0);
+    for (let i = 0; i < n; i++) {
+      const text = (await pending.nth(i).innerText()).trim();
+      expect(
+        text.length,
+        `${route} pending block ${i} must explain itself`,
+      ).toBeGreaterThan(20);
+    }
+  }
 });

@@ -28,6 +28,13 @@ const pages = [
   { route: '/franchises', slug: 'franchises' },
   { route: '/tournaments', slug: 'tournaments' },
   { route: '/contact', slug: 'contact' },
+  { route: '/community', slug: 'community' },
+  { route: '/coaching', slug: 'coaching' },
+  { route: '/services', slug: 'services' },
+  { route: '/membership', slug: 'membership' },
+  { route: '/join', slug: 'join' },
+  { route: '/faq', slug: 'faq' },
+  { route: '/news', slug: 'news' },
 ];
 
 /**

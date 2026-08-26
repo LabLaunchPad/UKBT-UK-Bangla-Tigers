@@ -1,0 +1,50 @@
+---
+// Mirrors the reference's `membership.html` (Banner → Membership
+// Benefit → Pricing → FAQ). Route added under CLIENT_REQ_009 /
+// ROUTE-CONTRACT Amendment 01.
+//
+// SHELL. `noindex` per that amendment's condition 2. No membership
+// scheme, benefit, or price appears anywhere in UKBT's evidence. The
+// reference's benefit list (priority court booking, discounted coaching)
+// is padel-club commerce with no UKBT counterpart.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import PendingContent from '../components/PendingContent.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout title="Membership — UK Bangla Tigers" description="UK Bangla Tigers membership."
+  noindex={true}>
+  <Header nav={homepage.nav} />
+  <main>
+    <PageBanner title="Membership" crumbs={[{ label: 'Home', href: '/' }, { label: 'Membership' }]} />
+
+    <Section>
+      <SectionHeader eyebrow="Membership" heading="Becoming a Member" />
+      <PendingContent
+        what="A membership scheme is not confirmed."
+        detail="No joining route, benefit or fee is recorded in the club material supplied so far. Contact the club directly in the meantime."
+        minHeight="12rem"
+      />
+    </Section>
+
+    <Section surface="alt">
+      <SectionHeader eyebrow="Questions" heading="Membership FAQ" />
+      <PendingContent
+        what="No membership questions are answered yet."
+        detail="Answers will be published once the club confirms how membership works."
+        minHeight="12rem"
+      />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>

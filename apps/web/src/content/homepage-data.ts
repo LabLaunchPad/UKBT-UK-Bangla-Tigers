@@ -166,6 +166,18 @@ export const homepage = {
   sisterFranchise: facts.franchiseName.value,
   upcomingTournaments: tournamentUpcoming,
   social: socialLinks,
+  // The primary nav is exactly CLIENT_REQ_001's stated seven items; the
+  // template-mirrored routes (CLIENT_REQ_009) are reachable from the
+  // footer instead, so the client's own IA is not silently widened.
+  // The commerce-shaped shells (/services, /membership, /join) appear in
+  // NEITHER: ROUTE-CONTRACT Amendment 01 condition 2 keeps them out of
+  // navigation until they carry real content.
+  secondaryNav: [
+    { label: 'Community', href: '/community' },
+    { label: 'Coaching & Development', href: '/coaching' },
+    { label: 'Club News', href: '/news' },
+    { label: 'FAQ', href: '/faq' },
+  ],
   nav: [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },

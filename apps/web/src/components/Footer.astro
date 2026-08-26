@@ -28,8 +28,10 @@ interface SocialLink {
 interface Props {
   social: SocialLink[];
   nav: { label: string; href: string }[];
+  /** Template-mirrored routes kept out of the primary nav; see homepage-data. */
+  secondaryNav?: { label: string; href: string }[];
 }
-const { social, nav } = Astro.props;
+const { social, nav, secondaryNav = [] } = Astro.props;
 
 const icons: Record<string, string> = {
   facebook: 'M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12',
@@ -73,6 +75,7 @@ const year = new Date().getFullYear();
         <nav aria-label="Footer">
           <ul class="ukbt-footer__links">
             {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            {secondaryNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
           </ul>
         </nav>
       </div>

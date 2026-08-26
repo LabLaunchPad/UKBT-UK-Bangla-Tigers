@@ -1,0 +1,43 @@
+---
+// Mirrors the reference's `booking.html` (Banner → Booking Process →
+// Booking → Contact CTA → Testimonial). Route added under
+// CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01.
+//
+// SHELL. `noindex` per that amendment's condition 2. The reference books
+// padel courts by the hour; UKBT has no booking product. The nearest
+// real UKBT concept is enquiring about joining, so the shell is framed
+// that way — but no trial date, selection process or contact route is on
+// record, and FORM-CONTRACT's submitForm adapter has no backend, so no
+// form is rendered that would silently discard an enquiry.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import PendingContent from '../components/PendingContent.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout title="Join the Club — UK Bangla Tigers" description="Get in touch about joining UK Bangla Tigers."
+  noindex={true}>
+  <Header nav={homepage.nav} />
+  <main>
+    <PageBanner title="Join the Club" crumbs={[{ label: 'Home', href: '/' }, { label: 'Join the Club' }]} />
+
+    <Section>
+      <SectionHeader eyebrow="Joining" heading="How to Join" />
+      <PendingContent
+        what="The joining process is not published yet."
+        detail="No trial, selection or registration route is recorded in the club material supplied so far. The club's social channels are the working route in the meantime."
+        minHeight="12rem"
+      />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
