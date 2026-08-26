@@ -20,6 +20,14 @@ invented or rewritten during ingestion.
 | C-011 | EV-026 | Official social media | UK Bangla Tigers | Facebook, Instagram, TikTok, X — 4 URLs | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | Client instruction: "Use the symbols only and connect using the links" — icon-only, no text label |
 | C-012 | EV-026 | Official social media | Uppsala Tigers (sister franchise) | Facebook, Instagram, X — 3 URLs | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | Relevant to "Our Franchises" section, not the UKBT homepage directly |
 
+| C-013 | EV-029 | Logo/crest | UK Bangla Tigers | Shield crest: "UK BANGLA TIGERS," tiger-head mark, crown, "EST 2020" | 2026-08-26 | OBSERVED (first-party, direct pixel inspection) | HIGH | AVAILABLE | `artifacts/brand/raw/brand/crest.png`; full decision: `artifacts/brand/BRAND-DECISION.md` |
+| C-014 | EV-029 | Leadership graphic | UK Bangla Tigers management | "INTRODUCING OUR MANAGEMENT TEAM": Mohammad Chowdhury (Founder & CEO), MD Shahidul Alam Ratan (Chairman), Sayem Rahman (Vice-Chairman); tagline "we are not only a team, but also an institute for learning" | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | `artifacts/brand/raw/images/leadership/management-team.webp` |
+| C-015 | EV-029 | Hero photograph | UK Bangla Tigers | Real team photo, light-blue/black kit, sponsor logos on kit (names not confidently legible) | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | `artifacts/brand/raw/images/hero/home-hero.webp` |
+| C-016 | EV-029 | Gallery photos ×20 | UK Bangla Tigers | Match/team photography | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | `artifacts/brand/raw/images/gallery/`; note gallery-15 and leadership/our-story are byte-identical (same photo, two names) |
+| C-017 | EV-029 | Uppsala Tigers image | Uppsala Tigers | "Nordic Smash T20" branded slide/graphic | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | `artifacts/brand/raw/images/uppsala/nordic-smash-slide.webp` |
+| C-018 | EV-029 | Social preview (OG) image | UK Bangla Tigers | 1200×630 default social-card image | 2026-08-26 | OBSERVED (first-party) | HIGH | AVAILABLE | `artifacts/brand/raw/images/social-card/default.jpg` |
+| C-019 | EV-029 | Font files | UK Bangla Tigers (proposed) | Lato (400, 700), Montserrat (variable) — valid WOFF2, SIL OFL | 2026-08-26 | OBSERVED (files real); **typography choice itself PROPOSED, not verified** | MEDIUM | AVAILABLE_NEEDS_ADAPTATION | Explicitly an assumption per the supplied material, not club-confirmed |
+
 ## Missing / not supplied by this document
 
 - **Profile picture:** the document's own placeholder says "Choose one

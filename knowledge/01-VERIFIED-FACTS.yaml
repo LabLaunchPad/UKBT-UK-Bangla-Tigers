@@ -36,12 +36,20 @@ project:
     instagram: "https://www.instagram.com/ukbanglatigers/"
     tiktok: "https://www.tiktok.com/@uk.bangla.tigers"
     x: "https://x.com/ukbanglatigers"
+  founded: 2020                      # U-03 NARROWED — EV-20260826-029, "EST 2020" read directly off the crest logo
+  tagline: >                         # EV-20260826-028 (search snippet) + EV-20260826-029 (management-team graphic), independently corroborated twice
+    "We are not only a team, but also an institute for learning."
 
-leadership:                          # NEW — U-04 narrowed, not closed
+leadership:                          # U-04 further narrowed, not closed — EV-20260826-029
+  founder_and_ceo: "Mohammad Chowdhury"  # EV-20260826-029 — same person as club_captain below; a real management-team graphic, not text claimed by a README
+  chairman_title_in_use: "Chairman"      # EV-20260826-029 — this is what the source graphic itself displays
   acting_chairman: "MD Shahidul Alam Ratan"
   acting_chairman_title_note: >
     Client correction, verbatim: must render as "Acting Chairman," never
-    "Chairman." (EV-20260826-026)
+    "Chairman." (EV-20260826-026). EV-20260826-029's management-team
+    graphic uses "Chairman" — very likely the exact draft this correction
+    refers to, not a fresh conflict; the site itself should say "Acting
+    Chairman" regardless of what this graphic shows.
   acting_chairman_bio: >
     Independently corroborated (not conflicting) via public search,
     EV-20260826-028: CEO of Capital Kids Cricket, London; described as an
@@ -49,9 +57,20 @@ leadership:                          # NEW — U-04 narrowed, not closed
     across international cricket, high-performance programmes, team
     management, coaching, and cricket administration. Snippet-level, not
     independently fetched from a primary source.
+  vice_chairman: "Sayem Rahman"          # NEW — EV-20260826-029
   club_captain: "Mohammad Chowdhury"
-  full_committee_status: UNKNOWN     # only the Acting Chairman is named
+  full_committee_status: UNKNOWN     # Founder/CEO, Chairman, Vice-Chairman now named; still not a complete committee
   full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster
+
+brand:                                # NEW — U-05 substantially narrowed, EV-20260826-029; full record: artifacts/brand/BRAND-DECISION.md
+  logo_status: VERIFIED
+  logo_asset: artifacts/brand/raw/brand/crest.png
+  primary_colour: {value: "#001E3A", name: navy, status: VERIFIED}
+  accent_colour: {value: "#CCA44F", name: gold, status: VERIFIED}
+  tertiary_colour: {value: "#064D49", name: green, status: PROPOSED}
+  surface_alt_colour: {value: "#F8F4E8", name: cream, status: PROPOSED}
+  typography_status: PROPOSED         # Lato/Montserrat — explicitly an assumption per the supplied material, not club-confirmed
+  not_yet_applied_to_tokens: true      # staged as evidence only; Stage 7G implementation applies these to packages/truth token files, not done yet
 
 builder:
   organization: LabLaunchPad        # evidence: git remote owner
@@ -187,6 +206,6 @@ blockers:
 
 unknowns:
   total: 27
-  open: 22    # superseded from 23 — U-02 CLOSED, EV-20260826-026
-  narrowed_not_closed: [U-01, U-04, U-06]  # EV-20260826-026 — see register for exactly what remains open in each
+  open: 22    # U-02 CLOSED, EV-20260826-026; none of U-01/03/04/05/06 fully close, so open count is unchanged by EV-029
+  narrowed_not_closed: [U-01, U-03, U-04, U-05, U-06]  # EV-20260826-026/-028/-029 — see register for exactly what remains open in each
   register: artifacts/bootstrap/UNKNOWN-EVIDENCE.md
