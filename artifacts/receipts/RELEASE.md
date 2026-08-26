@@ -99,37 +99,50 @@ the current config.
 RELEASE_STATUS = BLOCKED
 ```
 
-Every gate that ran, ran clean — zero failures anywhere in this receipt.
-`BLOCKED`, not `PASS`, because two of the twelve categories
-`prompts/06-release-gate.md` requires evidence for (content schema
-against real content; route/link integrity) have no real check at all,
-and a third (SEO completeness) is only partially covered — per this
-project's own rule, absence of evidence is not evidence of a passing
-gate. This is not a statement that the site is broken: build, tests,
-accessibility, and the newly-fixed homepage all demonstrably pass. It is
-a statement that this project cannot yet show a receipt proving those
-three categories, and a receipt that can't show its evidence is a FAIL
-by this pipeline's own definition (`docs/10-fresh-repo-pipeline.md`,
-"Machine-readable status").
+**Update, 2026-08-26 (commits `1aa17d2`, `12ed20a`):** two of the three
+named gaps below are closed with real, verified checks, not just
+documented. `BLOCKED` remains the honest verdict — one category
+(content-schema conformance) is still genuinely absent — but the reason
+is now a single, scoped issue rather than three.
+
+Every gate that has ever run under this receipt has run clean — zero
+failures. `BLOCKED`, not `PASS`, because per this project's own rule,
+absence of evidence is not evidence of a passing gate, and a receipt
+that can't show its evidence is a FAIL by this pipeline's own definition
+(`docs/10-fresh-repo-pipeline.md`, "Machine-readable status").
 
 ## What would close this out
 
-1. Add a real internal-link crawl (build the site, parse every page's
-   `<a href>`, assert every internal target exists in the built output).
-2. Add an SEO-completeness assertion (non-empty title/description on
-   every indexable route).
-3. Resolve the content-schema drift: either wire the real content files
-   through `ClubInfoSchema`/etc., or amend `CONTENT-CONTRACT.md` to
-   describe the `{field, value, sources}` shape actually in use — a
-   contract nobody follows is worse than no contract.
-4. ~~Correct `.github/workflows/ci.yml`'s trailing comment~~ — done as
-   part of this receipt: it no longer claims no real content/routes
-   exist, and now distinguishes "genuinely absent" (route/link
-   integrity) from "enforced elsewhere, just not a named job" (truth
-   gate) from "schema drift, not missing content" (content schema).
-5. Confirm CI on this exact SHA (`213897f`) via the subscribed PR before
-   treating this receipt as final; the secret-scan row above is carried
-   over from prior commits' CI runs, not this one specifically.
+1. ~~Add a real internal-link crawl~~ — **done**, `12ed20a`:
+   `scripts/check-internal-links.mjs` + a CI job. Verified to actually
+   fail against a deliberately broken link before being trusted.
+2. ~~Add an SEO-completeness assertion~~ — **done**, `12ed20a`:
+   `pages.spec.ts` now asserts non-empty, non-placeholder title +
+   description on all 11 indexable routes.
+3. **Still open, needs an owner decision, not a default I should pick
+   silently:** resolve the content-schema drift. `CONTENT-CONTRACT.md`
+   states real content types carry truth-gate provenance metadata "as a
+   structural part of the schema... a new field added without this
+   metadata fails to compile against the base schema, not merely fails
+   a lint warning." The real content files don't do this — they use an
+   ad-hoc `{field, value, sources}` shape checked only by loose
+   TypeScript typing plus a runtime `evaluate()` call. Two ways to
+   close it, and they are not equivalent in risk or cost:
+   - **(A)** Wire the 5 real content files through the existing
+     `ClubInfoSchema`/etc. — preserves the contract's stated
+     compile-time guarantee, but touches every fact currently live on
+     the site.
+   - **(B)** Amend `CONTENT-CONTRACT.md` to describe the shape actually
+     in use — smaller and lower-risk, but is a real weakening of a
+     stated invariant (compile-time → runtime-only enforcement), which
+     `CLAUDE.md`'s "no gate weakening to obtain PASS" invariant means
+     this receipt should not decide alone.
+4. ~~Correct `.github/workflows/ci.yml`'s trailing comment~~ — done
+   across this receipt and `12ed20a`: it now names exactly which of the
+   three original gaps are closed, enforced-elsewhere, or still absent,
+   rather than a blanket stale claim.
+5. Confirm CI on `12ed20a` via the subscribed PR before treating this
+   receipt as final.
 
 ## Rollback
 
