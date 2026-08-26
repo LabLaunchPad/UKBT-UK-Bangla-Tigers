@@ -81,10 +81,13 @@ const cls = [
     .ukbt-section--wrapper {
       margin-inline: var(--ukbt-space-section-wrapper-sm);
     }
-    /* The reference halves its vertical rhythm on mobile; 120px block
-       padding at 390px wide leaves almost no room for content. */
-    .ukbt-section {
-      padding-block: var(--ukbt-space-gap-5);
-    }
   }
+
+  /* NOTE: section block padding deliberately does NOT step down on
+     mobile. An earlier revision halved it to 50px on the assumption that
+     120px "leaves almost no room" at 390px wide. Measuring the reference
+     directly (artifacts/ui/reference-geometry.json) disproved that: it
+     holds 120px/120px at every viewport in the frozen matrix, 1920 down
+     to 390. The assumption was wrong and the reference's own value
+     stands. */
 </style>

@@ -98,10 +98,12 @@ const icons: Record<string, string> = {
     width: auto;
     flex: none;
   }
+  /* Inherits the reference's h1 scale (90/70/50 with its own breakpoints)
+     from base.css rather than the earlier fluid clamp, which rendered
+     60px against the reference's 90px — flagged by the geometry
+     comparison at three viewports. */
   .ukbt-hero__headline {
     font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-display);
-    line-height: var(--ukbt-font-line-height-tight);
     margin: 0;
   }
   .ukbt-hero__tagline-short {

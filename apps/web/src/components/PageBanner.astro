@@ -79,25 +79,24 @@ const { title, crumbs } = Astro.props;
     opacity: 0.6;
   }
 
-  /* The reference steps its wrapper inset down at these breakpoints; the
-     230px top padding is also far too tall for a phone, so the band
-     scales with the inset rather than staying fixed. */
+  /* Only the wrapper inset steps down — the reference does that
+     (30 → 20 → 10px) but holds the banner's own 230px/120px padding at
+     every viewport in the frozen matrix, 1920 down to 390.
+     An earlier revision here scaled the padding down on the assumption
+     that 230px is "far too tall for a phone". Measuring the reference
+     (artifacts/ui/reference-geometry.json) disproved it, and the
+     geometry comparison flagged the result as 8 separate P1 mismatches.
+     The assumption was wrong; the reference's value stands. */
   @media screen and (max-width: 1025px) {
     .ukbt-page-banner {
       margin-inline: var(--ukbt-space-section-wrapper-md);
       margin-block-start: var(--ukbt-space-section-wrapper-md);
-    }
-    .ukbt-page-banner__inner {
-      padding-block: var(--ukbt-space-gap-100) var(--ukbt-space-gap-5);
     }
   }
   @media screen and (max-width: 767px) {
     .ukbt-page-banner {
       margin-inline: var(--ukbt-space-section-wrapper-sm);
       margin-block-start: var(--ukbt-space-section-wrapper-sm);
-    }
-    .ukbt-page-banner__inner {
-      padding-block: var(--ukbt-space-gap-5) var(--ukbt-space-gap-4);
     }
   }
 </style>
