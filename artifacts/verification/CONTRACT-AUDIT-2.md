@@ -103,3 +103,37 @@ CONTRADICTIONS_FOUND    = 2 (both stale cross-references from this session's own
 CONTRADICTIONS_RESOLVED = 2
 APPLICATION_CODE_CHANGED = FALSE
 ```
+
+---
+
+## Final freeze audit (requester-directed, third pass)
+
+**Date:** 2026-08-26 · Nine checks run against the current state: stale
+`rights_states`/`operation_classes`/`FORENSIC_ALLOWED`/`DERIVED_ANALYSIS`
+vocabulary (clean — one hit, inside the documented repair-history comment
+itself); `permission_facts`/`pipeline_stages` present as sole live
+vocabulary; old 3-state token lifecycle appearing only in dated historical
+evidence (correctly not rewritten, per "do not rewrite historical evidence"
+in `knowledge/06`'s `license_state` section); full YAML/JSON validation
+across `knowledge/`, `contracts/`, and `artifacts/**/*.json`; every file
+`knowledge/06` and `prompts/16` reference confirmed to exist; no prompt file
+carries stale terminology; `CLAUDE.md`/`AGENTS.md` operate at a higher level
+of generality and neither restate nor contradict the Adelux-specific model
+(expected — that layering is documented in
+`knowledge/00-KNOWLEDGE-CONTRACT.md`); zero application code changed; clean
+working tree.
+
+```
+GOVERNANCE_CONSISTENCY_VERDICT = PASS
+STALE_REFERENCES  = 0 live (1 documented historical footnote, expected)
+BROKEN_REFERENCES = 0
+INVALID_YAML_JSON = 0
+APPLICATION_CODE_CHANGED = false
+```
+
+**Governance is frozen at this state per requester direction.** No further
+governance redesign unless a future execution finding proves this model
+inadequate — not for its own sake, and not merely because new material
+(e.g. an uploaded "authority pack," see `EV-20260826-012`) arrives claiming
+a different model. New rights-relevant *evidence* is still recorded in the
+normal evidence registry; that is not a governance redesign.
