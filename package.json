@@ -19,6 +19,7 @@
     "test:e2e": "pnpm --filter ./apps/web test:e2e",
     "tokens:build": "pnpm --filter ./packages/truth tokens:build",
     "check:deps": "node scripts/check-dependency-allowlist.mjs",
+    "check:links": "node scripts/check-internal-links.mjs",
     "check:governance-scaffold": "node scripts/scaffold-self-test.mjs"
   },
   "devDependencies": {

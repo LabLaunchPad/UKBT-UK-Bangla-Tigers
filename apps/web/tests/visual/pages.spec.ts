@@ -191,6 +191,43 @@ for (const route of INDEXABLE_ROUTES) {
 }
 
 /**
+ * Release-gate RM-4 (artifacts/receipts/RELEASE.md): the noindex/indexable
+ * split was already tested above, but nothing asserted that an indexable
+ * page actually has a real title/description to be indexed WITH. Built
+ * from `routes` + the two pages tested in their own spec files, minus the
+ * noindex shells — not a fourth hand-maintained list.
+ */
+const ALL_INDEXABLE_ROUTES = [
+  '/',
+  '/about',
+  ...routes.map((r) => r.path),
+].filter((path) => !NOINDEX_ROUTES.includes(path));
+
+for (const route of ALL_INDEXABLE_ROUTES) {
+  test(`${route} has a real, non-empty title and meta description`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    const title = await page.title();
+    expect(
+      title.trim().length,
+      `${route} title must not be empty`,
+    ).toBeGreaterThan(0);
+    expect(title, `${route} title looks like a placeholder`).not.toMatch(
+      /lorem|placeholder|TODO|Astro/i,
+    );
+
+    const description = await page
+      .locator('meta[name="description"]')
+      .getAttribute('content');
+    expect(
+      description?.trim().length ?? 0,
+      `${route} must have a non-empty meta description`,
+    ).toBeGreaterThan(0);
+  });
+}
+
+/**
  * Shell sections must say plainly that they are waiting for content.
  * Rendering an empty skeleton, or lorem text, would both fail the point
  * of CLIENT_REQ_009's "shells where UKBT content will go".

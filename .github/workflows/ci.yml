@@ -119,6 +119,21 @@ jobs:
           path: apps/web/dist
           retention-days: 7
 
+  link-integrity:
+    name: Internal link integrity
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run check:links
+
   visual-and-accessibility:
     name: Playwright (structural / responsive / accessibility)
     runs-on: ubuntu-24.04
@@ -175,10 +190,11 @@ jobs:
 #     @ukbt/truth/gate's evaluate() and throws on failure; the `build`
 #     job above already re-runs this on every push. Real enforcement,
 #     just not a separately-named CI job.
-#   - Route/link integrity: still genuinely absent. 16 real routes with
-#     real cross-linking (nav/footer) exist now, so this is a real,
-#     currently-uncovered gap worth adding — smoke.spec.ts only checks
-#     the homepage's own network requests, not a site-wide link crawl.
+#   - Route/link integrity: NOT absent as of the `link-integrity` job
+#     above (scripts/check-internal-links.mjs) — crawls every built
+#     page's internal hrefs against the real dist/ output. Verified to
+#     actually fail: tested against a deliberately broken link before
+#     being trusted, not assumed correct from reading the script.
 #   - SEO metadata completeness: partially covered (pages.spec.ts asserts
 #     the noindex/indexable split across all 16 routes) but no test
 #     asserts every indexable page has a non-empty title/description.
