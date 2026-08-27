@@ -168,6 +168,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  workers-deploy:
+    name: Workers Builds: uk-bangla-tigers
+    runs-on: ubuntu-24.04
+    needs: [install, lint, typecheck, unit-tests, build, link-integrity, visual-and-accessibility, secret-scan]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @ukbt/web build
+      - name: Deploy Workers
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
 # ---------------------------------------------------------------------------
 # CI-CONTRACT.md gates NOT wired yet, and why (ABSENT != PASS,
 # knowledge/08-VALIDATION-POLICY.yaml — recorded honestly rather than
