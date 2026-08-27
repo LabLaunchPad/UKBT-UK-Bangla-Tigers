@@ -32,7 +32,7 @@ const { title, date, body } = Astro.props;
 
 <BaseLayout title={`${title} — UK Bangla Tigers`} description={title}>
   <Header nav={homepage.nav} />
-  <main>
+  <main id="main-content" tabindex="-1">
     <PageBanner
       title={title}
       crumbs={[{ label: 'Home', href: '/' }, { label: 'Club News', href: '/news' }, { label: title }]}
