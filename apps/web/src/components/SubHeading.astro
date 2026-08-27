@@ -44,7 +44,10 @@ const { label, variant = 'default' } = Astro.props;
     color: var(--ukbt-color-brand-primary);
   }
   .ukbt-subheading--inverse {
-    background: rgb(255 255 255 / 8%);
+    /* Stage 8 red team F8: was a bare rgb() literal duplicating
+       neutral-0 instead of referencing it. Same rendered color
+       (neutral-0 is #ffffff) — token reference only, no visual change. */
+    background: color-mix(in srgb, var(--ukbt-color-neutral-0) 8%, transparent);
     color: var(--ukbt-color-surface-inverse-foreground);
   }
   .ukbt-subheading__dot {

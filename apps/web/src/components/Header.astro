@@ -312,6 +312,13 @@ const isActive = (href: string) =>
       display: block;
       position: fixed;
       inset: 0;
+      /* Stage 8 red team F8 flagged this as a bare literal that should
+         reference a token. Left as literal, deliberately: this is a
+         true-black scrim (a generic dim, not a brand color), and the
+         closest named token (neutral-900, #17181c) is not true black —
+         swapping it in would be a real (if tiny) color shift, not a
+         same-color token reference like the white overlays elsewhere in
+         this file/Footer.astro/SubHeading.astro, which were converted. */
       background: rgb(0 0 0 / 53%);
       opacity: 0;
       pointer-events: none;
