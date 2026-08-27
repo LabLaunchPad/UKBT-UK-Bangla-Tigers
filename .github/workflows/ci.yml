@@ -171,21 +171,23 @@ jobs:
   workers-deploy:
     name: Workers Builds: uk-bangla-tigers
     runs-on: ubuntu-24.04
-    needs: [install, lint, typecheck, unit-tests, build, link-integrity, visual-and-accessibility, secret-scan]
+    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, visual-and-accessibility, secret-scan]
+    # Deploys only on push to main. Without this, the workflow-level
+    # `on: pull_request` trigger would run a production `wrangler deploy`
+    # on every PR, publishing unreviewed branch content to the live site.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/download-artifact@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @ukbt/web build
+          name: web-build-output
+          path: apps/web/dist
       - name: Deploy Workers
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
 
 # ---------------------------------------------------------------------------
 # CI-CONTRACT.md gates NOT wired yet, and why (ABSENT != PASS,
