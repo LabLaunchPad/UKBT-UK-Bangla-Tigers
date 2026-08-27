@@ -117,10 +117,13 @@ once the previous one was fixed, since each failure fully masked the next:
    Cloudflare's own dashboard deploy command run from) — fixed via PR #10,
    merged as `f8d030c`.
 
-**Status as of this update:** PR #10 merged; the resulting push-to-main CI
-run's actual `workers-deploy` job conclusion is being confirmed (tracked in
-this session, not yet recorded here as a closed item — update this line
-once confirmed either way).
+**Status as of this update:** CLOSED. PR #10 merged as `f8d030c`; the
+resulting push-to-main CI run's `workers-deploy` job completed with
+`conclusion: success` (all 11 jobs green, including the "Deploy Workers"
+step itself) —
+https://github.com/LabLaunchPad/UKBT-UK-Bangla-Tigers/actions/runs/33042878477/job/98420743484.
+This is the first fully successful GitHub-Actions-driven Cloudflare
+Workers deploy after the four stacked fixes above.
 
 **Still open, dashboard-only, cannot be fixed from this repository:**
 - **Branch protection is not applied to `main`** (`docs/11-github-
@@ -172,8 +175,8 @@ the club can supply.
 
 In priority order, next real work is:
 
-1. Confirm the `workers-deploy` job's actual success on the push carrying
-   PR #10's fix (§ 2.3) — close that line once confirmed.
+1. ~~Confirm the `workers-deploy` job's actual success~~ — **done**, see
+   § 2.3.
 2. Fix F1 (keyboard-inoperable mobile nav) and F3 (focus-contrast) from
    § 2.1 — both are real accessibility defects, not style nits.
 3. Resolve F2's scope-expansion question (§ 2.1) — extend
@@ -182,7 +185,7 @@ In priority order, next real work is:
 4. Decide (A) or (B) for the content-schema drift (§ 2.2 item 3).
 5. Apply branch protection to `main` (§ 2.3 — owner action).
 6. Work through `CLIENT-ASK-LIST.md` (§ 3) as the club supplies each item.
-7. Only once 1–5 are closed: re-run the Stage 10 release gate
+7. Only once 2–5 are closed: re-run the Stage 10 release gate
    (`prompts/06-release-gate.md`) end-to-end and expect
    `RELEASE_STATUS = PASS` before calling the site launch-ready.
 
