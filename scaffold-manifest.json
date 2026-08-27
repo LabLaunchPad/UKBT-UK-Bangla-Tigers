@@ -1,0 +1,15 @@
+{
+  "name": "UKBT-Claude-Code-Stress-Tested-Deterministic-Scaffold",
+  "version": "2.0.0",
+  "generated": "2026-08-26",
+  "principle": "AI reasons; deterministic systems execute and verify; repository evidence is authoritative",
+  "stress_cases": 12,
+  "gap_controls": 36,
+  "mandatory_stages": ["ADMIT","BASELINE","FALSIFY","CONTRACT-FREEZE","PLAN","APPROVE","IMPLEMENT","VERIFY","RELEASE","LEARN","REPLAY"],
+  "historical_boundary": true,
+  "prompt_injection_defense": true,
+  "secret_safety": true,
+  "resume_protocol": true,
+  "visual_protocol": true,
+  "evidence_freshness": true
+}

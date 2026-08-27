@@ -1,0 +1,88 @@
+id: EV-20260826-026
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  A supplied document ("Mohammad Chowdhury's Profile.pdf") contains: a
+  proposed site navigation outline (Home, About Us, Club Captain, Players
+  Profile, Our Franchises > Uppsala Tigers, International Tournaments/
+  Events, Contact Us); a leadership correction instruction naming an
+  Acting Chairman; a complete example content page for the Club Captain
+  (Mohammad Chowdhury) with biography, career statistics, external
+  statistics-provider links, and social media links; a tournament/event
+  calendar; site-wide aggregate statistics; and official social media
+  handles for UK Bangla Tigers and its sister franchise Uppsala Tigers.
+source: "Uploaded PDF (abec67ff-Mohammad_Chowdhurys_Profile.pdf, 277.9KB), read in full, 3 pages."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records this document's contents as supplied. First-party (from the
+  project's own requester, not a third-party template or an unverified
+  chat assertion of a rights/legal conclusion), so treated as OBSERVED
+  organizational content per knowledge/04-EVIDENCE-POLICY.yaml — subject
+  to the same caveat every first-party claim carries: not independently
+  cross-checked against the external statistics-provider URLs it cites
+  (ESPN Cricinfo, Play-Cricket, CricHeroes, Last Man Stands, National
+  Cricket League London, CREX) — WebFetch is disabled in this session, so
+  those links are recorded as-supplied, not verified live.
+scope: "Stage 7 client requirements + UKBT content ingestion (prompts/17+, MASTER EXECUTION PROMPT sections 5-6, 13)."
+method: Read the PDF verbatim across all 3 pages; transcribed structured data into artifacts/content/UKBT-CONTENT-INVENTORY.md and artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md.
+result: |
+  REAL CONTENT NOW ON RECORD (first substantive UKBT organizational facts
+  since bootstrap — closes/narrows several long-open unknowns,
+  artifacts/bootstrap/UNKNOWN-EVIDENCE.md):
+
+  - Sport/activity: cricket, franchise T20/T10/50-over format (closes
+    U-02).
+  - Organization shape: UK Bangla Tigers is one of at least two sister
+    franchise teams (the other: Uppsala Tigers, Sweden) under a shared
+    site/brand umbrella — narrows U-01, does not fully close it (purpose/
+    audience beyond "a cricket franchise" still not stated).
+  - Leadership: Acting Chairman named as MD Shahidul Alam Ratan (with an
+    explicit correction instruction: the site must say "Acting Chairman,"
+    not "Chairman") — narrows U-04 (chairman only; full committee/roster
+    still not supplied).
+  - Club Captain: Mohammad Chowdhury — full biography, DOB, nationality,
+    playing style, career history across 9 named franchise/national
+    teams, full batting/bowling statistics tables (3 formats each), 6
+    external statistics-provider profile links, personal social media
+    links. A real, complete example of one player-profile page.
+  - Tournament calendar: 5 named events with status/date/country (2
+    upcoming: Nordic Lights Sep 2026 Norway, Global T20 Championship Oct
+    2026 Romania; 3 completed: Safari International T20 Cup Jul 2026 UAE,
+    Nordic Smash T20 Jun 2026 Sweden, Asian Challengers Trophy Jan 2020
+    Nepal) — narrows U-06 (tournament-level only; no match-by-match
+    fixtures/results/standings supplied).
+  - Site-wide aggregate stats: "30+ Players," "15+ Countries
+    Internationals," "7+ International Tournaments."
+  - Official social media: UK Bangla Tigers (Facebook, Instagram, TikTok,
+    X) and Uppsala Tigers (Facebook, Instagram, X), all with real URLs.
+
+  STILL UNKNOWN / NOT SUPPLIED BY THIS DOCUMENT (unaffected — not
+  narrowed by this record):
+  - U-05 (brand assets: logo file, crest, colours, typefaces) — the
+    profile-picture slot itself says "Choose one from the attached," but
+    no image was attached to this upload. No logo, colour, or typography
+    evidence exists in this document.
+  - U-03 (founding date, founders, history, honours), U-07 (sponsors/
+    partners), U-16 (venue/contact details), U-17 (photography ownership/
+    consent) — untouched.
+  - Full player roster beyond the Club Captain, full committee beyond the
+    Acting Chairman, "About Us" narrative content, match-by-match
+    fixtures/results — untouched.
+related_files:
+  - artifacts/content/UKBT-CONTENT-INVENTORY.md
+  - artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md
+  - knowledge/01-VERIFIED-FACTS.yaml
+  - artifacts/bootstrap/UNKNOWN-EVIDENCE.md
+relates_to: []
+notes: >
+  Per the MASTER EXECUTION PROMPT's own §21 Implementation Gate and §35
+  Definition of Done: this document alone does not satisfy Stage 7's
+  precondition set for a Homepage Contract. It satisfies client-file
+  ingestion FOR THIS FILE (read in full, extracted completely) and
+  materially advances content/truth-model ingestion, but brand/logo/
+  colour/typography decisions (§§8-12) remain BLOCKED on missing
+  evidence, and full content/asset ingestion (§§5-6) remains PARTIAL.
+  See the Stage 7 status report delivered alongside this record for the
+  gate-by-gate breakdown.

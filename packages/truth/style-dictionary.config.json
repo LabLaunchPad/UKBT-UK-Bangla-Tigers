@@ -1,0 +1,17 @@
+{
+  "source": ["src/tokens/approved/**/*.json"],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "prefix": "ukbt",
+      "buildPath": "../../apps/web/src/styles/generated/",
+      "files": [
+        {
+          "destination": "tokens.css",
+          "format": "css/variables",
+          "options": { "outputReferences": true }
+        }
+      ]
+    }
+  }
+}

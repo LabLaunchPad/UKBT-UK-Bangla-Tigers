@@ -1,0 +1,81 @@
+id: EV-20260826-022
+classification: CONFLICTING
+claim: >
+  A supplied archive ("adeluxpadelclubopensourcemit.zip") contains a
+  top-level LICENSE file, README.md, and an assets/includes/license.php
+  comment, all asserting the Adelux HTML template is released under the
+  MIT License, copyright "(c) 2025 Adelux" — with no mention of Fox
+  Creation. Presented by the requester as the "original downloaded file,"
+  implying this resolves or supersedes the open Fox Creation/LabLaunchPad
+  authorship conflict (TRACK-B-UNLOCK-CHECKLIST.md item 3).
+source: >
+  Uploaded archive at /root/.claude/uploads/.../da0b6c56-
+  adeluxpadelclubopensourcemit.zip. Read in full in a scratch directory,
+  read-only (LICENSE, README.md, license.php extracted and read verbatim;
+  full file listing enumerated via `unzip -l`).
+source_type: external
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records this archive's contents as found on this date. Does not expire;
+  a differently-provenanced copy would be new evidence.
+scope: "Track B unlock checklist item 3 (authorship/authority relationship). Does not affect FORENSIC_PERMISSION or pipeline stages 1-2."
+method: >
+  Extracted and read LICENSE, README.md, and
+  Adelux_Main_File/HTML_TEMPLATE/assets/includes/license.php verbatim.
+  Compared the archive's internal per-file modification timestamps (from
+  the zip's own directory listing) against the license claim and against
+  the already-frozen Track A record of the same package
+  (EV-20260826-005/-006/-012, ADELUX-PACKAGE-IDENTITY.md).
+result: |
+  TWO FINDINGS, both against this closing item 3:
+
+  1. THE CLAIM CONTRADICTS ALREADY-ESTABLISHED PRIMARY EVIDENCE, WITHOUT
+  RECONCILING IT. The archive's LICENSE says "MIT License, Copyright (c)
+  2025 Adelux" and never mentions Fox Creation. The Adelux package's own
+  Documentation/index.html — already on record (EV-20260826-005/-012) —
+  states "Author: Fox Creation" (linking to
+  themeforest.net/user/fox_creation) and "(c) 2025 Adelux. All rights
+  reserved — by Fox Creation." A blanket MIT grant under "Adelux" does not
+  say who "Adelux" is relative to Fox Creation, does not identify who
+  authored the LICENSE file, and does not address the discrepancy at all.
+  Per DR-015 (conflicting evidence is escalated, never silently resolved),
+  this is a second, independent conflict layered on top of the first, not
+  a resolution of it — it does not become "identifiable parties" (item 2)
+  or "authorship/authority relationship" (item 3) satisfied.
+
+  2. THE LICENSE FILES' OWN PROVENANCE IS INTERNALLY INCONSISTENT. The
+  zip's directory listing shows LICENSE, README.md, and license.php all
+  carrying an 2026-08-26 modification timestamp (today, the date of this
+  conversation) — while every substantive template file (index.html,
+  main.css, script.js, etc.) carries 2025 timestamps (April-November
+  2025). This means the three license-declaring files were added or
+  touched at packaging time, not shown to be part of what the original
+  marketplace listing (ThemeForest item 60543035 / Envato Elements
+  X3FTRWG, per EV-20260826-006) actually distributes. No corroborating
+  source outside this archive (e.g. the live marketplace listing itself,
+  or a statement from the themeforest.net/user/fox_creation account) was
+  supplied alongside it.
+related_files:
+  - artifacts/evidence/EV-20260826-005.yaml
+  - artifacts/evidence/EV-20260826-012.yaml
+  - artifacts/evidence/ADELUX-PACKAGE-IDENTITY.md
+  - artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md
+relates_to: [EV-20260826-005, EV-20260826-006, EV-20260826-012]
+notes: >
+  TRACK-B-UNLOCK-CHECKLIST.md items 1-7 re-checked individually against
+  this archive: item 1 (executed instrument) — NOT PRESENT, this is a
+  bundled licence file, not an executed agreement naming any party to
+  UKBT; item 2 (identifiable parties) — NOT PRESENT, "Adelux" is not a
+  natural or legal person/entity distinct from the template's own brand
+  name; item 3 (authorship/authority) — STILL CONFLICTING, now with a
+  second unreconciled claim; items 4-7 — remain NOT ESTABLISHED, unchanged.
+  Track B stays RIGHTS_GATED. Per this project's evidence policy, the
+  existing Fox Creation record is retained and NOT deleted or edited in
+  place — this record supersedes nothing, it is additive, per
+  TRACK-B-UNLOCK-CHECKLIST.md's own validation procedure ("superseded, not
+  deleted," and only once all seven items are satisfied — they are not).
+  What would actually help: verification the LICENSE file ships with the
+  live marketplace listing itself (not just this archive), or a statement
+  from the Fox Creation account reconciling it with "Adelux"/LabLaunchPad.

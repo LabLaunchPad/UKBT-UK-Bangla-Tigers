@@ -1,0 +1,693 @@
+{
+  "package": {
+    "filename_as_supplied": "3073e848-adeluxpadelclubcommunityhtmlbootstrap20260107040317utc.zip",
+    "sha256": "cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54",
+    "size_bytes": 1296131,
+    "zip_entries_including_dirs": 110,
+    "file_count": 95
+  },
+  "product_identity": {
+    "name": "Adelux - Padel Club & Community HTML Bootstrap Template",
+    "version": "1.0.0",
+    "created": "October 2025",
+    "author": "Fox Creation",
+    "themeforest_item_id": "60543035",
+    "themeforest_url": "https://themeforest.net/item/adelux-padel-club-community-html-bootstrap-template/60543035",
+    "envato_elements_slug": "X3FTRWG",
+    "acquisition_channel_used": "UNKNOWN (U-25)"
+  },
+  "license_status": "STATED_BUT_UNVERIFIED",
+  "license_evidence": [
+    "EV-20260826-005",
+    "EV-20260826-006"
+  ],
+  "counts_by_type": {
+    "css": 15,
+    "js": 13,
+    "html": 14,
+    "config": 1,
+    "image": 41,
+    "php_backend_handler": 3,
+    "font": 8
+  },
+  "files": [
+    {
+      "path": "Adelux_Main_File/Documentation/assets/css/style.css",
+      "size_bytes": 3784,
+      "sha256": "7a9c70fc40b7e83588ea2aa2de0eca30b370ed1fd63f0ad8c6e0cf018fce5b6b",
+      "type": "css"
+    },
+    {
+      "path": "Adelux_Main_File/Documentation/assets/js/script.js",
+      "size_bytes": 1100,
+      "sha256": "f740c9edd5a43b4e2b90b768c18782b89d05d4ce5e57300549c00708ed8d65d2",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/Documentation/index.html",
+      "size_bytes": 7147,
+      "sha256": "f5de8e36e205f9d04b6b4652484bedc6c5f28dbd2a0ff806b79d15317f282022",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/.vscode/settings.json",
+      "size_bytes": 42,
+      "sha256": "d7c4c5969a13be89c26b96373e811c72455b9bcc938c3e2ee1de236c55773289",
+      "type": "config"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/404-page.html",
+      "size_bytes": 2353,
+      "sha256": "c096d7b38392479b293423f9c93259e7f11733ce294dcfc342deff6c24009405",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/about.html",
+      "size_bytes": 56713,
+      "sha256": "5b762464f5e072573d4545fb578f526256929756d526fc005cab335b434217a5",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/main.css",
+      "size_bytes": 71859,
+      "sha256": "b34dbca5cea2a4019e33aaa644ac163e445a2c2a04f92da1b0aa899a9fd25497",
+      "type": "css"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/responsive.css",
+      "size_bytes": 19205,
+      "sha256": "c1b309e6ac8e4727ba72e8ff217d4d0e78cb06a67e5bf5327cbde93e8f18ce15",
+      "type": "css"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/animate.min.css",
+      "size_bytes": 71726,
+      "sha256": "89d2d02a2e81deceb109b2499d62ea380ab15e099a3efdae1acbcacb0770964f",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "Hippocratic-2.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/bootstrap.min.css",
+      "size_bytes": 232028,
+      "sha256": "e3bddcd7d2eff85cd83c00b3799890cfceabdbb6be62a5dc6fddba0d36e00887",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/brands.css",
+      "size_bytes": 19858,
+      "sha256": "f6e68ccb604aca75624cbbf50d34a8813e4210c5f6ea504b9ee75d58e721c109",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0 (icons) / SIL-OFL-1.1 (fonts) / MIT (code)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/flatpickr.min.css",
+      "size_bytes": 16166,
+      "sha256": "1b34a42552c96f10e4dfaaa4a367276b03868aacff63c1ac42ffe331352bc754",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/font-family-inter.css",
+      "size_bytes": 14826,
+      "sha256": "b775a9b67fec0a80c11c4b4e18408034c8947dd8476fa4f185f1bf63aba143a5",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "UNKNOWN (Google Fonts CDN)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/fontawesome.css",
+      "size_bytes": 83677,
+      "sha256": "c73c29944dcbd6322e4f52cf4fc72a393c7a4a4ae6cd2c0aca8a9902fe273903",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0 (icons) / SIL-OFL-1.1 (fonts) / MIT (code)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/odometer-theme-default.css",
+      "size_bytes": 3563,
+      "sha256": "0edd72dc43646e459ddf3378ecdcbe4527fb5a3e5a1732facec5669c4e46e952",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "UNKNOWN"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/regular.css",
+      "size_bytes": 639,
+      "sha256": "54ae1379fcc8b2e8742d49c70f611f25da80e7bbc623d5f73999efd2b8511ba4",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0 (icons) / SIL-OFL-1.1 (fonts) / MIT (code)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/solid.css",
+      "size_bytes": 631,
+      "sha256": "7ada1c6decfd84c41eb4c05da84446753c75f0389da2e8959a9beb74cd7e8b72",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0 (icons) / SIL-OFL-1.1 (fonts) / MIT (code)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/css/vendor/swiper-bundle.min.css",
+      "size_bytes": 18454,
+      "sha256": "74ca6aae5468dbc924790c3b4d219a089b90a34bad53a0f7ca3a73e73b6f5ab8",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Adelux-Black-Logo.png",
+      "size_bytes": 17456,
+      "sha256": "9fdf0baf84766b8e2d83ed2779c4e2731c424334c9d8eb6ba848278eb8d2c622",
+      "type": "image",
+      "third_party": false,
+      "note": "Adelux own brand/trademark asset \u2014 never usable under any tier"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Adelux-Logo.png",
+      "size_bytes": 17735,
+      "sha256": "1b70ba42a5ef5d0d590a68b7af1d6cdab844b206c1a36d2b2a37ea224c3d9c74",
+      "type": "image",
+      "third_party": false,
+      "note": "Adelux own brand/trademark asset \u2014 never usable under any tier"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-1.png",
+      "size_bytes": 10988,
+      "sha256": "5edb3001a2cd1d34aa0ef46550e50a64b0a5b1f35a0087b45335e69ea3e65301",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-2.png",
+      "size_bytes": 10198,
+      "sha256": "946dd63b1363ac9c39bc1cbd23a1f31be7e3520211700549b79e94cbf6e2dce4",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-3.png",
+      "size_bytes": 18540,
+      "sha256": "c9838131c70ab4c47424740bbc39c2538c400129cb2919ae8c29b41403df8964",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-4.png",
+      "size_bytes": 11046,
+      "sha256": "11782a62ad3e9d7b12dc43a97e9db640ca4826639cb938bfbaed941f0882a96a",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-5.png",
+      "size_bytes": 9960,
+      "sha256": "4ace58ac791da2ae8411db4ffd5fd4a7e8a1b09a8acd95199b6d82ee39dae390",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-6.png",
+      "size_bytes": 10724,
+      "sha256": "1bdf98543ea27c6d9955a2dfaf4532d78de954d5c126270203ea760bbba9afde",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-7.png",
+      "size_bytes": 9340,
+      "sha256": "acc9096d040634a9d9ccfa3625882c5b315af11a58f9addc2b7b26209a3fc3a9",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Client-8.png",
+      "size_bytes": 11881,
+      "sha256": "796db59c5a7c2f9704f13ca9ca9da59840c04862a763287ddbfffedfd26980d8",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Gp-1.png",
+      "size_bytes": 2559,
+      "sha256": "4e34576fa7bae7cfd94024dadb913505e3ad11607f3594ecb3167bbadd640b77",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Gp-3.png",
+      "size_bytes": 2255,
+      "sha256": "27fd15a1a6dee4b5be90414e4f6b9ece23ca416c2f8e03e55201c64d605f9069",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Gp-4.png",
+      "size_bytes": 10714,
+      "sha256": "21fdab9296117af80ac91f9d2948a271a1411e68ba8ed010f8b3428db833a463",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Gp-5-e1750061403635.png",
+      "size_bytes": 5183,
+      "sha256": "4ef76e692411b2be4cd15bb996d27beeb4c55ab660517b59be9ff1dc6cae80ea",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-1.png",
+      "size_bytes": 6451,
+      "sha256": "d70f542b99713d06c56b5d0db0af39730fed956278d7c06956b7be8a57e75523",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-10.png",
+      "size_bytes": 4748,
+      "sha256": "631e30b86fd298f6334c7a0cd483e05327e547afdd03a2e2fd0957df3baf19cd",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-11.png",
+      "size_bytes": 5487,
+      "sha256": "8d6e3585cf2b7033a8f27115209e37b1dc1128cd2f7b1ecd200c1324a835eece",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-2.png",
+      "size_bytes": 7204,
+      "sha256": "6c2cf04e52a928c2f4a98e86695fffa15bf3755d53996d60c5ae5f7c7a944a1e",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-3.png",
+      "size_bytes": 5369,
+      "sha256": "c523f6c3096ab5936b256116750a528d8eb1ec69960660849d4d83374032e5d2",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-4.png",
+      "size_bytes": 6921,
+      "sha256": "589487bd43a53aa64cd95cc65344a91ca6844ff9f33c54725763f4691c22c846",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-5.png",
+      "size_bytes": 5045,
+      "sha256": "8fea3cbc08bc95186f78c998e6cb6d2a98ff2c8ba692af8ff78bcec05b9a9410",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-6.png",
+      "size_bytes": 5023,
+      "sha256": "e1fca2796cd3e3dac0c295fcdcb046d38133e4ce34f7bbf95f574d88371a7fe5",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-7.png",
+      "size_bytes": 7993,
+      "sha256": "a21a80b250c9914aaf5897c3a467de898ca0ade41d7fa605edd990aea4e52e8e",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-8.png",
+      "size_bytes": 6725,
+      "sha256": "9683ed8ab8b5f2db647d5165da3199c3773b187fe01bd50eb0f168d9d7742e97",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/Icon-9.png",
+      "size_bytes": 2089,
+      "sha256": "25e99953a2a4034ebe147907a335ddb7203e42e38d9a6ce20c791bce122e41fe",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-1024x600.png",
+      "size_bytes": 19060,
+      "sha256": "cb69e8b837cd035d554b85f216046a01e3e64c8f6bb3eb4673a8c55263215b3c",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-1920x300.jpg",
+      "size_bytes": 34572,
+      "sha256": "7261144e960c4ed04c3536272fe8f1f5089795b91a66418da872cdb9d36d1e6a",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-1920x900-2.jpg",
+      "size_bytes": 34519,
+      "sha256": "065fff9d2cb1d11b023529321b86afc70b302291797aed8e407563594176a78f",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-1920x900.jpg",
+      "size_bytes": 33686,
+      "sha256": "83da9e3e025a75819eb73d99fd62d29cff56c724dc71e294c1166238080abcc6",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-400x400.jpg",
+      "size_bytes": 5802,
+      "sha256": "64829c4187bae76fbb7c9bdf3a402deb87f0082d4f38393ac69e7eba4e01089e",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x1024.png",
+      "size_bytes": 20157,
+      "sha256": "755bded2bfbc4804f22c42ea1b0fb4dcc1938cf4b72d7b2560d74672a5e07f69",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x400.jpg",
+      "size_bytes": 8624,
+      "sha256": "836a30e7c3583176fcdf53c8438ded73e43082bcc6c4d39f320ebfc8fe32aac9",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x500.jpg",
+      "size_bytes": 10892,
+      "sha256": "27e1ea9779358124ced12a3b1aaad6fa2b18858bcdc7ab76b48765c17f40191a",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x600.jpg",
+      "size_bytes": 40704,
+      "sha256": "e3c8fa5d8521d642f47ae37e26218b4dae27740a5675fbfc63a22ed7268d0911",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x700.jpg",
+      "size_bytes": 21985,
+      "sha256": "69fe6973c9801e7bfeeded8c6ed58cfcf372a21300e80e44c9906e5e877aab02",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-600x800.jpg",
+      "size_bytes": 9785,
+      "sha256": "cd3dcd127c9f110a353caed427f0f331f6a6eb2fcfe7bb6d6d4f9709729549da",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-900x500.jpg",
+      "size_bytes": 13470,
+      "sha256": "d74ff9cd5b35d98e5ae3cc602dd8befb76292b56baa327d7acaa740133d76492",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-900x600.jpg",
+      "size_bytes": 10538,
+      "sha256": "440ad6664dff3a4d5774ab05ba6841caa296d67dcc74c3a20303d7f6d37c0f26",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-900x700.jpg",
+      "size_bytes": 56034,
+      "sha256": "05499fa156ff79881e2f36187938d4c854073992199b9edc9630886c14bcc103",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/dummy-img-900x900.png",
+      "size_bytes": 2758,
+      "sha256": "379db831de99d14b25f88a3ad37343506511652ab04cecbd07d177b1882ed3b4",
+      "type": "image",
+      "third_party": false,
+      "note": "evident placeholder \u2014 not intended to ship"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/images/favicon.ico",
+      "size_bytes": 170407,
+      "sha256": "e89ef41e81a0d6598459bd4bee43ef1c5282c73c180e89d46e1e9ecbf5f48263",
+      "type": "image"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/banner.js",
+      "size_bytes": 2598,
+      "sha256": "48cb456c6cdc6cf5eed7f2b11faf25216bdf857930501a32bc0a21354d4a0be8",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/script.js",
+      "size_bytes": 10705,
+      "sha256": "da90cf2ddfd107f6efb6ac8b909094e90c8673c66f084044ef247390f991cba2",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/submit-form.js",
+      "size_bytes": 3290,
+      "sha256": "e15571d73030fb5697d53b5cd9d6fc7926c31dee0973ac64b3d44267d8e2dc54",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/swiper-script.js",
+      "size_bytes": 1076,
+      "sha256": "1ae2801b4de1783f5d144d0cc99a291a161c7662e136674d9d58a2ef3fb402d6",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/bootstrap.bundle.min.js",
+      "size_bytes": 80821,
+      "sha256": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/flatpickr.min.js",
+      "size_bytes": 50679,
+      "sha256": "1eeab1cb779471a0b0aaa93dd91c2eb1aa537d696f01ab05ea9dabc55e8525a1",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/fslightbox.js",
+      "size_bytes": 31468,
+      "sha256": "d71b1bb99a22898b7c0ab4b10bbef733e4e48697af383de234b4810014c67f03",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "UNKNOWN"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/isotope.pkgd.min.js",
+      "size_bytes": 35445,
+      "sha256": "081ae9baaacc857c1c2cb51de6dbd0e1eb811c2761ef01a50df373f2f6eefe22",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "GPLv3 OR Isotope Commercial License"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/jquery.min.js",
+      "size_bytes": 87533,
+      "sha256": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/odometer.js",
+      "size_bytes": 21199,
+      "sha256": "f2d42bd39c82e14af877e5f03f576cc4344c0b0873f3050b04ed62886bcfccbb",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "UNKNOWN"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/vendor/swiper-bundle.min.js",
+      "size_bytes": 154597,
+      "sha256": "985f1224c0eeec99d367a9db35e58e44b21e7eb9ce45831b15b4c108e41fd97f",
+      "type": "js",
+      "third_party": true,
+      "stated_license": "MIT"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/js/video_embedded.js",
+      "size_bytes": 711,
+      "sha256": "75a73bd6013ade49db21fd3b12e80e8975f3322a2228cf059414860dd09fa9c3",
+      "type": "js"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/php/form-booking.php",
+      "size_bytes": 2596,
+      "sha256": "5aaa8843c5ae62cae9e10c6191fee25715661d17b7443ba28068deae1a33e933",
+      "type": "php_backend_handler"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/php/form-contact.php",
+      "size_bytes": 2079,
+      "sha256": "4637aba8c9f7f099a5f58f29ac5745ae608566754bb5f5aa544af458f4893710",
+      "type": "php_backend_handler"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/php/form-newsletter.php",
+      "size_bytes": 1695,
+      "sha256": "764331129bc19e6c658270f40481233709fb3197146fa20de13969c686b7d6c3",
+      "type": "php_backend_handler"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-brands-400.ttf",
+      "size_bytes": 210792,
+      "sha256": "808443ae6c8204395add8543da8a90a60b9376fb0f87ed8e8ea37d109596d805",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-brands-400.woff2",
+      "size_bytes": 118684,
+      "sha256": "d7236a19bf23cbb2027280e8f51dc99d6c45976a2ed60de73382b034b18a2b68",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-regular-400.ttf",
+      "size_bytes": 68064,
+      "sha256": "54cf6086f7bb21f9d072ad494a19b4681fa516dd0a14cee52da01d3651a913a3",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-regular-400.woff2",
+      "size_bytes": 25472,
+      "sha256": "e3456d1283b9d75337a773dfd147bf908fd02c01b4bf48576d8603a69b13cbe5",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-solid-900.ttf",
+      "size_bytes": 426112,
+      "sha256": "d2f0593540b0e33ba6de255a54f272d466e31144806956bea8cfdbf7edffc9bd",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-solid-900.woff2",
+      "size_bytes": 158220,
+      "sha256": "aa75998623a391e61c6901794ace832e3ecdd288b56d608f21bea0411acc0b8e",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-v4compatibility.ttf",
+      "size_bytes": 10836,
+      "sha256": "30f6abf6baa425825828793d6dfad1fb63765d0e5abaa7af6feafb9bfcece5a0",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/fa-v4compatibility.woff2",
+      "size_bytes": 4796,
+      "sha256": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+      "type": "font",
+      "third_party": true,
+      "stated_license": "CC-BY-4.0/SIL-OFL-1.1"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/font-family-lato.css",
+      "size_bytes": 8264,
+      "sha256": "9aa57887b113c39cf22bae9d6289ec0c6624a0b274c2124555e81235df512597",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "STATED SIL-OFL-1.1 (Google Fonts catalogue, not independently reverified)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/assets/webfonts/font-family-montserrat.css",
+      "size_bytes": 3828,
+      "sha256": "bad282626c803aeb80f4c964ec90aff8839cf1317f55aa8a8f7bf4fa07b8a44e",
+      "type": "css",
+      "third_party": true,
+      "stated_license": "STATED SIL-OFL-1.1 (Google Fonts catalogue, not independently reverified)"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/blog.html",
+      "size_bytes": 31702,
+      "sha256": "7b22a2b45885eac72fd73ac1d39066d42bc7b3c9ea2c6646a3d05ac43f801119",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/booking.html",
+      "size_bytes": 40375,
+      "sha256": "cb9401560b9936f65cfb5196d4e5c2a2b7081d04b7d3a5d80665661ea9769894",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/coaching.html",
+      "size_bytes": 44821,
+      "sha256": "fc8dfc0d868036e00a65442fed95d617a5aecd87e6b7e743f45011d895f81a2b",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/community.html",
+      "size_bytes": 50974,
+      "sha256": "b7d805ab334cb3f611efc6dddc6815b143d54ffb98edf78b719e35dfe9fd4e15",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/contact.html",
+      "size_bytes": 28259,
+      "sha256": "91243be256341ad6e743b9549fd6e1d2234a7bdd45474616dfbf24dc9ec33671",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/event.html",
+      "size_bytes": 40566,
+      "sha256": "9cd71c3742541df50ef8137bfdb5158434256e5f71156a6c63fd6bcb16fbaa56",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/faq.html",
+      "size_bytes": 37239,
+      "sha256": "0e5db1c89ad871b0c57085d9dd36a7c735ec5210ef854c69e8e0c3d7f7aeb233",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/index.html",
+      "size_bytes": 91367,
+      "sha256": "1bd5a8918adfe788985fd12de1ff3a36057c890dab7d9ea7c9c267c3970b1c35",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/membership.html",
+      "size_bytes": 41439,
+      "sha256": "cf24aae3c47dd5fd80b67e09ed63f4801b6f31d264d1514fa97fda00aaf75819",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/service.html",
+      "size_bytes": 54018,
+      "sha256": "8f6c0f3ea7e1ad4173f91e6ee910ba8a424669448d0ee1f90a0ee906e500b6e3",
+      "type": "html"
+    },
+    {
+      "path": "Adelux_Main_File/HTML_TEMPLATE/single-post.html",
+      "size_bytes": 34239,
+      "sha256": "730537e7e6ba952e2730b51acac10a10d4d0673cf4cbd4d42c26340be0d78dd1",
+      "type": "html"
+    }
+  ]
+}

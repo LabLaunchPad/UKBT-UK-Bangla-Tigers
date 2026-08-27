@@ -1,0 +1,101 @@
+id: EV-20260826-032
+classification: FIRST_PARTY_CLIENT_DIRECTION
+claim: >
+  The client directed a full template-UI-parity reconstruction: mirror the
+  reference template's page set with section/component/wireframe parity;
+  treat all supplied photographs as usable UKBT club imagery; reproduce
+  the template's interaction/motion behaviour rebuilt in UKBT's own stack;
+  and port the template's exact tokens/CSS rather than approximating them.
+source: "Direct client instruction in session, 2026-08-26 (master prompt 'FULL TEMPLATE UI PARITY RECONSTRUCTION' plus three explicit answers to a scoping question and one follow-up clarification)."
+source_type: first_party_client_direction
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records a standing client direction about their own site. Does not
+  expire; superseded only by a later client instruction.
+scope: "Whole-site UI reconstruction. Establishes CLIENT_REQ_009 through CLIENT_REQ_012."
+method: >
+  Recorded verbatim from the client's own words. Before accepting, the
+  three material forks were put back to the client as an explicit choice
+  (route scope, photography, motion) rather than assumed; each answer
+  below is the option the client selected or wrote.
+result: |
+  VERBATIM CLIENT DIRECTION (four instructions):
+
+  1. ROUTE SCOPE (→ CLIENT_REQ_009): "Mirror all template pages with
+     section parity, shells where we will put UK bqnglas content and
+     branding assets as per UI templates pqges" [sic].
+
+  2. PHOTOGRAPHY (→ CLIENT_REQ_010): "Treat all supplied photos as usable
+     club imagery."
+
+  3. MOTION/INTERACTION (→ CLIENT_REQ_011): "Same as template but tailored
+     to UK by tech stacks frameworks and its assets and contemt" [sic].
+
+  4. TOKENS/CSS (→ CLIENT_REQ_012): "To get same exact UI as UI shell
+     template we do need to ensure exact token and css and these must be
+     tailored and converted for our UK Bangla tigers frameworks tech
+     stacks."
+
+  WHAT THIS AUTHORISES, AND WHAT IT DOES NOT:
+
+  - Authorises the route set. `ROUTE-CONTRACT.md`'s change-authority
+    clause requires "independent UKBT evidence for that route's
+    existence — 'Adelux has a page like this' is not sufficient." This
+    record IS that independent evidence: it is the site owner instructing
+    what their own site should contain. The justification for
+    e.g. a membership route is this instruction, never "the template has
+    membership.html."
+
+  - Authorises photographic use on AFFILIATION grounds only. It
+    supersedes the `image_affiliation_caution` in EV-20260826-030 and
+    `knowledge/01-VERIFIED-FACTS.yaml` (images whose kit/branding did not
+    visibly match UKBT). It does NOT supersede CLIENT_REQ_008, a
+    different instruction about a named individual. Accordingly
+    `nordic-smash-slide.webp` REMAINS EXCLUDED: it displays "NIPO KHADEM"
+    in the image pixels (EV-20260826-031), and removing that person is
+    itself a client instruction. Affiliation doubt is overridden;
+    a named-person removal is not.
+
+  - Does NOT promote these images to independently-verified UKBT team
+    photography. Their classification is "client-authorised for use,"
+    attributed to this record. The underlying observation stands: sampled
+    images show at least four different kits, none carrying the UKBT
+    crest (gallery-01 "Optical Prime" kit; gallery-08 "Leaf Care"/Safari
+    Cup 2024 kit, same as the previously-excluded home-hero; gallery-12 an
+    unidentified individual with a Safari T20 Cup trophy; gallery-19 a
+    green/blue numbered kit). The client has authority over their own
+    supplied assets; this project does not restate their authorisation as
+    its own verification.
+
+  - Does NOT authorise inventing content. Template sections with no UKBT
+    evidence (pricing tiers, membership benefits, testimonials, FAQ
+    answers, blog articles, venue/map) render as shells marked
+    CONTENT_STATUS = UNKNOWN. CLAUDE.md's "never invent facts" invariant
+    is untouched by this record.
+
+  MEASURED FINDING recorded alongside (motivating CLIENT_REQ_012): the
+  current token scale cannot express the template's geometry. Template
+  section padding is 120px and its dominant rhythm gap 100px, where this
+  repo's spacing scale tops out at `space-8` = 32px; template h1 is 90px
+  vs our 48.8px, h2 64px vs 31.2px, paragraph 18px vs 12.8px, container
+  1340px vs 1440px. This is the structural reason prior builds read as
+  generic/compact rather than as the template, and is why the client's
+  fourth instruction targets the token layer specifically.
+related_files:
+  - artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md
+  - contracts/ROUTE-CONTRACT.md
+  - contracts/VISUAL-REGRESSION-CONTRACT.md
+  - contracts/ASSET-CONTRACT.md
+  - packages/truth/src/tokens/approved/
+  - knowledge/01-VERIFIED-FACTS.yaml
+relates_to: [EV-20260826-026, EV-20260826-027, EV-20260826-029, EV-20260826-030, EV-20260826-031]
+notes: >
+  Three frozen contracts are amended by this record rather than silently
+  overridden: ROUTE-CONTRACT (INV-014 route derivation),
+  VISUAL-REGRESSION-CONTRACT (viewport matrix 6 -> 7, adding 1920x1080),
+  ASSET-CONTRACT (a client-authorised provenance class). Each amendment
+  cites this record as its authority and preserves the original frozen
+  text verbatim above it, following the precedent set by CLAUDE.md's own
+  fresh-repository addendum.

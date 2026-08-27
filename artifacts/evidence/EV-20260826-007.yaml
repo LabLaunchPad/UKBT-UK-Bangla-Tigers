@@ -1,0 +1,42 @@
+id: EV-20260826-007
+classification: MEASURED
+claim: >
+  A complete, per-file inventory of the Adelux package (95 files, individually
+  hashed) and a repository baseline confirming no application code, framework,
+  package manager, dependency, or CI exists yet.
+source: "Direct inspection of this checkout and the supplied archive, read-only."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  A file inventory of an immutable package (fixed SHA-256) does not expire.
+  The repository-state half is session-scoped and superseded by the next
+  commit touching it, per contracts/evidence-contract.md defaults.
+scope: "Phase 0 (repository baseline) and Phase 1 (Adelux source freeze)"
+method: >
+  find + sha256sum over the extracted archive; classification by file
+  extension; cross-referenced against EV-20260826-005 (package identity) and
+  EV-20260826-006 (marketplace terms). Repository baseline via direct
+  filesystem inspection — no package.json, no framework config, no lockfile,
+  no CI found.
+result: >
+  95 files: 14 HTML, 15 CSS, 13 JS, 41 images, 8 fonts, 3 PHP handlers, 1
+  config. No licence-bearing file present (confirms EV-20260826-005).
+  Repository: 0 application files, framework NOT confirmed (Astro remains
+  PROPOSED, not chosen — Stage 3 has not run), 0 dependencies, CI ABSENT.
+related_files:
+  - artifacts/audit/REPOSITORY-BASELINE.md
+  - artifacts/adelux/ADELUX-SOURCE-MANIFEST.json
+  - artifacts/adelux/ADELUX-SOURCE-FINGERPRINT.md
+related_task: ADELUX-VISUAL-FIDELITY-PROTOCOL-PHASE-0-1
+relates_to: [EV-20260826-005, EV-20260826-006]
+notes: >
+  This record inventories and fingerprints the package — permitted under
+  knowledge/06-TEMPLATE-BOUNDARY.yaml's "inspect / analyze /
+  record_package_identity" allowance while status is NOT_ADMITTED. It does NOT
+  extract, adapt, or reproduce any design pattern, token, or asset from the
+  package. Phase 2 onward of the requesting protocol (page inventory of
+  rendered Adelux, browser rendering capture, CSS forensics, token extraction,
+  component discovery) IS that gated activity and has deliberately not been
+  started. BL-02 is unchanged by this record.

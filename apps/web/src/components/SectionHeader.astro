@@ -1,0 +1,132 @@
+---
+// The reference's recurring section-title row. Its `.service-title-container`
+// and `.blog-title-container` are the same rule — `padding-bottom: 30px;
+// border-bottom: 3px solid <accent>` — wrapping an eyebrow + heading on
+// one side and a CTA button on the other. `.academy-title-container` is
+// the same idea with a `3px solid <primary>` rule instead.
+//
+// Building it once matters: this row opens Service, Blog, Academy,
+// Tournament, Community and Testimonial in the reference. Ten ad-hoc
+// eyebrows were already consolidated into SubHeading.astro this phase;
+// this stops the same thing happening to the row that contains it.
+//
+// `centered` mirrors `.heading-section-container` (column, centred,
+// max-width 65%), which the reference uses where a section has no CTA.
+import Button from './Button.astro';
+import SubHeading from './SubHeading.astro';
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  /** Optional supporting line under the heading. */
+  lede?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  /** Accent rule (default) or primary rule, matching the two reference variants. */
+  rule?: 'accent' | 'primary' | 'none';
+  centered?: boolean;
+  inverse?: boolean;
+}
+const {
+  eyebrow,
+  heading,
+  lede,
+  ctaLabel,
+  ctaHref,
+  rule = 'accent',
+  centered = false,
+  inverse = false,
+} = Astro.props;
+
+const cls = [
+  'ukbt-section-header',
+  `ukbt-section-header--rule-${rule}`,
+  centered ? 'ukbt-section-header--centered' : '',
+  inverse ? 'ukbt-section-header--inverse' : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={cls}>
+  <div class="ukbt-section-header__text">
+    <SubHeading label={eyebrow} variant={inverse ? 'inverse' : 'default'} />
+    <h2>{heading}</h2>
+    {lede && <p class="ukbt-section-header__lede">{lede}</p>}
+  </div>
+  {
+    ctaLabel && ctaHref && (
+      <div class="ukbt-section-header__cta">
+        <Button label={ctaLabel} href={ctaHref} variant="primary" />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  /* Reference `.service-title-container` / `.blog-title-container`. */
+  .ukbt-section-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--ukbt-space-gap-4);
+    padding-bottom: var(--ukbt-space-gap-3);
+    margin-bottom: var(--ukbt-space-gap-5);
+  }
+  .ukbt-section-header--rule-accent {
+    border-bottom: 3px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-section-header--rule-primary {
+    border-bottom: 3px solid var(--ukbt-color-brand-primary);
+  }
+  .ukbt-section-header--inverse.ukbt-section-header--rule-primary {
+    border-bottom-color: var(--ukbt-color-brand-accent);
+  }
+
+  .ukbt-section-header__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ukbt-space-gap-2);
+    min-width: 0;
+  }
+  .ukbt-section-header__text h2 {
+    margin: 0;
+  }
+  .ukbt-section-header__lede {
+    margin: 0;
+    max-width: 44rem;
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-section-header--inverse .ukbt-section-header__lede {
+    color: inherit;
+    opacity: 0.85;
+  }
+  .ukbt-section-header__cta {
+    flex: none;
+  }
+
+  /* Reference `.heading-section-container`: centred, max-width 65%. */
+  .ukbt-section-header--centered {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .ukbt-section-header--centered .ukbt-section-header__text {
+    align-items: center;
+    text-align: center;
+    max-width: 65%;
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--ukbt-space-gap-3);
+    }
+    .ukbt-section-header--centered .ukbt-section-header__text {
+      max-width: 100%;
+    }
+  }
+</style>

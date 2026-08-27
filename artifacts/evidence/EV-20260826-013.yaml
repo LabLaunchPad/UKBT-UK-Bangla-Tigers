@@ -1,0 +1,56 @@
+id: EV-20260826-013
+classification: MEASURED
+claim: >
+  Gates G0-G6 of the forensic-extraction pipeline completed with maximal
+  evidence reuse: G0/G2/G3/G6 fully reused from prior evidence; G1 formalized
+  as a new standalone record; G4/G5 extended from homepage-only to all 13
+  site pages, including a live-verified mobile nav toggle interaction test.
+source: >
+  Playwright/Chromium 141.0.7390.37 rendering the immutable source via
+  file://, plus reuse of EV-005/007/008/009.
+source_type: command
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Derived from an immutable, fixed-SHA256 source; does not expire unless the source or method changes."
+scope: "FORENSIC_ANALYSIS / DESIGN_EXTRACTION (pipeline stages 1-2), all 13 site pages"
+method: >
+  Node script using globally-installed Playwright, looping over all 13
+  HTML_TEMPLATE pages: computed styles + geometry for 4 shared-chrome
+  elements at 2 viewports, structural interaction probes (mobile toggle
+  presence, Swiper/Flatpickr usage, form count), and a live click-test of
+  the actual [data-bs-toggle=collapse] control against all 12 applicable
+  pages, verifying the #navbarNav element's computed display and class
+  changes before/after.
+result: |
+  13/13 pages loaded successfully, 0 failures. 14 forms site-wide, Swiper on
+  2 pages, Flatpickr on 1 page. Mobile nav toggle present on 12/13 pages
+  (absent only on 404-page, correctly - no nav there) and LIVE-VERIFIED
+  functional on all 12: display:none/collapse -> display:block/collapse
+  show, uniformly. First live-behavior test run this session beyond the
+  homepage button/nav-link hover traces.
+
+  Full G0-G6 status: SOURCE_HASH unchanged, PAGE_COUNT=13, CSS_COUNT=15 files
+  /748 rules, JS_COUNT=13, ASSET_COUNT=41, FONT_COUNT=8,
+  TOKEN_RAW_COUNT=61, TOKEN_CANDIDATE_COUNT=20, COMPONENT_CANDIDATE_COUNT=4
+  confirmed with cascade evidence, RESPONSIVE_RULE_COUNT=4 media queries,
+  INTERACTION_STATE_COUNT=3 verified, THIRD_PARTY_DEPENDENCY_COUNT=10.
+
+  Five gaps named explicitly rather than silently dropped: full per-page
+  computed-style depth (only homepage got full depth), the remaining 4 of 6
+  requested viewports, Swiper touch/swipe interaction, cross-page component
+  recurrence classification, and true font-metric geometry (font CDN
+  unreachable under this project's own network policy).
+related_files:
+  - artifacts/extraction/EXTRACTION-MANIFEST-G0-G6.md
+  - artifacts/renders/RENDER-FINGERPRINT.md
+  - artifacts/extraction/render-manifest/all-pages-computed-styles.json
+  - artifacts/extraction/mobile-nav-toggle-test.json
+related_task: FORENSIC-EXTRACTION-G0-G6
+relates_to: [EV-20260826-005, EV-20260826-007, EV-20260826-008, EV-20260826-009]
+notes: >
+  No application code changed. No Adelux asset, markup, or screenshot
+  entered this repository - verified by grep/find before committing. This
+  is pipeline stages 1-2 (FORENSIC_ANALYSIS, DESIGN_EXTRACTION) only;
+  stage 3 (UKBT_ADAPTATION) has not started and no token was promoted past
+  CANDIDATE.

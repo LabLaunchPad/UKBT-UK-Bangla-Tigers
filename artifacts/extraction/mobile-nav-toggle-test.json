@@ -1,0 +1,158 @@
+{
+  "index": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "about": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "service": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "coaching": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "booking": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "membership": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "community": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "event": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "blog": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "single-post": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "faq": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  },
+  "contact": {
+    "found": true,
+    "targetSel": "#navbarNav",
+    "before": {
+      "display": "none",
+      "classes": "collapse navbar-collapse"
+    },
+    "after": {
+      "display": "block",
+      "classes": "navbar-collapse collapse show"
+    },
+    "changed": true
+  }
+}

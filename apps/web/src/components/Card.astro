@@ -1,0 +1,63 @@
+---
+// Layer 7 adapter for packages/truth/src/contracts/card.contract.md.
+// UKBT-original primitive — not derived from Adelux's card candidates.
+interface Props {
+  heading: string;
+  body: string;
+  href?: string;
+}
+
+const { heading, body, href } = Astro.props;
+---
+
+{
+  href ? (
+    <a class="ukbt-card ukbt-card--linked" href={href}>
+      <h3 class="ukbt-card__heading">{heading}</h3>
+      <p class="ukbt-card__body">{body}</p>
+    </a>
+  ) : (
+    <article class="ukbt-card">
+      <h3 class="ukbt-card__heading">{heading}</h3>
+      <p class="ukbt-card__body">{body}</p>
+    </article>
+  )
+}
+
+<style>
+  .ukbt-card {
+    display: block;
+    padding: var(--ukbt-space-6);
+    border-radius: var(--ukbt-radius-lg);
+    background: var(--ukbt-color-neutral-0);
+    box-shadow: var(--ukbt-shadow-sm);
+    color: var(--ukbt-color-surface-foreground);
+    text-decoration: none;
+  }
+
+  .ukbt-card--linked {
+    transition: box-shadow var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard);
+  }
+
+  .ukbt-card--linked:hover {
+    box-shadow: var(--ukbt-shadow-md);
+  }
+
+  /* :focus-visible base rule lives globally in styles/base.css; this only
+     adds the card-specific offset. */
+  .ukbt-card--linked:focus-visible {
+    outline-offset: 2px;
+  }
+
+  .ukbt-card__heading {
+    margin: 0 0 var(--ukbt-space-2) 0;
+    font-size: var(--ukbt-font-size-2);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+
+  .ukbt-card__body {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
+    color: var(--ukbt-color-neutral-700);
+  }
+</style>

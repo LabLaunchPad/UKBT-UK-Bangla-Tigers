@@ -1,0 +1,352 @@
+[
+  {
+    "candidate": ".btn-accent",
+    "rule_count": 2,
+    "rules": [
+      {
+        "selector": ".btn-accent",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 273,
+        "media": null,
+        "properties": [
+          "fill",
+          "transition",
+          "background-color"
+        ],
+        "token_references": [
+          "--accent-color-2"
+        ]
+      },
+      {
+        "selector": ".btn-accent:hover",
+        "specificity": "(0,0,2,0)",
+        "file": "main.css",
+        "line": 279,
+        "media": null,
+        "properties": [
+          "background-color"
+        ],
+        "token_references": [
+          "--accent-color-6"
+        ]
+      }
+    ]
+  },
+  {
+    "candidate": ".nav-link",
+    "rule_count": 7,
+    "rules": [
+      {
+        "selector": ".navbar .nav-link-container",
+        "specificity": "(0,0,2,0)",
+        "file": "main.css",
+        "line": 1672,
+        "media": null,
+        "properties": [
+          "width",
+          "display",
+          "flex-direction",
+          "justify-content",
+          "align-items"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".nav-link",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 1680,
+        "media": null,
+        "properties": [
+          "font-family",
+          "font-size",
+          "font-weight",
+          "line-height",
+          "color",
+          "padding"
+        ],
+        "token_references": [
+          "--font-family-1",
+          "--secondary"
+        ]
+      },
+      {
+        "selector": ".nav-link:hover",
+        "specificity": "(0,0,2,0)",
+        "file": "main.css",
+        "line": 1689,
+        "media": null,
+        "properties": [
+          "color"
+        ],
+        "token_references": [
+          "--accent-color-2"
+        ]
+      },
+      {
+        "selector": ".nav-link:focus",
+        "specificity": "(0,0,2,0)",
+        "file": "main.css",
+        "line": 1689,
+        "media": null,
+        "properties": [
+          "color"
+        ],
+        "token_references": [
+          "--accent-color-2"
+        ]
+      },
+      {
+        "selector": ".nav-link.active",
+        "specificity": "(0,0,2,0)",
+        "file": "main.css",
+        "line": 1689,
+        "media": null,
+        "properties": [
+          "color"
+        ],
+        "token_references": [
+          "--accent-color-2"
+        ]
+      },
+      {
+        "selector": ".navbar-nav .nav-link.show",
+        "specificity": "(0,0,3,0)",
+        "file": "main.css",
+        "line": 1689,
+        "media": null,
+        "properties": [
+          "color"
+        ],
+        "token_references": [
+          "--accent-color-2"
+        ]
+      },
+      {
+        "selector": ".navbar .nav-link-container",
+        "specificity": "(0,0,2,0)",
+        "file": "responsive.css",
+        "line": 66,
+        "media": "screen and (max-width: 1025px)",
+        "properties": [
+          "display"
+        ],
+        "token_references": []
+      }
+    ]
+  },
+  {
+    "candidate": ".card-blog",
+    "rule_count": 14,
+    "rules": [
+      {
+        "selector": ".card-blog",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 851,
+        "media": null,
+        "properties": [
+          "display",
+          "flex-direction",
+          "position",
+          "overflow"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog.card-blog-post .image-container img",
+        "specificity": "(0,0,3,1)",
+        "file": "main.css",
+        "line": 858,
+        "media": null,
+        "properties": [
+          "border-radius",
+          "transition"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog.card-blog-post:hover .image-container img",
+        "specificity": "(0,0,4,1)",
+        "file": "main.css",
+        "line": 863,
+        "media": null,
+        "properties": [
+          "transform",
+          "opacity"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog.card-blog-post .blog-title",
+        "specificity": "(0,0,3,0)",
+        "file": "main.css",
+        "line": 868,
+        "media": null,
+        "properties": [
+          "opacity",
+          "transition"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog.card-blog-post:hover .blog-title",
+        "specificity": "(0,0,4,0)",
+        "file": "main.css",
+        "line": 873,
+        "media": null,
+        "properties": [
+          "opacity"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-category",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 877,
+        "media": null,
+        "properties": [
+          "background-color",
+          "display",
+          "flex-direction",
+          "gap",
+          "padding"
+        ],
+        "token_references": [
+          "--accent-color"
+        ]
+      },
+      {
+        "selector": ".card-blog-recent",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 885,
+        "media": null,
+        "properties": [
+          "background-color",
+          "display",
+          "flex-direction",
+          "gap",
+          "padding"
+        ],
+        "token_references": [
+          "--accent-color"
+        ]
+      },
+      {
+        "selector": ".card-blog-tag",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 893,
+        "media": null,
+        "properties": [
+          "background-color",
+          "display",
+          "flex-direction",
+          "gap",
+          "padding"
+        ],
+        "token_references": [
+          "--accent-color"
+        ]
+      },
+      {
+        "selector": ".card-blog-category",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 267,
+        "media": "screen and (max-width: 1025px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-recent",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 270,
+        "media": "screen and (max-width: 1025px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-tag",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 273,
+        "media": "screen and (max-width: 1025px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-category",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 560,
+        "media": "screen and (max-width: 767px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-recent",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 563,
+        "media": "screen and (max-width: 767px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      },
+      {
+        "selector": ".card-blog-tag",
+        "specificity": "(0,0,1,0)",
+        "file": "responsive.css",
+        "line": 566,
+        "media": "screen and (max-width: 767px)",
+        "properties": [
+          "padding"
+        ],
+        "token_references": []
+      }
+    ]
+  },
+  {
+    "candidate": ".card-chooseus",
+    "rule_count": 1,
+    "rules": [
+      {
+        "selector": ".card-chooseus",
+        "specificity": "(0,0,1,0)",
+        "file": "main.css",
+        "line": 489,
+        "media": null,
+        "properties": [
+          "align-self",
+          "align-items",
+          "text-align",
+          "background-color",
+          "display",
+          "flex-direction",
+          "gap",
+          "border-radius",
+          "padding",
+          "width",
+          "height"
+        ],
+        "token_references": [
+          "--secondary"
+        ]
+      }
+    ]
+  }
+]

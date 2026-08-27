@@ -1,0 +1,94 @@
+id: EV-20260826-029
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  A supplied archive ("ubtbrandingassets.zip") contains real UKBT
+  branding material: a shield-crest logo (multiple sizes/formats), a
+  favicon SVG, apple-touch-icon/favicon PNGs, 3 font files (Lato ×2
+  weights, Montserrat variable), a hero photo, 20 gallery photos, 4
+  leadership images (including a real "management team" announcement
+  graphic), 1 Uppsala Tigers image, and 1 OpenGraph social-card image —
+  40 real files, 3.8MB total. Its bundled README claims specific
+  provenance (exported from a repo named "LabLaunchPad/UK-Bangla-Tigers,"
+  referencing packages/truth/src/brand.ts, docs/12-media-assets.md,
+  apps/web/public/media/players/).
+source: "Uploaded archive (e17f27fd-ubtbrandingassets.zip, 3,831,063 bytes), extracted and read in full."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Records this archive's contents as supplied and independently
+  inspected. Does not expire.
+scope: "Stage 7 asset ingestion + brand decision (U-05); also narrows U-03, U-04."
+method: >
+  Extracted all 40 files. Computed SHA256, dimensions, and format for
+  every file (Python/Pillow). Directly searched this repository for the
+  README's specific claimed file paths and repo name — none exist here.
+  Visually inspected the crest, favicon SVG source, hero photo, and
+  management-team graphic directly. Programmatically sampled dominant
+  colours from the crest's actual pixel data (2,224,801 opaque pixels)
+  and computed real WCAG contrast ratios for the resulting palette.
+  Verified font files' magic bytes (`wOF2`) confirm valid, non-corrupt
+  WOFF2 data.
+result: |
+  PROVENANCE FINDING, clarified by the requester mid-task: the bundled
+  README's specific file-path/repo-name claims (packages/truth/src/
+  brand.ts, docs/12-media-assets.md, apps/web/public/media/players/,
+  "LabLaunchPad/UK-Bangla-Tigers") do not exist in this repository —
+  confirmed by direct search. The requester clarified this is because the
+  export originates from a **different, earlier repository attempt**, not
+  this one, and explicitly authorized this project to decide asset
+  usage/placement independently rather than deferring to that README's
+  framing. Accordingly: the README's specific path/provenance claims are
+  treated as inapplicable-here, not adopted; its "verified" framing is
+  not taken on say-so. The actual asset files were assessed independently
+  on their own merits, per this project's standing practice.
+
+  REAL, INDEPENDENTLY-VERIFIED FINDINGS (not taken from the README):
+  1. The crest is a real, well-formed shield logo ("UK BANGLA TIGERS,"
+     tiger-head mark, crown, "EST 2020"). Direct pixel sampling of
+     brand/crest.png confirms the README's claimed 5-colour palette
+     (Navy #001E3A 62.1%, Gold #CCA44F ~18% combined incl. antialiasing,
+     White #FFFFFF 8.2%, Green #064D49 3.3%, Cream #F8F4E8 2.3%) to
+     within antialiasing noise — the palette claim is corroborated by
+     independent measurement, not merely repeated.
+  2. Real WCAG contrast, computed: gold-on-white 2.34:1 (fails AA;
+     materially matches the README's own stated 2.42:1 caution), gold-
+     on-navy 7.21:1 (passes), white-on-navy 16.84:1 (passes).
+  3. All 3 font files are valid WOFF2 (correct magic bytes) — Lato 400/
+     700, Montserrat variable. Typography itself remains PROPOSED, not
+     VERIFIED — the README's own honest framing is that these are an
+     assumption adopted from the Adelux reference, not a club-specified
+     choice, and no independent confirmation exists either way.
+  4. New leadership facts, from images/leadership/management-team.webp
+     (a real announcement graphic, not text claimed by any README):
+     Mohammad Chowdhury — Founder & CEO (in addition to Club Captain,
+     EV-20260826-026); MD Shahidul Alam Ratan — Chairman (this graphic's
+     own text; likely the exact draft EV-20260826-026's "Acting Chairman"
+     correction refers to, not a fresh conflict); Sayem Rahman — Vice-
+     Chairman (new). Tagline "we are not only a team, but also an
+     institute for learning" independently corroborates the WebSearch
+     snippet already on record (EV-20260826-028) — two independent
+     sources, consistent.
+  5. "EST 2020" on the crest is a real, directly-observed founding year.
+  6. gallery-15.webp and leadership/our-story.webp are byte-identical
+     (same SHA256) — one photo under two names, not two images.
+  7. No player portraits, sponsor name list, or written brand guideline
+     exist in this archive — consistent with the (otherwise inapplicable)
+     README's own statement that player portraits were deliberately
+     excluded.
+related_files:
+  - artifacts/brand/BRAND-DECISION.md
+  - artifacts/brand/raw/ (40 files, raw evidence copy)
+  - knowledge/01-VERIFIED-FACTS.yaml
+  - artifacts/bootstrap/UNKNOWN-EVIDENCE.md
+  - artifacts/content/UKBT-CONTENT-INVENTORY.md
+relates_to: [EV-20260826-026, EV-20260826-027, EV-20260826-028]
+notes: >
+  This substantially narrows U-05 (logo + colour palette move from
+  UNKNOWN to VERIFIED; typography stays PROPOSED). Per
+  contracts/ASSET-CONTRACT.md, these files are staged as evidence in
+  artifacts/brand/raw/, NOT yet placed into apps/web/public/ — that
+  requires a per-asset MANIFEST.md entry (SOURCE/IDENTITY/USAGE/
+  RIGHTS_STATUS/UKBT_REQUIRED/ALTERNATIVE) and happens at Stage 7G
+  implementation, after the Homepage Contract (7F) is frozen, not before.

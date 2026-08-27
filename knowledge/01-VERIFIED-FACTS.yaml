@@ -1,0 +1,282 @@
+# Only what has actually been established in THIS repository.
+# Every entry carries an evidence link or is marked as unestablished.
+# Adding an unevidenced entry here is a defect, not a shortcut.
+
+meta:
+  last_updated: 2026-08-26
+  established_at_sha: 0cd3129
+  last_audited_sha: d08841d   # zoom-out state audit, 2026-08-26 — see architecture.stage_detail below
+  rule: "If it is not evidenced, it does not belong in this file as true."
+
+project:
+  name: UK Bangla Tigers            # evidence: repository name + requester usage
+  code: UKBT
+  what_the_organization_is: >       # U-01 NARROWED further, not closed — EV-20260826-026, EV-20260826-028
+    A cricket franchise team competing internationally (confirmed:
+    Safari International T20 Cup, UAE); part of a small multi-franchise
+    network sharing a site/brand with sister franchise Uppsala Tigers
+    (Sweden). Independently corroborated via public search (not
+    independently fetched/verified page content): registered as "UK
+    BANGLA TIGERS CRICKET CLUB CIC" (Companies House company number
+    16850390, a Community Interest Company — EV-20260826-028), and
+    describes its mission as providing young/talented cricketers a
+    platform for international-stage exposure, technical development,
+    and collaboration ("not only a team, but also an institute for
+    learning"). Full "About Us" narrative content is still UNKNOWN — this
+    is a search-engine-synthesized snippet, not primary-source page text.
+  legal_entity: "UK BANGLA TIGERS CRICKET CLUB CIC"  # EV-20260826-028, Companies House #16850390 — title/URL observed via search, register page content not independently fetched
+  sport_or_activity: cricket         # U-02 CLOSED — EV-20260826-026, franchise T20/T10/50-over formats
+  formats_played: [T10, T20, "50-Over"]  # EV-20260826-026, from the Club Captain's career statistics tables
+  sister_franchises: ["Uppsala Tigers (Sweden)"]  # EV-20260826-026 — "Our Franchises" nav section
+  aggregate_stats:                   # EV-20260826-026, site-wide banner copy — not individually itemized
+    players: "30+"
+    countries_internationals: "15+"
+    international_tournaments: "7+"
+  official_social_media:             # EV-20260826-026
+    facebook: "https://www.facebook.com/UKBanglaTigers"
+    instagram: "https://www.instagram.com/ukbanglatigers/"
+    tiktok: "https://www.tiktok.com/@uk.bangla.tigers"
+    x: "https://x.com/ukbanglatigers"
+  founded: 2020                      # U-03 NARROWED — EV-20260826-029, "EST 2020" read directly off the crest logo
+  tagline: >                         # EV-20260826-028 (search snippet) + EV-20260826-029 (management-team graphic), independently corroborated twice
+    "We are not only a team, but also an institute for learning."
+  tagline_short: "United by Passion. Driven by Cricket."  # EV-20260826-030, from the official social-card (OG) image — distinct from, not conflicting with, the mission-statement tagline above
+
+leadership:                          # U-04 further narrowed, not closed — EV-20260826-029
+  founder_and_ceo: "Mohammad Chowdhury"  # EV-20260826-029 — same person as club_captain below; a real management-team graphic, not text claimed by a README
+  chairman_title_in_use: "Chairman"      # EV-20260826-029 — this is what the source graphic itself displays
+  acting_chairman: "MD Shahidul Alam Ratan"
+  acting_chairman_title_note: >
+    Client correction, verbatim: must render as "Acting Chairman," never
+    "Chairman." (EV-20260826-026). EV-20260826-029's management-team
+    graphic uses "Chairman" — very likely the exact draft this correction
+    refers to, not a fresh conflict; the site itself should say "Acting
+    Chairman" regardless of what this graphic shows.
+  acting_chairman_bio: >
+    Independently corroborated (not conflicting) via public search,
+    EV-20260826-028: CEO of Capital Kids Cricket, London; described as an
+    internationally respected cricket development leader with 25+ years
+    across international cricket, high-performance programmes, team
+    management, coaching, and cricket administration. Snippet-level, not
+    independently fetched from a primary source.
+  vice_chairman: "Sayem Rahman"          # NEW — EV-20260826-029
+  club_captain: "Mohammad Chowdhury"
+  full_committee_status: UNKNOWN     # Founder/CEO, Chairman, Vice-Chairman now named; still not a complete committee
+  full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster
+  homepage_critical: false           # explicit: full roster/committee are NOT required for the Homepage Contract (see artifacts/STAGE_7_READINESS_MATRIX.md)
+
+sister_franchise_uppsala_tigers:      # NEW — EV-20260826-030, a real "Overseas Signings" graphic
+  overseas_signings:                  # name, country as shown on the graphic — not independently verified beyond the image itself
+    - {name: "Mohammad Chowdhury", country: England}
+    - {name: "Shakibal Hasan", country: Bangladesh, note: "Name closely resembles a well-known Bangladeshi international cricketer spelled slightly differently ('Shakib Al Hasan') — recorded as shown, identity NOT asserted"}
+    - {name: "Chad Potgieter", country: Portugal}
+    - {name: "Jeremy Martins", country: Portugal}
+    - {name: "Shaheryar Butt", country: Belgium}
+    - {name: "Nipo Khadem", country: Portugal, note: "Very likely the same person as 'MD Siraj Ullah Khadem Nipo', whose removal from the squad list was explicitly instructed (EV-20260826-027, CLIENT_REQ_008) — EXCLUDED from any published roster per that instruction"}
+
+image_affiliation_caution:            # EV-20260826-030 — SUPERSEDED as a blocker by EV-20260826-032
+  status: SUPERSEDED_BY_CLIENT_AUTHORISATION
+  superseded_by: EV-20260826-032      # CLIENT_REQ_010, "treat all supplied photos as usable club imagery"
+  supersession_note: >
+    The client has explicitly authorised all supplied photographs for UKBT
+    use. That resolves AFFILIATION doubt only, and it is recorded as the
+    client's authorisation, not as this project's verification — the
+    observation below remains factually accurate about what the images
+    show. Assets used under this authorisation are filed in the
+    ASSET-CONTRACT's "Client-authorised" class with an explicit
+    INDEPENDENT_VERIFICATION field. It does NOT override
+    image_excluded_person_caution below, which rests on a different client
+    instruction (CLIENT_REQ_008).
+  original_observation: >
+    Two supplied images (leadership/join-us.webp; gallery/gallery-06.webp)
+    show cricket kit/branding inconsistent with UK Bangla Tigers (no
+    crest, different sponsor names: "MSG"/"BAS" and "Islami Bank"
+    respectively) — very likely photos from a leader's broader playing
+    career with other clubs, not UKBT team photography. NOT to be used
+    as UKBT club imagery without further confirmation.
+
+image_excluded_person_caution:        # NEW — EV-20260826-031
+  note: >
+    images/uppsala/nordic-smash-slide.webp ("Overseas Signings" graphic)
+    has "NIPO KHADEM / PORTUGAL" baked into the photo itself, not just
+    recorded as metadata. CLIENT_REQ_008 requires that name excluded from
+    any published content. Found on direct visual inspection during Stage
+    7 site-scale page work — a text-content contamination grep cannot
+    catch a name inside a raster image. This graphic briefly shipped on
+    the Homepage's FranchiseTeaser section (Stage 7G) before the defect
+    was caught; both that section and the Our Franchises page now use the
+    crest instead. NOT to be used anywhere unless a version excluding
+    that player becomes available.
+
+brand:                                # NEW — U-05 substantially narrowed, EV-20260826-029; full record: artifacts/brand/BRAND-DECISION.md
+  logo_status: VERIFIED
+  logo_asset: artifacts/brand/raw/brand/crest.png
+  primary_colour: {value: "#001E3A", name: navy, status: VERIFIED}
+  accent_colour: {value: "#CCA44F", name: gold, status: VERIFIED}
+  tertiary_colour: {value: "#064D49", name: green, status: PROPOSED}
+  surface_alt_colour: {value: "#F8F4E8", name: cream, status: PROPOSED}
+  typography_status: PROPOSED         # Lato/Montserrat — explicitly an assumption per the supplied material, not club-confirmed
+  not_yet_applied_to_tokens: true      # staged as evidence only; Stage 7G implementation applies these to packages/truth token files, not done yet
+
+builder:
+  organization: LabLaunchPad        # evidence: git remote owner
+  authority_status: STATED_BUT_UNVERIFIED
+  authority_evidence: "requester statement, 2026-08-26 session"
+  note: >
+    Builder authority is a claim about ROLE. It is not evidence of asset
+    ownership or licence holding. See DR-004.
+  full_chain: "See knowledge/06-TEMPLATE-BOUNDARY.yaml provenance_chain (A/B/C/D) and provenance_verdicts for the complete authorship/authority/permission distinction, including the contradiction with the package's own stated author (EV-20260826-012)."
+
+template:
+  name: Adelux
+  version: "1.0.0"
+  sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  admission_status: NOT_ADMITTED
+  in_repository: false
+  license_status: VERIFIED  # superseded from STATED_BUT_UNVERIFIED — EV-20260826-024, Envato Elements License Certificate HAXKDZUTYV
+  license_evidence: [EV-20260826-005, EV-20260826-006, EV-20260826-024, EV-20260826-025]
+  license_document_exists: true  # superseded from false
+  purchase_evidence_exists: true  # superseded from false — the certificate is not a tax receipt/invoice per its own text, but is a genuine license-issuance record
+  marketplace_identity:
+    themeforest_item_id: "60543035"
+    themeforest_url: "https://themeforest.net/item/adelux-padel-club-community-html-bootstrap-template/60543035"
+    envato_elements_slug: "X3FTRWG"
+    envato_elements_item_id: "3acc4547-3059-449d-a632-944acef7bc53"  # from EV-20260826-024's certificate URL
+    note: >
+      U-25 RESOLVED: the applicable channel is Envato Elements (subscription
+      model), confirmed via EV-20260826-024's license certificate — not the
+      ThemeForest tiered-purchase channel.
+  other_website_reuse: PROHIBITED_ABSENT_ADDITIONAL_LICENCE
+  other_website_reuse_note: >
+    Structural finding, not a paperwork gap: every standard Envato acquisition
+    path caps at ONE end product. Confirmed via EV-20260826-006, and this is
+    exactly why EV-20260826-025 (confirming this license's one End Product is
+    UKBT exclusively) was required before Track B could unlock.
+  cross_framework_reimplementation: LIKELY_PERMITTED  # softened from LEGAL_REVIEW_REQUIRED, EV-20260826-024
+  cross_framework_note: >
+    Literal code porting is VERIFIED permitted (bounded to one end product).
+    Full grammar reimplementation without copied expression (U-26) is
+    reasoned in EV-20260826-024 as a conservative, likely-permitted reading
+    of "modification to build an End Product" — not independently verified
+    against Envato's live terms text (WebFetch unavailable this session),
+    so treat as likely rather than certain.
+  note: >
+    The template has NOT been admitted to this repository. It is excluded pending
+    licence evidence. A prior record "EV-0009" and an admission status of
+    ADMITTED_WITH_RESTRICTIONS were referenced by the requester but do not exist
+    here; a repository search returns no match. Reported, not reconciled.
+
+third_party_assets:
+  verification_required: true
+  verified_permissive:                   # licence read from the shipped file header
+    - {name: bootstrap, licence: MIT}
+    - {name: jquery, version: "3.7.1", licence: MIT}
+    - {name: swiper, licence: MIT}
+    - {name: flatpickr, licence: MIT}
+  obligations_attached:
+    - name: font-awesome
+      version: "Free 6.7.2"
+      licence: "Icons CC BY 4.0; Fonts SIL OFL 1.1; Code MIT"
+      obligation: ATTRIBUTION_REQUIRED
+  requires_decision:
+    - name: animate.css
+      version: "4.1.1"
+      licence: "Hippocratic License 2.1"
+      issue: NOT_OSI_APPROVED_ETHICAL_USE_CONDITIONS
+  blocked:
+    - name: isotope
+      version: "3.0.6"
+      licence: "GPLv3 OR Isotope Commercial License"
+      rightsholder: Metafizzy
+      issue: COMMERCIAL_USE_REQUIRES_PAID_LICENCE
+      note: "No Adelux licence tier can convey this. Independent of BL-02."
+      decision: DO_NOT_ADOPT_ISOTOPE   # taken 2026-08-26, not required by any UKBT need
+  decisions_not_to_adopt:
+    - {name: isotope, reason: "no demonstrated requirement; independent licence obligation"}
+    - {name: animate.css, reason: "not required; Hippocratic License 2.1 needs sign-off if ever reconsidered"}
+  unknown:
+    - {name: fslightbox, licence: UNKNOWN}
+    - {name: odometer, licence: UNKNOWN}
+    - {name: lato, licence: UNKNOWN, served_from: fonts.gstatic.com}
+    - {name: montserrat, licence: UNKNOWN, served_from: fonts.gstatic.com}
+
+content:
+  organization_facts_verified: true    # superseded from false — EV-20260826-026, first-party client-supplied
+  organization_facts_count: 12         # C-001..C-012, artifacts/content/UKBT-CONTENT-INVENTORY.md
+  invented_facts_allowed: false
+  evidence_registry_populated: true    # superseded from false
+
+language:
+  current_language: English
+  i18n_implemented: false
+  i18n_decision: EXPLICIT          # EV-20260826-002 — a decision, not an omission
+  reversal_cost: HIGH
+
+architecture:
+  current_stage: STAGE_9_SITE_SCALE_PARTIAL   # superseded from STAGE_2_COMPLETE_VERDICT_REVISE — this field went stale after Stage 2 and was never advanced through six subsequent stages of real work; corrected 2026-08-26
+  architecture_stage_approved: true    # superseded from false — ARCHITECTURE_VERDICT = PASS on the V3 track (15-vector red team, 0 critical findings, EV-20260826-019)
+  frozen_contract_exists: true         # superseded from false — 15 contracts FROZEN at Stage 3 (contracts/README.md, contracts/REPOSITORY-CONTRACT.md Status: FROZEN)
+  workspace_shape: "apps/web + packages/truth"   # superseded from NOT_DECIDED — DECIDED at Stage 3 (contracts/REPOSITORY-CONTRACT.md PACKAGES=)
+  minimum_defensible: "apps/web + one package co-locating content schemas and the truth gate"
+  stage_detail: >
+    This block was last truthfully updated at Stage 2 and then went stale for
+    six subsequent stages of real work — a governance defect in itself,
+    corrected here by a zoom-out state audit (2026-08-26, sha d08841d).
+    Actual status against docs/10-fresh-repo-pipeline.md's 11 stages: Stages
+    1 (bootstrap), 2 (architecture red team), 3 (contract freeze), 5 (design
+    system), 6 (reference analysis) are DONE with their named artifacts.
+    Stage 4 (foundation) and 7 (homepage) have the underlying work done and
+    verified (apps/web + packages/truth build and pass a 9-job CI; homepage
+    implemented and visually QA'd); both now have their receipts backfilled
+    (artifacts/receipts/FOUNDATION.md / HOMEPAGE.md). Stage 8 (independent
+    homepage red team, required by pipeline rule 5 to run in a session
+    separate from Stage 7) has now run, in a genuinely separate session:
+    HOMEPAGE_VERDICT = FAIL, 8 real findings (3 HIGH), all fixed and
+    re-verified in this session afterward — see
+    artifacts/review/HOMEPAGE-REDTEAM.md and the Stage 8 section of
+    artifacts/receipts/HOMEPAGE.md. Stage 9 (site-scale) was substantially delivered via a client-directed
+    ad-hoc "Full Template UI Parity Reconstruction"
+    (artifacts/ui/PARITY-COMPLETION-REPORT.md) that built 7 new pages in one
+    batch — violating pipeline rule 6 (no batch page building; per-page
+    PLAN→IMPLEMENT→VERIFY→RECEIPT only) — and produced no per-page receipts,
+    though its own verification (axe, responsive, geometry-parity) is real
+    and its evidence is on record. Stages 10 (release-gate) and 11
+    (replay-stress) have never run. Full audit trail: the "Zoom-out" section
+    prepended to the session's plan file.
+
+forms:
+  static_first: true                        # EV-20260826-001
+  future_form_route_required: true
+  adapter_boundary_required: true           # C2 — PASS at Stage 2
+  serverless_required: false                # C1 REVISED — service route needs none
+  build_time_only_data_access_prohibited: false
+  note: >
+    C3 ("no build-time-only data access") was REVISED to deletion by the Stage 2
+    red team: read literally it forbids build-time content rendering, which is
+    what Astro content collections are and what static-first chose, so it
+    inverted its own goal. Its intent is folded into C2.
+
+validation:
+  ci_workflow_present: true    # superseded from false — .github/workflows/ci.yml exists, all jobs merge-blocking
+  absent_ci_is_pass: false
+  gates_implemented: 9         # superseded from 0 — Install, Governance scaffold self-test, Dependency allowlist, Lint (Biome), Typecheck, Build, Unit/integration tests, Playwright (structural/responsive/accessibility), Secret scan — all 9 green on PR #1 head d08841d as of this correction
+
+licensing:
+  adelux_license_fully_verified: false
+  builder_authority_recorded: true
+  third_party_asset_verification_required: true
+  note: >
+    builder_authority_recorded: true and adelux_license_fully_verified: false are
+    deliberately separate keys. Authority to build does not verify licence rights.
+
+blockers:
+  BL-01: {state: RESOLVED, blocks: "all content publication", evidence: EV-20260826-026, note: "superseded from OPEN — 12 verified organization facts on record (see content.organization_facts_count above)"}
+  BL-02: {state: RESOLVED, blocks: "Stage 6 and all Adelux-derived material", evidence: [EV-20260826-024, EV-20260826-025], note: "superseded from OPEN — Envato Elements license HAXKDZUTYV confirmed scoped to UKBT ('Track B UNLOCKED')"}
+  BL-03: {state: RESOLVED, blocks: "application code — no frozen architecture", evidence: "contracts/REPOSITORY-CONTRACT.md Status: FROZEN", note: "superseded from OPEN — see architecture block above"}
+  BL-05: {state: RESOLVED_BY_DECISION, blocks: "adoption of Isotope (moot — decided DO_NOT_ADOPT)", evidence: EV-20260826-005, note: "state label corrected from OPEN; the DO_NOT_ADOPT decision was already recorded in this same entry"}
+
+unknowns:
+  total: 27
+  open: 22    # U-02 CLOSED, EV-20260826-026; none of U-01/03/04/05/06 fully close, so open count is unchanged by EV-029
+  narrowed_not_closed: [U-01, U-03, U-04, U-05, U-06]  # EV-20260826-026/-028/-029 — see register for exactly what remains open in each
+  register: artifacts/bootstrap/UNKNOWN-EVIDENCE.md

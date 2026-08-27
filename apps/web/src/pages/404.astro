@@ -1,0 +1,52 @@
+---
+// Astro's file-based routing serves this for any unmatched path
+// automatically. No UKBT organizational fact is needed here.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout title="Page Not Found — UK Bangla Tigers">
+  <Header nav={homepage.nav} />
+
+  <main>
+    <Section paddingBottom="normal">
+      <div class="ukbt-404">
+        <p class="ukbt-404__code">404</p>
+        <h1>This page has been bowled out.</h1>
+        <p>The page you're looking for doesn't exist or has moved.</p>
+        <Button label="Back to Home" href="/" variant="primary" />
+      </div>
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  .ukbt-404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--ukbt-space-3);
+    padding-block: var(--ukbt-space-8);
+  }
+  .ukbt-404__code {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-5);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-accent);
+    margin: 0;
+  }
+  .ukbt-404 h1 {
+    margin: 0;
+  }
+  .ukbt-404 p {
+    color: var(--ukbt-color-neutral-700);
+    margin: 0 0 var(--ukbt-space-3) 0;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+// Inner-page title banner — mirrors the reference's real
+// `.section-banner-inner` pattern (large top padding, rounded corners,
+// centered title + breadcrumb over a tinted surface). Reusable across
+// every inner page (About, Club Captain, etc.), not About-specific.
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  title: string;
+  crumbs: Crumb[];
+}
+const { title, crumbs } = Astro.props;
+---
+
+<div class="ukbt-page-banner">
+  <div class="ukbt-container ukbt-page-banner__inner">
+    <h1>{title}</h1>
+    <nav class="ukbt-breadcrumb" aria-label="Breadcrumb">
+      {
+        crumbs.map((c, i) => (
+          <>
+            {i > 0 && <span class="ukbt-breadcrumb__sep" aria-hidden="true">/</span>}
+            {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+          </>
+        ))
+      }
+    </nav>
+  </div>
+</div>
+
+<style>
+  /* Reference `.section-banner-inner`: padding 230px top / 120px bottom,
+     30px radius, sat inside a 30px `.section-wrapper` inset. The large top
+     value is what gives inner pages their proportion — it clears the fixed
+     header and leaves the title optically centred in the band. */
+  .ukbt-page-banner {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-ref-banner);
+    margin-inline: var(--ukbt-space-section-wrapper);
+    margin-block-start: var(--ukbt-space-section-wrapper);
+  }
+  .ukbt-page-banner__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ukbt-space-gap-2);
+    text-align: center;
+    padding-block: var(--ukbt-space-banner-padding-top)
+      var(--ukbt-space-banner-padding-bottom);
+  }
+  .ukbt-page-banner h1 {
+    font-family: var(--ukbt-font-family-heading);
+    color: var(--ukbt-color-brand-accent);
+    margin: 0;
+    /* A centred column-flex child sizes to max-content and can exceed its
+       parent, which leaves `overflow-wrap` with nothing to break against.
+       Constraining the width is what actually lets long titles wrap —
+       "International Tournaments/Events" measured 546px against a 430px
+       viewport without this. */
+    max-width: 100%;
+  }
+  .ukbt-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ukbt-breadcrumb a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-breadcrumb__sep {
+    opacity: 0.6;
+  }
+
+  /* Only the wrapper inset steps down — the reference does that
+     (30 → 20 → 10px) but holds the banner's own 230px/120px padding at
+     every viewport in the frozen matrix, 1920 down to 390.
+     An earlier revision here scaled the padding down on the assumption
+     that 230px is "far too tall for a phone". Measuring the reference
+     (artifacts/ui/reference-geometry.json) disproved it, and the
+     geometry comparison flagged the result as 8 separate P1 mismatches.
+     The assumption was wrong; the reference's value stands. */
+  @media screen and (max-width: 1025px) {
+    .ukbt-page-banner {
+      margin-inline: var(--ukbt-space-section-wrapper-md);
+      margin-block-start: var(--ukbt-space-section-wrapper-md);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-page-banner {
+      margin-inline: var(--ukbt-space-section-wrapper-sm);
+      margin-block-start: var(--ukbt-space-section-wrapper-sm);
+    }
+  }
+</style>

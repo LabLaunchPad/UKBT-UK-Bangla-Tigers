@@ -1,0 +1,63 @@
+---
+// Reference `.sub-heading`: inline-flex row, 10px gap, centred, neutral
+// pill surface with a small accent dot before the label —
+// `padding: 7px 14px; border-radius: 100px`.
+//
+// This pattern appears above nearly every section heading in the
+// reference. Ours had been re-declared ad hoc in six components
+// (`.ukbt-*__eyebrow`), each with its own copy of the same rules — the
+// "a component used on 8 pages must not have 8 implementations" problem
+// the parity spec calls out. This is the single implementation.
+//
+// Colour note: the reference pill is a NEUTRAL surface with dark text and
+// an accent-coloured dot. Our earlier ad-hoc eyebrows filled the whole
+// pill with gold. Matching the reference's role split is also what keeps
+// contrast safe — gold-on-white is 2.33:1 and fails AA, so gold belongs
+// on the dot, not behind the text.
+interface Props {
+  label: string;
+  /** Use on dark surfaces, where the neutral pill would disappear. */
+  variant?: 'default' | 'inverse';
+}
+const { label, variant = 'default' } = Astro.props;
+---
+
+<span class={`ukbt-subheading ukbt-subheading--${variant}`}>
+  <span class="ukbt-subheading__dot" aria-hidden="true"></span>
+  <span class="ukbt-subheading__label">{label}</span>
+</span>
+
+<style>
+  /* Neutral grey, not the cream `surface-alt`. `surface-alt` IS the
+     background of every tinted section, so a cream pill on a cream
+     section rendered as invisible — the shape vanished even though the
+     text contrast was fine. Neutral-100 reads as a chip against both the
+     white and the cream section surfaces. */
+  .ukbt-subheading {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-gap-1);
+    padding: 7px 14px;
+    border-radius: var(--ukbt-radius-ref-pill);
+    background: var(--ukbt-color-neutral-100);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-subheading--inverse {
+    background: rgb(255 255 255 / 8%);
+    color: var(--ukbt-color-surface-inverse-foreground);
+  }
+  .ukbt-subheading__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--ukbt-radius-ref-circle);
+    background: var(--ukbt-color-brand-accent);
+    flex: none;
+  }
+  .ukbt-subheading__label {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-heading-h6-size);
+    font-weight: var(--ukbt-font-weight-medium);
+    line-height: 1;
+  }
+</style>

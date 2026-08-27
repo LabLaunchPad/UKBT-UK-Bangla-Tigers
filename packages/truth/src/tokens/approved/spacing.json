@@ -1,0 +1,94 @@
+{
+  "space": {
+    "$description": "CLASSIFICATION: DERIVED. A generic rem-based micro-scale for intra-component spacing (padding inside a card, gap between a label and its value). It is NOT the page rhythm — see space.gap / space.section below, which carry the measured reference geometry. Retained because 19 components already build on it; not deprecated.",
+    "1": {
+      "$value": "0.25rem",
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": "0.5rem",
+      "$type": "dimension"
+    },
+    "3": {
+      "$value": "0.75rem",
+      "$type": "dimension"
+    },
+    "4": {
+      "$value": "1rem",
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": "1.5rem",
+      "$type": "dimension"
+    },
+    "8": {
+      "$value": "2rem",
+      "$type": "dimension"
+    },
+    "gap": {
+      "$description": "CLASSIFICATION: MEASURED. Ported verbatim from the reference template's own rhythm utilities (assets/css/main.css .gspace-0..5 and .gspace-100), per CLIENT_REQ_012 / EV-20260826-032. These are the page-level rhythm gaps between and within sections. The 100px step is the template's dominant section-internal gap (.about-wrapper, .community-grid, .team-content-wrapper, .banner-home-top all use it) and has no equivalent in the rem micro-scale above — its absence was the structural cause of prior builds reading as compact.",
+      "0": {
+        "$value": "0px",
+        "$type": "dimension"
+      },
+      "1": {
+        "$value": "10px",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "3": {
+        "$value": "30px",
+        "$type": "dimension"
+      },
+      "4": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "50px",
+        "$type": "dimension"
+      },
+      "100": {
+        "$value": "100px",
+        "$type": "dimension"
+      }
+    },
+    "section": {
+      "$description": "CLASSIFICATION: MEASURED. Reference .section padding (120px block / 20px inline) and .section-wrapper inset padding with its two responsive step-downs (30px -> 20px at <=1025px -> 10px at <=767px). Ported per CLIENT_REQ_012.",
+      "padding": {
+        "$value": "120px",
+        "$type": "dimension"
+      },
+      "paddingInline": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "wrapper": {
+        "$value": "30px",
+        "$type": "dimension"
+      },
+      "wrapperMd": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "wrapperSm": {
+        "$value": "10px",
+        "$type": "dimension"
+      }
+    },
+    "banner": {
+      "$description": "CLASSIFICATION: MEASURED. Reference .section-banner-inner padding (230px top / 120px bottom) — the inner-page title banner. The large top value clears the fixed header and is what gives inner pages their characteristic proportion.",
+      "paddingTop": {
+        "$value": "230px",
+        "$type": "dimension"
+      },
+      "paddingBottom": {
+        "$value": "120px",
+        "$type": "dimension"
+      }
+    }
+  }
+}

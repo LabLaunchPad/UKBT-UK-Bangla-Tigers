@@ -1,0 +1,15 @@
+# Copy per material claim. Schema: docs/03-evidence-contract.md
+id: EV-YYYYMMDD-NNN
+classification: # FACT|DERIVED|OBSERVED|MEASURED|INFERRED|PROPOSED|APPROVED|UNKNOWN|STALE|SUPERSEDED|VALIDATION_RESULT
+claim: ""
+source: ""
+source_type: # repo|command|test|screenshot|external|user
+retrieved_at: ""
+verified_at: ""
+valid_until: ""   # null only for inherently immutable claims — justify below
+scope: ""
+method: ""
+result: ""
+related_files: []
+related_task: ""
+notes: ""

@@ -1,0 +1,20 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ukbt/truth": ["../../packages/truth/src/index.ts"],
+      "@ukbt/truth/*": ["../../packages/truth/src/*"]
+    }
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "tests/visual/**",
+    "playwright-report",
+    "test-results",
+    "blob-report",
+    "playwright/.cache"
+  ]
+}

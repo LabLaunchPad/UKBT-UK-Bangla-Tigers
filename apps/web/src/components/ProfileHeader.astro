@@ -1,0 +1,85 @@
+---
+// UKBT-original — no Adelux equivalent exists (a padel-club template has
+// no player-profile grammar). Crest-based, not a photo: no confirmed
+// individual portrait of the Club Captain exists in evidence.
+interface Fact {
+  label: string;
+  value: string;
+}
+interface Props {
+  name: string;
+  role: string;
+  facts: Fact[];
+}
+const { name, role, facts } = Astro.props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-profile-header">
+  <img src="/brand/crest-512.png" width="120" height="165" alt="UK Bangla Tigers crest" class="ukbt-profile-header__crest" />
+  <div class="ukbt-profile-header__content">
+    <SubHeading label="Club Captain" />
+    <h1>{name}</h1>
+    <p class="ukbt-profile-header__role">{role}</p>
+    <dl class="ukbt-profile-header__facts">
+      {
+        facts.map((f) => (
+          <div>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</div>
+
+<style>
+  .ukbt-profile-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-profile-header__crest {
+    height: 9rem;
+    width: auto;
+    flex: none;
+  }
+  .ukbt-profile-header h1 {
+    margin: var(--ukbt-space-2) 0 0 0;
+  }
+  .ukbt-profile-header__role {
+    /* Gold-on-white fails AA (2.33:1, EV-20260826-029) — use the navy
+       primary for accent emphasis on this light/default surface instead. */
+    color: var(--ukbt-color-brand-primary);
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
+    margin: 0 0 var(--ukbt-space-4) 0;
+  }
+  .ukbt-profile-header__facts {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: var(--ukbt-space-2) var(--ukbt-space-6);
+    margin: 0;
+  }
+  .ukbt-profile-header__facts dt {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-profile-header__facts dd {
+    margin: 0;
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-profile-header {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .ukbt-profile-header__facts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

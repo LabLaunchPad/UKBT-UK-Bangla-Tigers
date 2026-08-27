@@ -1,0 +1,54 @@
+id: EV-20260826-005
+classification: STATED_BUT_UNVERIFIED
+claim: >
+  The Adelux template (SHA-256 cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea
+  570da9780cafb54) is licensed such that it may be adapted and deployed as the
+  UK Bangla Tigers website.
+source: >
+  Direct read-only inspection of the supplied archive and a full-text search of
+  this repository, plus the requester's statement that LabLaunchPad is the
+  licensed/authorized builder.
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: null
+valid_until: null
+scope: "Blocker BL-02; pipeline Stage 6; all Adelux-derived material"
+method: >
+  Archive filename and full-text search for licence/purchase artifacts; SHA-256
+  and manifest capture; verbatim reading of every bundled third-party licence
+  header; ten-point adversarial review attempting to disprove clearance.
+result: >
+  LICENSE_VERDICT = STATED_BUT_UNVERIFIED. BL-02 remains OPEN.
+  No licence document, purchase record, order identifier or receipt exists in the
+  package or the repository. The only rights statement present is "All rights
+  reserved". The requester's statement raises the claim above UNKNOWN but does
+  not identify the licence, its tier, its holder, or whether adaptation and
+  commercial client deployment are permitted.
+related_files:
+  - artifacts/evidence/ADELUX-PACKAGE-IDENTITY.md
+  - artifacts/evidence/ADELUX-LICENSE-VERIFICATION.md
+related_task: LICENCE-BL02
+supersedes: null
+relates_to: EV-20260826-004
+notes: >
+  EV-20260826-004 is NOT superseded: it recorded the undertaking to supply a
+  licence record, and that undertaking still stands unfulfilled. This record adds
+  the verification attempt and its result.
+
+  The task brief referenced a prior record "EV-0009" and an admission status of
+  ADMITTED_WITH_RESTRICTIONS. Neither exists in this repository; a search returns
+  no match and the template has never been admitted here. Reported, not
+  reconciled. No conclusion here rests on EV-0009.
+
+  SEPARATE BLOCKER DISCOVERED, independent of Adelux: the bundled
+  isotope.pkgd.min.js v3.0.6 declares "Licensed GPLv3 for open source use or
+  Isotope Commercial License for commercial use" (Metafizzy). A commercial UKBT
+  deployment needs a Metafizzy commercial licence or GPLv3 compliance. No Adelux
+  licence tier can convey this, because Fox Creation cannot sublicense rights it
+  does not hold. Cheaply avoided by not adopting Isotope, which A10 already
+  proposes — but that must be a recorded decision.
+
+  Also evidenced: animate.css 4.1.1 is Hippocratic License 2.1 (not OSI-approved,
+  ethical-use conditions); Font Awesome Free 6.7.2 icons are CC BY 4.0 and carry
+  a live attribution obligation; the shipped font CSS loads Lato and Montserrat
+  from fonts.gstatic.com, disclosing visitor IPs to a third party (U-18).

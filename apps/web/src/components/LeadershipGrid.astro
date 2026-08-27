@@ -1,0 +1,101 @@
+---
+// Mirrors the reference's "Team Section" layout grammar
+// (`.team-content-wrapper`: flex row, gap 100px — sticky title column +
+// card grid) with the reference's photo-overlay `.card-team` style
+// deliberately NOT ported: no UKBT leadership portrait has a confirmed
+// identity/rights source (knowledge/01-VERIFIED-FACTS.yaml
+// `image_affiliation_caution`), so cards here are text-only (name + role),
+// never a placeholder photo standing in for a real person.
+interface Leader {
+  name: string;
+  role: string;
+}
+interface Props {
+  leaders: Leader[];
+}
+const { leaders } = Astro.props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-leadership">
+  <div class="ukbt-leadership__cards">
+    {
+      leaders.map((l) => (
+        <div class="ukbt-leadership__card">
+          <h4>{l.name}</h4>
+          <p>{l.role}</p>
+        </div>
+      ))
+    }
+  </div>
+  <div class="ukbt-leadership__title">
+    <SubHeading label="Our Leadership" />
+    <h2>Meet the People Behind the Tigers</h2>
+    <p>
+      The committee and playing leadership guiding UK Bangla Tigers on and
+      off the pitch. The full committee roster is still being confirmed.
+    </p>
+  </div>
+</div>
+
+<style>
+  /* .team-content-wrapper: flex row, gap 100px, align-items start */
+  .ukbt-leadership {
+    display: flex;
+    flex-direction: row;
+    gap: var(--ukbt-space-gap-100);
+    align-items: flex-start;
+  }
+  .ukbt-leadership__cards {
+    flex: 0 0 55%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-leadership__card {
+    background: var(--ukbt-color-surface-alt);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-6) var(--ukbt-space-4);
+    text-align: center;
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-leadership__card h4 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-leadership__card p {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-leadership__title {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+  }
+  .ukbt-leadership__title h2 {
+    margin: 0;
+  }
+  .ukbt-leadership__title p:last-child {
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+  }
+
+  /* Reference `.team-content-wrapper` at <=1025px: column-reverse, 50px gap. */
+  @media screen and (max-width: 1025px) {
+    .ukbt-leadership {
+      flex-direction: column-reverse;
+      gap: var(--ukbt-space-gap-5);
+    }
+    .ukbt-leadership__cards {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-leadership__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,27 @@
+{
+  "name": "@ukbt/web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "UK Bangla Tigers production website (Astro, static output). See contracts/REPOSITORY-CONTRACT.md.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "astro": "^7.2.8",
+    "@ukbt/truth": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/cloudflare": "^14.2.5",
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.126.0"
+  }
+}

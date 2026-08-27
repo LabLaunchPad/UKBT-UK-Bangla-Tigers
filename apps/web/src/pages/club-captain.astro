@@ -1,0 +1,168 @@
+---
+// Club Captain page — the one full player profile actually evidenced
+// (artifacts/content/UKBT-CONTENT-INVENTORY.md C-003/C-005/C-006/C-007/
+// C-008). No Adelux template page maps to a player-stats profile, so
+// ProfileHeader/StatsTable are UKBT-original (see their own comments).
+// Stats-provider and personal-social PLATFORM NAMES are evidenced; their
+// literal URLs were not transcribed during ingestion and are rendered as
+// plain text, never a fabricated href.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import ProfileHeader from '../components/ProfileHeader.astro';
+import StatsTable from '../components/StatsTable.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+import { captain } from '../content/captain-data';
+
+const profileFacts = [
+  { label: 'Date of Birth', value: captain.dob },
+  { label: 'Nationality', value: captain.nationality },
+  { label: 'Batting Style', value: captain.battingStyle },
+  { label: 'Bowling Style', value: captain.bowlingStyle },
+];
+
+const battingHeaders = ['Format', 'M', 'Inn', 'Runs', 'HS', 'Avg', 'SR', '100s', '50s'];
+const battingRows = captain.battingStats.map((s) => [
+  s.format,
+  s.matches,
+  s.innings,
+  s.runs,
+  s.highScore,
+  s.average,
+  s.strikeRate,
+  s.hundreds,
+  s.fifties,
+]);
+
+const bowlingHeaders = ['Format', 'Overs', 'Wkts', 'Avg', 'Econ', 'Best'];
+const bowlingRows = captain.bowlingStats.map((s) => [
+  s.format,
+  s.overs,
+  s.wickets,
+  s.average,
+  s.economy,
+  s.best,
+]);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: captain.name,
+    jobTitle: captain.role,
+  },
+};
+---
+
+<BaseLayout
+  title="Club Captain — UK Bangla Tigers"
+  description={`${captain.name}, ${captain.role}`}
+  structuredData={structuredData}
+>
+  <Header nav={homepage.nav} />
+
+  <main>
+    <PageBanner
+      title="Club Captain"
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Club Captain' }]}
+    />
+
+    <Section>
+      <ProfileHeader name={captain.name} role={captain.role} facts={profileFacts} />
+    </Section>
+
+    <Section surface="alt">
+      <h2>Franchise History</h2>
+      <div class="ukbt-franchise-history">
+        <div>
+          <h3>Current</h3>
+          <ul>
+            {captain.currentFranchises.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Previous</h3>
+          <ul>
+            {captain.previousFranchises.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+      </div>
+    </Section>
+
+    <Section>
+      <h2>Career Statistics</h2>
+      <div class="ukbt-stats-stack">
+        <StatsTable caption="Batting" headers={battingHeaders} rows={battingRows} />
+        <StatsTable caption="Bowling" headers={bowlingHeaders} rows={bowlingRows} />
+      </div>
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <div class="ukbt-links-grid">
+        <div>
+          <h3>Stats Also Tracked On</h3>
+          <ul class="ukbt-plain-list">
+            {captain.statsProviders.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Follow {captain.name}</h3>
+          <ul class="ukbt-plain-list">
+            {captain.personalSocialPlatforms.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+      </div>
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  h2 {
+    margin: 0 0 var(--ukbt-space-gap-5) 0;
+  }
+  h3 {
+    margin: 0 0 var(--ukbt-space-gap-2) 0;
+  }
+  .ukbt-franchise-history {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-franchise-history ul {
+    margin: 0;
+    padding-left: var(--ukbt-space-4);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-stats-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-plain-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-franchise-history,
+    .ukbt-links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

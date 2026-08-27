@@ -1,0 +1,33 @@
+---
+// Mirrors the reference's `blog.html` (Banner → Blog Page grid). Route
+// added under CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01.
+//
+// SHELL. Not `noindex`: a news section is a generic page type and claims
+// nothing about services. But no UKBT article exists, and a headline or
+// date renders as fact the moment it appears, so the grid stays empty
+// rather than filled.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import NewsTeaser from '../components/NewsTeaser.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout title="Club News — UK Bangla Tigers" description="News from UK Bangla Tigers.">
+  <Header nav={homepage.nav} />
+  <main>
+    <PageBanner title="Club News" crumbs={[{ label: 'Home', href: '/' }, { label: 'Club News' }]} />
+
+    <Section>
+      <NewsTeaser />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>

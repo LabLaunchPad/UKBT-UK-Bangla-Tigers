@@ -1,0 +1,110 @@
+truth:
+  permitted_sources:
+    - verified_project_document
+    - verified_client_source
+    - authoritative_first_party_source
+    - deterministic_project_data
+    - explicitly_approved_content
+  prohibited_sources:
+    - template_demo_content
+    - model_guess
+    - generic_web_assumption
+    - placeholder_presented_as_fact
+
+  publishability:
+    VERIFIED: true
+    DERIVED: according_to_policy
+    STATED_BUT_UNVERIFIED: false
+    ASSUMPTION: false
+    UNKNOWN: false
+    CONFLICTING: false
+
+  rule: >
+    If a page needs a fact that is UNKNOWN, design the page so the unknown
+    remains explicit rather than inventing it.
+
+# What counts as an organization-specific claim. When in doubt, it counts.
+organization_claims:
+  - people                # players, coaches, officials, committee
+  - squad_and_numbers
+  - fixtures_results_statistics
+  - honours_and_history
+  - founding_date_founders_location
+  - grounds_facilities_addresses
+  - league_affiliation_membership
+  - sponsors_partners_funders
+  - contact_details_social_handles
+  - pricing_membership_terms
+  - charitable_community_claims
+  - attributed_quotes
+  - photographs_of_identifiable_people
+  - logo_crest_colours_brand_assets
+not_organization_claims:
+  - generic_copy_naming_nothing
+  - ui_labels
+  - legal_boilerplate_supplied_by_a_solicitor
+
+# The gate must check publishability, not presence. Presence checks are vacuous.
+gate_requirements:
+  - id: T1
+    rule: FAIL_CLOSED
+    detail: >
+      Every string field on an org-fact content type requires provenance BY
+      DEFAULT. Generic copy is explicitly registered as exempt. A new,
+      unannotated field FAILS THE BUILD. It must never publish unchecked.
+  - id: T2
+    rule: SOURCES_ARE_REGISTRY_IDS
+    detail: "Not free strings. Unresolvable ID fails. Prevents `sources: ['https://example.com']`."
+  - id: T3
+    rule: TIER_ENFORCED
+    detail: "T4/T5-tier sources rejected AT THE GATE, not discouraged in prose."
+  - id: T4
+    rule: VALID_UNTIL_IN_FUTURE
+    detail: "Checked at build time. Expired fails. This makes STALE mechanically real."
+  - id: T5
+    rule: NO_PLACEHOLDER_IN_PRODUCTION
+    detail: "Sentinel absent from production builds."
+  - id: T6
+    rule: NAMED_HUMAN_APPROVER
+    detail: >
+      status:approved requires a recorded approver identity. An agent may
+      prepare, classify, flag and block. An agent may never SIGN. (U-23 names who.)
+  - id: T7
+    rule: TWO_SOURCE_RULE
+    detail: >
+      Founding facts, honours and headline statistics need two DISTINCT registry
+      IDs. Two references to one source is one source.
+  - id: T8
+    rule: CONFLICT_FAILS
+    detail: "Conflicting sources on one claim fail. Never silent last-write-wins."
+  - id: T9
+    rule: DERIVED_PROVENANCE
+    detail: "A computed value inherits the union of input provenance and the earliest validUntil."
+
+placeholders:
+  must_be: machine_distinguishable
+  mechanism: "reserved sentinel + status:draft + empty sources[]"
+  prohibited_absolutely:
+    - plausible_name
+    - plausible_date
+    - plausible_score
+    - plausible_statistic
+    - plausible_quotation
+  rule: >
+    "__PLACEHOLDER_PLAYER_NAME__" is a placeholder. A realistic-looking name is
+    an invented fact wearing a placeholder's coat.
+
+aeo_geo:
+  rationale: >
+    Answer and generative engines QUOTE pages as authority. An unsourced claim
+    does not merely mislead a reader; it becomes a citation other systems repeat,
+    which UKBT must then correct in public.
+  rule: >
+    Structured data is emitted ONLY from typed content that passed the gate.
+    Hand-authored JSON-LD is prohibited — it is the highest-leverage bypass,
+    because the output is machine-read and rarely reviewed by a human.
+
+current_state:
+  organization_facts_verified: 0
+  evidence_registry_populated: false
+  consequence: "Every content-bearing page is blocked on evidence. This is correct at this stage."

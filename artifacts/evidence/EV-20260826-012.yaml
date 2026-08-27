@@ -1,0 +1,87 @@
+id: EV-20260826-012
+classification: CONFLICTING
+claim: >
+  A supplied "LabLaunchPad_Adelux_UKBT_Authority_Pack" asserts that
+  LabLaunchPad authored the Adelux template and is therefore its builder/
+  rights holder, entitling LabLaunchPad to authorize UKBT adaptation
+  (framing this as closing sub-blockers BL-02A/BL-02C).
+source: >
+  Uploaded archive, SHA-256 8ca0fcfc73aa2bc81bce2e50567ec468bb69b3e0312a
+  705481ee95b2cdc1918f, containing 8 files under authority/ and authority/
+  LICENSE-EVIDENCE/. Read in full, in a scratch directory, read-only.
+source_type: external
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  This record documents the pack's contents as found on this date. It does
+  not expire; a future, different pack would be new evidence.
+scope: "BL-02 (Adelux licence). Does not affect FORENSIC_PERMISSION or pipeline stages 1-2, which were already ALLOWED independent of BL-02."
+method: >
+  Full read of every file in the archive: LABLAUNCHPAD-BUILDER-LICENSE.md,
+  TEMPLATE-AUTHORITY.md, TEMPLATE-PROVENANCE.md, LICENSE-EVIDENCE/00-README.md,
+  01-BUILDER-ATTESTATION-TEMPLATE.md, 02-CLAUDE-CODE-GROUNDING.yaml,
+  03-RIGHTS-MATRIX.yaml, 04-CLAUDE-CODE-RESOLUTION.md. Cross-checked the
+  pack's central claim (LabLaunchPad as Adelux's author/builder) against
+  the Adelux package's own self-declaration, already on record in
+  EV-20260826-005.
+result: |
+  TWO DECISIVE FINDINGS, both against the pack closing anything:
+
+  1. NO EXECUTED ATTESTATION EXISTS. The task prompt that introduced this
+  pack named a file "01-BUILDER-ATTESTATION-APPROVED.md" — the actual file
+  is named "01-BUILDER-ATTESTATION-TEMPLATE.md" and its content is a blank
+  fill-in-the-blank form: "I, ______________________________, acting as
+  ______________________________ for LabLaunchPad, attest that..." with
+  Name/Role/Date/Signature fields all blank. The top-level
+  LABLAUNCHPAD-BUILDER-LICENSE.md has the identical blank signature block.
+  02-CLAUDE-CODE-GROUNDING.yaml nonetheless asserts
+  "builder_claim.status: STATED_BY_AUTHORIZED_REPRESENTATIVE" - a stronger
+  evidentiary claim than the underlying document it cites actually supports.
+  No name, role, date, or signature appears anywhere in the pack.
+
+  2. THE CLAIMED AUTHOR CONTRADICTS ALREADY-ESTABLISHED PRIMARY EVIDENCE.
+  TEMPLATE-PROVENANCE.md states "LabLaunchPad asserts that it and/or its
+  authorized contributors created the original Adelux implementation." The
+  Adelux package's OWN documentation (EV-20260826-005,
+  Documentation/index.html) states "Author: Fox Creation" (linking to
+  themeforest.net/user/fox_creation) and its footer states "(c) 2025 Adelux.
+  All rights reserved -- by Fox Creation." Per DR-015 (conflicting evidence
+  is escalated, never silently resolved), this is CONFLICTING, not merely
+  unverified: two sources disagree on the same primary fact.
+
+  The pack's own internal documents are more cautious than the surrounding
+  instruction that introduced them - 00-README.md itself says "Do not
+  fabricate receipts, purchase IDs, contracts, signatures, or legal
+  documents" and "A declaration is evidence of an assertion; a contract/
+  assignment or source history may provide stronger underlying evidence,"
+  and TEMPLATE-AUTHORITY.md says "Do not collapse these into licensed=true"
+  and "UNKNOWN must never silently become LABLAUNCHPAD_AUTHORED." None of
+  the stronger evidence types the pack itself names as preferred (signed
+  declaration, contributor IP assignment, source repository history,
+  creation records) are present - only unsigned templates and a
+  classification methodology.
+related_files:
+  - artifacts/evidence/EV-20260826-005.yaml
+related_task: AUTHORITY-PACK-REVIEW
+relates_to: [EV-20260826-005, EV-20260826-006]
+notes: >
+  BL-02 status is UNCHANGED: STATED_BUT_UNVERIFIED. This pack does not close
+  it, in whole or by the proposed BL-02A/BL-02C sub-decomposition - there is
+  no signed attestation to evaluate, and the one substantive factual claim
+  the pack makes (LabLaunchPad as author) conflicts with the template's own
+  documentation. Per this project's evidence policy, CONFLICTING evidence
+  STOPS the affected decision rather than being resolved by picking the more
+  convenient interpretation (knowledge/04-EVIDENCE-POLICY.yaml). If
+  LabLaunchPad supplies primary evidence resolving the authorship conflict -
+  a signed attestation naming a real person, plus something establishing
+  the relationship to Fox Creation (e.g. Fox Creation as a
+  LabLaunchPad-controlled account, an assignment, or a correction of the
+  package's own documentation) - this record would be superseded, not
+  edited in place.
+
+  This finding does not block FORENSIC_PERMISSION or pipeline stages 1-2
+  (FORENSIC_ANALYSIS, DESIGN_EXTRACTION), which were already ALLOWED
+  independent of BL-02's resolution. It blocks stages 3-5 for any
+  Adelux-derived expression, exactly as BL-02 already did before this pack
+  arrived.

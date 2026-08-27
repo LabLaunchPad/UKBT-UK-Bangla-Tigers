@@ -1,0 +1,77 @@
+id: EV-20260826-009
+classification: MEASURED
+claim: >
+  A deep forensic extraction of the Adelux homepage (index.html): a complete
+  CSS AST with specificity and cascade data, real browser computed styles and
+  geometry (Playwright/Chromium) at two viewports, verified interaction-state
+  (hover) traces, a responsive desktop/mobile diff, animation keyframe
+  catalogue, and classified (RAW/CANDIDATE) design token candidates.
+source: >
+  Level 1 (direct CSS/HTML source), Level 2 (Playwright/Chromium rendering of
+  the immutable Adelux source via file:// URL), and Level 3 (deterministic
+  derivation: specificity calculation, cascade cross-reference, responsive
+  diffing) evidence, per the requester's evidence hierarchy.
+source_type: command
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  Derived from an immutable, fixed-SHA256 source file set; does not expire
+  unless the source package or the extraction method changes.
+scope: "Deep extraction, homepage only. FORENSIC_ANALYSIS lifecycle state."
+method: >
+  css npm package (AST parse, custom specificity calculator) over main.css +
+  responsive.css. Globally-installed Playwright (1.56.1) + pre-installed
+  Chromium, loading the source via file:// (no server started — a background
+  http-server invocation was denied by this session's own permission policy;
+  file:// proved sufficient). Computed styles read via getComputedStyle() for
+  10 target elements at 1440x900 and 390x844. Hover states captured with
+  transition-duration-aware wait times after a first-pass measurement was
+  caught mid-transition and corrected.
+result: |
+  748 CSS rules, 4 media queries, 105 custom-property declarations (24 unique
+  names, 20 of them single :root declarations classified CANDIDATE; the
+  remaining Bootstrap gutter variables classified RAW ONLY per the
+  semantic-token-trick discipline - 61 distinct contextual redeclarations, not
+  one semantic spacing token). 2 keyframe animations catalogued (load, ripple).
+
+  Two fully-traced cascade chains, both verified against real computed output:
+  .btn-accent hover (base --accent-color-2 -> hover --accent-color-6, 600ms
+  transition, confirmed only after correcting a too-short measurement wait),
+  and .nav-link.active (traced to a RUNTIME-ONLY class not present in the
+  static HTML source - confirms the value of Level 2 evidence over Phase 2's
+  static parsing; the exact adding script was not pinpointed, recorded as
+  GAP-01, not guessed).
+
+  Coverage against the 40-dimension fidelity checklist: roughly half covered
+  with real evidence (cascade, specificity, computed styles, geometry,
+  responsive diff, hover states, animations); the rest (sliders, mobile-nav
+  toggle, forms, background-image/object-position, scroll behaviour, and
+  extension to the other 12 pages) explicitly NOT claimed complete - see
+  DEEP-EXTRACTION-INDEX-HOMEPAGE.md Coverage table and 4 named gaps.
+related_files:
+  - artifacts/extraction/css-rule-graph.json
+  - artifacts/extraction/token-candidates.json
+  - artifacts/extraction/render-manifest/index-homepage.json
+  - artifacts/extraction/interaction-states-index.json
+  - artifacts/extraction/responsive-diff-index.json
+  - artifacts/extraction/DEEP-EXTRACTION-INDEX-HOMEPAGE.md
+related_task: ADELUX-VISUAL-FIDELITY-DEEP-EXTRACTION-HOMEPAGE
+relates_to: [EV-20260826-005, EV-20260826-006, EV-20260826-007, EV-20260826-008]
+notes: >
+  This record corrects knowledge/06-TEMPLATE-BOUNDARY.yaml, which had (as of
+  the immediately prior commit) listed extract_css_values and
+  extract_computed_styles as FORBIDDEN under FORENSIC_ANALYSIS - directly
+  contradicting the requester's explicit, specific authorization the same day
+  to continue exactly those activities as controlled forensic analysis. Fixed
+  same pass, with the correction's reasoning recorded in the YAML file itself
+  rather than silently overwritten (per anti-drift discipline: never silently
+  reinterpret).
+
+  BL-02 is unchanged: STATED_BUT_UNVERIFIED. Nothing in this record claims or
+  implies PRODUCTION_RELEASE clearance for any Adelux-derived value. No token
+  was promoted past CANDIDATE. No binary asset or screenshot was committed to
+  this repository - the css-rule-graph.json contains decomposed
+  selector/property/value data (a structured re-encoding), not the source
+  files themselves, and the rendering was performed against the immutable
+  source in a scratch location outside this repository, never copied in.

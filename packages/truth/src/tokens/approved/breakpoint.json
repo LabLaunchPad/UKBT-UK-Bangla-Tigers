@@ -1,0 +1,28 @@
+{
+  "breakpoint": {
+    "mobileStandard": {
+      "$value": "390px",
+      "$type": "dimension"
+    },
+    "mobileLarge": {
+      "$value": "430px",
+      "$type": "dimension"
+    },
+    "tabletPortrait": {
+      "$value": "768px",
+      "$type": "dimension"
+    },
+    "tabletLandscape": {
+      "$value": "1024px",
+      "$type": "dimension"
+    },
+    "desktop": {
+      "$value": "1280px",
+      "$type": "dimension"
+    },
+    "desktopLarge": {
+      "$value": "1440px",
+      "$type": "dimension"
+    }
+  }
+}

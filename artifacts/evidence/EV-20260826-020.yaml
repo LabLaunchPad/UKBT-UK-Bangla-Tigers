@@ -1,0 +1,60 @@
+id: EV-20260826-020
+classification: VALIDATION_RESULT
+claim: >
+  The truth-gate rules defined in knowledge/07-CONTENT-TRUTH-POLICY.yaml
+  (T1-T9) are implementable as executable, testable logic against synthetic
+  fixture data, independent of whether U-22 (registry owner) or U-23 (named
+  approver identity) has been resolved for real UKBT facts. Gate
+  CONSTRUCTION does not require the same authority that gate AUTHORIZATION
+  (publishing a real fact) requires.
+source: "Proof-of-concept script written and executed this session."
+source_type: command
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  This is evidence that a mechanism is buildable/testable, not a claim
+  about any real-world fact with a freshness window. Superseded only by
+  the real Stage 4 implementation, which supersedes the proof-of-concept
+  entirely rather than expiring it.
+scope: >
+  TRACK_C only (truth-gate mechanism construction). Does not touch, resolve,
+  or bear on Track A or Track B. Does not publish, approve, or assert any
+  real UKBT organization fact — all registry entries and content records
+  used are explicitly synthetic/fixture data (SRC-001..003, fictitious
+  founded_year/player_name/sponsor_name/fixture_result values), never
+  presented as real.
+method: >
+  Wrote a standalone Python script (not committed as application code —
+  this is not the Stage 4 packages/truth implementation) implementing rules
+  T1-T9 against a synthetic in-memory source registry with three fixture
+  sources (two T1, one T4) and eight fixture content records covering: (1)
+  full valid provenance+authority+approver → expect PASS; (2) missing
+  sources[] → expect FAIL; (3) T4-tier-only source → expect FAIL; (4)
+  approved status with no named approver → expect FAIL; (5) expired
+  valid_until → expect FAIL; (6) conflicting_value present → expect FAIL;
+  (7) unresolvable registry id → expect FAIL; (8) status=published with no
+  sources/approver at all (bypassing approval entirely) → expect FAIL. Ran
+  via `python3 truth_gate.py`, re-ran a second time this session to
+  reconfirm determinism before citing in contracts/TRUTH-CONTRACT.md.
+result: |
+  All 8/8 fixtures produced the expected PASS/FAIL outcome with a specific,
+  correct failure reason per FAIL case (not merely "FAIL" — e.g. "source
+  tier T4 rejected", "evidence expired (valid_until 2026-08-25 < today
+  2026-08-26)"). Final script output: `ALL_FIXTURES_MATCHED_EXPECTATION =
+  True`. Re-run produced byte-identical PASS/FAIL classifications and
+  reasons on both executions.
+related_files:
+  - artifacts/verification/truth-gate-poc/truth_gate.py
+  - knowledge/07-CONTENT-TRUTH-POLICY.yaml
+  - contracts/TRUTH-CONTRACT.md
+related_task: TRACK-C-STAGE-3-CONTRACT-FREEZE
+relates_to: [EV-20260826-019]
+notes: >
+  This script is retained under artifacts/verification/ as a cited
+  proof-of-concept, not as the truth-gate implementation itself. It has no
+  dependency on Astro, packages/truth, or any application code, and none of
+  application_code_changed's file globs (.ts/.astro/package.json/.css)
+  match it (.py). Stage 4 will write the real TypeScript implementation
+  against this same rule set; this record is the evidence that the rule
+  set is soundly implementable, not a substitute for that implementation.

@@ -1,0 +1,53 @@
+id: EV-20260826-016
+classification: VALIDATION_RESULT
+claim: >
+  Track C (UKBT-original engineering architecture) applied all 15
+  outstanding Stage-2 revisions, added 3 previously-missing decisions
+  (routing, security, performance), and passed a targeted adversarial
+  re-check without using any Adelux-derived visual expression to decide
+  anything. ARCHITECTURE_VERDICT = PASS.
+source: "Direct application of ARCHITECTURE-REVISIONS.md and ARCHITECTURE-REDTEAM-ADDENDUM-VISUAL-TOOLCHAIN.md against ARCHITECTURE-PROPOSAL.md"
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "A record of a completed architecture decision and its verification does not expire; superseded only by a future re-planning trigger."
+scope: "Track C only — independent of Track A/B"
+method: >
+  Applied each of the 10 revisions in ARCHITECTURE-REVISIONS.md and the 5
+  findings in the visual-toolchain addendum to the 20-decision register,
+  producing ARCHITECTURE-PROPOSAL-V2.md. Added 3 decisions (A21 routing,
+  A22 security, A23 performance) closing gaps in the required evaluation
+  dimensions that v1 left implicit. Ran a targeted adversarial re-check
+  (not a full 20-decision re-run - the 14 already-passing decisions were
+  not touched and were not re-litigated) attacking specifically whether
+  each revision resolves its finding and whether any introduces a new one.
+result: |
+  Two revisions needed one additional clarification each to fully close,
+  applied during the re-check rather than left as new findings: the truth
+  gate's fail-closed default could be read as blocking Stage 4 entirely
+  while U-22/U-23 remain open - clarified that building the gate mechanism
+  (testable via synthetic fixtures) is distinct from using it to publish a
+  real fact (which does need U-22/U-23). And the C1-to-decision-time-check
+  revision needed an explicit requirement that the check be a recorded task
+  step, not just documented intent, or it risks silently never happening.
+
+  All 15 revisions verified to resolve their originating finding. 0 new
+  findings requiring further revision. 3 new decisions added and verified
+  as appropriately scoped (real requirement stated, specific calibration
+  correctly deferred to implementation rather than over-specified now).
+
+  ARCHITECTURE_VERDICT = PASS. Stage 2 is now closed; Stage 3 (freezing
+  contracts/REPOSITORY-CONTRACT.md) is the next gate, not performed this
+  pass.
+related_files:
+  - artifacts/architecture/ARCHITECTURE-PROPOSAL-V2.md
+  - artifacts/architecture/ARCHITECTURE-REDTEAM-V2.md
+related_task: TRACK-C-BL03-ARCHITECTURE
+relates_to: [EV-20260826-005, EV-20260826-001, EV-20260826-002, EV-20260826-003]
+notes: >
+  No Adelux-derived visual expression (no CSS value, token, or component
+  finding from Track A) was referenced anywhere in reaching this verdict -
+  verified by inspection of both documents. Track B is unaffected and
+  remains RIGHTS_GATED; this closes BL-03, a separate, architecture-quality
+  blocker, not BL-02.

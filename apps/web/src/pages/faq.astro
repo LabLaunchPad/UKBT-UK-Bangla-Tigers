@@ -1,0 +1,40 @@
+---
+// Mirrors the reference's `faq.html` (Banner → FAQ → Membership CTA →
+// Blog). Route added under CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01.
+//
+// SHELL. Not `noindex`: an FAQ page is a generic page type for any club
+// and makes no claim about services offered, so condition 2 does not
+// apply. But no question has been answered by the club yet, and an
+// invented FAQ answer is an invented fact about the club stated in its
+// own voice.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import PendingContent from '../components/PendingContent.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout title="FAQ — UK Bangla Tigers" description="Answers to common questions about UK Bangla Tigers.">
+  <Header nav={homepage.nav} />
+  <main>
+    <PageBanner title="Frequently Asked Questions" crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]} />
+
+    <Section>
+      <SectionHeader eyebrow="FAQ" heading="Questions About the Club" />
+      <PendingContent
+        what="No questions are answered yet."
+        detail="Answers will be published here as the club confirms them. Nothing is filled in speculatively."
+        minHeight="12rem"
+      />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>

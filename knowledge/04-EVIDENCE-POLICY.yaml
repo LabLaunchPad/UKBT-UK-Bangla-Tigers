@@ -1,0 +1,47 @@
+evidence_levels:
+  VERIFIED:
+    meaning: "Supported by authoritative or directly reproducible evidence."
+    agent_behavior: "May use as fact."
+    publishable: true
+  DERIVED:
+    meaning: "Deterministically derived from verified evidence."
+    agent_behavior: "May use with derivation recorded."
+    publishable: according_to_policy
+    note: >
+      A derived value inherits the UNION of its inputs' provenance and the
+      EARLIEST validUntil among them.
+  STATED_BUT_UNVERIFIED:
+    meaning: "Explicitly stated by an authorized party but not independently verified."
+    agent_behavior: "May inform planning; cannot be treated as verified fact."
+    publishable: false
+  ASSUMPTION:
+    meaning: "Working hypothesis."
+    agent_behavior: "Must be labeled."
+    publishable: false
+  UNKNOWN:
+    meaning: "Insufficient evidence."
+    agent_behavior: "Do not guess."
+    publishable: false
+  CONFLICTING:
+    meaning: "Credible evidence disagrees."
+    agent_behavior: "STOP the affected decision. Escalate. Do not choose."
+    publishable: false
+  PROPOSAL:
+    meaning: "Agent-generated candidate."
+    agent_behavior: "Not authoritative until accepted."
+    publishable: false
+
+freshness:
+  rule: "STALE is not FALSE. It means unverified now."
+  publishing_from_stale: FORBIDDEN
+  defaults: contracts/evidence-contract.md
+
+promotion:
+  rule: "UNKNOWN and INFERRED never silently become VERIFIED."
+  requires: "a new record naming the source and the verification method"
+
+registry:
+  location: artifacts/evidence/
+  id_format: "EV-YYYYMMDD-NNN"
+  append_only: true
+  supersede: "write a new record; reclassify the old as SUPERSEDED with a pointer"

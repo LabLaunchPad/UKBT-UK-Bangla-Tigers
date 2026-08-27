@@ -1,0 +1,234 @@
+{
+  "nav.navbar": {
+    "geometry_desktop": {
+      "x": 60,
+      "y": 60,
+      "width": 1320,
+      "height": 102
+    },
+    "geometry_mobile": {
+      "x": 20,
+      "y": 20,
+      "width": 350,
+      "height": 78.34375
+    },
+    "width_change": -970,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "1320px",
+        "mobile": "350px"
+      },
+      "height": {
+        "desktop": "102px",
+        "mobile": "78.3438px"
+      },
+      "justifyContent": {
+        "desktop": "flex-start",
+        "mobile": "space-between"
+      }
+    }
+  },
+  "nav.navbar-brand": {
+    "geometry_desktop": {
+      "x": 80,
+      "y": 84.125,
+      "width": 214.390625,
+      "height": 53.734375
+    },
+    "geometry_mobile": {
+      "x": 40,
+      "y": 40,
+      "width": 139,
+      "height": 38.34375
+    },
+    "width_change": -75.390625,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "214.391px",
+        "mobile": "139px"
+      },
+      "height": {
+        "desktop": "53.7344px",
+        "mobile": "38.3438px"
+      }
+    }
+  },
+  "nav.nav-link-first": {
+    "geometry_desktop": {
+      "x": 480.421875,
+      "y": 102.5,
+      "width": 60.453125,
+      "height": 16
+    },
+    "geometry_mobile": null,
+    "width_change": null,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "60.4531px",
+        "mobile": "auto"
+      },
+      "height": {
+        "desktop": "16px",
+        "mobile": "auto"
+      },
+      "paddingRight": {
+        "desktop": "8px",
+        "mobile": "15px"
+      },
+      "paddingLeft": {
+        "desktop": "8px",
+        "mobile": "15px"
+      }
+    }
+  },
+  "hero.container-first": {
+    "geometry_desktop": {
+      "x": 60,
+      "y": 60,
+      "width": 1320,
+      "height": 102
+    },
+    "geometry_mobile": {
+      "x": 20,
+      "y": 20,
+      "width": 350,
+      "height": 78.34375
+    },
+    "width_change": -970,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "1320px",
+        "mobile": "350px"
+      },
+      "height": {
+        "desktop": "102px",
+        "mobile": "78.3438px"
+      }
+    }
+  },
+  "btn.accent-first": {
+    "geometry_desktop": {
+      "x": 1160.21875,
+      "y": 80,
+      "width": 199.78125,
+      "height": 62
+    },
+    "geometry_mobile": null,
+    "width_change": null,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "199.781px",
+        "mobile": "auto"
+      },
+      "height": {
+        "desktop": "62px",
+        "mobile": "auto"
+      }
+    }
+  },
+  "btn.plain-first": {
+    "status": "one-or-both-not-found",
+    "desktop_found": false,
+    "mobile_found": false
+  },
+  "card.chooseus-first": {
+    "geometry_desktop": {
+      "x": 646,
+      "y": 2050.734375,
+      "width": 362,
+      "height": 350.40625
+    },
+    "geometry_mobile": {
+      "x": 30,
+      "y": 3812.5,
+      "width": 330,
+      "height": 334.8125
+    },
+    "width_change": -32,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "362px",
+        "mobile": "330px"
+      },
+      "height": {
+        "desktop": "350.406px",
+        "mobile": "334.812px"
+      }
+    }
+  },
+  "card.blog-first": {
+    "geometry_desktop": {
+      "x": 50,
+      "y": 9991.796875,
+      "width": 433.328125,
+      "height": 450
+    },
+    "geometry_mobile": {
+      "x": 20,
+      "y": 18002.578125,
+      "width": 350,
+      "height": 400
+    },
+    "width_change": -83.328125,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "433.328px",
+        "mobile": "350px"
+      },
+      "height": {
+        "desktop": "450px",
+        "mobile": "400px"
+      }
+    }
+  },
+  "footer": {
+    "geometry_desktop": {
+      "x": 0,
+      "y": 10561.796875,
+      "width": 1440,
+      "height": 645.578125
+    },
+    "geometry_mobile": {
+      "x": 0,
+      "y": 19362.578125,
+      "width": 390,
+      "height": 1545.359375
+    },
+    "width_change": -1050,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "1440px",
+        "mobile": "390px"
+      },
+      "height": {
+        "desktop": "645.578px",
+        "mobile": "1545.36px"
+      }
+    }
+  },
+  "body": {
+    "geometry_desktop": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 11207.375
+    },
+    "geometry_mobile": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 20907.9375
+    },
+    "width_change": -1050,
+    "changed_computed_props": {
+      "width": {
+        "desktop": "1440px",
+        "mobile": "390px"
+      },
+      "height": {
+        "desktop": "11207.4px",
+        "mobile": "20907.9px"
+      }
+    }
+  }
+}

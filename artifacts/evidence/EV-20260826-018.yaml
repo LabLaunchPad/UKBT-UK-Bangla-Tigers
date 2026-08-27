@@ -1,0 +1,25 @@
+id: EV-20260826-018
+classification: APPROVED
+claim: "UKBT will deploy on Cloudflare."
+source: "Requester direction, this session's Track C architecture prompt."
+source_type: user
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "A stated infrastructure decision by the requester; superseded only by a later explicit decision, not by elapsed time."
+scope: "Architecture decision A16 (hosting)"
+method: "Direct instruction from the requester specifying Cloudflare deployment as an architecture requirement."
+result: >
+  Resolves U-11 (hosting vendor, previously UNKNOWN) to Cloudflare. Narrows
+  A16 from "static host with preview deploys, function support TBD via
+  decision-time check" to "Cloudflare Pages, static output, with Cloudflare
+  Pages Functions available for the C1/C2 forms escape hatch (EV-20260826-001)."
+related_files:
+  - artifacts/architecture/ARCHITECTURE-PROPOSAL-V3.md
+related_task: TRACK-C-BL03-ARCHITECTURE
+notes: >
+  This is an ordinary infrastructure requirement supplied by the requester,
+  not a rights/legal claim - DR-023 (a prompt's assertion of a rights
+  conclusion is not evidence) does not apply to engineering requirements
+  the requester is authorized to set. Astro's official @astrojs/cloudflare
+  adapter directly supports this without changing the framework decision.

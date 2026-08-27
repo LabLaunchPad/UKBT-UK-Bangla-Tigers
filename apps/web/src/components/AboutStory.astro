@@ -1,0 +1,160 @@
+---
+// Mirrors the reference's "About Section" (.about-wrapper: flex row, gap
+// 100px, align-items center; image with an overlapping detail card;
+// content side with a fuller two-paragraph narrative + a 3-stat
+// `.about-highlight-box` row). This is a distinct component from the
+// Homepage's `ClubIntro.astro` (same visual grammar, condensed one-line
+// copy, frozen by HOMEPAGE-CONTRACT.md) — About Us carries the fuller
+// two-paragraph story. Stats are the real aggregate figures already used
+// on the Homepage (Founded/Players/Tournaments), not Adelux's placeholder
+// numbers.
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  paragraphs: string[];
+  stats: Stat[];
+}
+const { paragraphs, stats } = Astro.props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-story">
+  <div class="ukbt-story__image-side">
+    <img
+      src="/media/club-feature.webp"
+      width="1400"
+      height="933"
+      alt="A UK Bangla Tigers player on the field"
+      loading="lazy"
+    />
+    <div class="ukbt-story__detail-card">
+      <h4>A cricket franchise built on international competition and community.</h4>
+    </div>
+  </div>
+  <div class="ukbt-story__content-side">
+    <SubHeading label="Our Story" />
+    <h2>More Than Just a Cricket Club, It's a Community.</h2>
+    <div class="ukbt-story__paragraphs">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="ukbt-story__stats">
+      {
+        stats.map((s) => (
+          <div class="ukbt-story__stat">
+            <span class="ukbt-story__stat-value">{s.value}</span>
+            <span class="ukbt-story__stat-label">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  /* .about-wrapper: flex row, gap 100px, align-items center */
+  .ukbt-story {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-gap-100);
+  }
+  /* Reference `.about-image-container` — the media panel the detail card
+     overlays. Holds a photograph (CLIENT_REQ_010). */
+  .ukbt-story__image-side {
+    position: relative;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .ukbt-story__image-side img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 30rem;
+    object-fit: cover;
+    border-radius: var(--ukbt-radius-ref-card);
+  }
+  /* Reference `.card-about-detail`: a true overlay on the media, with
+     the reference's asymmetric corner treatment. Restored now that a
+     photograph fills the slot rather than the crest. */
+  .ukbt-story__detail-card {
+    position: absolute;
+    left: var(--ukbt-space-gap-2);
+    right: var(--ukbt-space-gap-2);
+    bottom: var(--ukbt-space-gap-2);
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-ref-card-asymmetric);
+    padding: var(--ukbt-space-gap-2);
+    box-shadow: var(--ukbt-shadow-md);
+  }
+  .ukbt-story__detail-card h4 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    text-align: center;
+  }
+  .ukbt-story__content-side {
+    flex: 1 1 auto;
+  }
+  .ukbt-story__content-side h2 {
+    margin: var(--ukbt-space-2) 0 var(--ukbt-space-4) 0;
+  }
+  .ukbt-story__paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+    max-width: 42rem;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-story__paragraphs p {
+    margin: 0;
+  }
+  /* .about-highlight-box row: border-top accent, big number + label */
+  .ukbt-story__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ukbt-space-4);
+    margin-top: var(--ukbt-space-6);
+    max-width: 32rem;
+  }
+  .ukbt-story__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+    border-top: 2px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-2);
+  }
+  .ukbt-story__stat-value {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-4);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-story__stat-label {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+
+  /* Reference `.about-wrapper` at <=1025px: column-reverse, 50px gap,
+     image container full width. Collapsing at 767px instead both missed
+     the reference's breakpoint and overflowed at 768px, where the row
+     still applied but 22rem + 100px gap no longer fit. */
+  @media screen and (max-width: 1025px) {
+    .ukbt-story {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: var(--ukbt-space-gap-5);
+    }
+    .ukbt-story__image-side {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-story__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

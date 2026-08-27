@@ -1,0 +1,233 @@
+{
+  "font": {
+    "family": {
+      "base": {
+        "$value": "'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "$type": "fontFamily",
+        "$description": "CLASSIFICATION: PROPOSED, not VERIFIED (artifacts/brand/UKBT-BRAND-FOUNDATION.md) — Lato, self-hosted (packages/truth/../apps/web font files sourced from artifacts/brand/raw/fonts/, SIL OFL). Adopted as an assumption carried from the Adelux reference (EV-20260826-029's own framing), not confirmed by the club. System stack remains as fallback."
+      },
+      "heading": {
+        "$value": "'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "$type": "fontFamily",
+        "$description": "CLASSIFICATION: PROPOSED, not VERIFIED — same basis as font.family.base."
+      }
+    },
+    "size": {
+      "$description": "CLASSIFICATION: DERIVED. A standard 1.25 (major third) modular scale anchored at a 16px/1rem base — a generic typographic convention, not derived from Adelux or any brand fact.",
+      "0": {
+        "$value": "0.8rem",
+        "$type": "dimension"
+      },
+      "1": {
+        "$value": "1rem",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "1.25rem",
+        "$type": "dimension"
+      },
+      "3": {
+        "$value": "1.563rem",
+        "$type": "dimension"
+      },
+      "4": {
+        "$value": "1.953rem",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "2.441rem",
+        "$type": "dimension"
+      },
+      "6": {
+        "$value": "3.052rem",
+        "$type": "dimension"
+      },
+      "display": {
+        "$value": "clamp(2.25rem, 1.4rem + 3.5vw, 3.75rem)",
+        "$type": "dimension",
+        "$description": "CLASSIFICATION: DERIVED — Stage 6 (artifacts/ui/REFERENCE-ANALYSIS.md §2) observed a large hero headline that steps down in discrete bands at the same breakpoints as structural changes. Implemented here as a fluid clamp() covering a comparable size range instead of copying the reference's literal step values — a disclosed improvement (continuous scaling vs. discrete jumps), not a literal port."
+      }
+    },
+    "weight": {
+      "$description": "CLASSIFICATION: DERIVED — standard numeric weight values, not a brand/font-specific decision.",
+      "regular": {
+        "$value": "400",
+        "$type": "fontWeight"
+      },
+      "medium": {
+        "$value": "500",
+        "$type": "fontWeight"
+      },
+      "bold": {
+        "$value": "700",
+        "$type": "fontWeight"
+      }
+    },
+    "lineHeight": {
+      "$description": "CLASSIFICATION: DERIVED — standard readability ratios (WCAG 1.4.8 recommends at least 1.5 for body text).",
+      "tight": {
+        "$value": "1.2",
+        "$type": "number"
+      },
+      "body": {
+        "$value": "1.5",
+        "$type": "number"
+      }
+    },
+    "heading": {
+      "$description": "CLASSIFICATION: MEASURED. The reference template's own heading scale, ported verbatim per CLIENT_REQ_012 / EV-20260826-032, with its two responsive step-downs (base >=1026px, Md <=1025px, Sm <=767px). Media queries live in apps/web/src/styles/base.css; the values live here so they stay auditable. NOTE: this ports the SCALE only. font.family.* remains PROPOSED - porting sizes does not promote the family decision. The reference's own families happen to be Montserrat/Lato, the same two in UKBT's supplied brand pack, so no family conflict arises.",
+      "h1": {
+        "size": {
+          "$value": "90px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "70px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "50px",
+          "$type": "dimension"
+        },
+        "weight": {
+          "$value": "700",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.1em",
+          "$type": "number"
+        }
+      },
+      "h2": {
+        "size": {
+          "$value": "64px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "48px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "36px",
+          "$type": "dimension"
+        },
+        "weight": {
+          "$value": "700",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.2em",
+          "$type": "number"
+        }
+      },
+      "h3": {
+        "size": {
+          "$value": "36px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "28px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "22px",
+          "$type": "dimension"
+        },
+        "weight": {
+          "$value": "700",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.3em",
+          "$type": "number"
+        }
+      },
+      "h4": {
+        "size": {
+          "$value": "24px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "21px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "18px",
+          "$type": "dimension"
+        },
+        "weight": {
+          "$value": "700",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.3em",
+          "$type": "number"
+        }
+      },
+      "h5": {
+        "size": {
+          "$value": "21px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "18px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "16px",
+          "$type": "dimension",
+          "$description": "DEFECT CORRECTION. At <=767px the reference declares h5 with a unitless font-size value of 16, so the declaration is invalid CSS and silently never applies, leaving h5 at 18px on mobile. Per the parity spec's 'never reproduce known reference defects' rule, the evidently-intended 16px is implemented here. Recorded as a deliberate deviation, not an unnoticed mismatch."
+        },
+        "weight": {
+          "$value": "600",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.3em",
+          "$type": "number"
+        }
+      },
+      "h6": {
+        "size": {
+          "$value": "16px",
+          "$type": "dimension"
+        },
+        "sizeMd": {
+          "$value": "16px",
+          "$type": "dimension"
+        },
+        "sizeSm": {
+          "$value": "14px",
+          "$type": "dimension"
+        },
+        "weight": {
+          "$value": "600",
+          "$type": "fontWeight"
+        },
+        "lineHeight": {
+          "$value": "1.3",
+          "$type": "number"
+        }
+      }
+    },
+    "body": {
+      "$description": "CLASSIFICATION: MEASURED. Reference body/paragraph sizing: body 16px, paragraph 18px stepping to 16px at <=767px, with a 20px paragraph bottom margin.",
+      "size": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "paragraphSize": {
+        "$value": "18px",
+        "$type": "dimension"
+      },
+      "paragraphSizeSm": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "paragraphMarginBottom": {
+        "$value": "20px",
+        "$type": "dimension"
+      }
+    }
+  }
+}

@@ -1,0 +1,248 @@
+---
+// Footer rebuilt to the reference's measured architecture
+// (CLIENT_REQ_012 / EV-20260826-032).
+//
+// Reference structure: a 4-column row (brand / quick links / contact info
+// / newsletter) inside `.footer-content-container` (flex column, 120px
+// gap), closed by `.footer-copyright-container` — a `space-between` bar
+// with a 1px top border and 30px block padding, carrying legal links on
+// one side and the copyright on the other.
+//
+// Two columns are adapted rather than copied, because the underlying UKBT
+// facts do not exist:
+//   * Contact info — phone, email and address are UNKNOWN (unknowns
+//     register U-16). The column keeps its structure and renders only the
+//     channels that do exist, rather than inventing a number.
+//   * Newsletter — the reference posts to a PHP endpoint. We have no
+//     backend (FORM-CONTRACT: the submitForm adapter is unimplemented),
+//     and a subscribe box that silently discards addresses is worse than
+//     none. The slot carries the club's own line instead.
+//
+// Social links stay icon-only per CLIENT_REQ_004, using the reference's
+// `.social-icon` treatment (accent tile, 9px radius) rather than bare
+// glyphs.
+interface SocialLink {
+  platform: string;
+  url: string;
+}
+interface Props {
+  social: SocialLink[];
+  nav: { label: string; href: string }[];
+  /** Template-mirrored routes kept out of the primary nav; see homepage-data. */
+  secondaryNav?: { label: string; href: string }[];
+}
+const { social, nav, secondaryNav = [] } = Astro.props;
+
+const icons: Record<string, string> = {
+  facebook: 'M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12',
+  instagram: 'M12 2c2.7 0 3.1 0 4.1.1 1.1 0 1.8.2 2.5.5.7.3 1.2.6 1.7 1.1.5.5.9 1 1.1 1.7.3.7.5 1.4.5 2.5.1 1 .1 1.4.1 4.1s0 3.1-.1 4.1c0 1.1-.2 1.8-.5 2.5-.3.7-.6 1.2-1.1 1.7-.5.5-1 .9-1.7 1.1-.7.3-1.4.5-2.5.5-1 .1-1.4.1-4.1.1s-3.1 0-4.1-.1c-1.1 0-1.8-.2-2.5-.5-.7-.3-1.2-.6-1.7-1.1-.5-.5-.9-1-1.1-1.7-.3-.7-.5-1.4-.5-2.5C2 15.1 2 14.7 2 12s0-3.1.1-4.1c0-1.1.2-1.8.5-2.5.3-.7.6-1.2 1.1-1.7.5-.5 1-.9 1.7-1.1.7-.3 1.4-.5 2.5-.5C8.9 2 9.3 2 12 2Zm0 2c-2.6 0-3 0-4 .1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.8-.3 1.7C4.2 9 4.2 9.4 4.2 12s0 3 .1 4c0 .9.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.8.3 1.7.3 1 .1 1.4.1 4 .1s3 0 4-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.3.3-.8.3-1.7.1-1 .1-1.4.1-4s0-3-.1-4c0-.9-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.8-.3-1.7-.3-1-.1-1.4-.1-4-.1Zm0 3.5A4.5 4.5 0 1 1 12 16a4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm4.8-2.7a1 1 0 1 1 0 2.1 1 1 0 0 1 0-2.1Z',
+  tiktok: 'M14 2h3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-1.7V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.1a3 3 0 1 0 2 2.8V2Z',
+  x: 'M3 3l7.4 9.5L3.2 21H6l5.7-6.4L16 21h5l-7.7-9.9L20.6 3h-2.8l-5.3 5.9L8 3H3Z',
+};
+const year = new Date().getFullYear();
+---
+
+<footer class="ukbt-footer">
+  <div class="ukbt-container ukbt-footer__inner">
+    <div class="ukbt-footer__columns">
+      <div class="ukbt-footer__col">
+        <img src="/brand/crest-512.png" width="72" height="99" alt="" class="ukbt-footer__logo" />
+        <h3>UK Bangla Tigers</h3>
+        <p>A cricket franchise built on international competition and community.</p>
+        <ul class="ukbt-footer__social" aria-label="UK Bangla Tigers on social media">
+          {
+            social.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  aria-label={`UK Bangla Tigers on ${link.platform}`}
+                  rel="me noopener"
+                  class="ukbt-footer__social-icon"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor">
+                    <path d={icons[link.platform]} />
+                  </svg>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="ukbt-footer__col">
+        <h3>Quick Links</h3>
+        <div class="ukbt-footer__rule"></div>
+        <nav aria-label="Footer">
+          <ul class="ukbt-footer__links">
+            {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            {secondaryNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="ukbt-footer__col">
+        <h3>Get in Touch</h3>
+        <div class="ukbt-footer__rule"></div>
+        <p class="ukbt-footer__note">
+          A direct phone line, email address and venue are still being
+          confirmed with the club.
+        </p>
+        <a href="/contact" class="ukbt-footer__inline-link">Contact us &rarr;</a>
+      </div>
+
+      <div class="ukbt-footer__col">
+        <h3>Follow the Tigers</h3>
+        <div class="ukbt-footer__rule"></div>
+        <p class="ukbt-footer__note">
+          Every match, signing and tournament, straight from the club.
+        </p>
+      </div>
+    </div>
+
+    <div class="ukbt-footer__copyright">
+      <p>&copy; {year} UK Bangla Tigers</p>
+      <p class="ukbt-footer__entity">UK Bangla Tigers Cricket Club CIC</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ukbt-footer {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+  }
+  /* Reference `.footer-content-container`: flex column, large internal gap. */
+  .ukbt-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-5);
+    padding-block: var(--ukbt-space-section-padding) 0;
+  }
+  /* Reference footer row: 4 columns at xl, 2 at md, 1 below. */
+  .ukbt-footer__columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--ukbt-space-gap-4);
+  }
+  .ukbt-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-2);
+  }
+  .ukbt-footer__col h3 {
+    margin: 0;
+    /* Promoted from h4 to h3 (Stage 8 red team F4: h4 columns skipped a
+       level whenever nothing preceding the footer happened to be h3).
+       Explicit size keeps the pre-existing visual weight. */
+    font-size: var(--ukbt-font-heading-h4-size);
+  }
+  .ukbt-footer__col p {
+    margin: 0;
+    font-size: var(--ukbt-font-heading-h6-size);
+    opacity: 0.85;
+  }
+  .ukbt-footer__logo {
+    height: 72px;
+    width: auto;
+    align-self: flex-start;
+  }
+  /* Reference `.underline-primary-accent`. */
+  .ukbt-footer__rule {
+    border-bottom: 1px solid rgb(255 255 255 / 25%);
+  }
+  .ukbt-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-1);
+  }
+  .ukbt-footer__links a,
+  .ukbt-footer__inline-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: var(--ukbt-font-heading-h6-size);
+    opacity: 0.9;
+  }
+  .ukbt-footer__links a:hover,
+  .ukbt-footer__inline-link:hover {
+    color: var(--ukbt-color-brand-accent);
+    opacity: 1;
+  }
+  .ukbt-footer__inline-link {
+    color: var(--ukbt-color-brand-accent);
+    font-weight: var(--ukbt-font-weight-bold);
+    align-self: flex-start;
+  }
+  .ukbt-footer__note {
+    max-width: 24rem;
+  }
+
+  /* Reference `.social-icon`: accent tile, 9px radius, dark glyph. */
+  .ukbt-footer__social {
+    display: flex;
+    flex-direction: row;
+    gap: var(--ukbt-space-gap-1);
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ukbt-footer__social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+    border-radius: 9px;
+    background: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+    transition: background-color var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
+  }
+  .ukbt-footer__social-icon:hover {
+    background: var(--ukbt-color-brand-accent-hover);
+  }
+
+  /* Reference `.footer-copyright-container`: space-between, 1px top
+     border, 30px block padding. */
+  .ukbt-footer__copyright {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-gap-2);
+    justify-content: space-between;
+    padding-block: var(--ukbt-space-gap-3);
+    border-top: 1px solid rgb(255 255 255 / 25%);
+  }
+  .ukbt-footer__copyright p {
+    margin: 0;
+    font-size: var(--ukbt-font-heading-h6-size);
+    opacity: 0.7;
+  }
+
+  .ukbt-footer a:focus-visible {
+    outline: 2px solid var(--ukbt-color-brand-accent);
+    outline-offset: 2px;
+  }
+  /* Stage 8 red team F3: the social icons' own fill is already gold, so
+     the rule above paints a gold ring on a gold tile (~1:1). Navy
+     contrasts 7.2:1 against gold (Button.astro) — override back to it
+     for just this element. Higher specificity than the rule above
+     (adds the element type) so it wins regardless of source order. */
+  a.ukbt-footer__social-icon:focus-visible {
+    outline-color: var(--ukbt-color-brand-primary);
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-footer__columns {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--ukbt-space-gap-5);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-footer__columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

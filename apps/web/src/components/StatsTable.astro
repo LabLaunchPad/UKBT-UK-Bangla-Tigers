@@ -1,0 +1,75 @@
+---
+// UKBT-original — no Adelux equivalent exists. Real semantic <table>
+// (not a div-grid) so screen readers get correct row/column association;
+// styled with the existing design-system tokens, not the source PDF's
+// own screenshot styling (client instruction, C-005/C-006: "use your own
+// style table and format").
+interface Props {
+  caption: string;
+  headers: string[];
+  rows: (string | number)[][];
+}
+const { caption, headers, rows } = Astro.props;
+---
+
+<div class="ukbt-stats-table-wrap">
+  <table class="ukbt-stats-table">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        {headers.map((h) => <th scope="col">{h}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            {row.map((cell, i) =>
+              i === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>,
+            )}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .ukbt-stats-table-wrap {
+    overflow-x: auto;
+  }
+  .ukbt-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-stats-table caption {
+    text-align: left;
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-2);
+    margin-bottom: var(--ukbt-space-3);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-stats-table th,
+  .ukbt-stats-table td {
+    padding: var(--ukbt-space-2) var(--ukbt-space-3);
+    text-align: right;
+    border-bottom: 1px solid var(--ukbt-color-neutral-100);
+    white-space: nowrap;
+  }
+  .ukbt-stats-table th[scope='col'] {
+    text-align: right;
+    color: var(--ukbt-color-neutral-700);
+    font-weight: var(--ukbt-font-weight-medium);
+    border-bottom: 2px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-stats-table th[scope='row'] {
+    text-align: left;
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-stats-table th[scope='col']:first-child,
+  .ukbt-stats-table th[scope='row'] {
+    text-align: left;
+  }
+</style>

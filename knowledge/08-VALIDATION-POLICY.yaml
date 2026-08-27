@@ -1,0 +1,87 @@
+validation_states:
+  NOT_RUN:       "No verification attempted."
+  ABSENT:        "Expected validation mechanism does not exist."
+  PASS:          "Verification executed and passed."
+  WEAK_EVIDENCE: "Executed, but the check cannot fail in the interesting case."
+  FAIL:          "Verification executed and failed."
+  UNKNOWN:       "Result cannot be established."
+  BLOCKED:       "Cannot execute because a prerequisite is unresolved."
+
+rules:
+  - "ABSENT != PASS"
+  - "NOT_RUN != PASS"
+  - "UNKNOWN != PASS"
+  - "BLOCKED != PASS"
+  - "WEAK_EVIDENCE != PASS"
+  - "A check that did not run did not pass. Record the command and its exit code."
+  - "Never weaken, skip, narrow or mark non-required a gate in order to obtain PASS."
+
+verification:
+  must_be:
+    - reproducible
+    - meaningful
+    - capable_of_failing
+    - tied_to_a_claim
+
+anti_vacuity:
+  reject:
+    - tests_that_only_check_file_existence
+    - tests_that_assert_their_own_fixture
+    - checks_without_negative_cases
+    - mocked_truth_presented_as_production_evidence
+    - presence_checks_standing_in_for_property_checks
+  rule: >
+    For every gate, state what input would make it FAIL. A gate with no such
+    input is decorative (DR-010).
+
+weak_evidence_note:
+  origin: "Stage 2 finding F10"
+  detail: >
+    Stage 1 reported three grep heuristics as PASS alongside a deterministic
+    integrity check. A word-list scan for "founded in" cannot catch "the club
+    began life as...". Same word, very different evidential strength. Those three
+    are reclassified WEAK_EVIDENCE. Real assurance comes from the fail-closed
+    gate (T1), not from grep.
+
+current_state:
+  ci_workflow_present: false
+  ci_state: ABSENT              # NOT pass — nothing exists to run
+  gates_implemented: 0
+  ran_and_passed:
+    - {check: scaffold_self_test, command: "node scripts/scaffold-self-test.mjs", exit: 0}
+  weak_evidence:
+    - invented_fact_grep
+    - year_literal_grep
+    - secret_scan_heuristic
+  absent:
+    - install
+    - typecheck
+    - lint
+    - unit
+    - integration
+    - content_schema
+    - truth_gate
+    - placeholder_detection
+    - build
+    - routes
+    - links
+    - seo
+    - accessibility
+    - e2e
+
+# ============================================================================
+# VISUAL FIDELITY AS A FIRST-CLASS ACCEPTANCE GATE — added at requester direction
+# ============================================================================
+visual_fidelity_gate:
+  rule: >
+    An implementation cannot pass merely because build/typecheck/lint succeed
+    or components/tokens exist. It must ALSO pass: REFERENCE RENDER vs UKBT
+    RENDER, compared across the frozen viewport matrix. Visual comparison is
+    a first-class acceptance criterion, not a nice-to-have polish step.
+  anti_vacuity_visual:
+    never_accept_as_visual_proof:
+      - "looks identical"                 # unverified human impression
+      - "tokens match"                    # token equality is not rendered-output equality
+      - "CSS was migrated"                # migration is not verification
+    requires_instead: "an executed rendered comparison producing a recorded diff (or confirmed zero-diff), per element/viewport, per the visual-fidelity matrix format"
+    origin: "requester direction, visual-fidelity execution protocol §12"

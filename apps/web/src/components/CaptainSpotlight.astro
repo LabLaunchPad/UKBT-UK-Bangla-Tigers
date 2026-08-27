@@ -1,0 +1,72 @@
+---
+// Mirrors the reference's "Academy Section" title row
+// (.academy-title-container: flex row, align-items center, gap 50px,
+// border-bottom 3px solid primary). No stats/table here — per
+// CLIENT_REQ_003, the full statistics table belongs on the Club
+// Captain's own page, not the homepage spotlight.
+interface Props {
+  name: string;
+  role: string;
+}
+const { name, role } = Astro.props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-captain">
+  <div class="ukbt-captain__heading">
+    <SubHeading label="Club Captain" />
+    <h2>Leading from the Front</h2>
+  </div>
+  <div class="ukbt-captain__info">
+    <h3>{name}</h3>
+    <p>{role}</p>
+    <a href="/club-captain" class="ukbt-captain__link">Full profile &rarr;</a>
+  </div>
+</div>
+
+<style>
+  /* .academy-title-container: flex row, align-items center, gap 50px, border-bottom 3px solid primary */
+  .ukbt-captain {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-gap-5);
+    border-bottom: 3px solid var(--ukbt-color-brand-primary);
+    padding-bottom: var(--ukbt-space-6);
+  }
+  .ukbt-captain__heading {
+    flex: 1 1 auto;
+  }
+  .ukbt-captain__heading h2 {
+    margin: 0;
+  }
+  .ukbt-captain__info {
+    flex: 1 1 auto;
+    text-align: right;
+  }
+  .ukbt-captain__info h3 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+  }
+  .ukbt-captain__info p {
+    margin: 0 0 var(--ukbt-space-2) 0;
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-captain__link {
+    color: var(--ukbt-color-brand-primary);
+    font-weight: var(--ukbt-font-weight-bold);
+    text-decoration: none;
+  }
+  .ukbt-captain__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-captain {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ukbt-captain__info {
+      text-align: left;
+    }
+  }
+</style>

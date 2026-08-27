@@ -1,0 +1,61 @@
+id: EV-20260826-031
+classification: DEFECT_FOUND_ON_DIRECT_INSPECTION
+claim: >
+  `brand/franchises/nordic-smash-slide.webp` (the Uppsala Tigers "Overseas
+  Signings" graphic, staged and used on both the Homepage's
+  FranchiseTeaser and the new Our Franchises page) has "NIPO KHADEM /
+  PORTUGAL" baked into the image itself (top-right player name/photo),
+  not just recorded as structured metadata.
+source: "Direct visual inspection of rendered screenshots (homepage-1440x900.png, franchises-1440x900.png), captured during Stage 7 site-scale page validation."
+source_type: direct_visual_inspection
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "Records a defect found and corrected in this session. Does not expire."
+scope: "Stage 7 site-scale pages (Our Franchises) and retroactively, the already-shipped Homepage FranchiseTeaser section."
+method: >
+  While reviewing real screenshots of the newly-built Our Franchises page
+  (per this project's standing practice of inspecting rendered output
+  directly, not trusting a passing test suite), the "Overseas Signings"
+  graphic was read closely and found to display "NIPO KHADEM / PORTUGAL"
+  as a visible caption on the image itself. Cross-checked the Homepage's
+  existing screenshot (homepage-1440x900.png, captured at Stage 7G) and
+  confirmed the same image — already shipped there via FranchiseTeaser.astro
+  — carries the identical caption, meaning this defect was live on the
+  Homepage since Stage 7G and was missed during that stage's visual QA
+  (the caption is small relative to the full graphic).
+result: |
+  CONFIRMED DEFECT: this image cannot be used anywhere in the site as-is.
+  CLIENT_REQ_008 (artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md)
+  explicitly instructs removal of "MD Siraj Ullah Khadem Nipo" / "Nipo
+  Khadem" from any published content. The roster text lists on both
+  affected pages already correctly excluded this name (verified by the
+  existing `no content-contamination` Playwright checks, which grep
+  rendered HTML text) — but those checks cannot inspect raster image
+  content, so the same exclusion baked into a photograph was not caught
+  by any existing automated gate. This is a real gap in the site's
+  contamination checks: text-content grep proves nothing about what an
+  image itself displays.
+
+  REMEDIATION (this session): `nordic-smash-slide.webp` is removed from
+  both `FranchiseTeaser.astro` (Homepage) and the new Our Franchises
+  page. Neither page uses it going forward. No replacement image is
+  substituted (no alternative Uppsala Tigers photograph exists in
+  evidence that both (a) shows the roster and (b) excludes this player) —
+  both sections fall back to a crest/text-based treatment, the same
+  established pattern already used wherever no confirmed-safe image
+  exists (ClubIntro, LeadershipGrid, ProfileHeader, RosterGrid).
+related_files:
+  - apps/web/src/components/FranchiseTeaser.astro
+  - apps/web/src/pages/franchises.astro
+  - apps/web/src/assets/MANIFEST.md
+  - knowledge/01-VERIFIED-FACTS.yaml
+relates_to: [EV-20260826-027, EV-20260826-029, EV-20260826-030]
+notes: >
+  Process finding, not just a content finding: automated
+  content-contamination checks (text grep) give no assurance about image
+  content. Any future image asset showing named individuals should be
+  visually inspected at full resolution before use, not just checked
+  against a text-grep gate — the same rigor already applied to colour/
+  contrast/logo claims (direct pixel inspection) should apply to
+  excluded-person checks on any image carrying visible names/captions.

@@ -1,0 +1,69 @@
+---
+// Players Profile page. Per knowledge/01-VERIFIED-FACTS.yaml:
+// full_roster_status is UNKNOWN — only the Club Captain has a complete
+// profile; "30+ Players" is an aggregate, not a roster. This page states
+// that honestly rather than inventing player entries to fill a grid.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import CaptainSpotlight from '../components/CaptainSpotlight.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+import { captain } from '../content/captain-data';
+---
+
+<BaseLayout
+  title="Players Profile — UK Bangla Tigers"
+  description="UK Bangla Tigers player profiles."
+>
+  <Header nav={homepage.nav} />
+
+  <main>
+    <PageBanner
+      title="Players Profile"
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Players Profile' }]}
+    />
+
+    <Section>
+      <div class="ukbt-players-stat">
+        <span class="ukbt-players-stat__value">{homepage.stats.players}</span>
+        <span class="ukbt-players-stat__label">Players across the squad</span>
+      </div>
+      <CaptainSpotlight name={captain.name} role={captain.role} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <p class="ukbt-players-note">
+        Individual profiles for the full squad are being confirmed with the
+        club and will be published here as they're ready. The Club
+        Captain's full profile is available now.
+      </p>
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  .ukbt-players-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ukbt-space-3);
+    margin-bottom: var(--ukbt-space-8);
+  }
+  .ukbt-players-stat__value {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-5);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-players-stat__label {
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-players-note {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    max-width: 42rem;
+  }
+</style>

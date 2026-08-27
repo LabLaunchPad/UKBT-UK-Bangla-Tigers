@@ -1,0 +1,105 @@
+---
+// Contact Us page. knowledge/01-VERIFIED-FACTS.yaml's unknowns register
+// (U-16) records venue/phone/email/opening-hours as UNKNOWN — no such
+// fact has ever been supplied. Per contracts/FORM-CONTRACT.md, a real
+// submission form requires the submitForm adapter boundary and a backend
+// implementation, neither of which exist yet (no Cloudflare Functions
+// deployment). Shipping a "Send us a message" form with no working
+// backend would silently drop real inquiries — worse than not having
+// one. This page therefore offers only the real, working channels that
+// exist today (official social media) and states the gap honestly
+// instead of fabricating contact details or a non-functional form.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+import AboutCTA from '../components/AboutCTA.astro';
+import { homepage } from '../content/homepage-data';
+import SubHeading from '../components/SubHeading.astro';
+---
+
+<BaseLayout
+  title="Contact Us — UK Bangla Tigers"
+  description="Get in touch with UK Bangla Tigers via social media."
+>
+  <Header nav={homepage.nav} />
+
+  <main>
+    <PageBanner
+      title="Contact Us"
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact Us' }]}
+    />
+
+    <Section paddingBottom="normal">
+      <div class="ukbt-contact">
+        <div>
+          <SubHeading label="Get in Touch" />
+          <h2>Reach the Tigers on Social Media</h2>
+          <p class="ukbt-contact__lede">
+            A direct phone line, email address, and venue are still being
+            confirmed with the club. In the meantime, every official
+            channel below is live and monitored.
+          </p>
+        </div>
+        <ul class="ukbt-contact__social">
+          {
+            homepage.social.map((s) => (
+              <li>
+                <a href={s.url} rel="me noopener">{s.platform}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <AboutCTA social={homepage.social} />
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  .ukbt-contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-8);
+    align-items: start;
+  }
+  .ukbt-contact h2 {
+    margin: 0 0 var(--ukbt-space-3) 0;
+  }
+  .ukbt-contact__lede {
+    color: var(--ukbt-color-neutral-700);
+    max-width: 32rem;
+  }
+  .ukbt-contact__social {
+    list-style: none;
+    margin: 0;
+    padding: var(--ukbt-space-6);
+    background: var(--ukbt-color-surface-inverse);
+    border-radius: var(--ukbt-radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-contact__social a {
+    color: var(--ukbt-color-brand-accent);
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-2);
+  }
+  .ukbt-contact__social a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 767px) {
+    .ukbt-contact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+// International Tournaments/Events page — the full evidenced calendar
+// (2 upcoming, 3 completed). Uses the reference's dark-card/pill-tag
+// visual language (already established via TournamentCard.astro) in a
+// simple grid, since Adelux's own event.html grammar (main-event + CTA +
+// two-small) doesn't fit a full calendar listing without a fabricated
+// "featured" event.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import TournamentCard from '../components/TournamentCard.astro';
+import Footer from '../components/Footer.astro';
+import FranchiseTeaser from '../components/FranchiseTeaser.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
+import { homepage } from '../content/homepage-data';
+import { completedTournaments, upcomingTournaments } from '../content/tournaments-data';
+---
+
+<BaseLayout
+  title="International Tournaments/Events — UK Bangla Tigers"
+  description="UK Bangla Tigers' international tournament calendar."
+>
+  <Header nav={homepage.nav} />
+
+  <main>
+    <PageBanner
+      title="International Tournaments/Events"
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'International Tournaments/Events' }]}
+    />
+
+    <Section>
+      <h2>Upcoming</h2>
+      <div class="ukbt-events-grid">
+        {upcomingTournaments.map((t) => <TournamentCard {...t} />)}
+      </div>
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <h2>Completed</h2>
+      <div class="ukbt-events-grid">
+        {completedTournaments.map((t) => <TournamentCard {...t} />)}
+      </div>
+    </Section>
+
+    <Section>
+      <FranchiseTeaser name={homepage.sisterFranchise} />
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <TestimonialSection />
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  h2 {
+    margin: 0 0 var(--ukbt-space-gap-5) 0;
+  }
+  .ukbt-events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ukbt-space-6);
+  }
+  @media (max-width: 1023px) {
+    .ukbt-events-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 767px) {
+    .ukbt-events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

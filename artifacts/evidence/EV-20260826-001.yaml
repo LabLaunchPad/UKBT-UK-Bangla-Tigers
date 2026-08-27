@@ -1,0 +1,31 @@
+id: EV-20260826-001
+classification: APPROVED
+claim: >
+  The site is static-first at launch with no dynamic features, but the
+  architecture must not foreclose adding contact/newsletter forms later via
+  either a third-party form service or serverless functions.
+source: "Requester decision, bootstrap session (AskUserQuestion, U-14)"
+source_type: user
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: >
+  A requirements decision by the requester, not an observation about the world.
+  It does not decay with time; it is superseded by a later decision, which is
+  recorded as a new record rather than an expiry.
+scope: "Architecture decisions A05 (rendering) and A16 (hosting)"
+method: "Direct question to the requester with the trade-off stated"
+result: >
+  A05 static-first APPROVED. A16 narrowed: the host MUST support serverless
+  functions, or at minimum not preclude them. Form handling MUST sit behind an
+  adapter boundary so that service-vs-function is a configuration change, not a
+  rewrite.
+related_files:
+  - artifacts/bootstrap/ARCHITECTURE-PROPOSAL.md
+  - artifacts/bootstrap/UNKNOWN-EVIDENCE.md
+related_task: BOOTSTRAP-001
+notes: >
+  Resolves U-14, which was one of the four Stage-3 blockers. Consequence: the
+  reference template's bundled PHP form handlers are not usable and are not a
+  migration target. Consequence: U-18 (UK GDPR) moves onto the critical path the
+  moment a form is added, since any contact form collects personal data.

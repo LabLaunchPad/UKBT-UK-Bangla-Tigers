@@ -1,0 +1,60 @@
+---
+// Reference "Testimonial Section" — the most-reused section in the
+// template, appearing on 7 of its 13 pages:
+// `.testimonial-content-container` (flex row, space-between) with
+// `.card-testimonial` (55% wide, centred, 40px padding, 20px gap)
+// flanked by columns of staggered avatars.
+//
+// SHELL ONLY. `CONTENT_STATUS = UNKNOWN`. No consented UKBT member
+// testimonial exists anywhere in evidence, and a testimonial is the
+// single worst thing on a site to invent: it puts words in a named
+// person's mouth. The reference's own six quotes are fictional sample
+// copy attributed to fictional people.
+//
+// The avatar columns are also omitted rather than filled — they would
+// require photographs of identifiable individuals presented as quoted
+// members, which is a stronger claim than any asset in this repo
+// supports.
+import PendingContent from './PendingContent.astro';
+import SectionHeader from './SectionHeader.astro';
+---
+
+<div class="ukbt-testimonials">
+  <SectionHeader
+    eyebrow="Testimonials"
+    heading="What Our Members Say"
+    rule="none"
+    centered={true}
+  />
+  <div class="ukbt-testimonials__content">
+    <PendingContent
+      what="Member testimonials are being gathered."
+      detail="Quotes will be published here once members have given them and consented to their use. Nothing is shown until then."
+      minHeight="14rem"
+    />
+  </div>
+</div>
+
+<style>
+  .ukbt-testimonials {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Reference `.testimonial-content-container` / `.card-testimonial`:
+     the quote card occupies the middle 55% with the avatar columns
+     either side. The shell keeps that measure so the section holds its
+     proportions once real quotes land. */
+  .ukbt-testimonials__content {
+    display: flex;
+    justify-content: center;
+  }
+  .ukbt-testimonials__content > :global(*) {
+    width: 55%;
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-testimonials__content > :global(*) {
+      width: 100%;
+    }
+  }
+</style>

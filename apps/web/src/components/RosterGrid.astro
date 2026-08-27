@@ -1,0 +1,56 @@
+---
+// UKBT-original — no player photo exists for any of these signings, so
+// cards are text-only (name + country), same discipline as
+// LeadershipGrid.astro: never a placeholder image standing in for a real
+// person.
+interface Player {
+  name: string;
+  country: string;
+  note?: string;
+}
+interface Props {
+  players: Player[];
+}
+const { players } = Astro.props;
+---
+
+<div class="ukbt-roster-grid">
+  {
+    players.map((p) => (
+      <div class="ukbt-roster-card">
+        <h4>{p.name}</h4>
+        <p class="ukbt-roster-card__country">{p.country}</p>
+        {p.note && <p class="ukbt-roster-card__note">{p.note}</p>}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .ukbt-roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-roster-card {
+    background: var(--ukbt-color-surface-alt);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-4);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-roster-card h4 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-roster-card__country {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-roster-card__note {
+    margin: var(--ukbt-space-2) 0 0 0;
+    font-size: 0.7rem;
+    color: var(--ukbt-color-neutral-700);
+    font-style: italic;
+  }
+</style>

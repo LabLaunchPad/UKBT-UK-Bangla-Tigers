@@ -1,0 +1,430 @@
+canonical_page_inventory:
+  frozen_at: '2026-08-26'
+  source_sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  discrepancy_resolution:
+    SOURCE_HTML_FILE_COUNT: 14
+    RENDERABLE_PAGE_COUNT: 13
+    NON_RENDERABLE_HTML_COUNT: 0
+    DUPLICATE_PAGE_COUNT: 0
+    REDIRECT_ALIAS_COUNT: 0
+    EXCLUDED_PAGE_COUNT: 1
+    EXCLUSION_REASON: 1 file (Documentation/index.html) is the vendor's own template-documentation page,
+      not a site page - excluded from the site inventory, included in the source inventory.
+    method: find over the extracted archive for every *.html file (14 found, re-verified this pass); sha256sum
+      confirms all 14 are distinct content (0 duplicates); grepped for http-equiv=refresh across all 14
+      (0 redirect/alias files found); confirmed Documentation/index.html has a distinct <title> and stylesheet
+      from HTML_TEMPLATE/index.html.
+    conclusion: 'Both 13 and 14 were correct for their own, previously un-reconciled scope: 14 = every
+      HTML file in the archive; 13 = renderable site pages under HTML_TEMPLATE/. Neither number is being
+      changed to match the other - both are frozen here with their exact scope stated.'
+pages:
+- id: documentation-index
+  source_path: Documentation/index.html
+  route_or_filename: null
+  rendered: false
+  render_status: EXCLUDED
+  sections: null
+  assets_used: null
+  css_dependencies:
+  - Documentation/assets/css/style.css
+  js_dependencies:
+  - Documentation/assets/js/script.js
+  responsive_dependencies: null
+  interaction_dependencies: null
+  evidence_refs:
+  - EV-20260826-007
+  exclusion_reason: 'Vendor/template documentation page describing the Adelux product itself (title: ''Adelux
+    - HTML Bootstrap Template Documentation''). Not a page of the club website - has no UKBT route equivalent
+    and was never intended to render as part of the site. Distinct content and distinct stylesheet from
+    HTML_TEMPLATE/index.html (verified: different SHA-256, different <title>).'
+- id: index
+  source_path: HTML_TEMPLATE/index.html
+  route_or_filename: index.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 16
+  assets_used: 19
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/banner.js
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/video_embedded.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: about
+  source_path: HTML_TEMPLATE/about.html
+  route_or_filename: about.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 10
+  assets_used: 16
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: service
+  source_path: HTML_TEMPLATE/service.html
+  route_or_filename: service.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 9
+  assets_used: 13
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: coaching
+  source_path: HTML_TEMPLATE/coaching.html
+  route_or_filename: coaching.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 6
+  assets_used: 4
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: booking
+  source_path: HTML_TEMPLATE/booking.html
+  route_or_filename: booking.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 7
+  assets_used: 4
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: membership
+  source_path: HTML_TEMPLATE/membership.html
+  route_or_filename: membership.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 7
+  assets_used: 4
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: community
+  source_path: HTML_TEMPLATE/community.html
+  route_or_filename: community.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 10
+  assets_used: 9
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: event
+  source_path: HTML_TEMPLATE/event.html
+  route_or_filename: event.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 7
+  assets_used: 9
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: blog
+  source_path: HTML_TEMPLATE/blog.html
+  route_or_filename: blog.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 4
+  assets_used: 5
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: single-post
+  source_path: HTML_TEMPLATE/single-post.html
+  route_or_filename: single-post.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 5
+  assets_used: 4
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: faq
+  source_path: HTML_TEMPLATE/faq.html
+  route_or_filename: faq.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 6
+  assets_used: 4
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: contact
+  source_path: HTML_TEMPLATE/contact.html
+  route_or_filename: contact.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 6
+  assets_used: 3
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  - animate.css (Hippocratic 2.1) — DO_NOT_ADOPT
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013
+- id: 404-page
+  source_path: HTML_TEMPLATE/404-page.html
+  route_or_filename: 404-page.html
+  rendered: true
+  render_status: RENDERED_OK
+  sections: 2
+  assets_used: 0
+  css_dependencies:
+  - ./assets/css/main.css
+  - ./assets/css/responsive.css
+  js_dependencies:
+  - ./assets/js/script.js
+  - ./assets/js/submit-form.js
+  - ./assets/js/swiper-script.js
+  - ./assets/js/vendor/jquery.min.js
+  - ./assets/js/vendor/bootstrap.bundle.min.js
+  - ./assets/js/vendor/swiper-bundle.min.js
+  - ./assets/js/vendor/isotope.pkgd.min.js
+  - ./assets/js/vendor/flatpickr.min.js
+  responsive_dependencies: 'shared: assets/css/responsive.css, 4 media queries (EV-20260826-009)'
+  interaction_dependencies:
+  - Flatpickr (MIT)
+  - Font Awesome (CC BY 4.0 / OFL / MIT) — attribution required
+  - Isotope (GPLv3/Commercial) — BLOCKED, BL-05
+  - Swiper (MIT)
+  evidence_refs:
+  - EV-20260826-008
+  - EV-20260826-009
+  - EV-20260826-013

@@ -1,0 +1,60 @@
+---
+// Mirrors the reference's `single-post.html` (Banner → Main Post → Blog).
+// Route added under CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01.
+//
+// The article TEMPLATE is built; there are no articles. `getStaticPaths`
+// returns an empty set, so this route renders nothing at build time and
+// the layout is exercised only when real posts exist. That is the honest
+// form of a shell for a dynamic route: the structure is committed and
+// reviewable, but no fabricated post is published to fill it.
+//
+// When posts land, they should come through the @ukbt/truth gate like
+// every other content type on this site, not be hard-coded here.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import PageBanner from '../../components/PageBanner.astro';
+import Section from '../../components/Section.astro';
+import Footer from '../../components/Footer.astro';
+import { homepage } from '../../content/homepage-data';
+
+export function getStaticPaths() {
+  // No UKBT article exists in evidence. See the note above.
+  return [];
+}
+
+interface Props {
+  title: string;
+  date: string;
+  body: string[];
+}
+const { title, date, body } = Astro.props;
+---
+
+<BaseLayout title={`${title} — UK Bangla Tigers`} description={title}>
+  <Header nav={homepage.nav} />
+  <main>
+    <PageBanner
+      title={title}
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Club News', href: '/news' }, { label: title }]}
+    />
+    <Section paddingBottom="normal">
+      <article class="ukbt-post">
+        <p class="ukbt-post__date">{date}</p>
+        {body.map((p) => <p>{p}</p>)}
+      </article>
+    </Section>
+  </main>
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  .ukbt-post {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+  .ukbt-post__date {
+    color: var(--ukbt-color-brand-primary);
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+</style>

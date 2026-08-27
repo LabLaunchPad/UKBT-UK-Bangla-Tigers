@@ -1,0 +1,68 @@
+# Guards against BOTH failure modes:
+#   overblocking  — "we don't know the sponsor, so no architecture can be built"
+#   underblocking — "we don't know the sponsor, so I'll use a plausible one"
+# Neither is acceptable.
+
+unknown_policy:
+  continue_if:
+    - unknown does not affect the current decision
+    - unknown can safely remain unresolved
+    - implementation can preserve a reversible boundary
+  stop_if:
+    - unknown determines legal permission
+    - unknown determines security authorization
+    - unknown determines a frozen contract
+    - unknown determines an irreversible architecture choice
+    - unknown requires inventing factual content
+  rule: "Resolve only the unknowns that materially constrain the current stage."
+  anti_overblocking: "Do not turn every unknown into a blocker."
+  anti_underblocking: "Do not silently proceed through a decision-critical unknown."
+
+worked_examples:
+  - unknown: "U-05 brand colours"
+    verdict: CONTINUE
+    why: >
+      The token SYSTEM can be built with replaceable placeholder values. Only
+      brand VERIFICATION is blocked, not design-system construction. Placeholders
+      must be centrally replaceable so arrival of real evidence is a token diff.
+  - unknown: "U-21 Adelux licence"
+    verdict: STOP_SCOPED
+    why: >
+      Rights-sensitive. Blocks Stage 6 and Adelux-derived material ONLY.
+      Stages 3-5 proceed. Do not let a scoped blocker halt unrelated engineering.
+  - unknown: "U-01 what the organization is"
+    verdict: STOP_FOR_CONTENT_ONLY
+    why: >
+      Blocks every content page. Blocks no structural decision. Architecture is
+      buildable against an empty corpus.
+  - unknown: "U-23 named human approver"
+    verdict: STOP_BEFORE_PUBLISH
+    why: >
+      Not needed to build the gate; needed before the gate can pass anything.
+      Resolve before the first org fact is published, not before Stage 4.
+
+scoping_rule: >
+  A blocker blocks what it actually blocks. State the scope explicitly. An
+  unscoped blocker becomes an excuse to stop everything, which is its own failure.
+
+# ============================================================================
+# EVIDENCE REUSE — added at requester direction; extends the scoping_rule
+# above from "don't over-block" to "don't re-investigate what's settled"
+# ============================================================================
+evidence_reuse_rule:
+  before_generating_new_evidence: "check artifacts/ and knowledge/ for an existing answer first"
+  reuse_if_sufficient: "cite EVIDENCE_REUSED = <artifact/reference> instead of regenerating it"
+  only_gather_new_evidence_when:
+    - the underlying source changed
+    - existing evidence conflicts
+    - existing evidence is stale (per contracts/evidence-contract.md freshness defaults)
+    - existing evidence cannot answer the specific decision at hand
+    - rights/security/production clearance specifically requires fresh verification
+  when_requesting_more_evidence_state_all_four:
+    - "MISSING_FACT — what is missing"
+    - "WHY_NEEDED — why it matters"
+    - "DECISION_BLOCKED — what decision it blocks"
+    - "WHY_EXISTING_EVIDENCE_IS_INSUFFICIENT — why current evidence cannot answer it"
+  rule: >
+    Do not ask for evidence merely because a topic is important. Importance is
+    not one of the five reuse-triggering conditions above.

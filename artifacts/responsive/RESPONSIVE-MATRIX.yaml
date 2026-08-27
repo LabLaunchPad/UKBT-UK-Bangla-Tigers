@@ -1,0 +1,1272 @@
+canonical_responsive_matrix:
+  frozen_at: '2026-08-26'
+  source_sha256: cf4907bb60003b719f3d7712e2d06389c2ab7f8a02590bdea570da9780cafb54
+  viewports_tested:
+  - 1440x900
+  - 1280x800
+  - 1024x768
+  - 768x1024
+  - 430x932
+  - 390x844
+  method: Playwright/Chromium 141.0.7390.37, file:// rendering, real getComputedStyle() and getBoundingClientRect()
+    reads at each of 6 viewports per page, not inferred from media-query text alone.
+  cross_validation: 'The CSS AST (EV-20260826-009) states breakpoints at max-width:1025px / min-width:1025px.
+    Rendered behavior confirms: the nav toggle actually switches visibility between 1280x800 and 1024x768,
+    consistent with that declared breakpoint. This is real behavioral confirmation, not merely restating
+    the media-query text.'
+  site_wide_finding: Horizontal overflow observed in the SOURCE on 4 of 13 pages at one or more viewports
+    (service, coaching — even at desktop widths; community, event — tablet/mobile only). Recorded as an
+    observed source characteristic; the reference was not modified to investigate or correct it.
+pages:
+  index:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 654
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 602
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 992
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 736
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 430
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 390
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  about:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  service:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at:
+      - 1440x900
+      - 1280x800
+      - 1024x768
+      - 768x1024
+      - 430x932
+      status: OBSERVED_IN_SOURCE — not corrected; reference is read-only. UKBT_ADAPTATION (Track B, gated)
+        will decide whether to reproduce or treat as a source defect.
+  coaching:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at:
+      - 1440x900
+      - 1280x800
+      status: OBSERVED_IN_SOURCE — not corrected; reference is read-only. UKBT_ADAPTATION (Track B, gated)
+        will decide whether to reproduce or treat as a source defect.
+  booking:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  membership:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1440
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1340
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1034
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 778
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 440
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 400
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  community:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: grid
+        flex_direction: row
+        width: 1340
+      1280x800:
+        display: grid
+        flex_direction: row
+        width: 1240
+      1024x768:
+        display: grid
+        flex_direction: row
+        width: 984
+      768x1024:
+        display: grid
+        flex_direction: row
+        width: 728
+      430x932:
+        display: grid
+        flex_direction: row
+        width: 390
+      390x844:
+        display: grid
+        flex_direction: row
+        width: 350
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at:
+      - 768x1024
+      - 430x932
+      - 390x844
+      status: OBSERVED_IN_SOURCE — not corrected; reference is read-only. UKBT_ADAPTATION (Track B, gated)
+        will decide whether to reproduce or treat as a source defect.
+  event:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: grid
+        flex_direction: row
+        width: 1340
+      1280x800:
+        display: grid
+        flex_direction: row
+        width: 1240
+      1024x768:
+        display: grid
+        flex_direction: row
+        width: 984
+      768x1024:
+        display: grid
+        flex_direction: row
+        width: 728
+      430x932:
+        display: grid
+        flex_direction: row
+        width: 390
+      390x844:
+        display: grid
+        flex_direction: row
+        width: 350
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at:
+      - 768x1024
+      - 430x932
+      - 390x844
+      status: OBSERVED_IN_SOURCE — not corrected; reference is read-only. UKBT_ADAPTATION (Track B, gated)
+        will decide whether to reproduce or treat as a source defect.
+  blog:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  single-post:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  faq:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1360
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1260
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1004
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 748
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 410
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 370
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  contact:
+    navigation_changes:
+      toggle_breakpoint_transition: 1280x800 -> 1024x768
+      per_viewport:
+        1440x900:
+          toggle_visible: false
+          nav_links_visible: true
+        1280x800:
+          toggle_visible: false
+          nav_links_visible: true
+        1024x768:
+          toggle_visible: true
+          nav_links_visible: false
+        768x1024:
+          toggle_visible: true
+          nav_links_visible: false
+        430x932:
+          toggle_visible: true
+          nav_links_visible: false
+        390x844:
+          toggle_visible: true
+          nav_links_visible: false
+    grid_changes:
+      1440x900:
+        display: flex
+        flex_direction: row
+        width: 1440
+      1280x800:
+        display: flex
+        flex_direction: row
+        width: 1340
+      1024x768:
+        display: flex
+        flex_direction: row
+        width: 1034
+      768x1024:
+        display: flex
+        flex_direction: row
+        width: 778
+      430x932:
+        display: flex
+        flex_direction: row
+        width: 440
+      390x844:
+        display: flex
+        flex_direction: row
+        width: 400
+    font_changes:
+      1440x900: 90px
+      1280x800: 90px
+      1024x768: 70px
+      768x1024: 70px
+      430x932: 50px
+      390x844: 50px
+    image_changes:
+      1440x900:
+        width: 214
+        object_fit: fill
+      1280x800:
+        width: 186
+        object_fit: fill
+      1024x768:
+        width: 255
+        object_fit: fill
+      768x1024:
+        width: 178
+        object_fit: fill
+      430x932:
+        width: 159
+        object_fit: fill
+      390x844:
+        width: 139
+        object_fit: fill
+    button_changes:
+      1440x900:
+        width: 200
+        padding: 5px
+      1280x800:
+        width: 200
+        padding: 5px
+      1024x768:
+        width: null
+        padding: 5px
+      768x1024:
+        width: null
+        padding: 5px
+      430x932:
+        width: null
+        padding: 5px
+      390x844:
+        width: null
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport
+  404-page:
+    navigation_changes:
+      toggle_breakpoint_transition: no transition observed across tested viewports
+      per_viewport:
+        1440x900:
+          toggle_visible: null
+          nav_links_visible: null
+        1280x800:
+          toggle_visible: null
+          nav_links_visible: null
+        1024x768:
+          toggle_visible: null
+          nav_links_visible: null
+        768x1024:
+          toggle_visible: null
+          nav_links_visible: null
+        430x932:
+          toggle_visible: null
+          nav_links_visible: null
+        390x844:
+          toggle_visible: null
+          nav_links_visible: null
+    grid_changes:
+      1440x900:
+        display: null
+        flex_direction: null
+        width: null
+      1280x800:
+        display: null
+        flex_direction: null
+        width: null
+      1024x768:
+        display: null
+        flex_direction: null
+        width: null
+      768x1024:
+        display: null
+        flex_direction: null
+        width: null
+      430x932:
+        display: null
+        flex_direction: null
+        width: null
+      390x844:
+        display: null
+        flex_direction: null
+        width: null
+    font_changes:
+      1440x900: 200px
+      1280x800: 200px
+      1024x768: 150px
+      768x1024: 150px
+      430x932: 100px
+      390x844: 100px
+    image_changes:
+      1440x900:
+        width: null
+        object_fit: null
+      1280x800:
+        width: null
+        object_fit: null
+      1024x768:
+        width: null
+        object_fit: null
+      768x1024:
+        width: null
+        object_fit: null
+      430x932:
+        width: null
+        object_fit: null
+      390x844:
+        width: null
+        object_fit: null
+    button_changes:
+      1440x900:
+        width: 214
+        padding: 5px
+      1280x800:
+        width: 214
+        padding: 5px
+      1024x768:
+        width: 214
+        padding: 5px
+      768x1024:
+        width: 214
+        padding: 5px
+      430x932:
+        width: 214
+        padding: 5px
+      390x844:
+        width: 214
+        padding: 5px
+    overflow_behavior:
+      horizontal_overflow_observed_at: []
+      status: no horizontal overflow observed at any tested viewport

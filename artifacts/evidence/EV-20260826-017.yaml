@@ -1,0 +1,43 @@
+id: EV-20260826-017
+classification: MEASURED
+claim: >
+  Track A consolidated into one freeze index (12/12 items with frozen
+  evidence, no new discovery performed) and Track B's exact unlock
+  checklist was produced as a standalone artifact without reopening or
+  modifying the governance model.
+source: "Consolidation of existing evidence records EV-005 through EV-015."
+source_type: repo
+retrieved_at: 2026-08-26
+verified_at: 2026-08-26
+valid_until: null
+justification_for_null: "A consolidation record referencing immutable prior evidence does not expire on its own."
+scope: "Track A freeze + Track B checklist"
+method: >
+  Reviewed each of the 12 requested Track A items against existing evidence
+  records; cited each rather than re-deriving. Restated
+  knowledge/06-TEMPLATE-BOUNDARY.yaml's existing required_evidence_to_
+  close_track_b as the requester's exact 10-item checklist in a new,
+  separate artifact (artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md) -
+  knowledge/06 itself was not modified.
+result: |
+  Track A: 12/12 items FROZEN with cited evidence; one named, bounded depth
+  gap (full computed-style capture on 12 of 13 pages) carried forward
+  unchanged rather than closed, since closing it now would not unblock any
+  current decision.
+
+  Track B: 10-item checklist produced. Items 1-7 block Track B and require
+  primary evidence from outside this repository (none can be satisfied by
+  further analysis here). Items 8-10 (third-party treatment, attribution,
+  evidence retention) were never blocked by the LabLaunchPad question and
+  remain independently tracked. Explicit validation procedure recorded:
+  binary per-item, not majority-satisfied, and any future resolution
+  supersedes rather than rewrites EV-20260826-012's CONFLICTING record.
+related_files:
+  - artifacts/extraction/TRACK-A-FREEZE-INDEX.md
+  - artifacts/evidence/TRACK-B-UNLOCK-CHECKLIST.md
+related_task: TRACK-A-FREEZE-AND-TRACK-B-CHECKLIST
+relates_to: [EV-20260826-012, EV-20260826-014]
+notes: >
+  No governance file was modified to produce this record - confirmed by
+  git diff against knowledge/ showing zero changes. This complies with the
+  explicit instruction not to reopen or redesign the provenance model.

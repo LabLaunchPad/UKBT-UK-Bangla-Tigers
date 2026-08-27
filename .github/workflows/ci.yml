@@ -1,0 +1,205 @@
+name: CI
+
+# Implements the gate set required by contracts/CI-CONTRACT.md, to the
+# extent those gates are meaningfully checkable at the FOUNDATION stage
+# (no real routes/content exist yet — see the note at the bottom of this
+# file for gates deliberately not wired yet, and why).
+#
+# Every job here is REQUIRED (merge-blocking) unless explicitly marked
+# otherwise — a job that cannot fail the build is decorative
+# (knowledge/08-VALIDATION-POLICY.yaml, DR-010).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned, never `-latest` — contracts/VISUAL-REGRESSION-CONTRACT.md
+  # requires a pinned runner image so visual comparisons stay CI-vs-CI
+  # deterministic, not just for the visual job but as a repo-wide rule.
+  NODE_VERSION: '22'
+
+jobs:
+  install:
+    name: Install (frozen lockfile)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+
+  governance-scaffold:
+    name: Governance scaffold self-test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: node scripts/scaffold-self-test.mjs
+
+  dependency-allowlist:
+    name: Dependency allowlist
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: node scripts/check-dependency-allowlist.mjs
+
+  lint:
+    name: Lint (Biome)
+    runs-on: ubuntu-24.04
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-24.04
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @ukbt/truth tokens:build
+      - run: pnpm typecheck
+
+  unit-tests:
+    name: Unit / integration tests (truth gate + content schema)
+    runs-on: ubuntu-24.04
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:unit
+
+  build:
+    name: Build (tokens + Astro static output)
+    runs-on: ubuntu-24.04
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build-output
+          path: apps/web/dist
+          retention-days: 7
+
+  link-integrity:
+    name: Internal link integrity
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run check:links
+
+  visual-and-accessibility:
+    name: Playwright (structural / responsive / accessibility)
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+        working-directory: apps/web
+      - run: pnpm test:e2e
+        working-directory: apps/web
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report
+          retention-days: 7
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# ---------------------------------------------------------------------------
+# CI-CONTRACT.md gates NOT wired yet, and why (ABSENT != PASS,
+# knowledge/08-VALIDATION-POLICY.yaml — recorded honestly rather than
+# faked with a vacuous always-pass step). Corrected 2026-08-26 (Stage 10
+# release gate, artifacts/receipts/RELEASE.md) — the reasons below used
+# to be "no real content/routes exist yet," which stopped being true once
+# 16 real routes and 12+ real organization facts landed; that stale
+# reasoning was itself a defect this receipt found and fixed:
+#
+#   - Content schema validation against real content: real Zod schemas
+#     exist (packages/truth/src/schema/content-types.ts) but no file
+#     under apps/web/src/content/ actually uses them — real content is
+#     validated only by the truth gate's provenance rules (T1-T8) and
+#     TypeScript's structural typing, not this schema layer. This is
+#     schema drift between CONTENT-CONTRACT.md and the shape actually in
+#     use, not a missing-content problem. See RELEASE.md for the two
+#     ways to close it.
+#   - Truth gate against real content: NOT absent — enforced at build
+#     time. Every file under apps/web/src/content/ calls
+#     @ukbt/truth/gate's evaluate() and throws on failure; the `build`
+#     job above already re-runs this on every push. Real enforcement,
+#     just not a separately-named CI job.
+#   - Route/link integrity: NOT absent as of the `link-integrity` job
+#     above (scripts/check-internal-links.mjs) — crawls every built
+#     page's internal hrefs against the real dist/ output. Verified to
+#     actually fail: tested against a deliberately broken link before
+#     being trusted, not assumed correct from reading the script.
+#   - SEO metadata completeness: partially covered (pages.spec.ts asserts
+#     the noindex/indexable split across all 16 routes) but no test
+#     asserts every indexable page has a non-empty title/description.
+#
+# These become real, addable jobs once packages/truth/src/content/ and
+# real routes exist (contracts/CONTENT-CONTRACT.md, contracts/ROUTE-
+# CONTRACT.md) — adding a job here at that point, not before.
+# ---------------------------------------------------------------------------

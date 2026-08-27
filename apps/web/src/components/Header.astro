@@ -1,0 +1,351 @@
+---
+// Site header, rebuilt to the reference's measured navbar geometry
+// (CLIENT_REQ_012 / EV-20260826-032).
+//
+// Reference `.navbar-nav-container`: flex row, `justify-content:
+// space-between`, `padding: 20px`, with three regions — logo, centred
+// nav links, and a trailing CTA (`.navbar-cta-container`, width 18%,
+// aligned to the end). `.nav-link`: Montserrat 16px/600, `padding: 0 15px`.
+// Measured height 162px at 1440 — our previous 72px bar was less than
+// half the reference's, which read as a different site before any section
+// was even considered.
+//
+// Below the collapse breakpoint the reference swaps to an off-canvas
+// drawer (`.sidebar`: fixed, 300px wide, slides in from the left over a
+// dimmed `.sidebar-overlay`). That is reproduced here with a real
+// <button aria-expanded>/inert-driven toggle and a small inline script
+// (zero new dependencies) rather than the reference's jQuery. An earlier
+// CSS-only checkbox+label version of this toggle shipped with no way for
+// a keyboard user to ever reach it — a plain <label> is not in the tab
+// order and the checkbox itself was display:none — found by the Stage 8
+// independent red team (artifacts/review/HOMEPAGE-REDTEAM.md, F1) and
+// fixed here with a real focusable control plus `inert` on the closed
+// drawer so its links aren't silently tab-reachable while off-screen.
+//
+// Two reference defects are deliberately NOT reproduced: its invisible
+// focus outline (INTERACTION-FORENSICS.md) and its client-side
+// active-link script — active state is resolved from Astro's routing at
+// build time.
+import Button from './Button.astro';
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+interface Props {
+  nav: NavItem[];
+}
+const { nav } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="ukbt-header" id="ukbt-header">
+  <div class="ukbt-container ukbt-header__bar">
+    <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
+      <img
+        src="/brand/crest-512.png"
+        width="60"
+        height="82"
+        alt=""
+        class="ukbt-header__logo"
+      />
+    </a>
+
+    <nav class="ukbt-header__nav" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ukbt-header__cta">
+      <Button label="Join the Club" href="/contact" variant="primary" />
+    </div>
+
+    <button
+      type="button"
+      id="ukbt-nav-toggle"
+      class="ukbt-header__toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="ukbt-nav-drawer"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Off-canvas drawer (reference `.sidebar` + `.sidebar-overlay`) -->
+  <div class="ukbt-header__overlay" id="ukbt-nav-overlay"></div>
+  <div class="ukbt-header__drawer" id="ukbt-nav-drawer" role="dialog" aria-label="Site menu" aria-modal="true" inert>
+    <div class="ukbt-header__drawer-head">
+      <img src="/brand/crest-512.png" width="44" height="60" alt="" />
+      <button type="button" class="ukbt-header__close" id="ukbt-nav-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <ul class="ukbt-header__drawer-menu">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Real focusable toggle + inert-driven drawer — see the top-of-file
+  // comment for why this replaced a checkbox+label CSS-only version.
+  const header = document.getElementById('ukbt-header');
+  const toggle = document.getElementById('ukbt-nav-toggle');
+  const close = document.getElementById('ukbt-nav-close');
+  const overlay = document.getElementById('ukbt-nav-overlay');
+  const drawer = document.getElementById('ukbt-nav-drawer');
+
+  function setOpen(open: boolean) {
+    header?.classList.toggle('ukbt-header--open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    if (open) {
+      drawer?.removeAttribute('inert');
+    } else {
+      drawer?.setAttribute('inert', '');
+    }
+  }
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  close?.addEventListener('click', () => {
+    setOpen(false);
+    toggle?.focus();
+  });
+  overlay?.addEventListener('click', () => {
+    setOpen(false);
+    toggle?.focus();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+</script>
+
+<style>
+  .ukbt-header {
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    position: relative;
+    z-index: 20;
+  }
+  /* Reference `.navbar-nav-container`: flex row, space-between, 20px pad. */
+  .ukbt-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ukbt-space-gap-2);
+    padding-block: var(--ukbt-space-gap-2);
+    width: 100%;
+  }
+  .ukbt-header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--ukbt-space-gap-1);
+    color: inherit;
+    text-decoration: none;
+    flex: none;
+  }
+  .ukbt-header__logo {
+    height: 60px;
+    width: auto;
+    flex: none;
+  }
+  /* The reference's own brand slot is a bare logo image with no text
+     wordmark. Reproducing that is also what makes the bar fit: with a
+     wordmark the three regions measured 1501px against a 1340px
+     container (brand 246 + nav 1044 + CTA 211). The accessible name is
+     carried by the link's aria-label. */
+
+  .ukbt-header__nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  /* Reference `.nav-link`: Montserrat 16px/600, padding 0 15px. */
+  .ukbt-header__nav a {
+    display: block;
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-heading-h6-size);
+    font-weight: var(--ukbt-font-weight-medium);
+    line-height: 1;
+    padding-inline: 15px;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ukbt-header__nav a[aria-current='page'] {
+    color: var(--ukbt-color-brand-accent);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-header__nav a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+
+  .ukbt-header__cta {
+    flex: none;
+  }
+
+  .ukbt-header__toggle,
+  .ukbt-header__overlay,
+  .ukbt-header__drawer {
+    display: none;
+  }
+  /* Reset <button> defaults now that the toggle/close controls are real
+     buttons, not label+checkbox proxies. */
+  .ukbt-header__toggle,
+  .ukbt-header__close {
+    appearance: none;
+    border: none;
+    font: inherit;
+  }
+
+  /* Seven nav items with UKBT's longer labels need more room than the
+     reference's five (two of which are grouped dropdowns). Between 1280
+     and 1439 the link padding tightens; below 1280 the bar can no longer
+     seat nav + CTA inside the container, so the drawer takes over. */
+  @media screen and (max-width: 1439px) {
+    .ukbt-header__nav a {
+      padding-inline: 8px;
+    }
+  }
+
+  @media screen and (max-width: 1279px) {
+    .ukbt-header__nav,
+    .ukbt-header__cta {
+      display: none;
+    }
+    .ukbt-header__toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: var(--ukbt-radius-ref-xs);
+      background: var(--ukbt-color-brand-accent);
+    }
+    .ukbt-header__toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ukbt-color-brand-accent-contrast);
+    }
+
+    /* Reference `.sidebar-overlay`: full-screen dim behind the drawer. */
+    .ukbt-header__overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgb(0 0 0 / 53%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease-in-out;
+      z-index: 30;
+    }
+    /* Reference `.sidebar`: fixed, 300px, slides in from the left. */
+    .ukbt-header__drawer {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      max-width: 85vw;
+      height: 100%;
+      max-height: 100vh;
+      overflow-y: auto;
+      background: var(--ukbt-color-surface-background);
+      color: var(--ukbt-color-surface-foreground);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease-in-out;
+      z-index: 40;
+    }
+    .ukbt-header--open .ukbt-header__overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ukbt-header--open .ukbt-header__drawer {
+      transform: translateX(0);
+    }
+  }
+
+  /* Reference `.sidebar-header`: logo + close, space-between, 20px pad. */
+  .ukbt-header__drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ukbt-space-gap-2);
+    border-bottom: 1px solid var(--ukbt-color-neutral-100);
+  }
+  .ukbt-header__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--ukbt-radius-ref-circle);
+    background: var(--ukbt-color-surface-alt);
+    color: var(--ukbt-color-brand-primary);
+    cursor: pointer;
+  }
+  .ukbt-header__drawer-menu {
+    list-style: none;
+    margin: 0;
+    padding: var(--ukbt-space-gap-2);
+    display: flex;
+    flex-direction: column;
+  }
+  .ukbt-header__drawer-menu a {
+    display: block;
+    padding: var(--ukbt-space-gap-2) var(--ukbt-space-gap-1);
+    color: var(--ukbt-color-brand-primary);
+    text-decoration: none;
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-medium);
+    border-bottom: 1px solid var(--ukbt-color-neutral-100);
+  }
+  .ukbt-header__drawer-menu a[aria-current='page'] {
+    color: var(--ukbt-color-brand-accent-contrast);
+    background: var(--ukbt-color-brand-accent);
+    border-radius: var(--ukbt-radius-ref-xs);
+  }
+
+  /* Never the reference's invisible-outline defect. */
+  .ukbt-header a:focus-visible,
+  .ukbt-header button:focus-visible {
+    outline: 2px solid var(--ukbt-color-brand-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ukbt-header__drawer,
+    .ukbt-header__overlay {
+      transition: none;
+    }
+  }
+</style>
