@@ -21,6 +21,21 @@ import { homepage } from '../content/homepage-data';
         <Button label="Back to Home" href="/" variant="primary" />
       </div>
     </Section>
+
+    <Section paddingTop="none">
+      <div class="ukbt-404__links">
+        <h2>Popular Pages</h2>
+        <ul>
+          {
+            homepage.nav.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Section>
   </main>
 
   <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
@@ -48,5 +63,34 @@ import { homepage } from '../content/homepage-data';
   .ukbt-404 p {
     color: var(--ukbt-color-neutral-700);
     margin: 0 0 var(--ukbt-space-3) 0;
+  }
+  /* Added so the page has a genuine h2 before Footer's h3 column
+     headings (found by a mobile axe-core sweep: this was the only route
+     with an h1-straight-to-h3 skip, since it's the only page with no
+     content section of its own between the hero and the footer). Real
+     links from the site's own nav data, not invented copy. */
+  .ukbt-404__links {
+    text-align: center;
+  }
+  .ukbt-404__links h2 {
+    margin: 0 0 var(--ukbt-space-3) 0;
+  }
+  .ukbt-404__links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--ukbt-space-2) var(--ukbt-space-4);
+  }
+  /* Not brand-accent gold: that color is only ever contrast-safe on the
+     dark inverse surface (see FranchiseTeaser.astro's F3 fix comment).
+     This section sits on the default light surface, so it needs a dark
+     link color instead — measured by the same mobile axe-core sweep
+     that caught the heading-order gaps. */
+  .ukbt-404__links a {
+    color: var(--ukbt-color-surface-inverse);
+    text-decoration: underline;
   }
 </style>

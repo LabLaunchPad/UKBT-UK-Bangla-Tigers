@@ -39,7 +39,7 @@ import Surface from './Surface.astro';
       padding="var(--ukbt-space-3) var(--ukbt-space-4)"
       class="ukbt-franchise__cta"
     >
-      <h4>Meet {name}</h4>
+      <h3>Meet {name}</h3>
       <a href="/franchises">See the franchise &rarr;</a>
     </Surface>
   </div>
@@ -95,14 +95,18 @@ import Surface from './Surface.astro';
      Found by a real regression: axe's color-contrast check caught the
      link losing its gold color to browser-default blue once this rule
      stopped matching (Stage 8 red team F6 migration). The descendant
-     part (h4/a, both written directly in this component's own slot
+     part (h3/a, both written directly in this component's own slot
      content) stays a normal scoped selector. */
   :global(.ukbt-franchise__cta) {
     /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
        this navy panel; gold-on-navy measures 7+:1. */
     --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
-  :global(.ukbt-franchise__cta) h4 {
+  /* Promoted from h4 to h3 (mobile axe-core sweep: on /community this
+     panel follows this page's own h2 with no h3 between; on the
+     homepage it already followed an h3, so h3-after-h3 stays legal
+     too). Explicit size keeps the pre-existing visual weight. */
+  :global(.ukbt-franchise__cta) h3 {
     margin: 0 0 var(--ukbt-space-1) 0;
     font-size: var(--ukbt-font-size-1);
   }
