@@ -137,33 +137,69 @@ hosting), not the runtime-service expansion `INV-009`/"Change authority"
 above gates.
 
 **What was added, this commit:**
-- `apps/web/wrangler.jsonc` — `name: "uk-bangla-tigers"` (matches the
-  existing Worker exactly, so `wrangler deploy` targets it rather than
-  creating a new one), `assets.directory: "./dist"`, no `main` entry
-  (static-only, no Worker script needed).
+- `wrangler.jsonc` **at the repository root** — `name: "uk-bangla-tigers"`
+  (matches the existing Worker exactly, so `wrangler deploy` targets it
+  rather than creating a new one), `assets.directory: "./apps/web/dist"`,
+  no `main` entry (static-only, no Worker script needed). Originally
+  placed at `apps/web/wrangler.jsonc`; moved to root after build
+  `55c1d854` proved that wrong — see the correction below.
 - `wrangler` as a pinned `apps/web` devDependency (Cloudflare's own
   documented convention: "Workers Builds will use the Wrangler version
   set in your package.json") + a matching
   `scripts/dependency-allowlist.json` entry.
 
-**What is still genuinely open, not resolved by this amendment:**
-- The Cloudflare dashboard's "Root directory"/Path field and Build/Deploy
-  command fields are set by the owner directly in that UI — no tool
-  available to this session can fill them in. Recommended values (proven
-  against this repo's own CI, not invented): leave Root directory as the
-  repository root; Build command
-  `pnpm install --frozen-lockfile && pnpm run build`; Deploy command
-  `npx wrangler deploy -c apps/web/wrangler.jsonc`; Non-production branch
-  deploy command `npx wrangler versions upload -c apps/web/wrangler.jsonc`.
-- **Do not click "Connect" against production branch `main` yet.**
-  Verified this same date (release-ledger audit): `main` contains only
-  `README.md` — no `package.json`, no build tooling, nothing for a build
-  command to run. The first triggered build would fail immediately, not
-  because of anything in this amendment, but because PR #1 (62 commits of
-  real work) has never been merged — it is still an unreviewed draft with
-  no branch protection on `main`. Either merge PR #1 first, or point the
-  dashboard's production branch at `claude/ukbt-bootstrap-discovery-otlcwo`
-  as a temporary measure and switch it back once merged.
-- No deploy has been executed from this session — this amendment and its
-  commit prepare the repository side only. `HOST` line above is left as
-  written for the historical record; this amendment is the current truth.
+### Correction, same date: the config was in the wrong place
+
+Builds `2a9ae32b` (commit `754612a`) and `55c1d854` (commit `c6e0725`)
+both failed. The build log — supplied by the owner, since Cloudflare
+does not put it in the GitHub check output — gives the cause exactly:
+
+```
+Executing user deploy command: npx wrangler versions upload
+✘ [ERROR] Missing entry-point to Worker script or to assets directory
+```
+
+Two independent faults, both in dashboard build settings, neither in the
+repository's code:
+
+1. **Build command was `None`.** Nothing ran `pnpm run build`, so
+   `apps/web/dist` did not exist at deploy time.
+2. **Deploy command was the bare default** (`npx wrangler versions
+   upload`, the non-production variant) run from Root directory `/`.
+   Wrangler resolves its config relative to the directory it runs in, so
+   a config at `apps/web/wrangler.jsonc` was never found. The earlier
+   recommendation above — pass `-c apps/web/wrangler.jsonc` — would have
+   worked, but it required the owner to edit three dashboard fields and
+   left the repository broken under Cloudflare's own defaults.
+
+**Fix applied repository-side:** `wrangler.jsonc` moved to the repository
+root with `assets.directory: "./apps/web/dist"`. Both default commands
+now resolve with no flags, verified locally against the real build output
+(`npx wrangler deploy --dry-run` and `npx wrangler versions upload
+--dry-run`, each reading 49 files from `apps/web/dist`). This reduces the
+required dashboard change from three fields to one.
+
+**Note on what the log disproves.** The failure was *not* caused by
+`main` being empty. The log shows `Scope: all 3 workspace projects` and
+495 packages installed — Cloudflare cloned and installed the feature
+branch, not `main`, and ran the *non-production* deploy command, which is
+what Workers Builds uses for a non-production branch. The build got as
+far as a successful `pnpm install --frozen-lockfile` and failed only at
+the deploy step.
+
+**What is still genuinely open:**
+- **One dashboard field must still be set by the owner** (Settings →
+  Build): Build command = `pnpm install --frozen-lockfile && pnpm run
+  build`. Cloudflare explicitly does not honour a `build` block in the
+  Wrangler config for Workers Builds
+  (`developers.cloudflare.com/workers/ci-cd/builds/configuration/`), so
+  this cannot be fixed from the repository. Root directory stays `/`;
+  both deploy commands can now stay at their defaults.
+- **`main` is still not a viable production branch**, for a reason
+  unrelated to the above: it holds only `README.md`, because PR #1 (63
+  commits) has never been merged and `main` has no branch protection
+  (`docs/11-github-branch-protection.md`). Deployments will keep coming
+  from the feature branch as preview versions until that PR merges.
+- No production deploy has been executed or verified from this session.
+  The `HOST` line above is left as originally written for the historical
+  record; this amendment is the current truth.

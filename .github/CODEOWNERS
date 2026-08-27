@@ -1,0 +1,35 @@
+# Code owners — review routing for UKBT.
+#
+# GitHub requests a review from the owner automatically when a PR touches
+# a matching path. On its own this is advisory; it becomes enforcement
+# only when `main`'s branch-protection rule enables "Require review from
+# Code Owners" (see docs/11-github-branch-protection.md).
+#
+# Solo-maintainer project: one owner, with sensitive paths listed
+# explicitly so a future second contributor inherits the routing rather
+# than needing it reconstructed.
+
+# Default owner for everything not matched more specifically below.
+*                           @LabLaunchPad
+
+# Governance substrate — the files that define what "correct" means here.
+# A change to these changes the rules the rest of the repo is judged by,
+# so they are called out rather than left to the catch-all above.
+/CLAUDE.md                  @LabLaunchPad
+/AGENTS.md                  @LabLaunchPad
+/contracts/                 @LabLaunchPad
+/knowledge/                 @LabLaunchPad
+/docs/                      @LabLaunchPad
+/prompts/                   @LabLaunchPad
+/adversarial/               @LabLaunchPad
+
+# Release + deployment surface. A change here can put something live, or
+# change what "green" means.
+/.github/                   @LabLaunchPad
+/wrangler.jsonc             @LabLaunchPad
+/scripts/                   @LabLaunchPad
+/artifacts/receipts/        @LabLaunchPad
+
+# Truth/provenance enforcement and the real organizational facts it gates.
+/packages/truth/            @LabLaunchPad
+/apps/web/src/content/      @LabLaunchPad
