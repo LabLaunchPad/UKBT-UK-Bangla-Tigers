@@ -112,3 +112,58 @@ MODERATE. Static output is portable; only the Functions adapter is host-
 specific, and it sits behind `FORM-CONTRACT.md`'s own adapter boundary —
 so even the Cloudflare-specific piece is designed to be swappable without
 a UI rewrite.
+
+## Amendment, 2026-08-27: HOST is Cloudflare Workers (static assets), not Pages
+
+**What changed:** `HOST` above reads `Cloudflare Pages`. The actual owner
+action taken this date, live in the Cloudflare dashboard (photographed and
+supplied directly), was Workers Builds' "Connect to a repository" flow
+against a pre-existing Worker named `uk-bangla-tigers` (created in the
+account 2026-08-10, verified via the Cloudflare MCP connector's
+`workers_list`/`workers_get_worker`) — production branch `main`, deploy
+command `npx wrangler deploy`. That is Cloudflare Workers, a different
+product from Cloudflare Pages, not a rewording of the same one.
+
+**Why this doesn't require a new architecture decision record:** the
+static-output architecture this contract exists to protect is unchanged —
+`apps/web` still builds to `output: 'static'`, no adapter, no Functions,
+no runtime service. Per Cloudflare's own current guidance
+(`developers.cloudflare.com/workers/framework-guides/web-apps/astro/`,
+queried 2026-08-27), a purely static Astro site needs no
+`@astrojs/cloudflare` adapter at all under Workers — only a Wrangler
+config naming an `assets.directory`. This is a delivery-mechanism
+substitution (Workers' static-assets serving in place of Pages' static
+hosting), not the runtime-service expansion `INV-009`/"Change authority"
+above gates.
+
+**What was added, this commit:**
+- `apps/web/wrangler.jsonc` — `name: "uk-bangla-tigers"` (matches the
+  existing Worker exactly, so `wrangler deploy` targets it rather than
+  creating a new one), `assets.directory: "./dist"`, no `main` entry
+  (static-only, no Worker script needed).
+- `wrangler` as a pinned `apps/web` devDependency (Cloudflare's own
+  documented convention: "Workers Builds will use the Wrangler version
+  set in your package.json") + a matching
+  `scripts/dependency-allowlist.json` entry.
+
+**What is still genuinely open, not resolved by this amendment:**
+- The Cloudflare dashboard's "Root directory"/Path field and Build/Deploy
+  command fields are set by the owner directly in that UI — no tool
+  available to this session can fill them in. Recommended values (proven
+  against this repo's own CI, not invented): leave Root directory as the
+  repository root; Build command
+  `pnpm install --frozen-lockfile && pnpm run build`; Deploy command
+  `npx wrangler deploy -c apps/web/wrangler.jsonc`; Non-production branch
+  deploy command `npx wrangler versions upload -c apps/web/wrangler.jsonc`.
+- **Do not click "Connect" against production branch `main` yet.**
+  Verified this same date (release-ledger audit): `main` contains only
+  `README.md` — no `package.json`, no build tooling, nothing for a build
+  command to run. The first triggered build would fail immediately, not
+  because of anything in this amendment, but because PR #1 (62 commits of
+  real work) has never been merged — it is still an unreviewed draft with
+  no branch protection on `main`. Either merge PR #1 first, or point the
+  dashboard's production branch at `claude/ukbt-bootstrap-discovery-otlcwo`
+  as a temporary measure and switch it back once merged.
+- No deploy has been executed from this session — this amendment and its
+  commit prepare the repository side only. `HOST` line above is left as
+  written for the historical record; this amendment is the current truth.

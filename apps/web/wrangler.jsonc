@@ -1,0 +1,20 @@
+{
+  // Cloudflare Workers static-assets deployment target for @ukbt/web.
+  // See contracts/DEPLOYMENT-CONTRACT.md's 2026-08-27 amendment: HOST is
+  // Cloudflare Workers (static assets), not Cloudflare Pages as originally
+  // frozen — the owner connected this exact pre-provisioned Worker via the
+  // Cloudflare dashboard's "Connect to a repository" flow on that date.
+  //
+  // No `main` entry: this is a pure static site (astro.config.mjs
+  // `output: 'static'`), so there is no Worker script to run — Cloudflare
+  // serves `assets.directory` directly. Confirmed against Cloudflare's own
+  // docs (developers.cloudflare.com/workers/framework-guides/web-apps/astro/,
+  // "If you want to use Astro as a static site generator, you do not need
+  // the Astro Cloudflare adapter").
+  "name": "uk-bangla-tigers",
+  "compatibility_date": "2026-08-27",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
