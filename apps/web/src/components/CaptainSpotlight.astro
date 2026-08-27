@@ -52,6 +52,12 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-neutral-700);
   }
   .ukbt-captain__link {
+    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
+       box at every mobile width. inline-flex + min-height lifts the
+       tap area past the 24px floor without altering the type scale. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     color: var(--ukbt-color-brand-primary);
     font-weight: var(--ukbt-font-weight-bold);
     text-decoration: none;

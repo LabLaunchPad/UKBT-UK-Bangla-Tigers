@@ -130,6 +130,16 @@ const icons: Record<string, string> = {
     padding: 0;
   }
   .ukbt-hero__social a {
+    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
+       box at every mobile width. inline-flex + min-height lifts the
+       tap area past the 24px floor without altering the type scale. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    /* 'X' is a one-character label — height alone left an 11px-wide
+       target, so the 24px floor has to apply on both axes. */
+    min-width: 24px;
     display: flex;
     align-items: center;
     gap: var(--ukbt-space-2);

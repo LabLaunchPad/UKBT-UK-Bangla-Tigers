@@ -92,7 +92,7 @@ const { mainEvent, otherEvents } = Astro.props;
     border: 1px solid var(--ukbt-color-brand-accent);
     border-radius: var(--ukbt-radius-pill);
     padding: 0 var(--ukbt-space-2);
-    font-size: 0.7rem;
+    font-size: var(--ukbt-font-size-0);
   }
   .ukbt-tournament-content h3,
   .ukbt-tournament-content h4 {
@@ -125,6 +125,12 @@ const { mainEvent, otherEvents } = Astro.props;
     margin: 0 0 var(--ukbt-space-2) 0;
   }
   .ukbt-tournament-cta__link {
+    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
+       box at every mobile width. inline-flex + min-height lifts the
+       tap area past the 24px floor without altering the type scale. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     color: inherit;
     font-weight: var(--ukbt-font-weight-bold);
     text-decoration: none;

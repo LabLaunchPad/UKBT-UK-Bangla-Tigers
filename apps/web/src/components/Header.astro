@@ -127,6 +127,12 @@ const isActive = (href: string) =>
     } else {
       drawer?.setAttribute('inert', '');
     }
+    // Lock the page behind the drawer. Measured at 390x844: with the
+    // drawer open, a scroll gesture moved the background from scrollY 0
+    // to 700 while the menu stayed pinned — the page silently moved
+    // under the overlay, so closing the menu returned the reader
+    // somewhere they never navigated to.
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
   toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
@@ -142,6 +148,31 @@ const isActive = (href: string) =>
     if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
       setOpen(false);
       toggle.focus();
+    }
+  });
+
+  // The drawer declares aria-modal="true", which tells assistive tech the
+  // rest of the page is hidden — but it does NOT contain Tab. Measured at
+  // 390x844: tabbing past the last drawer link moved focus to a <main>
+  // social link (insideDrawer: false) sitting behind the dimmed overlay,
+  // so a keyboard user silently operated controls a screen reader had
+  // just declared non-existent. Contain focus to match the ARIA promise.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    if (toggle?.getAttribute('aria-expanded') !== 'true' || !drawer) return;
+    const focusables = drawer.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && (active === first || !drawer.contains(active))) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 </script>
