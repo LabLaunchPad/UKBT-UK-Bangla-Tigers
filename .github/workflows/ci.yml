@@ -169,7 +169,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   workers-deploy:
-    name: Workers Builds: uk-bangla-tigers
+    name: 'Workers Builds: uk-bangla-tigers'
     runs-on: ubuntu-24.04
     needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, visual-and-accessibility, secret-scan]
     # Deploys only on push to main. Without this, the workflow-level
