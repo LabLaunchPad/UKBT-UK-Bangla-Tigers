@@ -113,10 +113,10 @@
     },
     {
       "name": "wrangler",
-      "scope": "apps/web",
+      "scope": "root, apps/web",
       "type": "devDependency",
       "source": "npm",
-      "purpose": "Cloudflare's official deploy CLI, invoked by Cloudflare Workers Builds (`npx wrangler deploy`) per contracts/DEPLOYMENT-CONTRACT.md's 2026-08-27 Workers-static-assets amendment. Declared here (not left to bare npx) so Workers Builds reads a pinned version from package.json, per Cloudflare's own documented convention.",
+      "purpose": "Cloudflare's official deploy CLI, invoked both by Cloudflare Workers Builds (`npx wrangler deploy`, Root directory `/`) and by the `workers-deploy` GitHub Actions job (`cloudflare/wrangler-action@v4`), both of which run from the repository root where `wrangler.jsonc` lives. Declared at root (2026-08-27, second amendment) after `pnpm exec wrangler` from root failed with ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL/ERR_PNPM_ADDING_TO_ROOT — a devDependency declared only in apps/web is invisible to `pnpm exec`/`pnpm add` run at the workspace root. Kept in apps/web too since nothing depends on removing it there.",
       "license": "MIT OR Apache-2.0",
       "contractStatus": "REQUIRED",
       "validation": "npm view wrangler license (verified 2026-08-27)"
