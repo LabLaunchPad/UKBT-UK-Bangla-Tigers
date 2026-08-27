@@ -21,7 +21,7 @@
   // docs (developers.cloudflare.com/workers/framework-guides/web-apps/astro/,
   // "If you want to use Astro as a static site generator, you do not need
   // the Astro Cloudflare adapter").
-  "name": "uk-bangla-tigers",
+  "name": "ukbt-uk-bangla-tigers",
   "compatibility_date": "2026-08-27",
   "assets": {
     "directory": "./apps/web/dist",

@@ -203,3 +203,30 @@ the deploy step.
 - No production deploy has been executed or verified from this session.
   The `HOST` line above is left as originally written for the historical
   record; this amendment is the current truth.
+
+## Amendment, 2026-08-27 (later same day): Worker renamed, `wrangler.jsonc` updated to match
+
+**What changed:** the owner renamed the connected Worker, in the
+Cloudflare dashboard, from `uk-bangla-tigers` to `ukbt-uk-bangla-tigers`
+(confirmed via the Cloudflare MCP connector's `workers_list` — same
+Worker `id.tag` `2aa808c47b0040a5a19b23aa0153ea0d` throughout, only the
+`name` field and `modified_on` changed). The dashboard surfaced this
+itself: a build-settings banner offered to auto-generate a PR updating
+`wrangler.jsonc`'s `name` to the new value, per Cloudflare's documented
+"Worker name must match `name` in the Wrangler config" build-fail mode
+(`developers.cloudflare.com/workers/ci-cd/builds/troubleshoot/#workers-name-requirement`).
+
+Every Workers Build on every branch had been failing instantly (0-second
+duration, no build steps ever ran, no log output) since the deployment
+wiring landed — consistent with this exact pre-build validation failing,
+not a code defect. `wrangler.jsonc`'s `name` is updated to
+`ukbt-uk-bangla-tigers` in this same commit rather than waiting on
+Cloudflare's auto-PR.
+
+**Also confirmed empty in the dashboard at the same time:** the **Build
+command** field showed `None` — never set to the
+`pnpm install --frozen-lockfile && pnpm run build` value this contract
+already called out above as owner-required. Both fixes are needed
+together; the name fix alone does not make the build produce output, and
+the build-command fix alone would still fail Cloudflare's pre-build name
+check.
