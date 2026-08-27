@@ -308,3 +308,43 @@ test('gold accent text always meets contrast, on every route', async ({
     ).toEqual([]);
   }
 });
+
+/**
+ * Stage 8 red team F6: Surface.astro extraction. Guards against the
+ * exact regression this migration produced once: Surface (a separate
+ * component) renders the wrapper div, so it never carries the calling
+ * component's own Astro scope attribute — a scoped `.some-class a { }`
+ * selector in the caller silently stops matching, with no build error,
+ * because the ancestor half of the selector can never match. Caught the
+ * first time only by axe's color-contrast check (the franchise link
+ * fell back to browser-default blue); asserted directly here so a
+ * repeat has a clear, specific failure instead of a generic axe dump.
+ */
+test('every Surface-wrapped panel still applies its component-specific descendant styling', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const checks = await page.evaluate(() => {
+    const get = (sel: string) => {
+      const el = document.querySelector<HTMLElement>(sel);
+      return el ? getComputedStyle(el).color : null;
+    };
+    return {
+      franchiseLink: get('.ukbt-franchise__cta a'),
+      tournamentCtaHeading: get('.ukbt-tournament-cta h3'),
+      aboutCtaHeading: get('.ukbt-about-cta__content h3'),
+      chooseUsIndex: get('.ukbt-chooseus__card--accent .ukbt-chooseus__index'),
+    };
+  });
+  // Browser-default link blue (#0000EE) is exactly what a silently-
+  // unmatched color rule falls back to — the actual regression.
+  const DEFAULT_LINK_BLUE = 'rgb(0, 0, 238)';
+  for (const [name, color] of Object.entries(checks)) {
+    expect(color, `${name}: no color computed at all`).not.toBeNull();
+    expect(color, `${name}: fell back to browser-default link color`).not.toBe(
+      DEFAULT_LINK_BLUE,
+    );
+  }
+  // The franchise link specifically must be gold, not just "not blue".
+  expect(checks.franchiseLink).toBe('rgb(204, 164, 79)');
+});

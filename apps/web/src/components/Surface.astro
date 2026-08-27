@@ -1,0 +1,84 @@
+---
+// Shared "dark/tinted rounded panel" primitive (Stage 8 red team F6).
+//
+// Found duplicated ~7 times across TournamentGrid, WhyChooseUs,
+// NewsTeaser, AboutCTA, and FranchiseTeaser: each independently declared
+// its own background + border-radius + padding for what is structurally
+// the same "panel" role, with no shared source. Two different radius
+// tokens (--ukbt-radius-lg vs --ukbt-radius-ref-card) were in use for
+// what the red-team receipt judged the same visual pattern — a real, if
+// minor, inconsistency, preserved here rather than silently unified,
+// since changing either token's value site-wide is a design decision
+// this extraction does not make.
+//
+// `background`/`foreground` take a raw `var(--ukbt-color-*)` reference
+// rather than a small fixed enum: the panels in use span
+// surface-background, surface-alt, surface-inverse, brand-accent, and
+// brand-primary, plus one conditional per-card override (WhyChooseUs's
+// accent card) — an enum would either miss a real token pairing or
+// require guessing which of two semantically-distinct-but-visually-
+// similar tokens (surface-background vs neutral-0) a caller meant.
+// Passthrough keeps every call site's exact original token, just
+// centralized instead of copy-pasted.
+//
+// Deliberately narrow: only the box itself (background/foreground +
+// radius + padding) is centralized. Content layout (flex direction,
+// gaps, typography, hover/focus treatment, per-instance overrides like
+// --ukbt-color-focus-ring) stays on each consuming component's own
+// wrapper class, exactly as before — Surface does not also try to own
+// content structure, which is exactly the contract gap the red team's
+// root-cause analysis identified in Card.astro (heading+body+link-only)
+// and did not recommend widening.
+interface Props {
+  /** e.g. `var(--ukbt-color-surface-inverse)` */
+  background: string;
+  /** e.g. `var(--ukbt-color-surface-inverse-foreground)` */
+  foreground?: string;
+  /**
+   * Preserves each call site's existing radius token exactly. Also
+   * accepts a raw CSS value (e.g. `0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg)`)
+   * for the one panel (FranchiseTeaser's CTA, which sits directly below
+   * an image forming one visual card) that needs an asymmetric radius —
+   * an inline override, not a cross-component CSS-cascade override,
+   * since Astro's per-component scoping can make cascade order between
+   * two different components' styles surprising (found the hard way
+   * fixing F3's footer-icon focus ring this session).
+   */
+  radius?: 'lg' | 'card' | (string & {});
+  /** Overrides the default padding with a raw `var(--ukbt-space-*)` value. */
+  padding?: string;
+  class?: string;
+}
+
+const { background, foreground, radius = 'lg', padding, class: className } = Astro.props;
+const isPreset = radius === 'lg' || radius === 'card';
+const style = [
+  `--ukbt-surface-bg:${background}`,
+  foreground ? `--ukbt-surface-fg:${foreground}` : '',
+  padding ? `--ukbt-surface-padding:${padding}` : '',
+  !isPreset ? `border-radius:${radius}` : '',
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div
+  class:list={['ukbt-surface', isPreset && `ukbt-surface--radius-${radius}`, className]}
+  style={style}
+>
+  <slot />
+</div>
+
+<style>
+  .ukbt-surface {
+    padding: var(--ukbt-surface-padding, var(--ukbt-space-6));
+    background: var(--ukbt-surface-bg);
+    color: var(--ukbt-surface-fg, inherit);
+  }
+  .ukbt-surface--radius-lg {
+    border-radius: var(--ukbt-radius-lg);
+  }
+  .ukbt-surface--radius-card {
+    border-radius: var(--ukbt-radius-ref-card);
+  }
+</style>

@@ -10,6 +10,7 @@
 // claim — the reference's own copy here is marketing about padel
 // facilities, which has no UKBT counterpart.
 import SectionHeader from './SectionHeader.astro';
+import Surface from './Surface.astro';
 
 interface Reason {
   title: string;
@@ -32,13 +33,22 @@ const { reasons } = Astro.props;
   </div>
   <div class="ukbt-chooseus__cards">
     {
-      reasons.map((r, i) => (
-        <div class={`ukbt-chooseus__card${i === 1 ? ' ukbt-chooseus__card--accent' : ''}`}>
-          <span class="ukbt-chooseus__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3>{r.title}</h3>
-          <p>{r.body}</p>
-        </div>
-      ))
+      reasons.map((r, i) => {
+        const accent = i === 1;
+        return (
+          <Surface
+            background={accent ? 'var(--ukbt-color-brand-accent)' : 'var(--ukbt-color-surface-background)'}
+            foreground={accent ? 'var(--ukbt-color-brand-accent-contrast)' : undefined}
+            radius="card"
+            padding="var(--ukbt-space-gap-4)"
+            class={`ukbt-chooseus__card${accent ? ' ukbt-chooseus__card--accent' : ''}`}
+          >
+            <span class="ukbt-chooseus__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{r.title}</h3>
+            <p>{r.body}</p>
+          </Surface>
+        );
+      })
     }
   </div>
 </div>
@@ -65,19 +75,19 @@ const { reasons } = Astro.props;
     grid-template-columns: 1fr 1fr;
     gap: var(--ukbt-space-gap-2);
   }
-  /* Reference `.card-chooseus`: column, 20px radius, 40px padding. */
-  .ukbt-chooseus__card {
+  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
+     red team F6) — this keeps only the layout, matching every other
+     migrated panel. Reference `.card-chooseus`: column, 20px radius,
+     40px padding — unchanged, just centralized. :global() because
+     Surface (a separate component) renders the div carrying this
+     class, so it never picks up WhyChooseUs's own Astro scope
+     attribute — a scoped selector would silently never match it (same
+     class of bug fixed in FranchiseTeaser.astro's
+     `.ukbt-franchise__cta`). */
+  :global(.ukbt-chooseus__card) {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-gap-1);
-    border-radius: var(--ukbt-radius-ref-card);
-    padding: var(--ukbt-space-gap-4);
-    background: var(--ukbt-color-surface-background);
-  }
-  /* The reference fills one card of the grid with its accent. */
-  .ukbt-chooseus__card--accent {
-    background: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
   }
   /* Navy, not gold. Gold on the white card measures 2.33:1 and fails even
      the 3:1 large-text threshold — the same trap already hit in
@@ -94,19 +104,19 @@ const { reasons } = Astro.props;
      #5c5a43 on gold — 2.99:1, just under the 3:1 large-text threshold.
      Opacity is invisible to a computed-`color` check, so only the axe
      scan caught it; solid values keep both guards effective. */
-  .ukbt-chooseus__card--accent .ukbt-chooseus__index {
+  :global(.ukbt-chooseus__card--accent) .ukbt-chooseus__index {
     color: var(--ukbt-color-brand-primary);
   }
-  .ukbt-chooseus__card h3 {
+  :global(.ukbt-chooseus__card) h3 {
     margin: 0;
     font-size: var(--ukbt-font-heading-h5-size);
   }
-  .ukbt-chooseus__card p {
+  :global(.ukbt-chooseus__card) p {
     margin: 0;
     font-size: var(--ukbt-font-heading-h6-size);
     color: var(--ukbt-color-neutral-700);
   }
-  .ukbt-chooseus__card--accent p {
+  :global(.ukbt-chooseus__card--accent) p {
     color: inherit;
   }
 

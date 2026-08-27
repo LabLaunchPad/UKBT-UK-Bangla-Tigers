@@ -24,6 +24,7 @@ const facts = [
   { label: 'Overseas Signings', body: 'Fields international players from England, Bangladesh, Portugal and Belgium.' },
 ];
 import SubHeading from './SubHeading.astro';
+import Surface from './Surface.astro';
 ---
 
 <div class="ukbt-franchise">
@@ -31,10 +32,16 @@ import SubHeading from './SubHeading.astro';
     <div class="ukbt-franchise__crest-panel">
       <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
     </div>
-    <div class="ukbt-franchise__cta">
+    <Surface
+      background="var(--ukbt-color-surface-inverse)"
+      foreground="var(--ukbt-color-surface-inverse-foreground)"
+      radius="0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg)"
+      padding="var(--ukbt-space-3) var(--ukbt-space-4)"
+      class="ukbt-franchise__cta"
+    >
       <h4>Meet {name}</h4>
       <a href="/franchises">See the franchise &rarr;</a>
-    </div>
+    </Surface>
   </div>
   <div class="ukbt-franchise__content-side">
     <SubHeading label="Our Franchises" />
@@ -78,21 +85,28 @@ import SubHeading from './SubHeading.astro';
     width: auto;
   }
   /* Mirrors .community-cta's role (a CTA anchored to the image) without
-     overlaying text on top of the photo itself. */
-  .ukbt-franchise__cta {
-    background: var(--ukbt-color-surface-inverse);
-    color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: 0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-3) var(--ukbt-space-4);
+     overlaying text on top of the photo itself. Box (background/radius/
+     padding) now owned by Surface.astro (Stage 8 red team F6) — this
+     class only carries what Surface doesn't: the focus-ring override. */
+  /* :global() on the ancestor class only: Surface.astro (a separate
+     component) now renders the div carrying this class, so it never
+     picks up FranchiseTeaser's own Astro scope attribute — a scoped
+     `.ukbt-franchise__cta ...` selector would silently never match it.
+     Found by a real regression: axe's color-contrast check caught the
+     link losing its gold color to browser-default blue once this rule
+     stopped matching (Stage 8 red team F6 migration). The descendant
+     part (h4/a, both written directly in this component's own slot
+     content) stays a normal scoped selector. */
+  :global(.ukbt-franchise__cta) {
     /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
        this navy panel; gold-on-navy measures 7+:1. */
     --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
-  .ukbt-franchise__cta h4 {
+  :global(.ukbt-franchise__cta) h4 {
     margin: 0 0 var(--ukbt-space-1) 0;
     font-size: var(--ukbt-font-size-1);
   }
-  .ukbt-franchise__cta a {
+  :global(.ukbt-franchise__cta) a {
     display: inline-flex;
     align-items: center;
     min-height: 24px;  /* WCAG 2.5.8 target-size floor; was a ~16px line box on mobile. */
