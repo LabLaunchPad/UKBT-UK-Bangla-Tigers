@@ -296,7 +296,13 @@ const isActive = (href: string) =>
       justify-content: center;
       gap: 5px;
       cursor: pointer;
-      padding: 10px 14px;
+      /* padding-block raised 10px -> 14px (measured 50x36 -> 50x44): a
+         mobile touch-target sweep found this button, the single most-used
+         mobile interactive element on the site, under the 44x44 HIG/
+         Material recommendation (WCAG 2.5.8's own floor is 24px, already
+         met — this is a usability improvement, not an a11y-compliance
+         fix). Width was already 50px, so only height needed to grow. */
+      padding: 14px 14px;
       border-radius: var(--ukbt-radius-ref-xs);
       background: var(--ukbt-color-brand-accent);
     }
@@ -360,12 +366,14 @@ const isActive = (href: string) =>
     padding: var(--ukbt-space-gap-2);
     border-bottom: 1px solid var(--ukbt-color-neutral-100);
   }
+  /* 36x36 -> 44x44 (mobile touch-target sweep): same 44x44 HIG/Material
+     minimum as .ukbt-header__toggle above. */
   .ukbt-header__close {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: var(--ukbt-radius-ref-circle);
     background: var(--ukbt-color-surface-alt);
     color: var(--ukbt-color-brand-primary);

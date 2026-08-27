@@ -90,6 +90,19 @@ reopen. `AboutStory.astro`'s pre-existing (non-flagged) h4-before-h2
 ordering was deliberately left alone — out of scope without an actual
 finding behind it.
 
+A third round (2026-08-27, `artifacts/review/MOBILE-TOUCH-TARGET-SWEEP.md`)
+measured every interactive element's tap target at 390×844 across all 16
+routes against the 44×44 HIG/Material recommendation (stricter than WCAG
+2.5.8's own 24px floor, which every route already passes per the existing
+`TARGET_GROUPS` checks in `mobile-ux.spec.ts`). Of 284 undersized elements
+found, all but two were text links whose ~24px hitbox is their own
+line-height — already deliberately accepted at the WCAG floor; inflating
+every nav/footer/social link site-wide would be a design-system-level
+redesign, out of scope here. The two genuine fixes were the header's
+icon-only nav-drawer toggle (50×36) and close (36×36) buttons — the
+single most-used mobile control on the site — both raised to 44×44, with
+new regression tests added to `mobile-ux.spec.ts`.
+
 ### 2.2 Release-gate gaps — `artifacts/receipts/RELEASE.md`
 
 Of the four gaps that receipt originally found:

@@ -136,6 +136,45 @@ for (const group of TARGET_GROUPS) {
   });
 }
 
+/**
+ * The header's nav-drawer toggle/close controls are icon-only buttons,
+ * not text links — held to the 44x44 HIG/Material recommendation, not
+ * just WCAG 2.5.8's 24px floor the TARGET_GROUPS above check. Found by a
+ * mobile touch-target sweep (2026-08-27): both measured under 44px on
+ * every route (toggle 50x36, close 36x36) despite being the single
+ * most-used mobile interactive element on the site.
+ */
+const ICON_BUTTONS = [
+  {
+    selector: '#ukbt-nav-toggle',
+    label: 'nav drawer toggle',
+    requiresOpen: false,
+  },
+  {
+    selector: '#ukbt-nav-close',
+    label: 'nav drawer close',
+    requiresOpen: true,
+  },
+];
+
+for (const btn of ICON_BUTTONS) {
+  test(`${btn.label} meets the 44x44 touch-target minimum at 390x844`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    if (btn.requiresOpen) {
+      await page.click('#ukbt-nav-toggle');
+      await page.waitForTimeout(400);
+    }
+    const box = await page.locator(btn.selector).boundingBox();
+    expect(box, `${btn.label} not found/rendered`).not.toBeNull();
+    const { width, height } = box ?? { width: 0, height: 0 };
+    expect(width, `${btn.label} width`).toBeGreaterThanOrEqual(44);
+    expect(height, `${btn.label} height`).toBeGreaterThanOrEqual(44);
+  });
+}
+
 test('no rendered text falls below the 12px legibility floor at 390x844', async ({
   page,
 }) => {
