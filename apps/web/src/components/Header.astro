@@ -41,6 +41,8 @@ const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
+<a href="#main-content" class="ukbt-skip-link">Skip to main content</a>
+
 <header class="ukbt-header" id="ukbt-header">
   <div class="ukbt-container ukbt-header__bar">
     <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
@@ -333,6 +335,24 @@ const isActive = (href: string) =>
     color: var(--ukbt-color-brand-accent-contrast);
     background: var(--ukbt-color-brand-accent);
     border-radius: var(--ukbt-radius-ref-xs);
+  }
+
+  /* Accessibility skip link for keyboard navigation */
+  .ukbt-skip-link {
+    position: absolute;
+    top: -9999px;
+    left: var(--ukbt-space-gap-2);
+    z-index: 100;
+    padding: var(--ukbt-space-gap-1) var(--ukbt-space-gap-2);
+    background: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: var(--ukbt-font-weight-bold);
+    text-decoration: none;
+    border-radius: var(--ukbt-radius-ref-xs);
+  }
+  .ukbt-skip-link:focus-visible {
+    top: var(--ukbt-space-gap-2);
   }
 
   /* Never the reference's invisible-outline defect. */
