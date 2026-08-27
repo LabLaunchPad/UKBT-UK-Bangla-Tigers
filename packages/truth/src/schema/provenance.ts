@@ -40,6 +40,35 @@ export type Provenanced<T> = z.infer<typeof ProvenanceMetaSchema> & {
 };
 
 /**
+ * RM-5 (contracts/DEPLOYMENT-CONTRACT.md's sibling finding,
+ * artifacts/receipts/RELEASE.md): the Stage-3 aggregate types below in
+ * content-types.ts (`ClubInfo`, `LeadershipMember`, `Player`, `Fixture`...)
+ * were authored before any real content existed and don't structurally
+ * match the per-field shape real content actually took
+ * (`{field, value, status, sources}` in apps/web/src/content/*.ts,
+ * validated only by the plain `ContentRecord` TypeScript interface in
+ * packages/truth/src/gate/types.ts — a type-only compile-time check with
+ * no runtime enforcement). This schema closes that gap directly: it's a
+ * Zod mirror of `ContentRecord` itself, so every real content file's
+ * per-field record is actually schema-validated — CONTENT-CONTRACT.md's
+ * "every field... carries the truth-gate metadata... as a structural part
+ * of the schema, not an optional bolt-on" — rather than forcing today's
+ * real facts into aggregate shapes they don't fit (a `Fixture` needs
+ * `opponent`/`venue`; a tournament-calendar entry has neither).
+ */
+export const ContentRecordSchema = z.object({
+  field: z.string().min(1),
+  value: z.unknown(),
+  status: ContentStatusSchema,
+  sources: z.array(RegistryIdSchema).nullable().optional(),
+  approver: z.string().min(1).nullable().optional(),
+  validUntil: z.coerce.date().nullable().optional(),
+  conflictingValue: z.unknown().optional(),
+  isPlaceholder: z.boolean().optional(),
+});
+export type ContentRecordInput = z.infer<typeof ContentRecordSchema>;
+
+/**
  * knowledge/07 placeholder discipline: a placeholder is machine-
  * distinguishable by this sentinel form, never a plausible-looking value.
  */

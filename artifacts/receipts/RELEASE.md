@@ -105,6 +105,24 @@ documented. `BLOCKED` remains the honest verdict — one category
 (content-schema conformance) is still genuinely absent — but the reason
 is now a single, scoped issue rather than three.
 
+**Update, 2026-08-27 (RM-5 resolved, commit pending):** owner decision was
+Option A (preserve the compile-time schema guarantee). Implementation
+found the Stage-3 aggregate schemas don't match real content's actual
+per-field shape (see `contracts/CONTENT-CONTRACT.md`'s 2026-08-27
+amendment for the full finding) and closed the gap at the shape real
+content uses instead: `ContentRecordSchema` in
+`packages/truth/src/schema/provenance.ts`, applied via `.parse()` in all
+five real content files, adversarially tested (an invalid `status` value
+now throws where it previously passed through the truth gate unflagged).
+21/21 unit tests pass (was 17; 4 new), full 204/205 Playwright suite
+re-run clean, build/typecheck/lint/dependency-allowlist all pass.
+**`RELEASE_STATUS` remains `BLOCKED`** — not because a gate failed, but
+because `main` itself has never received a merge (PR #1 is still an
+unreviewed draft with no branch protection) and the Cloudflare deployment
+wiring landed the same day has not yet completed a successful build. Both
+are process/deployment gaps, not code gates; see the PR for current
+status.
+
 Every gate that has ever run under this receipt has run clean — zero
 failures. `BLOCKED`, not `PASS`, because per this project's own rule,
 absence of evidence is not evidence of a passing gate, and a receipt

@@ -3,6 +3,7 @@
 // tournament-level only, no match-by-match fixtures/results exist in
 // evidence, so none are rendered.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
+import { ContentRecordSchema } from '@ukbt/truth/schema';
 
 const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
@@ -67,12 +68,14 @@ const events: { field: string; value: Tournament }[] = [
 ];
 
 for (const e of events) {
-  const rec: ContentRecord = {
+  // RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
+  // ContentRecordSchema doc comment.
+  const rec = ContentRecordSchema.parse({
     field: e.field,
     value: e.value,
     status: 'pending_review',
     sources: ['EV-026'],
-  };
+  }) as ContentRecord;
   const result = evaluate(rec, gateOptions);
   if (!result.passed) {
     throw new Error(

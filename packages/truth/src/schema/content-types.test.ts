@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { ClubInfoSchema, PlayerSchema } from './content-types.js';
-import { isPlaceholderSentinel, placeholderSentinel } from './provenance.js';
+import {
+  ContentRecordSchema,
+  isPlaceholderSentinel,
+  placeholderSentinel,
+} from './provenance.js';
 
 /**
  * Synthetic fixtures only — none of the values below is a real UK Bangla
@@ -45,6 +49,56 @@ describe('content schema — provenance envelope', () => {
         position: { value: 'Synthetic Position' },
         photoAssetId: { value: null },
         bio: { value: null },
+      }),
+    ).toThrow();
+  });
+});
+
+describe('ContentRecordSchema — RM-5 (real per-field content shape)', () => {
+  it('accepts a real content record shape as used by apps/web/src/content/*.ts', () => {
+    const parsed = ContentRecordSchema.parse({
+      field: 'org.tagline',
+      value: 'Synthetic tagline for schema testing only.',
+      status: 'pending_review',
+      sources: ['EV-TEST-001'],
+    });
+    expect(parsed.field).toBe('org.tagline');
+    expect(parsed.sources).toEqual(['EV-TEST-001']);
+  });
+
+  it('rejects an invalid status value the truth gate would otherwise silently fall through on', () => {
+    // gate/rules.ts's evaluate() only special-cases 'draft'; anything else
+    // proceeds through the full T1-T8 checks assuming a real status. A
+    // typo like 'publised' previously reached evaluate() unchecked — this
+    // is exactly the "structural part of the schema" gap RM-5 closes.
+    expect(() =>
+      ContentRecordSchema.parse({
+        field: 'org.tagline',
+        value: 'x',
+        status: 'publised',
+        sources: ['EV-TEST-001'],
+      }),
+    ).toThrow();
+  });
+
+  it('rejects an empty field name', () => {
+    expect(() =>
+      ContentRecordSchema.parse({
+        field: '',
+        value: 'x',
+        status: 'draft',
+        sources: null,
+      }),
+    ).toThrow();
+  });
+
+  it('rejects an empty-string registry id in sources (T2: registry ids, never free text)', () => {
+    expect(() =>
+      ContentRecordSchema.parse({
+        field: 'org.tagline',
+        value: 'x',
+        status: 'pending_review',
+        sources: [''],
       }),
     ).toThrow();
   });

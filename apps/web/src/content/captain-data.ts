@@ -8,6 +8,7 @@
 // during ingestion and are not retrievable in this session, so they are
 // rendered as plain text, never as a fabricated href.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
+import { ContentRecordSchema } from '@ukbt/truth/schema';
 
 const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
@@ -21,13 +22,19 @@ interface Fact<T> {
   value: T;
   sources: string[];
 }
+// RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
+// ContentRecordSchema doc comment.
 function record(f: Fact<unknown>): ContentRecord {
-  return {
+  // `as ContentRecord`: Zod already validated every field at runtime above;
+  // the cast reconciles a TS quirk where `z.unknown()` makes `value`
+  // structurally optional (unknown includes undefined) even though the
+  // object literal always supplies it.
+  return ContentRecordSchema.parse({
     field: f.field,
     value: f.value,
     status: 'pending_review',
     sources: f.sources,
-  };
+  }) as ContentRecord;
 }
 
 const facts = {

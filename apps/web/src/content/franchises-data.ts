@@ -6,6 +6,7 @@
 // matches this graphic's "Nipo Khadem" entry — excluded here, not
 // rendered.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
+import { ContentRecordSchema } from '@ukbt/truth/schema';
 
 const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
@@ -51,12 +52,14 @@ const roster: { field: string; value: Signing }[] = [
 ];
 
 for (const r of roster) {
-  const rec: ContentRecord = {
+  // RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
+  // ContentRecordSchema doc comment.
+  const rec = ContentRecordSchema.parse({
     field: r.field,
     value: r.value,
     status: 'pending_review',
     sources: ['EV-030'],
-  };
+  }) as ContentRecord;
   const result = evaluate(rec, gateOptions);
   if (!result.passed) {
     throw new Error(

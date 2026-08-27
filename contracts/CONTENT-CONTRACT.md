@@ -105,3 +105,50 @@ types are derived from.
 
 REVERSIBLE. No instance data exists yet; schema fields can be added or
 renamed freely until the first real content file is written against them.
+
+## Amendment, 2026-08-27: RM-5 resolved as Option A, with a real-shape finding
+
+**Owner decision (RM-5, `artifacts/receipts/RELEASE.md`):** preserve the
+compile-time/schema-validated provenance guarantee (Option A) rather than
+amend this contract down to runtime-only (Option B).
+
+**What implementing Option A actually found:** the aggregate types in
+`packages/truth/src/schema/content-types.ts` (`ClubInfo`,
+`LeadershipMember`, `Player`, `Fixture`, `Result`, `Statistic`) were
+authored at Stage 3, before any real content existed
+(`organization_facts_verified = 0` at the time). Once real content was
+gathered, it took a different, per-field shape —
+`{field, value, status, sources}`, one record per fact, e.g.
+`org.tagline`, `captain.dob`, `uppsala.signing.chowdhury` — validated only
+by the plain `ContentRecord` TypeScript interface in
+`packages/truth/src/gate/types.ts` and the truth gate's T1-T8 rules. None
+of the five real content files (`apps/web/src/content/*.ts`) actually
+matches an aggregate type's shape: a `Fixture` requires `opponent`/`venue`;
+a tournament-calendar entry (what `tournaments-data.ts` actually holds)
+has neither. Forcing that fit would mean inventing placeholder values for
+fields the content domain doesn't have — worse than the drift it would
+supposedly fix.
+
+**What was done instead, faithfully to Option A's actual invariant** (a
+new field lacking provenance metadata fails validation, not just a lint
+warning): added `ContentRecordSchema` to
+`packages/truth/src/schema/provenance.ts` — a Zod mirror of the
+`ContentRecord` interface itself, reusing `ContentStatusSchema` and
+`RegistryIdSchema`. Every one of the five real content files now calls
+`ContentRecordSchema.parse(...)` before `evaluate()` runs, closing the
+literal gap this contract's finding named ("no file under
+`apps/web/src/content/` imports or uses any of them") for the shape real
+content actually uses, rather than the shape speculated before any of it
+existed. Verified adversarially, not just asserted: a new test
+(`packages/truth/src/schema/content-types.test.ts`) confirms an invalid
+`status` value now throws at parse time — previously `gate/rules.ts`'s
+`evaluate()` only special-cases `'draft'` and would silently run a typo'd
+status (e.g. `'publised'`) through the full T1-T8 checks unflagged.
+
+**What is still open, recorded rather than silently dropped:** the
+Stage-3 aggregate types (`ClubInfo`, `LeadershipMember`, `Player`,
+`Fixture`, `Result`, `Statistic`) remain unused by any real content file.
+Whether to reshape real content to populate them, retire them, or leave
+them as forward-looking schemas for content types not yet gathered
+(fixtures/results genuinely don't exist yet) is a separate, smaller
+decision than RM-5 was — not resolved here, not invented as a default.
