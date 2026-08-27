@@ -230,3 +230,51 @@ already called out above as owner-required. Both fixes are needed
 together; the name fix alone does not make the build produce output, and
 the build-command fix alone would still fail Cloudflare's pre-build name
 check.
+
+## Amendment, 2026-08-27 (third): `workers-deploy` GitHub Actions job — missing install step, then missing root-level `wrangler`
+
+**What changed:** a second, independent deploy path exists alongside
+Cloudflare's own Workers Builds — `.github/workflows/ci.yml`'s
+`workers-deploy` job, which runs `cloudflare/wrangler-action@v4` on every
+push to `main` after the full CI gate set passes. Investigating an
+instant failure in that job (`Unable to locate executable file: pnpm`)
+surfaced two stacked defects, fixed as two separate commits:
+
+1. The job checked out the repo and downloaded the built `dist/` artifact
+   but never ran `pnpm install` at all — so `pnpm`/Node were present
+   (`pnpm/action-setup`, `actions/setup-node`) but no `node_modules`
+   existed for `wrangler-action` to find `wrangler` in. Fixed by adding
+   `pnpm install --frozen-lockfile` immediately before the deploy step.
+2. With `node_modules` now present, `wrangler-action`'s own
+   `pnpm exec wrangler --version` check still failed
+   (`ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL`), and its fallback install
+   attempt (`pnpm add wrangler@4`) failed too
+   (`ERR_PNPM_ADDING_TO_ROOT`) — verified against the actual job log, not
+   assumed. Root cause: `wrangler` was declared only in
+   `apps/web/package.json`, but both `wrangler-action` and Cloudflare's
+   own dashboard deploy command run `pnpm exec`/`npx wrangler` from the
+   **repository root** (where `wrangler.jsonc` lives, per the first
+   amendment above). A devDependency declared in a workspace member is
+   invisible to `pnpm exec`/`pnpm add` invoked at the workspace root; pnpm
+   also refuses to silently add a dependency to the root package without
+   an explicit `-w` flag neither action passes. Fixed by declaring
+   `wrangler` as a root-level devDependency too (kept in `apps/web` as
+   well — nothing requires removing it there), verified locally: `pnpm
+   exec wrangler --version` now resolves to `4.126.0` from the repo root,
+   and `npx wrangler deploy --dry-run` reads all 49 files from
+   `apps/web/dist` and reports `--dry-run: exiting now` with no error.
+
+This is the same root cause the first amendment's `DEPLOYMENT-CONTRACT.md`
+prose already named for Cloudflare's own dashboard build path ("Workers
+Builds will use the Wrangler version set in your package.json") without
+it being fixed there yet either — `npx wrangler` silently falls back to
+the latest published version when it can't find a local install, which is
+why the dashboard path deployed successfully despite the same underlying
+mismatch; `wrangler-action` has no such silent fallback and fails hard
+instead. Declaring `wrangler` at root fixes the pinned-version gap for
+both paths, not just the GitHub Actions one.
+
+**Not yet confirmed:** the actual `workers-deploy` job run on the push
+that carries this fix. Verify against the next push-to-main CI run's
+"Workers deploy (GitHub Actions)" job conclusion before treating this as
+resolved.
