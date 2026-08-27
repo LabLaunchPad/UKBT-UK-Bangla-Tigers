@@ -240,10 +240,36 @@ const year = new Date().getFullYear();
   /* Stage 8 red team F3: the social icons' own fill is already gold, so
      the rule above paints a gold ring on a gold tile (~1:1). Navy
      contrasts 7.2:1 against gold (Button.astro) — override back to it
-     for just this element. Higher specificity than the rule above
-     (adds the element type) so it wins regardless of source order. */
-  a.ukbt-footer__social-icon:focus-visible {
+     for just this element.
+     The previous version of this rule (`a.ukbt-footer__social-icon`,
+     no ancestor qualifier) never actually won: Astro's per-component
+     scoping attribute gets appended to *every* compound selector in a
+     rule, so the rule above — `.ukbt-footer a:focus-visible` — became
+     `.ukbt-footer[data-astro-cid] a[data-astro-cid]:focus-visible`,
+     two scoping attributes instead of one, which out-specifies a
+     same-shape rule with only one. Verified against the live CSSOM
+     (`el.matches()` against both selectors) and against a real
+     rendered focus screenshot: the ring was gold-on-gold, invisible.
+     Qualifying with the same `.ukbt-footer` ancestor makes both rules
+     pick up the scoping attribute an equal number of times, so this
+     rule's own extra class (`.ukbt-footer__social-icon`) is what
+     decides it, independent of the compiler's scoping mechanics.
+
+     `outline-offset` also needs to change, not just color. The base
+     2px offset pushes the ring outside the 32x32 gold tile, onto the
+     footer's own navy background — so one side of a navy ring sits on
+     gold (7.2:1, fine) and the other sits on navy (1:1, invisible
+     there). No single solid color can fix both sides at once: navy's
+     and gold's relative luminances (0.012 and 0.399) are far enough
+     apart that no third color reaches 3:1 against both simultaneously
+     (verified by solving the WCAG contrast formula for both
+     constraints — no solution exists). A negative offset keeps the
+     ring entirely inside the tile, where the only adjacent color is
+     ever gold, at 7.2:1, both sides. -6px clears the 16px icon glyph
+     (padding 0.5em ~= 8px) comfortably on a 32-44px tile. */
+  .ukbt-footer a.ukbt-footer__social-icon:focus-visible {
     outline-color: var(--ukbt-color-brand-primary);
+    outline-offset: -6px;
   }
 
   @media screen and (max-width: 1025px) {
