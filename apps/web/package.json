@@ -6,7 +6,7 @@
   "description": "UK Bangla Tigers production website (Astro, static output). See contracts/REPOSITORY-CONTRACT.md.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm --filter @ukbt/truth tokens:build && astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test:e2e": "playwright test"
