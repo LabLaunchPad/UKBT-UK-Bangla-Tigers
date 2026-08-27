@@ -46,7 +46,7 @@ import SubHeading from '../components/SubHeading.astro';
             {
               uppsalaFacts.map((f) => (
                 <li>
-                  <h4>{f.title}</h4>
+                  <h3>{f.title}</h3>
                   <p>{f.body}</p>
                 </li>
               ))
@@ -97,7 +97,10 @@ import SubHeading from '../components/SubHeading.astro';
     flex-direction: column;
     gap: var(--ukbt-space-4);
   }
-  .ukbt-franchise-intro__facts h4 {
+  /* Promoted from h4 to h3 (mobile axe-core sweep across all 16 routes:
+     this list sits directly after this page's own h2 with no h3
+     between). Explicit size keeps the pre-existing visual weight. */
+  .ukbt-franchise-intro__facts h3 {
     margin: 0;
     font-size: var(--ukbt-font-size-1);
   }

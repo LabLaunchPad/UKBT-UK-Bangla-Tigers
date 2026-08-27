@@ -18,7 +18,7 @@ const { players } = Astro.props;
   {
     players.map((p) => (
       <div class="ukbt-roster-card">
-        <h4>{p.name}</h4>
+        <h3>{p.name}</h3>
         <p class="ukbt-roster-card__country">{p.country}</p>
         {p.note && <p class="ukbt-roster-card__note">{p.note}</p>}
       </div>
@@ -38,7 +38,12 @@ const { players } = Astro.props;
     padding: var(--ukbt-space-4);
     border-top: 3px solid var(--ukbt-color-brand-accent);
   }
-  .ukbt-roster-card h4 {
+  /* Promoted from h4 to h3 (found by a mobile axe-core sweep across all
+     16 routes: this component's only call site, /franchises, puts it
+     directly after an h2 with no h3 between — the same class of gap F4
+     fixed on the homepage, but never checked page-by-page). Explicit
+     size keeps the pre-existing visual weight. */
+  .ukbt-roster-card h3 {
     margin: 0 0 var(--ukbt-space-1) 0;
     font-size: var(--ukbt-font-size-1);
   }

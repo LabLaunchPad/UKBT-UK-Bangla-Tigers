@@ -76,6 +76,20 @@ horizontal scroll on `/club-captain` at 320/360px, which the frozen
 visual-regression matrix cannot see because its narrowest viewport is
 390px.
 
+A further follow-on round (2026-08-27, `artifacts/review/MOBILE-AXE-HEADING-ORDER.md`)
+found that `playwright.config.ts`'s only project is Desktop Chrome, so
+every axe-core scan in the suite had only ever run at desktop viewport —
+no route had a full accessibility scan at mobile width before this round.
+A dedicated mobile sweep across all 16 routes found 4 real `heading-order`
+violations (`/about`, `/franchises` ×2, `/community`) — the same class of
+bug as F4, but F4's fix and check were scoped to the homepage only — plus
+an H1→H3 skip on `/404` (the only route with no H2 of its own). All fixed;
+a new permanent regression test, `tests/visual/mobile-axe.spec.ts`, sweeps
+all 16 routes at mobile viewport so this class of gap can't silently
+reopen. `AboutStory.astro`'s pre-existing (non-flagged) h4-before-h2
+ordering was deliberately left alone — out of scope without an actual
+finding behind it.
+
 ### 2.2 Release-gate gaps — `artifacts/receipts/RELEASE.md`
 
 Of the four gaps that receipt originally found:

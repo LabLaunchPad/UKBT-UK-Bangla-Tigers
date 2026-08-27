@@ -31,7 +31,7 @@ import SubHeading from './SubHeading.astro';
     {
       facts.map((f) => (
         <div class="ukbt-mission__fact">
-          <h4>{f.title}</h4>
+          <h3>{f.title}</h3>
           <p>{f.body}</p>
         </div>
       ))
@@ -71,7 +71,10 @@ import SubHeading from './SubHeading.astro';
     padding: var(--ukbt-space-4);
     border-top: 3px solid var(--ukbt-color-brand-accent);
   }
-  .ukbt-mission__fact h4 {
+  /* Promoted from h4 to h3 (mobile axe-core sweep across all 16 routes:
+     these facts sit directly after this component's own h2 above, with
+     no h3 between). Explicit size keeps the pre-existing visual weight. */
+  .ukbt-mission__fact h3 {
     margin: 0;
     font-size: var(--ukbt-font-size-1);
   }
