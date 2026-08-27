@@ -5,6 +5,8 @@
 // and two smaller event cards [.other-tournament-container: 1fr 1fr]).
 // Reimplemented with UKBT's real tournament calendar (EV-20260826-026) —
 // no fictional event, date, or prize value.
+import Surface from './Surface.astro';
+
 interface Tournament {
   name: string;
   when: string;
@@ -18,7 +20,12 @@ const { mainEvent, otherEvents } = Astro.props;
 ---
 
 <div class="ukbt-tournament-grid">
-  <div class="ukbt-tournament-card ukbt-tournament-card--main">
+  <Surface
+    background="var(--ukbt-color-surface-inverse)"
+    foreground="var(--ukbt-color-surface-inverse-foreground)"
+    padding="var(--ukbt-space-4)"
+    class="ukbt-tournament-card ukbt-tournament-card--main"
+  >
     <div class="ukbt-tournament-tags">
       <span>Upcoming</span>
       <span>International</span>
@@ -31,20 +38,29 @@ const { mainEvent, otherEvents } = Astro.props;
         <span>{mainEvent.where}</span>
       </div>
     </div>
-  </div>
+  </Surface>
 
   <div class="ukbt-tournament-side">
-    <div class="ukbt-tournament-cta">
+    <Surface
+      background="var(--ukbt-color-brand-accent)"
+      foreground="var(--ukbt-color-brand-accent-contrast)"
+      class="ukbt-tournament-cta"
+    >
       <div>
         <h3>Follow the Tigers</h3>
         <p>Every tournament, every result — straight from the club.</p>
         <a href="/tournaments" class="ukbt-tournament-cta__link">See all tournaments &rarr;</a>
       </div>
-    </div>
+    </Surface>
     <div class="ukbt-tournament-others">
       {
         otherEvents.map((t) => (
-          <div class="ukbt-tournament-card">
+          <Surface
+            background="var(--ukbt-color-surface-inverse)"
+            foreground="var(--ukbt-color-surface-inverse-foreground)"
+            padding="var(--ukbt-space-4)"
+            class="ukbt-tournament-card"
+          >
             <div class="ukbt-tournament-tags">
               <span>Upcoming</span>
             </div>
@@ -55,7 +71,7 @@ const { mainEvent, otherEvents } = Astro.props;
                 <span>{t.where}</span>
               </div>
             </div>
-          </div>
+          </Surface>
         ))
       }
     </div>
@@ -69,17 +85,19 @@ const { mainEvent, otherEvents } = Astro.props;
     grid-template-columns: 0.32fr 0.68fr;
     gap: var(--ukbt-space-6);
   }
-  .ukbt-tournament-card {
-    background: var(--ukbt-color-surface-inverse);
-    color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-4);
+  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
+     red team F6) — this class only carries layout. :global() because
+     Surface (a separate component) renders the div carrying this class,
+     so it never picks up TournamentGrid's own Astro scope attribute — a
+     scoped selector would silently never match it (same class of bug
+     fixed in FranchiseTeaser.astro's `.ukbt-franchise__cta`). */
+  :global(.ukbt-tournament-card) {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     min-height: 12rem;
   }
-  .ukbt-tournament-card--main {
+  :global(.ukbt-tournament-card--main) {
     min-height: 22rem;
   }
   .ukbt-tournament-tags {
@@ -112,16 +130,13 @@ const { mainEvent, otherEvents } = Astro.props;
     gap: var(--ukbt-space-6);
   }
   /* .card-tournament.tournament-cta: grid-template-columns 1fr 1fr */
-  .ukbt-tournament-cta {
-    background: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-6);
-  }
-  .ukbt-tournament-cta h3 {
+  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
+     red team F6). :global() on the ancestor for the same reason as
+     .ukbt-tournament-card above. */
+  :global(.ukbt-tournament-cta) h3 {
     margin: 0 0 var(--ukbt-space-2) 0;
   }
-  .ukbt-tournament-cta p {
+  :global(.ukbt-tournament-cta) p {
     margin: 0 0 var(--ukbt-space-2) 0;
   }
   .ukbt-tournament-cta__link {

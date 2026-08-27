@@ -30,7 +30,7 @@ gate changes state, not the paragraph prose elsewhere.
 | 5 | Design system | DONE | `artifacts/ui/DESIGN-SYSTEM.md` |
 | 6 | Reference analysis | DONE (evidence-based, not live-template) | `artifacts/ui/REFERENCE-ANALYSIS.md`, `knowledge/06-TEMPLATE-BOUNDARY.yaml` |
 | 7 | Homepage | DONE | `artifacts/pages/HOMEPAGE-CONTRACT.md`, `artifacts/receipts/HOMEPAGE.md` |
-| 8 | Independent homepage red team | DONE, 7 of 8 findings remediated (only F6, an owner-scoped refactor decision, remains) | `artifacts/review/HOMEPAGE-REDTEAM.md` — see § 2.1 below |
+| 8 | Independent homepage red team | DONE, all 8 findings remediated (F8 has one deliberate, documented partial exception) | `artifacts/review/HOMEPAGE-REDTEAM.md` — see § 2.1 below |
 | 9 | Scale to remaining pages | DONE for route count (16 routes exist under `apps/web/src/pages/`) — content completeness is a separate, **partially blocked** item, see § 3 | route list: `about, club-captain, coaching, community, contact, design-system, faq, franchises, index, join, membership, news(+[slug]), players, services, tournaments, 404` |
 | 10 | Full-site verification & release | **BLOCKED** | `artifacts/receipts/RELEASE.md` — `RELEASE_STATUS = BLOCKED`; see § 2.2 |
 | 11 | Adaptive learning + replay | NOT STARTED | gated on Stage 10 passing first |
@@ -56,7 +56,7 @@ findings (F1–F8), severities as scored in that receipt:
 | F3 | HIGH | Focus-indicator contrast failure on every dark-background interactive element (real WCAG 1.4.11 failure, invisible to the existing outline-presence test) | **CLOSED** 2026-08-27 — see `artifacts/review/F3-FOCUS-CONTRAST-FIX.md`. Re-verified against current code first: 4 of 5 originally-flagged groups already carried a working per-surface `--ukbt-color-focus-ring` fix; only the footer social icons still failed, for a real reason the original fix comment got wrong (a CSS-specificity bug meant its override never applied). Fixed with an inset (negative-offset) ring, the only geometry where a single solid color can pass 3:1 against both the icon's gold tile and the page's navy at once (no such color exists for a ring that straddles both — proven by solving the WCAG formula for both constraints simultaneously). |
 | F4 | MEDIUM | Heading hierarchy skips levels four times; the "0 axe violations" claim only holds for a filtered rule subset | **CLOSED** — re-verified 2026-08-27: current build's heading sequence (`grep -oE "<h[1-6]" dist/index.html`) has zero level-skips, and `homepage.spec.ts`'s axe scan already includes the `best-practice` tag (catches `heading-order`) and passes with 0 violations. Fixed by earlier work, never reconciled back into this doc. |
 | F5 | MEDIUM | Identical primary CTA ("Join the Club" → `/contact`) duplicated three times on one page | **CLOSED** — re-verified 2026-08-27: `AboutCTA.astro`'s button no longer says "Join the Club"; it reads "Follow on {platform}" and links to the club's social profile, per the red team's own required fix. Header and Hero keep the join CTA (two instances, not three). |
-| F6 | LOW-MEDIUM | The "dark rounded panel" surface pattern is hand-rolled ~7 times instead of composing `Card.astro` | **OPEN — owner decision needed, not urgent.** The red team's own verdict: "none of the seven currently disagrees visually," fix before an 8th is added. Extracting a shared `Surface`/`Panel` primitive is a design-system-shape decision (what props it takes, whether `Card.astro` itself gets rebuilt on top of it), not a same-color token swap like F8 — deferred here rather than decided unilaterally. |
+| F6 | LOW-MEDIUM | The "dark rounded panel" surface pattern is hand-rolled ~7 times instead of composing `Card.astro` | **CLOSED** 2026-08-27 — owner decision: implement now. See `artifacts/review/F6-SURFACE-PRIMITIVE.md`. New `Surface.astro` primitive (background/foreground/radius/padding only, raw token passthrough not a fixed enum) migrated into 4 of 5 flagged components (`NewsTeaser` deliberately excluded — an `<a>`-element card with a different box model, not a clean fit). Verified zero visual change via direct computed-style comparison. Migrating surfaced and fixed a real regression: Astro's per-component scoping meant several `.some-class descendant` selectors silently stopped matching once `Surface` (a separate component) rendered the ancestor div — caught by the existing axe/contrast tests, fixed with `:global()`, and given a dedicated regression test. |
 | F7 | LOW | Structured data omits the founding year even though the fact is available on the same page | **CLOSED** — re-verified 2026-08-27: `index.astro`'s `structuredData` already includes `foundingDate: homepage.founded`; confirmed in the built output (`dist/index.html`'s JSON-LD has `"foundingDate":"2020"`). Fixed by earlier work, never reconciled back into this doc. |
 | F8 | LOW | Hard-coded `rgba()`/`rgb()` literals (should reference design tokens) | **CLOSED** 2026-08-27, mostly. 3 of 4 literals (`SubHeading.astro`, `Footer.astro` ×2 — all white-at-opacity) converted to `color-mix(in srgb, var(--ukbt-color-neutral-0) N%, transparent)` — same rendered color (verified: computes to `color(srgb 1 1 1 / 0.08)`, bit-identical to the old `rgb(255 255 255 / 8%)`), token reference only. The 4th (`Header.astro`'s `rgb(0 0 0 / 53%)` drawer-overlay scrim) was deliberately left as a literal: it's a true-black dim, and the closest token (`neutral-900`, `#17181c`) is not true black — swapping it in would be a real color shift, not a same-color reference, so it's recorded as a genuine gap rather than silently "fixed" with a slightly different color. |
 
@@ -65,10 +65,9 @@ F1–F8 have been fixed". That was written from the red-team receipt
 without re-verifying against current code — the exact
 "historical evidence is not current evidence" failure `CLAUDE.md` warns
 about, and one this doc kept re-committing on later findings too (F4/F5/F7
-were already fixed by the time this doc first listed them as OPEN). Of
-the eight findings: **F1, F2, F3, F4, F5, F7, and (mostly) F8 are now
-closed. Only F6 remains open**, and it's explicitly an owner-scoped
-refactor decision, not a bug.
+were already fixed by the time this doc first listed them as OPEN). **All
+eight findings are now closed** (F8 has one deliberate, documented partial
+exception — see its row above).
 
 A separate mobile-only visual QA pass (2026-08-27,
 `artifacts/review/MOBILE-VISUAL-QA.md`) found and fixed six further
@@ -204,13 +203,13 @@ In priority order, next real work is:
    were already fixed by earlier work and are now correctly marked
    closed (see § 2.1); F8 closed for 3 of 4 literals, 1 left as a
    documented, deliberate gap (see § 2.1).
-5. Decide on F6 (§ 2.1 — extract a shared `Surface`/`Panel` primitive,
-   or accept the current hand-rolled duplication until an 8th instance
-   is added) — owner call, not urgent per the red team's own verdict.
+5. ~~Decide on F6~~ — **done**, 2026-08-27: owner chose to implement now.
+   `Surface.astro` primitive shipped, migrated into 4 of 5 flagged
+   components. See § 2.1.
 6. Decide (A) or (B) for the content-schema drift (§ 2.2 item 3).
 7. Apply branch protection to `main` (§ 2.3 — owner action).
 8. Work through `CLIENT-ASK-LIST.md` (§ 3) as the club supplies each item.
-9. Only once 5–7 are closed: re-run the Stage 10 release gate
+9. Only once 6–7 are closed: re-run the Stage 10 release gate
    (`prompts/06-release-gate.md`) end-to-end and expect
    `RELEASE_STATUS = PASS` before calling the site launch-ready.
 

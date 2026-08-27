@@ -13,6 +13,7 @@
 // it links to the first listed social platform rather than restating
 // the site-wide join CTA a third time.
 import Button from './Button.astro';
+import Surface from './Surface.astro';
 
 interface Social {
   platform: string;
@@ -27,7 +28,11 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <div class="ukbt-about-cta">
-  <div class="ukbt-about-cta__content">
+  <Surface
+    background="var(--ukbt-color-brand-accent)"
+    foreground="var(--ukbt-color-brand-accent-contrast)"
+    class="ukbt-about-cta__content"
+  >
     <h3>Follow the Tigers</h3>
     <p>Stay with every match, signing, and tournament as it happens.</p>
     {primarySocial && (
@@ -37,8 +42,12 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
         variant="primary"
       />
     )}
-  </div>
-  <div class="ukbt-about-cta__benefit">
+  </Surface>
+  <Surface
+    background="var(--ukbt-color-surface-inverse)"
+    foreground="var(--ukbt-color-surface-inverse-foreground)"
+    class="ukbt-about-cta__benefit"
+  >
     <p class="ukbt-about-cta__benefit-lede">
       Stay connected across every platform we play on.
     </p>
@@ -51,7 +60,7 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
         ))
       }
     </ul>
-  </div>
+  </Surface>
 </div>
 
 <style>
@@ -61,30 +70,28 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     grid-template-columns: 5fr 7fr;
     gap: var(--ukbt-space-6);
   }
-  .ukbt-about-cta__content,
-  .ukbt-about-cta__benefit {
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-6);
-  }
+  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
+     red team F6) — these two classes only carry layout. :global()
+     because Surface (a separate component) renders the div carrying
+     each class, so it never picks up AboutCTA's own Astro scope
+     attribute — a scoped selector would silently never match it (same
+     class of bug fixed in FranchiseTeaser.astro's
+     `.ukbt-franchise__cta`). */
   /* .cta-content: accent-forward */
-  .ukbt-about-cta__content {
-    background: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
+  :global(.ukbt-about-cta__content) {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-3);
     align-items: flex-start;
   }
-  .ukbt-about-cta__content h3 {
+  :global(.ukbt-about-cta__content) h3 {
     margin: 0;
   }
-  .ukbt-about-cta__content p {
+  :global(.ukbt-about-cta__content) p {
     margin: 0;
   }
   /* .cta-benefit: neutral surface */
-  .ukbt-about-cta__benefit {
-    background: var(--ukbt-color-surface-inverse);
-    color: var(--ukbt-color-surface-inverse-foreground);
+  :global(.ukbt-about-cta__benefit) {
     display: flex;
     flex-direction: column;
     justify-content: center;
