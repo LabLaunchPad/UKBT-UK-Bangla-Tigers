@@ -162,6 +162,24 @@ const isActive = (href: string) =>
     padding-block: var(--ukbt-space-gap-2);
     width: 100%;
   }
+  /* Reference navbar padding steps with viewport (20px mobile / 40px
+     tablet / 60px desktop — EV-20260826-032, reference-geometry.json
+     navbar.padTop at 430/390, 1024/768, 1440/1280 respectively), giving
+     measured heights of ~98-102px / 126-142px / 162px. The flat 20px
+     used here previously matched only the mobile band, making the header
+     37% shorter than the reference at desktop widths. Breakpoints reuse
+     this component's own existing bands (768px = hero stack, 1280px =
+     nav-collapse) rather than introducing new ones. */
+  @media screen and (min-width: 768px) {
+    .ukbt-header__bar {
+      padding-block: var(--ukbt-space-gap-4);
+    }
+  }
+  @media screen and (min-width: 1280px) {
+    .ukbt-header__bar {
+      padding-block: 60px;
+    }
+  }
   .ukbt-header__brand {
     display: flex;
     align-items: center;
