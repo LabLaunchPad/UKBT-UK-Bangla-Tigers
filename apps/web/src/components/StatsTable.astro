@@ -12,7 +12,22 @@ interface Props {
 const { caption, headers, rows } = Astro.props;
 ---
 
-<div class="ukbt-stats-table-wrap">
+{/*
+  The wrapper scrolls horizontally: measured at 320-430px the table is a
+  fixed 491px (cells are `white-space: nowrap`, correctly — wrapped score
+  columns are harder to read), so 61-171px of it sits off-screen on a
+  phone. A scroll container reachable only by dragging is a WCAG 2.1.1
+  (Keyboard) failure, so it is exposed as a focusable, named region:
+  `tabindex="0"` lets a keyboard user scroll it with the arrow keys, and
+  role+aria-label mean a screen reader announces what the region is
+  rather than an unlabelled scrollable box.
+*/}
+<div
+  class="ukbt-stats-table-wrap"
+  tabindex="0"
+  role="region"
+  aria-label={caption}
+>
   <table class="ukbt-stats-table">
     <caption>{caption}</caption>
     <thead>

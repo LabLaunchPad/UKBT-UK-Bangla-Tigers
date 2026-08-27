@@ -35,6 +35,13 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
+/* Defensive: a proper noun longer than its container must wrap rather
+   than force page-level horizontal scroll on a narrow phone. Names are
+   client-supplied content, so this cannot be guaranteed by copy length. */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
 h1 {
   font-size: var(--ukbt-font-heading-h1-size);
   font-weight: var(--ukbt-font-heading-h1-weight);
@@ -81,7 +88,13 @@ p {
 }
 
 @media screen and (max-width: 767px) {
-  h1 { font-size: var(--ukbt-font-heading-h1-size-sm); }
+  /* The -sm heading tokens are single fixed values covering 320px-767px.
+     At 50px, a single long word ("Chowdhury" on /club-captain) measures
+     316px min-content against a 280px container at 320px wide, forcing
+     real page-level horizontal scroll — measured, not assumed. `min()`
+     keeps the approved token as the ceiling (unchanged at >=384px) and
+     only scales below it, so no token value is redefined here. */
+  h1 { font-size: min(var(--ukbt-font-heading-h1-size-sm), 13vw); }
   h2 { font-size: var(--ukbt-font-heading-h2-size-sm); }
   h3 { font-size: var(--ukbt-font-heading-h3-size-sm); }
   h4 { font-size: var(--ukbt-font-heading-h4-size-sm); }

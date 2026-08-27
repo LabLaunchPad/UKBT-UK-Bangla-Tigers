@@ -51,7 +51,7 @@ findings (F1–F8), severities as scored in that receipt:
 
 | Finding | Severity | What | Status |
 |---|---|---|---|
-| F1 | HIGH | Mobile/tablet nav drawer is 100% keyboard-inoperable | **OPEN** |
+| F1 | HIGH | Mobile/tablet nav drawer is 100% keyboard-inoperable | **CLOSED** — was already fixed before this entry was written; listing it as OPEN was an error, corrected 2026-08-27. Verified empirically at 390×844 (`artifacts/review/MOBILE-VISUAL-QA.md`): toggle reachable on Tab #3, Enter opens, all 8 links tab-reachable, Escape closes and restores focus. Two *new* drawer defects found during that verification (no focus containment, no background scroll lock) were fixed in the same pass. |
 | F2 | HIGH | Homepage silently expands beyond the frozen `HOMEPAGE-CONTRACT.md` structure (WhyChooseUs/AcademySection/AboutCTA present but not in the approved 8-section list) | **OPEN** — needs a re-approval decision (extend the contract, or cut the sections), not a silent pick either way |
 | F3 | HIGH | Focus-indicator contrast failure on every dark-background interactive element (real WCAG 1.4.11 failure, invisible to the existing outline-presence test) | **OPEN** |
 | F4 | MEDIUM | Heading hierarchy skips levels four times; the "0 axe violations" claim only holds for a filtered rule subset | **OPEN** |
@@ -60,13 +60,22 @@ findings (F1–F8), severities as scored in that receipt:
 | F7 | LOW | Structured data omits the founding year even though the fact is available on the same page | **OPEN** |
 | F8 | LOW | Hard-coded `rgba()` literals (should reference design tokens) | **OPEN** |
 
-F1 is disqualifying on its own — a keyboard-only user cannot open the
-primary nav on mobile/tablet — and F2 compounds it by shipping unapproved
-scope. Per the red-team receipt's own verdict, this is why Stage 8 does
-not read as a clean PASS today. None of F1–F8 have been fixed as of this
-update; they were out of scope for the nav/hero viewport-parity work done
-earlier this session (`Header.astro` padding fix, PR #7) and for the
-CI/deploy fixes (PRs #9, #10).
+**Corrected 2026-08-27:** the sentence previously here said "none of
+F1–F8 have been fixed". That was written from the red-team receipt
+without re-verifying against current code — the exact
+"historical evidence is not current evidence" failure `CLAUDE.md` warns
+about. F1 was in fact already fixed. F2–F8 remain open as listed above.
+F2 is now the most serious outstanding red-team item: the page that
+ships carries three sections the frozen `HOMEPAGE-CONTRACT.md` does not
+admit, which needs a re-approval decision (extend the contract, or cut
+the sections) rather than a silent fix either way.
+
+A separate mobile-only visual QA pass (2026-08-27,
+`artifacts/review/MOBILE-VISUAL-QA.md`) found and fixed six further
+mobile defects not in the F1–F8 set — including real page-level
+horizontal scroll on `/club-captain` at 320/360px, which the frozen
+visual-regression matrix cannot see because its narrowest viewport is
+390px.
 
 ### 2.2 Release-gate gaps — `artifacts/receipts/RELEASE.md`
 
@@ -140,6 +149,16 @@ Workers deploy after the four stacked fixes above.
 
 ### 2.4 Minor, informational, not blocking anything
 
+- **`crest-512.png` is supplied at 512px into 44-106px mobile slots**
+  (4.8x-11.6x oversupply, measured 2026-08-27). Real mobile transfer-size
+  waste. Closing it means generating smaller raster variants and updating
+  `apps/web/src/assets/MANIFEST.md` provenance — asset work, not a CSS fix.
+- **Frozen visual-regression matrix has no viewport below 390px**
+  (`contracts/VISUAL-REGRESSION-CONTRACT.md`). A real horizontal-scroll
+  defect on `/club-captain` existed only at 320/360px and was therefore
+  structurally invisible to it. `apps/web/tests/visual/mobile-ux.spec.ts`
+  now covers those widths separately; folding them into the frozen matrix
+  would be a contract amendment and has not been done unilaterally.
 - Header height at desktop viewport measures 182px against a 162px
   reference-evidence target after the responsive padding fix (PR #7,
   merged) — root-caused to UKBT's own separate fixed 60px logo asset, not

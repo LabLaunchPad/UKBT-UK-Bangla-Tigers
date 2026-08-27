@@ -164,6 +164,14 @@ const year = new Date().getFullYear();
     text-decoration: none;
     font-size: var(--ukbt-font-heading-h6-size);
     opacity: 0.9;
+    /* Measured at 320-430px these resolved to a bare 19px line box —
+       below WCAG 2.5.8 Target Size (Minimum)'s 24px floor, in the one
+       place on the page that is nothing but a stack of tap targets.
+       inline-flex + min-height enlarges the target without changing
+       the type scale or the visual rhythm. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
   }
   .ukbt-footer__links a:hover,
   .ukbt-footer__inline-link:hover {
@@ -194,6 +202,10 @@ const year = new Date().getFullYear();
     align-items: center;
     justify-content: center;
     padding: 0.5em;
+    /* 32x32 measured; 44x44 is the Apple/Android touch guidance and the
+       comfortable floor for an icon-only control with no text fallback. */
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 9px;
     background: var(--ukbt-color-brand-accent);
     color: var(--ukbt-color-brand-accent-contrast);

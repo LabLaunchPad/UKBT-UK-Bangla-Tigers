@@ -71,6 +71,9 @@ const { title, crumbs } = Astro.props;
   .ukbt-breadcrumb a {
     color: inherit;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;  /* WCAG 2.5.8 target-size floor; was a ~19px line box on mobile. */
   }
   .ukbt-breadcrumb a:hover {
     color: var(--ukbt-color-brand-accent);

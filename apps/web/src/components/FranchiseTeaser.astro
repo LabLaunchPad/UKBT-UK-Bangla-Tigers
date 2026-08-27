@@ -93,6 +93,9 @@ import SubHeading from './SubHeading.astro';
     font-size: var(--ukbt-font-size-1);
   }
   .ukbt-franchise__cta a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;  /* WCAG 2.5.8 target-size floor; was a ~16px line box on mobile. */
     color: var(--ukbt-color-brand-accent);
     text-decoration: none;
     font-size: var(--ukbt-font-size-0);

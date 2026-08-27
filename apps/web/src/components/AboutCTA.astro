@@ -106,6 +106,16 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     gap: var(--ukbt-space-4);
   }
   .ukbt-about-cta__social a {
+    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
+       box at every mobile width. inline-flex + min-height lifts the
+       tap area past the 24px floor without altering the type scale. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    /* 'X' is a one-character label — height alone left an 11px-wide
+       target, so the 24px floor has to apply on both axes. */
+    min-width: 24px;
     color: var(--ukbt-color-brand-accent);
     text-decoration: none;
     text-transform: capitalize;
