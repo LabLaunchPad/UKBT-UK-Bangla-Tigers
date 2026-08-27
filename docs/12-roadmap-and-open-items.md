@@ -32,13 +32,17 @@ gate changes state, not the paragraph prose elsewhere.
 | 7 | Homepage | DONE | `artifacts/pages/HOMEPAGE-CONTRACT.md`, `artifacts/receipts/HOMEPAGE.md` |
 | 8 | Independent homepage red team | DONE, all 8 findings remediated (F8 has one deliberate, documented partial exception) | `artifacts/review/HOMEPAGE-REDTEAM.md` — see § 2.1 below |
 | 9 | Scale to remaining pages | DONE for route count (16 routes exist under `apps/web/src/pages/`) — content completeness is a separate, **partially blocked** item, see § 3 | route list: `about, club-captain, coaching, community, contact, design-system, faq, franchises, index, join, membership, news(+[slug]), players, services, tournaments, 404` |
-| 10 | Full-site verification & release | **BLOCKED** | `artifacts/receipts/RELEASE.md` — `RELEASE_STATUS = BLOCKED`; see § 2.2 |
-| 11 | Adaptive learning + replay | NOT STARTED | gated on Stage 10 passing first |
+| 10 | Full-site verification & release | **PASS** (2026-08-27 re-run) | `artifacts/receipts/RELEASE.md` — `RELEASE_STATUS = PASS`; see § 2.2 |
+| 11 | Adaptive learning + replay | NOT STARTED | Stage 10 now passes; this can start |
 
-**Net position:** the site is built and deployable, but has not passed a
-clean release gate, and CI/CD plumbing itself needed repeated fixes this
-session (§ 2.3). Nothing here is a client-content problem — those are
-tracked separately in § 3.
+**Net position:** the site is built, deployable, and the release gate
+passes cleanly as of the 2026-08-27 re-run (all three prior gaps closed:
+content-schema drift, route/link integrity, SEO completeness). Two
+non-blocking caveats remain, named honestly rather than silently
+resolved: canonical URL is a genuine `UNKNOWN` pending a production-domain
+decision, and branch protection on `main` is a repo-admin action outside
+any code gate (§ 2.3). Client-content items are tracked separately in
+§ 3 and don't block the release gate itself.
 
 ---
 
@@ -111,22 +115,31 @@ Of the four gaps that receipt originally found:
    (`scripts/check-internal-links.mjs`) now runs in CI and locally.
 2. ~~SEO metadata completeness~~ — **CLOSED**. `pages.spec.ts` asserts
    non-empty, non-placeholder title + description on all indexable routes.
-3. **Content-schema drift — STILL OPEN, needs an owner decision.**
-   `contracts/CONTENT-CONTRACT.md` states real content types carry
-   truth-gate provenance metadata as a structural, compile-time part of
-   the schema. The five real content files
+3. ~~Content-schema drift~~ — **CLOSED.** Re-verified 2026-08-27: this
+   entry was stale — the fix already exists in the repository (committed
+   as part of the original bootstrap build, `50e15a4`) and was simply
+   never reconciled back into this doc, the same class of staleness
+   corrected for F4/F5/F7 in § 2.1. Owner decision recorded in
+   `contracts/CONTENT-CONTRACT.md`'s 2026-08-27 amendment was **Option
+   A** (preserve the compile-time guarantee) — confirmed again
+   2026-08-27 when this item was raised as a live decision. What's
+   actually in the repo: `ContentRecordSchema`
+   (`packages/truth/src/schema/provenance.ts`) is a Zod mirror of the
+   real per-field `{field, value, status, sources}` shape content
+   actually uses (not the Stage-3 aggregate types like `ClubInfo`, which
+   no real content file's shape ever matched — see the contract
+   amendment for why forcing that fit would have meant inventing
+   placeholder fields). All 5 real content files
    (`apps/web/src/content/{homepage,about,captain,tournaments,franchises}-data.ts`)
-   instead use an ad-hoc `{field, value, sources}` shape checked only by
-   loose TypeScript typing plus a runtime `evaluate()` call — real
-   enforcement, but not what the contract describes. Two ways to close
-   it, not equivalent in cost or risk, and per `CLAUDE.md`'s "no gate
-   weakening to obtain PASS" this repo should not pick one silently:
-   - **(A)** Wire the 5 content files through the existing
-     `ClubInfoSchema`/etc. Zod schemas — preserves the contract's stated
-     compile-time guarantee; touches every live fact on the site.
-   - **(B)** Amend `CONTENT-CONTRACT.md` to describe the shape actually in
-     use — smaller, lower-risk, but is a real weakening of a stated
-     invariant (compile-time → runtime-only).
+   call `ContentRecordSchema.parse(...)` before `evaluate()` runs;
+   `packages/truth/src/schema/content-types.test.ts` (9 tests, passing)
+   verifies an invalid `status` value throws at parse time. Confirmed
+   2026-08-27 with a fresh `pnpm deploy:verify` run — clean. The
+   Stage-3 aggregate types remain genuinely unused by any real content
+   file; whether to reshape content to populate them, retire them, or
+   leave them for content types not yet gathered (fixtures/results don't
+   exist yet) is recorded as a separate, smaller, still-open question in
+   the contract's own amendment — not resolved here.
 4. ~~Stale CI trailing-comment claim~~ — **CLOSED**, corrected to name
    which of the three original gaps are closed, enforced-elsewhere, or
    still absent.
@@ -233,12 +246,17 @@ In priority order, next real work is:
 5. ~~Decide on F6~~ — **done**, 2026-08-27: owner chose to implement now.
    `Surface.astro` primitive shipped, migrated into 4 of 5 flagged
    components. See § 2.1.
-6. Decide (A) or (B) for the content-schema drift (§ 2.2 item 3).
-7. Apply branch protection to `main` (§ 2.3 — owner action).
+6. ~~Decide (A) or (B) for the content-schema drift~~ — **done**,
+   2026-08-27: Option A was already implemented (see § 2.2 item 3); this
+   doc's "STILL OPEN" label was stale and is now corrected.
+7. Apply branch protection to `main` (§ 2.3 — owner action, not gated on
+   anything else; can happen any time).
 8. Work through `CLIENT-ASK-LIST.md` (§ 3) as the club supplies each item.
-9. Only once 6–7 are closed: re-run the Stage 10 release gate
-   (`prompts/06-release-gate.md`) end-to-end and expect
-   `RELEASE_STATUS = PASS` before calling the site launch-ready.
+9. ~~Re-run the Stage 10 release gate~~ — **done**, 2026-08-27:
+   `RELEASE_STATUS = PASS`, see § 1 and `artifacts/receipts/RELEASE.md`.
+   Canonical URL and branch protection remain open as named, non-blocking
+   caveats (§ 2.3), not gate failures.
 
-Stage 11 (adaptive learning + replay) starts only after Stage 10 passes
-clean — not before.
+Stage 11 (adaptive learning + replay) can start now that Stage 10 passes
+clean — see `prompts/07-replay-stress.md` (or the `replay-stress` skill)
+for what that stage actually does.

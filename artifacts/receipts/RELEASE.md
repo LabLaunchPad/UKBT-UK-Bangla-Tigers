@@ -173,3 +173,100 @@ This session, 2026-08-26, immediately following the Stage 8 fix cycle.
 Not an independent verifier for the gates it ran locally; the CI jobs
 themselves (a separate execution environment) independently reproduce
 gates 1-8 on every push.
+
+## Update, 2026-08-27 — full re-run at current `main` HEAD, all three
+## remaining gaps closed, verdict changes to PASS
+
+```
+task_id:      STAGE-10-RELEASE-GATE (re-run)
+sha:          b36b72b90641a6765ad243d2928211e52a25b017
+branch:       main
+environment:  node v22.22.2, pnpm 10.33.0, Linux 6.18.44
+```
+
+The three items the prior update left open are now all resolved:
+
+1. **`main` has real merged history and a real green deploy.** Not true
+   when the prior update was written (PR #1 was still an unreviewed
+   draft). Since then, PRs #9–#17 have merged sequentially, each gated on
+   its own passing CI run. The current HEAD's own CI run
+   (https://github.com/LabLaunchPad/UKBT-UK-Bangla-Tigers/actions/runs/33064279665)
+   was fetched and inspected job-by-job: all 11 jobs — Dependency
+   allowlist, Governance scaffold self-test, Secret scan (gitleaks),
+   Install, Build, Lint, Unit/integration tests, Typecheck, Playwright
+   (structural/responsive/accessibility), Internal link integrity, and
+   Workers deploy — report `conclusion: success`.
+2. **Content-schema drift (item 3 of "What would close this out") is
+   closed.** Re-verified directly, not assumed from the prior update's
+   own claim: `ContentRecordSchema.parse(...)` is called in all 5 real
+   content files (grepped directly), `packages/truth/src/schema/
+   content-types.test.ts` passes (9/9), and this was the owner's
+   confirmed choice (Option A) when raised again today.
+3. Every gate below was re-run fresh, locally, at this SHA, not copied
+   from the CI job list above:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Install / lockfile integrity | `pnpm install --frozen-lockfile` | 0 | PASS |
+| 2 | Type check | `pnpm typecheck` | 0 | PASS — 0 errors, 0 warnings, 1 pre-existing hint (unrelated) |
+| 3 | Unit tests | `pnpm test:unit` | 0 | PASS — 2 files, 21/21 |
+| 4 | Lint | `pnpm lint` (Biome) | 0 | PASS — 38 files |
+| 5 | Build | `pnpm build` | 0 | PASS — 16 pages |
+| 6 | Governance scaffold self-test | `node scripts/scaffold-self-test.mjs` | 0 | PASS — 23 required files |
+| 7 | Dependency allowlist | `node scripts/check-dependency-allowlist.mjs` | 0 | PASS — 13 allowed entries |
+| 8 | Route / internal-link integrity | `node scripts/check-internal-links.mjs` | 0 | PASS — 16 HTML files, 531 links, 0 broken |
+| 9 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` | 0 | PASS — 267 passed, 1 skipped (`reference-geometry.spec.ts`, env-gated on `UKBT_REFERENCE_DIR`, not available in this environment) |
+| 10 | SEO metadata completeness | included in gate 9 (`pages.spec.ts`) | 0 | PASS — non-empty, non-placeholder title + description on all 16 routes |
+| 11 | Content schema | included in gate 3 (`content-types.test.ts`) | 0 | PASS |
+| 12 | Truth / provenance | enforced at build time (gate 5) via `evaluate()` throwing on unresolved provenance — same mechanism as the original run, re-verified present in all 5 content files | 0 | PASS |
+| 13 | Secret scan | `gitleaks/gitleaks-action@v2` (CI job, this exact SHA) | — | PASS — not reproduced locally (gitleaks not installed in this session, same as the original run), verified via the CI job's own `success` conclusion on this SHA (see job list above) |
+| 14 | Deployment configuration | inspected `astro.config.mjs` (`output: 'static'`, `@astrojs/cloudflare` present but not activated), `wrangler.jsonc` present at repo root | — | Matches `DEPLOYMENT-CONTRACT.md`; no drift |
+| 15 | Git cleanliness | `git status --short` | — | Clean at the SHA above (this receipt's own edit is what dirties it next, committed as part of closing this out) |
+
+## Known, honest caveats — not gate failures
+
+- **Canonical URL remains `PENDING`.** `astro.config.mjs`'s `site` field
+  is deliberately unset — no production domain has been decided yet
+  (`HOMEPAGE-CONTRACT.md`). This is a genuine `UNKNOWN` blocked on a
+  client decision (`CLIENT-ASK-LIST.md`), not a code defect, and no gate
+  asserts a value for it.
+- **Branch protection on `main` is not confirmed re-checked this
+  session.** `docs/11-github-branch-protection.md` records
+  `protected: false`, verified via the GitHub API on an earlier date.
+  This session had no tool access to re-query that setting directly, so
+  it is cited from that existing record, not re-verified fresh today.
+  Applying it is a GitHub-web-UI action for a repo admin
+  (`docs/11-github-branch-protection.md` names the exact rule to apply)
+  — outside what any code gate in this list checks, and outside what
+  this session can do itself.
+- Several organization-fact fields remain `status: draft`,
+  `sources: []` placeholders per `CONTENT-CONTRACT.md`'s placeholder
+  discipline (real content blocked on the client, `CLIENT-ASK-LIST.md`).
+  This is the correct, contract-compliant state for genuinely unknown
+  facts — the truth gate's `evaluate()` only throws on a *broken* or
+  *missing* provenance record, never on an honestly-marked draft — so it
+  does not fail any gate above.
+
+## Verdict
+
+```
+RELEASE_STATUS = PASS
+```
+
+Every gate this pipeline names (`prompts/06-release-gate.md`'s list:
+install/lockfile, type check, unit tests, e2e, truth/provenance, content
+schema, routes, links, SEO, accessibility, build, deployment
+configuration, git cleanliness) passes, reproducibly, both locally and in
+CI at the current `main` HEAD. The two items still open (canonical URL,
+branch protection) are named above as real, current, non-blocking
+caveats — genuine `UNKNOWN`/owner-action items, not silently dropped and
+not gates this pipeline requires for `PASS`.
+
+## Verifier (this update)
+
+This session, 2026-08-27, following the mobile UI/UX audit rounds
+(`MOBILE-VISUAL-QA.md`, `MOBILE-AXE-HEADING-ORDER.md`,
+`MOBILE-TOUCH-TARGET-SWEEP.md`) and the content-schema-drift
+re-verification. Gates 1–8 re-run directly in this session; gate 13
+(secret scan) verified via the current SHA's own CI job conclusion, the
+same cross-check method the original receipt used.
