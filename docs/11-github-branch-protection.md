@@ -70,11 +70,14 @@ Playwright (structural / responsive / accessibility)
 Secret scan
 ```
 
-`Workers Builds: uk-bangla-tigers` (posted by Cloudflare, not by this
-workflow) is deliberately **not** in the required list yet. It has never
-passed, and requiring a check that has never gone green would block all
-merges rather than protect anything. Add it once it has succeeded at
-least once — at that point a red deployment check *should* block a merge.
+`Workers Builds: ukbt-uk-bangla-tigers` (posted by Cloudflare, not by this
+workflow — the connected Worker was renamed from `uk-bangla-tigers` to
+`ukbt-uk-bangla-tigers` 2026-08-27, see `contracts/DEPLOYMENT-CONTRACT.md`'s
+same-date amendment) is deliberately **not** in the required list yet. It
+has never passed, and requiring a check that has never gone green would
+block all merges rather than protect anything. Add it once it has
+succeeded at least once — at that point a red deployment check *should*
+block a merge.
 
 ### "Green" must mean "executed and passed"
 
