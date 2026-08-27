@@ -217,3 +217,10 @@ describes:
 - **`docs/10-fresh-repo-pipeline.md`** defines the stage/gate sequence this
   project is built under; `scripts/scaffold-self-test.mjs` checks the
   scaffold's own integrity. Don't hand-roll a different build order.
+
+- **`docs/12-roadmap-and-open-items.md`** is the living status doc: which
+  pipeline stage is DONE/BLOCKED, open engineering to-dos (with severity
+  and evidence), open CI/deploy items, and the condensed pointer to
+  client-blocked content (full detail stays in
+  `artifacts/content/CLIENT-ASK-LIST.md`). Update it in place as items
+  close — don't fork a second status doc.
