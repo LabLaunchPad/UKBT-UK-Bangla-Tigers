@@ -20,7 +20,8 @@
     "tokens:build": "pnpm --filter ./packages/truth tokens:build",
     "check:deps": "node scripts/check-dependency-allowlist.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
-    "check:governance-scaffold": "node scripts/scaffold-self-test.mjs"
+    "check:governance-scaffold": "node scripts/scaffold-self-test.mjs",
+    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
