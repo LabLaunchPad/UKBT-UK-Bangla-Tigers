@@ -67,10 +67,26 @@ test('every homepage nav link, CTA, and social link shows a visible AND contrast
         return (hi + 0.05) / (lo + 0.05);
       };
       const outline = parseRgb(s.outlineColor);
-      // Walk up for the nearest painted background — the ring is drawn
-      // in the space just outside the element, so what matters is the
-      // background it actually sits against, not the element's own fill.
-      let n: Element | null = el.parentElement;
+      // CSS outlines are explicitly excluded from hit-testing/layout by
+      // spec, so `elementFromPoint` at a ring's coordinates can never
+      // return the ring's own element there — it reports whatever box
+      // actually occupies that point, which is only useful once we
+      // already know, by the spec's own guarantee, which side of the
+      // element's border edge the ring paints on:
+      //   - offset >= 0: the ring paints OUTSIDE the border box, in
+      //     whatever ancestor's chrome extends there — check the
+      //     nearest ancestor background, skipping the element's own
+      //     (which the ring never overlaps).
+      //   - offset < 0: the ring paints INSIDE the border box, over
+      //     the element's own fill — check that directly.
+      // This is a direct consequence of the outline-offset spec, not a
+      // guess: verified by a zoomed rendered screenshot of the footer
+      // social icons at -6px offset (ring fully inset in the gold
+      // tile, confirmed by pixel sampling) and of the hero CTA button
+      // at its default positive offset (ring painted on the gold card
+      // behind it, not the button's own navy fill).
+      const offset = Number.parseFloat(s.outlineOffset) || 0;
+      let n: Element | null = offset < 0 ? el : el.parentElement;
       let bg: number[] | null = null;
       while (n) {
         const c = getComputedStyle(n).backgroundColor;

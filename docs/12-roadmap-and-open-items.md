@@ -52,8 +52,8 @@ findings (F1–F8), severities as scored in that receipt:
 | Finding | Severity | What | Status |
 |---|---|---|---|
 | F1 | HIGH | Mobile/tablet nav drawer is 100% keyboard-inoperable | **CLOSED** — was already fixed before this entry was written; listing it as OPEN was an error, corrected 2026-08-27. Verified empirically at 390×844 (`artifacts/review/MOBILE-VISUAL-QA.md`): toggle reachable on Tab #3, Enter opens, all 8 links tab-reachable, Escape closes and restores focus. Two *new* drawer defects found during that verification (no focus containment, no background scroll lock) were fixed in the same pass. |
-| F2 | HIGH | Homepage silently expands beyond the frozen `HOMEPAGE-CONTRACT.md` structure (WhyChooseUs/AcademySection/AboutCTA present but not in the approved 8-section list) | **OPEN** — needs a re-approval decision (extend the contract, or cut the sections), not a silent pick either way |
-| F3 | HIGH | Focus-indicator contrast failure on every dark-background interactive element (real WCAG 1.4.11 failure, invisible to the existing outline-presence test) | **OPEN** |
+| F2 | HIGH | Homepage silently expands beyond the frozen `HOMEPAGE-CONTRACT.md` structure (WhyChooseUs/AcademySection/AboutCTA present but not in the approved 8-section list) | **CLOSED** 2026-08-27 — owner decision: extend the contract rather than cut the sections. `HOMEPAGE-CONTRACT.md` Amendment 02 approves `AboutCTA` (Amendment 01 already covered `WhyChooseUs`/`AcademySection`) and replaces the "Structure" list with the 10-item structure that actually ships, closing the drift Amendment 01 left open. |
+| F3 | HIGH | Focus-indicator contrast failure on every dark-background interactive element (real WCAG 1.4.11 failure, invisible to the existing outline-presence test) | **CLOSED** 2026-08-27 — see `artifacts/review/F3-FOCUS-CONTRAST-FIX.md`. Re-verified against current code first: 4 of 5 originally-flagged groups already carried a working per-surface `--ukbt-color-focus-ring` fix; only the footer social icons still failed, for a real reason the original fix comment got wrong (a CSS-specificity bug meant its override never applied). Fixed with an inset (negative-offset) ring, the only geometry where a single solid color can pass 3:1 against both the icon's gold tile and the page's navy at once (no such color exists for a ring that straddles both — proven by solving the WCAG formula for both constraints simultaneously). |
 | F4 | MEDIUM | Heading hierarchy skips levels four times; the "0 axe violations" claim only holds for a filtered rule subset | **OPEN** |
 | F5 | MEDIUM | Identical primary CTA ("Join the Club" → `/contact`) duplicated three times on one page | **OPEN** |
 | F6 | LOW-MEDIUM | The "dark rounded panel" surface pattern is hand-rolled ~7 times instead of composing `Card.astro` | **OPEN** |
@@ -64,11 +64,9 @@ findings (F1–F8), severities as scored in that receipt:
 F1–F8 have been fixed". That was written from the red-team receipt
 without re-verifying against current code — the exact
 "historical evidence is not current evidence" failure `CLAUDE.md` warns
-about. F1 was in fact already fixed. F2–F8 remain open as listed above.
-F2 is now the most serious outstanding red-team item: the page that
-ships carries three sections the frozen `HOMEPAGE-CONTRACT.md` does not
-admit, which needs a re-approval decision (extend the contract, or cut
-the sections) rather than a silent fix either way.
+about. F1 was in fact already fixed. F2 is now also closed (owner
+decision, 2026-08-27 — see the table row above); F3 is also now closed
+(same date, see its own table row); F4–F8 remain open.
 
 A separate mobile-only visual QA pass (2026-08-27,
 `artifacts/review/MOBILE-VISUAL-QA.md`) found and fixed six further
@@ -196,15 +194,14 @@ In priority order, next real work is:
 
 1. ~~Confirm the `workers-deploy` job's actual success~~ — **done**, see
    § 2.3.
-2. Fix F1 (keyboard-inoperable mobile nav) and F3 (focus-contrast) from
-   § 2.1 — both are real accessibility defects, not style nits.
-3. Resolve F2's scope-expansion question (§ 2.1) — extend
-   `HOMEPAGE-CONTRACT.md` to admit the three extra sections, or cut them —
-   this needs a decision, not a silent fix.
+2. ~~Resolve F2's scope-expansion question~~ — **done**, 2026-08-27:
+   owner chose to extend the contract; `HOMEPAGE-CONTRACT.md` Amendment
+   02 approves `AboutCTA` and corrects the structure list.
+3. ~~Fix F3 (focus-indicator contrast)~~ — **done**, 2026-08-27, see § 2.1.
 4. Decide (A) or (B) for the content-schema drift (§ 2.2 item 3).
 5. Apply branch protection to `main` (§ 2.3 — owner action).
 6. Work through `CLIENT-ASK-LIST.md` (§ 3) as the club supplies each item.
-7. Only once 2–5 are closed: re-run the Stage 10 release gate
+7. Only once 4–5 are closed: re-run the Stage 10 release gate
    (`prompts/06-release-gate.md`) end-to-end and expect
    `RELEASE_STATUS = PASS` before calling the site launch-ready.
 

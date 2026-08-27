@@ -168,3 +168,52 @@ a judgment call this amendment is pretending away.
   tag-filtered existing suite could not see. The four flagged instances
   are fixed; `homepage.spec.ts`'s axe scan should be widened accordingly
   as a follow-up so this class of gap doesn't silently reopen.
+
+---
+
+## Amendment 02 (2026-08-27) — `AboutCTA` approved; F2 closed in full
+
+Amendment 01 approved `WhyChooseUs` and `AcademySection` but did not
+address the shipped page's ninth section, `AboutCTA`, leaving F2
+partially open. Owner decision (2026-08-27): **extend this contract**
+rather than cut the section — recorded here rather than left implicit.
+
+**Disposition:** `AboutCTA` is APPROVED as an amendment to the
+"Structure (section order)" above. It carries only evidenced content —
+the club's real social handles (`homepage.social`) and a follow-the-club
+CTA — no fabricated membership perks or benefits copy, matching the same
+"evidenced content only" standard Amendment 01 applied to `WhyChooseUs`/
+`AcademySection`. Its button previously repeated "Join the Club" →
+`/contact`, duplicating the header/hero CTA (Stage 8 red team F5); that
+duplication is already fixed in `apps/web/src/components/AboutCTA.astro`
+— the button now reads "Follow on {platform}" and links to the club's
+primary social profile, a distinct action from the site-wide join CTA.
+
+**Structure, corrected to match the page that actually ships**
+(`apps/web/src/pages/index.astro`, 8 content sections, replacing the
+"Structure (section order)" list above in full — that list predates both
+amendments and is superseded):
+
+1. Header/Nav (unchanged — `CLIENT_REQ_001`)
+2. Hero (crest/wordmark + tagline + primary CTA + social links)
+3. Club introduction (mission tagline, founding year, stat strip —
+   folded into one section rather than a separate stat strip)
+4. Why Choose Us (international competition, learning institute,
+   franchise network, registered-club facts — each restates a fact
+   already established elsewhere in this document or
+   `knowledge/01-VERIFIED-FACTS.yaml`, per Amendment 01)
+5. Academy (tagline + the same three stats, reframed — per Amendment 01)
+6. Upcoming tournaments (unchanged from the original list)
+7. Club Captain spotlight (unchanged)
+8. Our Franchises teaser (unchanged)
+9. About CTA — follow-the-club social CTA (this amendment)
+10. Footer (unchanged)
+
+`TestimonialSection` and `NewsTeaser` remain NOT approved per Amendment
+01 and are not present in the shipped page.
+
+**F2 status:** CLOSED. All three sections the Stage 8 red team found
+unapproved (`WhyChooseUs`, `AcademySection`, `AboutCTA`) now have a
+recorded approval, and the shipped page's structure matches this
+contract's own "Structure" section exactly. `docs/12-roadmap-and-open-items.md`
+is updated in the same commit as this amendment.
