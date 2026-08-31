@@ -208,3 +208,73 @@ the rest:
   client-blocked content (full detail stays in
   `artifacts/content/CLIENT-ASK-LIST.md`). Update it in place as items
   close — don't fork a second status doc.
+
+---
+
+## Visual truth & anti-drift addendum
+
+*Adopted 2026-08-31 · Authority `EV-20260831-003` · The contract text above
+is preserved verbatim and unchanged in substance. This addendum refines
+four of its sections for UI work and adds nothing that weakens a hard
+invariant.*
+
+Full specification: **`docs/13-visual-truth-system.md`** (nine roles, state
+machine, activation policy, ledger, drift model) and
+**`docs/14-tool-selection-layer.md`** (which tool is authoritative for
+which fact). Compact substrate: **`knowledge/11-VISUAL-TRUTH-POLICY.yaml`**.
+
+### Authority (refines § Authority)
+
+```
+CURRENT REPO + FRESH EXECUTED MEASUREMENTS + FRESH LIVE-SITE OBSERVATION
+>  CURRENT APPROVED CONTRACTS  >  CURRENT EVIDENCE RECORDS
+>  GOVERNED VISUAL ARTIFACTS   >  PAST CHAT / HISTORICAL DECISIONS
+>  MODEL MEMORY
+```
+
+Past chat sits **below** evidence records, not above them. A prior chat
+instruction is not an approval, a previous PASS is not a current PASS, and
+an old screenshot is not the current baseline.
+
+### State machine (extends § State machine, for UI work)
+
+```
+ADMIT → LOAD KNOWLEDGE → LOAD BASELINE → LOAD HISTORY → GROUND → FALSIFY
+→ CONTRACT CHECK → BOUNDED PLAN → APPROVAL → IMPLEMENT → RENDER
+→ VISUAL DIFF → UX/A11Y VERIFY → INDEPENDENT RED TEAM → RELEASE GATE
+→ RECEIPT → LEARN
+```
+
+The failure path gains its missing step: `FAIL → DIAGNOSE → **CLASSIFY
+ROOT CAUSE** → REPLAN → FIX → REVERIFY`.
+
+### Agent roles (extends § Agent roles)
+
+The eight roles above gain a ninth for visual work —
+**past-visual-context** — and the set is restated for UI tasks as:
+orchestrator · grounding/truth · visual-forensics · past-visual-context ·
+ux-responsive · visual-diff · implementation · final-red-team ·
+release/receipt.
+
+This changes nothing about spawning. *"These are roles, not a requirement
+to spawn all agents"* still governs, `.claude/agents/` stays empty until
+`knowledge/09`'s `when_to_add_a_specialist` is satisfied in full, there is
+exactly **one application-code writer**, and independence means a separate
+session — a subagent inheriting this context provides none.
+
+### Receipt (extends § Receipt minimum)
+
+A visual task's receipt additionally records: `HEAD_SHA`, `VISUAL_DIFFS`,
+`VIEWPORTS`, `ACCESSIBILITY_RESULTS`, `RESPONSIVE_RESULTS`,
+`INTERACTION_RESULTS`, `REDTEAM_RESULT`. `schemas/receipt.schema.json`
+remains the machine-checkable minimum.
+
+### The distinction that must never collapse
+
+**Historical truth** (what was said) · **Repository truth** (what the code
+and contracts contain) · **Rendered truth** (what the UI produces) ·
+**Verification truth** (what was independently, deterministically proven).
+
+A specification is not implementation. Implementation is not verification.
+A screenshot is not accessibility proof. Passing tests are not proof of
+untested behaviour. Model confidence is never authorization.

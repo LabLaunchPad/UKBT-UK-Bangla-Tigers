@@ -179,3 +179,72 @@ accessibility). A page missing any one is still not `VERIFIED`.
 against the reference pages; the 1920 row has no historical reference
 measurement behind it and is newly measured at Stage 9 for both the
 reference and UKBT builds.
+
+---
+
+## AMENDMENT 02 — diff classification, extraction priority, and the
+## AMENDMENT 01 transcription gap
+
+**Date:** 2026-08-31 · **Authority:** `EV-20260831-003` · **Status:**
+AMENDED (frozen text and AMENDMENT 01 preserved verbatim)
+
+### 1. The AMENDMENT 01 transcription gap (closed by this amendment)
+
+AMENDMENT 01 added 1920×1080 on 2026-08-26, making the canonical matrix
+seven viewports. `apps/web/tests/visual/viewports.ts` — which is a
+**transcription** of this contract, not an independent decision, and says
+so in its own header — continued to list six and to describe itself as
+"the frozen 6-viewport matrix". Every visual, responsive and screenshot
+run between those dates therefore exercised six viewports while this
+contract required seven.
+
+Classification (per `docs/14-tool-selection-layer.md` §9): `CODE_DRIFT`.
+The contract was authoritative and correct; the transcription lagged.
+
+Closed 2026-08-31 by transcribing the seventh viewport into
+`viewports.ts` and capturing the missing 1920×1080 evidence — **not** by
+narrowing this contract to match what the code happened to run. Recorded
+in `artifacts/visual/DECISION-LEDGER.md` as `VD-002`.
+
+Standing rule this makes explicit: **contract and transcription must
+agree.** A disagreement is closed by fixing the transcription. Narrowing
+a gate to match an implementation is gate weakening, forbidden by
+`CLAUDE.md`.
+
+### 2. Diff classification is now a closed vocabulary
+
+The frozen text already requires each diff investigation to record
+`REFERENCE` / `TARGET` / `DIFF` / `CAUSE` / `DECISION` / `STATUS`. Each
+diff additionally carries exactly one class:
+
+```
+EXPECTED · INTENTIONAL · REGRESSION · REFERENCE_ERROR
+IMPLEMENTATION_ERROR · CONTENT_DRIFT · ASSET_DRIFT · RESPONSIVE_DRIFT
+TYPOGRAPHY_DRIFT · GEOMETRY_DRIFT · UNKNOWN
+```
+
+`UNKNOWN` is a legitimate terminal class for a diff not yet root-caused.
+It is never upgraded to `EXPECTED` to close a task — that would be the
+anti-vacuity rule above, evaded by relabelling.
+
+### 3. Extraction priority is binding for this gate's evidence
+
+Evidence offered to this gate is gathered cheapest-authoritative-first
+(`docs/14-tool-selection-layer.md`): browser runtime → computed CSS → DOM
+geometry → screenshot. Specifically, and reinforcing the five required
+evidence kinds:
+
+- **Structural** evidence is DOM/computed-style measurement. A screenshot
+  is not structural proof.
+- **Visual** evidence is a rendered comparison. A DOM assertion is not
+  visual proof.
+- **Accessibility** evidence is axe-core plus the keyboard/contrast
+  suites. Visual correctness is not accessibility proof — Stage 8 red
+  team F3 (a real, visible focus ring at 1.0-1.25:1) is the precedent.
+
+### 4. What this does not change
+
+The pinned rendering environment, CI-vs-CI-only comparison, reference
+immutability, the anti-vacuity rules, and the five required evidence
+kinds all stand exactly as frozen. This amendment adds vocabulary and
+closes a transcription gap; it relaxes nothing.
