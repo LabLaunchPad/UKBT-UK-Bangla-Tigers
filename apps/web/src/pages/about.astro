@@ -6,11 +6,17 @@
 // (checked directly against the Adelux `about.html`/`main.css` source —
 // see per-component comments), reimplemented with UKBT content/branding.
 // No Adelux code, content, or branding appears anywhere below.
+//
+// Sponsors section (EV-20260831-007) reinstates the reference's
+// partner-logo panel (`.partnership-container`) right where
+// MissionWelcome.astro's own header comment noted its omission "no
+// sponsor is evidenced" — now one is.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import MissionWelcome from '../components/MissionWelcome.astro';
+import Sponsors from '../components/Sponsors.astro';
 import AboutStory from '../components/AboutStory.astro';
 import LeadershipGrid from '../components/LeadershipGrid.astro';
 import AboutCTA from '../components/AboutCTA.astro';
@@ -19,6 +25,7 @@ import TestimonialSection from '../components/TestimonialSection.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { about } from '../content/about-data';
+import { ourSponsors } from '../content/sponsors-data';
 
 // Restates facts already on record; no new claim about the club.
 const reasons = [
@@ -70,6 +77,10 @@ const structuredData = {
 
     <Section>
       <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />
+    </Section>
+
+    <Section surface="alt" wrapper={true}>
+      <Sponsors sponsors={ourSponsors} />
     </Section>
 
     <Section surface="alt">

@@ -69,7 +69,10 @@ rather than invented copy:
 - Member testimonials (a real, consented quote from a player or parent)
 - Full "About Us" history/honours narrative (we only have "Est. 2020" from
   the crest)
-- Sponsor/partner names, if any exist and can be named
+- ~~Sponsor/partner names, if any exist and can be named~~ **RESOLVED
+  2026-08-31** — you supplied WOLFFIT's logo as your "Proud Sponsor"
+  (`EV-20260831-007`); it now renders on `/about`. If there are further
+  sponsors/partners to add, send their logos the same way.
 
 ## 5. Decisions needed before launch
 - **Domain and hosting**: no production domain is set anywhere in the
