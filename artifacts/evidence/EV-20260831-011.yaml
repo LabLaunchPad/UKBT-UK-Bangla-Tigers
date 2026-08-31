@@ -1,0 +1,83 @@
+id: EV-20260831-011
+classification: FIRST_PARTY_PROJECT_DIRECTION
+claim: >
+  The project owner supplied a second, more extensive UI-agent operating
+  prompt (88 numbered sections) refining/superseding the shape of the
+  proposal already encoded under EV-20260831-010, while this session was
+  mid-way through running `pnpm deploy:verify` for that earlier work
+  (the tool call was interrupted by this new message). Substance not
+  already covered by EV-20260831-010: nine-tag truth classification
+  (NORMATIVE/PLATFORM/PRODUCT/SYSTEM/PAGE/SECTION/COMPONENT/REFERENCE/
+  INFERENCE); a RULE_ID/AUTHORITY/SOURCE/SCOPE/REQUIREMENT/RATIONALE/
+  IMPLEMENTATION/VALIDATION/CONFIDENCE/STATUS micro-format for a single
+  named rule; two additional responsive-transformation types (REPLACE,
+  EXPAND) alongside the seven already encoded; four admission gates
+  (new token / new component / new breakpoint / new exception); a
+  P0-P3 failure-severity scale; an extensive stress-test taxonomy
+  (space/content/typography/media/state/input/orientation/preference/
+  localization/structure) and adversarial-question list; and a proposed
+  `/design-system` filesystem tree (design.md, responsive.md,
+  interaction.md, /tokens/*.json, /components/*.md, /patterns/*.md,
+  /qa/*.md) parallel to this repository's actual structure.
+source: "Project owner message, delivered in-session 2026-08-31, interrupting an in-progress `pnpm deploy:verify` run with a second, longer 'ROLE' operating-prompt document."
+source_type: first_party_project_direction
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records project direction as given, the same authority class as
+  EV-20260831-003 and EV-20260831-010, which this record extends rather
+  than duplicates.
+scope: "Governance: knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml §7-9, docs/15-ux-operating-system.md §8."
+method: >
+  Diffed this document against EV-20260831-010's already-encoded
+  content before writing anything, to identify only the genuinely new
+  material rather than re-encoding overlapping sections a second time.
+result: |
+  ENCODED (the non-redundant subset only) — extended
+  knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml with three new
+  sections (§7 truth classification, §8 RULE_ID format, §9 admission
+  gates) and two new transformation_vocabulary entries (REPLACE, EXPAND),
+  and docs/15-ux-operating-system.md with a summarizing §8.
+
+  NOT adopted, with reasons:
+
+  1. The proposed parallel `/design-system` filesystem tree
+     (design.md, responsive.md, interaction.md, /tokens/*.json,
+     /components/*.md, /patterns/*.md, /qa/*.md) — this repository's
+     real structure (contracts/, knowledge/, docs/,
+     packages/truth/src/tokens/approved/**,
+     packages/truth/src/contracts/) already serves every one of those
+     responsibilities, and contracts/CSS-CONTRACT.md /
+     REPOSITORY-CONTRACT.md freeze where each lives. Building a second,
+     parallel tree would fork the source of truth rather than extend
+     it — the opposite of this whole system's purpose.
+
+  2. The stress-test taxonomy and P0-P3 failure-severity scale — kept
+     as documented QA *checklists* (docs/15 §8) for a human or agent
+     doing visual QA, not encoded as new automated gates. This
+     repository's actual enforcement is
+     contracts/VISUAL-REGRESSION-CONTRACT.md's five required evidence
+     kinds plus apps/web/tests/visual/*.spec.ts. Claiming a new
+     automated check exists without writing and running one would
+     violate CLAUDE.md's "never claim a check passed unless it was
+     actually executed" — so the taxonomy is recorded as guidance, not
+     as a claimed new gate.
+
+  3. Truth classification's own worked distinctions (do not cite a
+     screenshot as NORMATIVE, do not cite a preference as WCAG) restate
+     — on a different axis (UI-decision authority source) — protections
+     CLAUDE.md and knowledge/10 already provide on other axes (evidence
+     class, UNKNOWN-vs-VERIFIED). Encoded as complementary, explicitly
+     cross-referenced, not as a fourth competing hierarchy — same
+     reconciliation discipline as EV-20260831-010 finding 2.
+related_files:
+  - knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml
+  - docs/15-ux-operating-system.md
+relates_to: [EV-20260831-010, EV-20260831-003]
+notes: >
+  This document arrived mid-tool-call (the user's rejection of a running
+  `pnpm deploy:verify` was the delivery mechanism for this message, per
+  the harness's interrupt behavior — not an instruction to abandon that
+  verification). Validation was re-run after this record was written,
+  covering both this record's changes and EV-20260831-010's.

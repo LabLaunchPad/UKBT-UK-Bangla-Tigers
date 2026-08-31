@@ -248,3 +248,55 @@ The pinned rendering environment, CI-vs-CI-only comparison, reference
 immutability, the anti-vacuity rules, and the five required evidence
 kinds all stand exactly as frozen. This amendment adds vocabulary and
 closes a transcription gap; it relaxes nothing.
+
+---
+
+## AMENDMENT 03 — semantic viewport classes mapped onto the frozen matrix
+
+**Date:** 2026-08-31 · **Authority:** `EV-20260831-010` (UX operating-
+system project direction) · **Status:** AMENDED (frozen text and
+AMENDMENTs 01-02 preserved verbatim)
+
+### 1. What this adds
+
+A project-direction document proposed reasoning about responsive design
+in terms of five semantic space classes (compact/medium/expanded/large/
+xl) rather than named devices, alongside an 11-viewport canonical test
+list. This amendment adopts the semantic classes as a **mapping onto the
+existing 7-viewport matrix** — it names, for each class, which frozen
+viewport(s) already measure it:
+
+```
+compact   0-599px     390x844, 430x932
+medium    600-839px   768x1024
+expanded  840-1199px  1024x768
+large     1200-1599px 1280x800, 1440x900
+xl        1600px+     1920x1080
+```
+
+Full rationale: `knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml` §3,
+`docs/15-ux-operating-system.md` §2.
+
+### 2. What this explicitly does NOT add
+
+The proposal's 11-viewport list includes four pixel pairs not in the
+frozen matrix: 360×800, 600×900, 834×1194, 1536×864. **These are not
+added to the CI screenshot suite by this amendment.** Every semantic
+class above already has at least one frozen viewport measuring it —
+adding four more rows to an already-passing, already-evidenced gate on
+the strength of a differently-sized external proposal, with no observed
+coverage failure behind it, is exactly the kind of preference-driven
+matrix growth the frozen text's "must not change without a contract
+amendment" line exists to prevent. This gap is recorded, not hidden:
+re-open this question only against a real, named coverage failure (a
+defect that these four specific sizes would have caught and the seven
+frozen ones did not), the same evidentiary bar AMENDMENT 01 met.
+
+### 3. What this does not change
+
+Everything AMENDMENT 01 and AMENDMENT 02 already established stands
+unchanged: the seven frozen viewports, the pinned rendering environment,
+the five required evidence kinds, reference immutability, and the
+diff-classification vocabulary. This amendment adds a semantic reading
+layer on top of the existing matrix; it adds no viewport, removes no
+viewport, and weakens no gate.

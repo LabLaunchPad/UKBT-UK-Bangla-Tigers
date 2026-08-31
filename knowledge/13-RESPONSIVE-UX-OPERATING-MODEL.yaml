@@ -1,0 +1,271 @@
+# Responsive/UX operating model, adopted 2026-08-31 (EV-20260831-010,
+# refined same-day by EV-20260831-011: §7 truth classification, §8
+# RULE_ID format, §9 admission gates, REPLACE/EXPAND transformations).
+# Long form / rationale: docs/15-ux-operating-system.md.
+# First demonstrated instances: packages/truth/src/contracts/card.contract.md
+# (component — pre-existing, verified accurate against this pass, not newly
+# written), docs/16-page-contracts/home.md (page — newly written).
+#
+# This EXTENDS knowledge/11 (visual truth) and knowledge/12 (anti-slop CSS)
+# with the layer above both: WHICH page/section/component decision governs
+# a given piece of UI, and HOW that decision is expected to transform
+# across available space. It does not repeal either file, and it does not
+# touch contracts/VISUAL-REGRESSION-CONTRACT.md's frozen viewport matrix
+# except via that contract's own AMENDMENT 03 (additive mapping only).
+
+# ---------------------------------------------------------------------------
+# 1. Mental model
+# ---------------------------------------------------------------------------
+mental_model:
+  wrong: "Make it responsive."
+  right: >
+    Given the current available space, preserve information architecture
+    and interaction intent, then adapt composition according to the
+    section's declared responsive transformation — never invent one ad
+    hoc while writing CSS.
+  decision_hierarchy:
+    - DESIGN SYSTEM (knowledge/12, contracts/CSS-CONTRACT.md, contracts/DESIGN-SYSTEM-CONTRACT.md)
+    - VIEWPORT CONTRACT (this file, §3)
+    - PAGE CONTRACT (docs/16-page-contracts/*.md)
+    - SECTION CONTRACT (embedded in each page contract, §4 shape)
+    - COMPONENT CONTRACT (packages/truth/src/contracts/*.contract.md, per contracts/COMPONENT-CONTRACT.md's frozen shape)
+    - STATE CONTRACT (each component contract's own states field)
+    - VALIDATION (contracts/VISUAL-REGRESSION-CONTRACT.md, contracts/ACCESSIBILITY-CONTRACT.md)
+
+# ---------------------------------------------------------------------------
+# 2. Transformation vocabulary — closed set. A section/component contract
+# must name one of these for each viewport class it defines, never leave
+# it implicit.
+# ---------------------------------------------------------------------------
+transformation_vocabulary:
+  INVARIANT:
+    definition: "Must not change across viewport classes."
+    example_in_repo: >
+      Card.astro's border-radius/shadow/token usage — CSS-CONTRACT.md's
+      APPROVED-token-only rule already makes this structurally invariant.
+  SCALE:
+    definition: "Same semantic element, size changes via an approved token — never a literal value."
+    example_in_repo: >
+      --ukbt-font-size-display is the only token that scales fluidly
+      today (clamp()); everything else steps discretely by breakpoint.
+      Widening this is knowledge/12's SLOP-07 — a separate, scoped-out
+      decision, not silently expanded here either.
+  STACK:
+    definition: "Two-dimensional composition becomes one-dimensional."
+    example_in_repo: >
+      FranchiseTeaser.astro's `.ukbt-franchise` grid
+      (grid-template-columns: 1fr 1fr) collapses to a single column at
+      <=1025px (its own media query, pre-existing).
+  COLLAPSE:
+    definition: "Reduce navigation/control complexity, not content."
+    example_in_repo: >
+      Header.astro's nav-toggle behavior (mobile-ux.spec.ts already
+      covers this).
+  REORDER:
+    definition: "Visual order changes; semantic/reading order must not become nonsensical."
+    caution: >
+      No current UKBT component reorders content by viewport. Any new use
+      of CSS order/flex-direction: column-reverse must keep DOM order
+      matching a sensible reading order for assistive tech, per
+      contracts/ACCESSIBILITY-CONTRACT.md — visual reorder must never
+      diverge from semantic order without a stated reason.
+  HIDE:
+    definition: "Remove ONLY genuinely non-essential content, never a primary CTA or fact."
+    forbidden: "Hiding content solely because the viewport got smaller, with no independent 'this is decorative/secondary' justification."
+  SCROLL:
+    definition: "Preserve a genuinely spatial UI (e.g. a wide data table) via deliberate scroll, never as a substitute for a real layout decision."
+    repo_state: >
+      Not currently used anywhere in apps/web. pages.spec.ts's
+      "no horizontal overflow at any frozen viewport" check
+      (contracts/VISUAL-REGRESSION-CONTRACT.md) means an *accidental*
+      horizontal scroll is already a hard test failure — a deliberate
+      SCROLL transformation would need to be an explicit, contained
+      overflow-x region, not page-level overflow, to avoid tripping it.
+  REPLACE:
+    definition: "The interaction pattern itself changes to one that fits the context, not just its size (e.g. a hover-revealed menu becoming a tap-to-open one)."
+    added_by: EV-20260831-011
+    repo_state: >
+      Not currently used — every UKBT component that changes across
+      viewports today changes composition (STACK) or visibility
+      (COLLAPSE), never its interaction model. Header.astro's nav toggle
+      is COLLAPSE (same click-to-open pattern, just a different default
+      visibility), not REPLACE. Recorded for the day a hover-dependent
+      pattern needs a touch-safe equivalent — none exists yet to migrate.
+  EXPAND:
+    definition: "Additional space is used to add genuinely richer presentation, never to fill space for its own sake."
+    added_by: EV-20260831-011
+    repo_state: >
+      Closest existing example: TournamentGrid.astro's main/other-event
+      split only exists at >767px (a single column below that) — more of
+      a STACK inverse than a distinct EXPAND case, but the same
+      discipline applies going forward: expanded layouts add hierarchy,
+      comparison or grouping value, not decoration for its own sake
+      (knowledge/13 §3's EXPANDED objective already said this in prose;
+      EXPAND names it as a vocabulary term).
+
+# ---------------------------------------------------------------------------
+# 3. Viewport contract — semantic classes mapped onto the EXISTING FROZEN
+# matrix (contracts/VISUAL-REGRESSION-CONTRACT.md AMENDMENT 01/02), not a
+# replacement matrix. See AMENDMENT 03 in that contract for the binding
+# version of this mapping; this is the working copy referenced day to day.
+# ---------------------------------------------------------------------------
+viewport_classes:
+  compact:
+    width_range: "0-599 CSS px"
+    frozen_viewports_covered: ["390x844 (mobile standard)", "430x932 (mobile large)"]
+    objective: "Preserve comprehension and task completion before visual richness."
+  medium:
+    width_range: "600-839 CSS px"
+    frozen_viewports_covered: ["768x1024 (tablet portrait)"]
+    objective: "Recover useful two-dimensional composition without desktop density."
+  expanded:
+    width_range: "840-1199 CSS px"
+    frozen_viewports_covered: ["1024x768 (tablet landscape / nav-toggle breakpoint)"]
+    objective: "Exploit space without excessive density or empty voids."
+  large:
+    width_range: "1200-1599 CSS px"
+    frozen_viewports_covered: ["1280x800", "1440x900"]
+    objective: "Same as expanded; verifies the design holds past tablet landscape."
+  xl:
+    width_range: "1600px+"
+    frozen_viewports_covered: ["1920x1080 (desktop XL, AMENDMENT 01)"]
+    objective: "Verify full-bleed/background sections extend correctly past the 1340px reference container (AMENDMENT 01's own stated reason for this row)."
+  coverage_gap_honestly_stated: >
+    The wider 11-viewport list a project-direction document proposed
+    (360x800, 600x900, 834x1194, 1536x864 in particular) is NOT in the
+    CI screenshot suite. Every semantic class above has at least one
+    frozen viewport; not every specific pixel pair some external list
+    names does. This is a recorded gap (EV-20260831-010), not a silent
+    omission — widen the frozen matrix only with a new AMENDMENT citing
+    a real, observed coverage failure, per VISUAL-REGRESSION-CONTRACT.md's
+    own change-authority rule.
+  height:
+    short: "Reduce non-essential vertical spacing; never let essential controls sit under a fixed header/footer."
+    normal: "Standard rhythm — the only height class any current UKBT component/test targets explicitly."
+    tall: "Do not stretch every section to fill height; preserve information density."
+    repo_state: "No current component or test targets height classes explicitly — recorded here as a rule for new work, not a claim that height-specific handling already exists."
+
+# ---------------------------------------------------------------------------
+# 4. Page/section contract shape — what docs/16-page-contracts/*.md must
+# declare. (Framework-neutral, same discipline as COMPONENT-CONTRACT.md.)
+# ---------------------------------------------------------------------------
+page_contract_required_fields:
+  - purpose
+  - primary_user_action
+  - information_hierarchy (the REAL section order, read from the .astro file, never assumed)
+  - section_list (each with: purpose, priority, responsive_transformation per viewport class from §3)
+  - accessibility_requirements (cross-reference contracts/ACCESSIBILITY-CONTRACT.md, never restate it)
+
+# ---------------------------------------------------------------------------
+# 5. Component reuse protocol — binding for any new UI work.
+# ---------------------------------------------------------------------------
+component_reuse_protocol:
+  before_creating_a_component:
+    - "Search apps/web/src/components/*.astro for an existing component with the same semantic responsibility."
+    - "Search for an existing variant (a prop, not a new file) that could satisfy the requirement."
+    - "Only create a new component when a genuinely new semantic responsibility exists — not a new visual treatment of an existing one."
+    - "Document it (packages/truth/src/contracts/<name>.contract.md, per COMPONENT-CONTRACT.md's frozen shape) before it has more than one call site."
+  known_risk_this_guards_against: >
+    Card / FeatureCard / InfoCard / ContentCard-style duplication — this
+    repo currently has ONE generic Card.astro plus purpose-specific
+    components (RosterGrid, TournamentCard, LeadershipGrid) that are
+    genuinely different semantic responsibilities (a roster entry vs. an
+    event vs. a leader), not accidental duplicates of Card. Verified by
+    reading each component's actual markup before writing this file —
+    not assumed compliant.
+
+# ---------------------------------------------------------------------------
+# 6. Source-of-truth cross-reference (NOT a new authority order — see
+# EV-20260831-010 finding 2). Which layer of the DESIGN SYSTEM wins a
+# conflict, given CLAUDE.md's/knowledge/11's EVIDENCE authority already
+# decided which evidence to trust.
+# ---------------------------------------------------------------------------
+design_system_layer_precedence:
+  order:
+    - "contracts/ACCESSIBILITY-CONTRACT.md (platform/standards floor)"
+    - "Product requirement / client instruction (evidenced, per knowledge/07)"
+    - "Brand tokens (packages/truth/tokens/approved/**)"
+    - "Design-system foundations (contracts/CSS-CONTRACT.md, knowledge/12)"
+    - "Component contract (packages/truth/src/contracts/*.contract.md)"
+    - "Page contract (docs/16-page-contracts/*.md)"
+    - "Section-level responsive transformation (§2/§3 above)"
+    - "Local Astro implementation detail"
+    - "Agent preference — LOWEST, never wins a conflict with anything above"
+  note: >
+    This orders DESIGN-SYSTEM LAYERS, distinct from CLAUDE.md's Authority
+    order (which orders EVIDENCE CLASSES) and knowledge/11's extended
+    Authority order (which orders MEASUREMENT FRESHNESS). All three apply
+    simultaneously to different questions; none supersedes another.
+
+# ---------------------------------------------------------------------------
+# 7. Truth classification for UI decisions — added EV-20260831-011.
+# A DIFFERENT axis from CLAUDE.md's evidence classes (FACT/DERIVED/OBSERVED/
+# etc. — epistemic status of a claim) and from knowledge/11's Authority
+# order (measurement freshness). This one tags WHERE a UI decision's
+# authority comes from, so an agent never cites a design preference as
+# if it were a standards requirement.
+# ---------------------------------------------------------------------------
+truth_classification:
+  NORMATIVE: "A formal requirement from an applicable standard (e.g. a specific WCAG 2.2 SC) — binding via contracts/ACCESSIBILITY-CONTRACT.md, never restated as if this file were the source."
+  PLATFORM: "Official platform/web guidance (Apple HIG, Android adaptive guidance, MDN, W3C ARIA APG) — background/precedent, not a UKBT requirement in itself."
+  PRODUCT: "A requirement from the client/product goal, evidenced per knowledge/07-CONTENT-TRUTH-POLICY.yaml."
+  SYSTEM: "An approved project-level design-system rule (this file, knowledge/12, contracts/CSS-CONTRACT.md)."
+  PAGE: "A page-specific rule (docs/16-page-contracts/*.md)."
+  SECTION: "A section-specific rule (embedded in a page contract)."
+  COMPONENT: "A reusable component rule (packages/truth/src/contracts/*.contract.md)."
+  REFERENCE: "A rule inferred from an approved screenshot/reference render — weaker than SYSTEM/COMPONENT, never promoted to NORMATIVE."
+  INFERENCE: "An agent-derived decision where no higher-level rule exists yet — must stay labelled INFERENCE, never silently upgraded (this is CLAUDE.md's existing 'never silently downgrade UNKNOWN to VERIFIED' rule, restated for this axis)."
+  rule: >
+    A screenshot observation is never cited as NORMATIVE. A design
+    preference is never cited as "WCAG". An INFERENCE is promoted to
+    SYSTEM only through the same process any other knowledge/ addition
+    goes through (an evidence record naming what changed).
+
+# ---------------------------------------------------------------------------
+# 8. RULE_ID micro-format — added EV-20260831-011. Optional structured shape
+# for a single named UI rule (as opposed to a whole contract file); use it
+# when documenting one narrow, testable decision inline in code comments or
+# a PR description, not as a replacement for a full page/component/section
+# contract.
+# ---------------------------------------------------------------------------
+rule_id_format:
+  fields: [RULE_ID, AUTHORITY, SOURCE, SCOPE, REQUIREMENT, RATIONALE, IMPLEMENTATION, VALIDATION, CONFIDENCE, STATUS]
+  authority_values: "One of §7's truth_classification tags."
+  confidence_values: [HIGH, MEDIUM, LOW]
+  status_values: [PROPOSED, APPROVED, SUPERSEDED]
+  example: >
+    RULE_ID: SLOP-04 (already exists, knowledge/12) — AUTHORITY: SYSTEM —
+    SOURCE: knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml — SCOPE:
+    NewsTeaser.astro .ukbt-news__card h4 — REQUIREMENT: unbounded-length
+    titles get -webkit-line-clamp inside a min-height card — RATIONALE:
+    real post titles have no CONTENT-CONTRACT.md length ceiling —
+    IMPLEMENTATION: display:-webkit-box;-webkit-line-clamp:3 —
+    VALIDATION: unreachable today (no page passes posts), so no visual
+    test exists yet; add one when a real post lands — CONFIDENCE: HIGH —
+    STATUS: APPROVED.
+
+# ---------------------------------------------------------------------------
+# 9. Admission gates — added EV-20260831-011. Checklists, not new rules;
+# each restates an existing knowledge/12 or §5 rule as a yes/no gate.
+# ---------------------------------------------------------------------------
+admission_gates:
+  new_token:
+    - "Reusable meaning beyond one element?"
+    - "Semantic name, not a raw value?"
+    - "Doesn't duplicate an existing --ukbt-* token?"
+    - "If any answer is no: do not create it (contracts/CSS-CONTRACT.md's APPROVED-only rule already enforces this structurally)."
+  new_component: "See §5's component_reuse_protocol above — this is that protocol restated as a checklist, not a second rule."
+  new_breakpoint:
+    - "An actual composition failure was observed (not 'because this is the tablet breakpoint')?"
+    - "The failure is reproducible?"
+    - "An existing token/breakpoint genuinely cannot solve it?"
+    - "If any answer is no: do not add a breakpoint."
+  new_exception:
+    - "A higher design-system-layer rule was identified (§6)?"
+    - "The reason is a real, narrow one-off, not a preference?"
+    - "It's documented inline (a code comment, same discipline as this repo's existing components) so it doesn't silently become a new default?"
+
+never:
+  - "Do not treat this file's illustrative repo_state notes as a claim that every component/page has a written contract — only card.contract.md and home.md exist as of EV-20260831-010; extend incrementally against real code."
+  - "Do not widen contracts/VISUAL-REGRESSION-CONTRACT.md's frozen viewport matrix from this file alone — that contract's own AMENDMENT mechanism governs, and requires a named coverage failure, not a preference."
+  - "Do not let 'the proposal's example said so' stand in for reading the real .astro file — see EV-20260831-010 finding 3 (the homepage section list mismatch this file's authors actually caught)."
