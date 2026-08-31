@@ -1,0 +1,48 @@
+id: EV-20260831-006
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Session requester's clarifying answers, resolving the two conflicts
+  EV-20260831-005 explicitly could not resolve on its own:
+  1. Roushan Singh's country (three conflicting values: Portugal, India,
+     Netherlands): requester said "make the country section black[/blank]
+     and continue" — leave the field unset/UNKNOWN rather than choosing
+     one of the three conflicting values. Rendered as "Country
+     unconfirmed" wherever this person's country would otherwise appear,
+     with a note naming the conflict, rather than fabricating a value or
+     rendering a silently empty field.
+  2. Jeremy Martins (on the UK Bangla Tigers master list, Portugal; absent
+     from the Uppsala Tigers squad list; currently live as an Uppsala
+     Tigers overseas signing, Ireland): requester said "proceed as per
+     the new docs I gave you" — the two 2026-08-31 squad-list documents
+     (EV-20260831-005) govern. Since the Uppsala Tigers squad list does
+     not include him, he is removed from the Uppsala Tigers page and
+     included only on the UK Bangla Tigers players list, country Portugal
+     per that list.
+source: "Session Q&A (AskUserQuestion), session requester answering on behalf of / relaying the client."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records instructions as given, same first-party channel used
+  throughout this project. Does not expire.
+scope: "Resolves the two conflicts EV-20260831-005 could not resolve on its own."
+method: >
+  Presented each conflict as a direct multiple-choice AskUserQuestion
+  rather than guessing.
+result: |
+  Both items now actionable. Implemented in
+  apps/web/src/content/franchises-data.ts (Roushan Singh's country left
+  unset with an explanatory note; Jeremy Martins removed from the
+  Uppsala squad) and apps/web/src/content/players-data.ts (Roushan
+  Singh's country also left unset there for the same reason; Jeremy
+  Martins included at Portugal per the master list).
+related_files:
+  - apps/web/src/content/franchises-data.ts
+  - apps/web/src/content/players-data.ts
+relates_to: [EV-20260831-005]
+notes: >
+  "Make the country section black and continue" is read as "blank" —
+  a plausible typo/autocorrect, not a request to render literal black
+  text or withhold the person's name. Only the country field is left
+  unset; the name, tags, and note explaining why are unaffected.

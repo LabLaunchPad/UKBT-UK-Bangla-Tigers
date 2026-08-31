@@ -1,0 +1,47 @@
+id: EV-20260831-004
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  The client supplied the new Uppsala Tigers logo as a direct image
+  upload: a circular crest, navy/gold, featuring a tiger head, a cricket
+  ball, and the wordmark "UPPSALA TIGERS / EST - 2026". This resolves the
+  logo-change request in `EV-20260831-001` item (4), previously blocked
+  for lack of a replacement asset (`artifacts/content/CLIENT-ASK-LIST.md`
+  §2a).
+source: "Uploaded image (0898ded7-image.jpg, 1500x1500 JPEG), viewed at full resolution."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records the supplied asset as given. First-party (the club supplying
+  its own sister-franchise's crest), same class as the original crest
+  assets in apps/web/src/assets/MANIFEST.md. Viewed at full resolution
+  before staging, per ASSET-CONTRACT.md AMENDMENT 01 rule 3 — no other
+  names, captions, or third-party branding baked into the image; the
+  "EST - 2026" date is a design element of the crest itself, not
+  independently verified against any other founding-date evidence (no
+  such claim is made about Uppsala Tigers elsewhere in this project).
+scope: "Uppsala Tigers franchise imagery — /franchises card grid and /franchises/uppsala-tigers detail page."
+method: >
+  Viewed the supplied image at full resolution, checking specifically for
+  baked-in names or third-party marks (the EV-20260826-031 lesson).
+  Staged to apps/web/public/brand/uppsala-tigers-crest.jpg and recorded
+  in apps/web/src/assets/MANIFEST.md before any code referenced it.
+result: |
+  Uppsala Tigers now has its own crest, distinct from the UK Bangla
+  Tigers crest it previously fell back to on both the franchise card
+  grid and its detail page. Closes CLIENT-ASK-LIST.md §2a and the
+  BLOCKED sub-item on DECISION-LEDGER VD-006.
+related_files:
+  - apps/web/public/brand/uppsala-tigers-crest.jpg
+  - apps/web/src/assets/MANIFEST.md
+  - apps/web/src/content/franchises-data.ts
+  - apps/web/src/pages/franchises.astro
+  - apps/web/src/pages/franchises/uppsala-tigers.astro
+  - artifacts/content/CLIENT-ASK-LIST.md
+  - artifacts/visual/DECISION-LEDGER.md
+relates_to: [EV-20260831-001, EV-20260831-002]
+notes: >
+  This is a logo/crest asset (a designed mark), not a photograph of
+  people or a squad — the person-identification and photography-rights
+  concerns that govern EV-20260826-027/-030/-031 do not apply here.

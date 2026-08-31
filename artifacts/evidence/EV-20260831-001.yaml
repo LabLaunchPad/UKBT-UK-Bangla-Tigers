@@ -1,0 +1,72 @@
+id: EV-20260831-001
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  A supplied 2-page corrections document ("Website_Corrections_1.pdf")
+  instructs: (1) on the Club Captain / Players Profile page, remove
+  "Founder and CEO" from Mohammad Chowdhury's displayed role, leaving
+  "Club Captain"; (2) a revised Franchise History table for Mohammad
+  Chowdhury with 8 named Previous Teams (Yankee Royals USA/US Open,
+  Bangladesh Tigers of USA USA/Atlanta Open, US All Stars West Indies/
+  Caribbean T10, Dynamite Ducks South Africa/LMS World Championship,
+  Bangladesh Tigers USA/Diversity Cup, BAS Vampire England/T20 Pro-Am,
+  Bangladesh Tigers of USA USA/Motor City Championship, Faisalabad
+  Falcons USA/US Open) and an empty Current Teams column; (3) on the Our
+  Franchises page, Uppsala Tigers should be reachable via a click from an
+  "Our Franchise" list/landing, structured so future franchises can be
+  added to that same list; (4) the Uppsala Tigers logo should be changed
+  (no replacement file attached); (5) a revised Overseas Signings list
+  for Uppsala Tigers naming 10 players with country: Shakib Al Hasan
+  (Bangladesh), Mohammad Chowdhury (England), Chad Potgieter (South
+  Africa), Owen Palmer (England), Jeremy Martins (Ireland), Jaspreet
+  Singh (Italy), Armaan Randhawa (Austria), Karanbir Singh (Austria),
+  Shaheryar But (Belgium), Roushan Singh (Portugal).
+source: "Uploaded PDF (fc721316-Website_Corrections_1.pdf, 22.1KB), read in full, 2 pages."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records this document's contents as supplied. First-party (relayed as
+  client corrections, the same class already accepted for EV-20260826-026
+  and EV-20260826-027), so treated as OBSERVED per
+  knowledge/04-EVIDENCE-POLICY.yaml. Two internal conflicts with prior
+  evidence are noted, not silently resolved by this record alone — see
+  EV-20260831-002 for how each was resolved:
+  - This document's Franchise History table conflicts with the site's
+    existing Current/Previous split (EV-20260826-026): none of the site's
+    4 "Current" entries (London Blaze, Roma Ovest Titans, UK Bangla
+    Tigers, Uppsala Tigers) appear in this document at all, and its
+    Current Teams column is blank.
+  - This document's Overseas Signings list gives Chad Potgieter as South
+    Africa and Jeremy Martins as Ireland; the previously-evidenced source
+    (EV-20260826-030, the "OVERSEAS SIGNINGS — UPPSALA TIGERS" graphic)
+    has both as Portugal.
+  - This document spells the Bangladesh signing "Shakib Al Hasan"
+    (typed directly by the client in a corrections letter); the prior
+    graphic-sourced evidence recorded "Shakibal Hasan" (EV-20260826-030),
+    deliberately transcribed exactly as shown on that image without
+    asserting identity. A client typing the name directly in a
+    corrections document is a stronger, more deliberate signal than an
+    OCR-style image read, so this record treats "Shakib Al Hasan" as the
+    corrected spelling — see EV-20260831-002.
+scope: "Post-launch content correction round — Club Captain page, Franchise History, Our Franchises page, Overseas Signings roster."
+method: Read the PDF verbatim across both pages; cross-referenced every item against live site content (captain-data.ts, franchises-data.ts, about-data.ts) and existing evidence (EV-20260826-026, EV-20260826-030) before recording.
+result: |
+  Items (1) and the 5 non-conflicting new signings in item (5) are
+  directly actionable with no ambiguity. Items (2), (3), and the two
+  conflicting signings in item (5) required clarification from the
+  session requester before implementation, per this project's "never
+  invent facts" invariant — resolved in EV-20260831-002. Item (4) (logo
+  file) remains genuinely blocked: no replacement asset was supplied in
+  this document or otherwise; recorded as a client ask, not fabricated.
+related_files:
+  - apps/web/src/content/captain-data.ts
+  - apps/web/src/content/franchises-data.ts
+  - artifacts/content/CLIENT-ASK-LIST.md
+  - artifacts/evidence/EV-20260831-002.yaml
+relates_to: [EV-20260826-026, EV-20260826-027, EV-20260826-030]
+notes: >
+  This document does not name "Nipo Khadem" / "MD Siraj Ullah Khadem
+  Nipo" at all, and does not rescind the prior exclusion instruction
+  (EV-20260826-027, CLIENT_REQ_008) — that exclusion continues to govern
+  and remains in effect on the updated roster.

@@ -1,0 +1,71 @@
+id: EV-20260831-005
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Two supplied documents: (1) "Uppsala Tigers Players & Managements
+  List.pdf" — 20 named Uppsala Tigers players (9 marked with a plane
+  icon, matching the site's existing "Overseas Signings" subset, plus 11
+  unmarked domestic-squad players including three tagged U-19), two
+  players tagged (Wk) [wicketkeeper], and four team officials (Coach:
+  Shaftab Khalid; Team Manager: AGM Sabbir; Logistics Manager: MD
+  Ashraful Alam; Team Mentor: Javed Butt); (2) "Players Profile.pdf" — a
+  flat 42-name "List Of Players" with country per name, explicitly
+  described by the requester as being about Players Profile, "not
+  Uppsala Tigers" (i.e. the UK Bangla Tigers roster).
+source: >
+  Two uploaded PDFs (d794522f-Players__Managements_List.pdf, 186.2KB;
+  b4facd8d-Players_Profile.pdf, 113KB), each read in full.
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records these documents' contents as supplied. First-party, same class
+  as EV-20260826-026/-027 and EV-20260831-001. Two internal conflicts
+  were found and NOT resolved by this record alone — see EV-20260831-006
+  for how each was resolved:
+  - Doc (2)'s 42-name list contains all 20 names from doc (1)'s Uppsala
+    squad, confirming CLIENT_REQ_007 ("Uppsala Tigers players should
+    also appear on the UK Bangla Tigers Players list",
+    EV-20260826-027) — not a conflict, a fulfilment.
+  - Roushan Singh's country: doc (1) says India; doc (2) says
+    Netherlands; the currently-live value (from EV-20260831-001, applied
+    2026-08-31 earlier the same day) is Portugal. Three different values
+    across three documents for the same person.
+  - Jeremy Martins appears in doc (2) (Portugal) but NOT in doc (1)'s
+    Uppsala squad list at all, despite being currently live on the site
+    as an Uppsala Tigers overseas signing (Ireland, from
+    EV-20260831-001).
+  - Neither document names "Nipo Khadem" / "MD Siraj Ullah Khadem Nipo"
+    — the standing exclusion (CLIENT_REQ_008, EV-20260826-027) is
+    unaffected and continues to govern.
+  - Shaheryar Butt's spelling is confirmed as "Butt" (not "But") in both
+    new documents — resolves the single-letter discrepancy flagged but
+    left unchanged in EV-20260831-002's notes.
+scope: "Players Profile page (full UK Bangla Tigers roster) and Uppsala Tigers page (full squad + team officials)."
+method: >
+  Read both PDFs verbatim; cross-referenced every name against the
+  currently-live site (franchises-data.ts) and prior evidence
+  (EV-20260826-026/-027/-030, EV-20260831-001/-002) before recording.
+result: |
+  20 of the 42 names in doc (2) are confirmed identical to doc (1)'s
+  Uppsala squad (by name match). The 22 remaining names in doc (2) are
+  UK Bangla Tigers' own players, not (per this evidence) Uppsala Tigers
+  players. Doc (1)'s "Wk" (wicketkeeper) tags apply to Owen Palmer and
+  Roushan Singh; "U-19" tags apply to Anas Zaheer, Essa Farooq, and
+  Dhrubonil Roy. Country values for the 11 domestic Uppsala squad
+  members (left blank in doc 1) are taken from doc (2), which supplies a
+  country for every one of them — supplementary, not conflicting, since
+  doc (1) simply omitted the field rather than stating a different
+  value.
+related_files:
+  - apps/web/src/content/franchises-data.ts
+  - apps/web/src/content/players-data.ts
+  - apps/web/src/pages/players.astro
+  - apps/web/src/pages/franchises/uppsala-tigers.astro
+  - artifacts/evidence/EV-20260831-006.yaml
+relates_to: [EV-20260826-026, EV-20260826-027, EV-20260826-030, EV-20260831-001, EV-20260831-002]
+notes: >
+  Doc (1)'s title page states "Uppsala Tigers is owned and managed by UK
+  Bangla Tigers" and gives the same CIC registration number
+  (16850390) already on record — consistent with, not new information
+  beyond, EV-20260826-028's independent Companies House corroboration.

@@ -1,0 +1,99 @@
+---
+// Reference `.partnership-container` (artifacts/extraction/css-rule-graph.json):
+// flex row, full width, padding 50px 0, border-radius 20px, tinted
+// background, overflow hidden (a logo swiper in the reference). Stage 8
+// deliberately omitted this section — MissionWelcome.astro's own header
+// comment: "no sponsor is evidenced." WOLFFIT is the first real sponsor
+// (EV-20260831-007), so this reinstates the section with real content.
+//
+// The reference fills the panel with its own accent colour
+// (`--accent-color-2`, #C6EF2E) — an Adelux-specific token, not part of
+// UKBT's approved Navy/Gold palette, so not carried over
+// (contracts/ROUTE-CONTRACT.md: a route's visual layout may be informed
+// by the reference, but not its Adelux-specific facts). The padding/
+// radius role is reused via the existing `Section wrapper surface="alt"`
+// primitive instead — the same pattern already used for WhyChooseUs and
+// AcademySection — rather than a bespoke re-declaration of the same
+// values.
+//
+// Kept as its own component rather than folded into MissionWelcome.astro:
+// the reference itself treats `.partnership-container` as a distinct
+// block from `.welcome-about-wrapper`, and sponsors are a different
+// content domain (evidence class, provenance, update cadence) from the
+// four UKBT mission facts MissionWelcome renders.
+//
+// Only one sponsor exists today, so this renders a static centred row,
+// not the reference's swiper carousel: a carousel with one slide has
+// nothing to carousel, and would add a dependency and interaction-testing
+// surface for no benefit (CLAUDE.md: smallest change, no speculative
+// abstractions). `.partner-img { max-width: 75% }` becomes a per-logo cap
+// on this component's own image sizing instead.
+interface Props {
+  sponsors: { name: string; tagline?: string; logo: string; logoAlt: string }[];
+}
+const { sponsors } = Astro.props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-sponsors">
+  <SubHeading label="Proud Sponsor" />
+  <h2>Our Sponsors</h2>
+  <div class="ukbt-sponsors__row">
+    {
+      sponsors.map((s) => (
+        <div class="ukbt-sponsors__item">
+          <img src={s.logo} width="160" height="160" alt={s.logoAlt} />
+          <div>
+            <h3 class="ukbt-sponsors__name">{s.name}</h3>
+            {s.tagline && <p class="ukbt-sponsors__tagline">{s.tagline}</p>}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .ukbt-sponsors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ukbt-space-4);
+    text-align: center;
+  }
+  .ukbt-sponsors h2 {
+    margin: 0;
+  }
+  /* Reference `.swiperpartner`: flex, justify-content center. */
+  .ukbt-sponsors__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-sponsors__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+  }
+  /* Reference `.partner-img`: max-width 75% (of its slide). Fixed here
+     since each logo is its own flex item, not a shared-width slide. */
+  .ukbt-sponsors__item img {
+    display: block;
+    height: 8rem;
+    width: 8rem;
+    max-width: 75%;
+    border-radius: var(--ukbt-radius-lg);
+  }
+  .ukbt-sponsors__name {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-sponsors__tagline {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+</style>

@@ -5,7 +5,10 @@
 // + content block). Reimplemented with four real, independently
 // evidenced UKBT facts — not Adelux's mission-card copy, and not
 // invented differentiators. The reference's partner-logo swiper
-// (`.partnership-container`) is omitted: no sponsor is evidenced.
+// (`.partnership-container`) is its own component (Sponsors.astro,
+// rendered directly after this one on /about) — omitted from here only,
+// not from the page; see Sponsors.astro's header for why it isn't
+// merged into this component instead.
 interface Fact {
   title: string;
   body: string;
