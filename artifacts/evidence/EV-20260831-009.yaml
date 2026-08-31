@@ -1,0 +1,105 @@
+id: EV-20260831-009
+classification: FIRST_PARTY_PROJECT_DIRECTION
+claim: >
+  The project owner supplied a general web-engineering best-practices
+  checklist for eliminating "visual slop" (layout shift, blur, jagged
+  edges, text truncation, overlapping elements) when cards/containers
+  scale — covering transform-only hover animation, em/rem-based internal
+  spacing, fixed-unit border radii, CSS Grid/Flexbox gap instead of
+  absolute positioning, clamp()-based fluid typography, line-clamp text
+  truncation, SVG-only icons, and aspect-ratio + object-fit for images —
+  and directed that it be applied to this repository, tailored to its
+  actual stack, with deep research into content/component organization
+  and scaling UX rules.
+source: "Project owner message, delivered in-session 2026-08-31, a pasted best-practices document ending with two clarifying questions about card type and CSS approach."
+source_type: first_party_project_direction
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records project direction as given, the same authority class as
+  EV-20260831-003. The checklist itself is general web-platform
+  engineering practice (CSS box model, compositor animation, native
+  clamp()/aspect-ratio/-webkit-line-clamp), not a claim about UK Bangla
+  Tigers requiring external verification or an expiry date.
+scope: "Governance: knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml. Code: apps/web/src/components/NewsTeaser.astro."
+method: >
+  Read every card/grid component in apps/web/src/components (Card,
+  RosterGrid, TournamentCard, FranchiseTeaser, NewsTeaser, LeadershipGrid,
+  Sponsors, Footer, Header) against each checklist item before writing
+  any rule or making any change — never assumed a gap existed without
+  reading the actual CSS first.
+result: |
+  AUDITED against the checklist, item by item, against this repository's
+  real component code (not a generic template):
+
+  1. transform-only hover/scale animation (never width/height): repo
+     ALREADY COMPLIANT. Card.astro's only hover transition is box-shadow
+     (paint-only). No component transitions width, height, or a grid
+     track. No change needed.
+
+  2. Relative internal spacing via tokens: repo ALREADY COMPLIANT. Every
+     card component spends --ukbt-space-*/--ukbt-radius-* custom
+     properties, never a literal px/rem — already structurally enforced
+     by contracts/CSS-CONTRACT.md's APPROVED-token-only compile gate.
+
+  3. Grid/Flexbox with gap, never absolute positioning for nested card
+     items: repo ALREADY COMPLIANT across all seven card components
+     checked.
+
+  4. Fluid typography via clamp(): PARTIALLY present
+     (--ukbt-font-size-display only, EV-20260826-family, DERIVED per
+     typography.json's own comment) and DELIBERATELY NOT widened to every
+     heading level here — that would be a visual-parity-affecting design-
+     token change (packages/truth/src/tokens/), not defensive hardening,
+     and is out of scope for this pass. Recorded as knowledge/12's SLOP-07
+     so it is a named, scoped-out decision rather than a silent gap.
+
+  5. Text truncation safety (line-clamp): ONE REAL GAP FOUND.
+     NewsTeaser.astro's `.ukbt-news__card h4` sits in a `min-height: 20rem`
+     card with no clamp, and real post titles (once they exist) are
+     unbounded free text per CONTENT-CONTRACT.md. FIXED: added
+     `-webkit-line-clamp: 3` (the cross-browser-implemented standard
+     mechanism, despite the prefix) to that rule. Zero current visual-
+     regression risk: no page passes `posts` to NewsTeaser today, so the
+     clamped rule is unreachable in any current screenshot/DOM state —
+     confirmed by grep, not assumed.
+
+  6. SVG-only icons, never raster: repo ALREADY COMPLIANT. Every
+     interface icon (Footer.astro, Header.astro) is inline <svg
+     fill="currentColor">. Raster usage is confined to real photography
+     and brand marks, correctly so, and already governed separately by
+     contracts/ASSET-CONTRACT.md.
+
+  7. aspect-ratio + object-fit for scaling images: repo ALREADY
+     COMPLIANT. RosterGrid.astro's `__photo` rule already sets both,
+     alongside explicit HTML width/height attributes.
+
+  Net effect: one durable policy file (knowledge/12) capturing the
+  checklist as repo-tailored rules with each item's compliance state
+  recorded against real code, plus one small, currently-unreachable
+  defensive fix (NewsTeaser.astro line-clamp) — not a sweeping rewrite
+  of already-compliant CSS, per CLAUDE.md's "no gate weakening / no
+  scope expansion without re-planning" and the smallest-change principle.
+related_files:
+  - knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml
+  - apps/web/src/components/NewsTeaser.astro
+  - apps/web/src/components/RosterGrid.astro
+  - apps/web/src/components/Card.astro
+  - apps/web/src/components/FranchiseTeaser.astro
+  - apps/web/src/components/Footer.astro
+  - apps/web/src/components/Header.astro
+  - contracts/CSS-CONTRACT.md
+  - contracts/COMPONENT-CONTRACT.md
+relates_to: [EV-20260831-003, EV-20260826-032]
+notes: >
+  The pasted checklist ends "tell me: (1) standard grid cards or a
+  popup/modal card, (2) Tailwind or standard CSS" — answered directly
+  from repository evidence rather than asked back to the user: (1) this
+  repo's card surfaces (RosterGrid, LeadershipGrid, TournamentCard,
+  Sponsors) are all standard grid cards, no expanding-to-fullscreen modal
+  card exists anywhere; (2) docs/14-tool-selection-layer.md already
+  establishes standard CSS (plain component-scoped stylesheets +
+  style-dictionary tokens), Tailwind explicitly never the source of truth
+  (contracts/CSS-CONTRACT.md). No modal/popup card component exists to
+  apply SLOP-01 to yet — this record does not invent one.
