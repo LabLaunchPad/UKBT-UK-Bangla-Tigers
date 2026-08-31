@@ -215,6 +215,34 @@ Workers deploy after the four stacked fixes above.
   `knowledge/11-VISUAL-TRUTH-POLICY.yaml`, and the new `visual_never`
   block in `knowledge/10-ANTI-DRIFT-RULES.yaml`.
 
+### 2.3c UX operating system adopted — page/section/component contract layer
+
+- **ADDED 2026-08-31** — `docs/15-ux-operating-system.md` and
+  `knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml` add the layer above
+  `docs/13`/`docs/14`: a page → section → component → state contract
+  hierarchy, a closed responsive-transformation vocabulary (INVARIANT /
+  SCALE / STACK / COLLAPSE / REORDER / HIDE / SCROLL), and a
+  component-reuse-before-creation protocol. `EV-20260831-010`, refined
+  same-day by `EV-20260831-011` (truth-classification tags, a RULE_ID
+  micro-format, two more transformation types, four admission gates —
+  the refinement's proposed parallel `/design-system` file tree and new
+  automated stress-test gates were deliberately not adopted, both
+  recorded with reasons in `EV-20260831-011`).
+- `contracts/VISUAL-REGRESSION-CONTRACT.md` AMENDMENT 03 maps
+  COMPACT/MEDIUM/EXPANDED/LARGE/XL semantic classes onto the existing
+  FROZEN 7-viewport matrix — no new CI screenshot viewport was added. A
+  wider externally-proposed 11-viewport list was checked against the
+  matrix's own change-authority rule and found not to meet it (no
+  observed coverage failure); the gap is recorded, not silently adopted
+  — same discipline as 2.4's pre-existing "no viewport below 390px" item
+  below.
+- Two demonstrated contract instances, both verified against real
+  shipped code rather than invented: `packages/truth/src/contracts/card.contract.md`
+  (pre-existing, checked accurate, no change needed) and
+  `docs/16-page-contracts/home.md` (new — homepage, using its actual
+  `index.astro` section order). Further page/component contracts are
+  written incrementally as future work touches them.
+
 ### 2.4 Minor, informational, not blocking anything
 
 - **`crest-512.png` is supplied at 512px into 44-106px mobile slots**

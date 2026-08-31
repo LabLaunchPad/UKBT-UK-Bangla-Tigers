@@ -1,0 +1,138 @@
+id: EV-20260831-010
+classification: FIRST_PARTY_PROJECT_DIRECTION
+claim: >
+  The project owner supplied a detailed operating-system proposal for
+  governing AI-agent UI work: a Design System → Viewport Contract → Page
+  Contract → Section Contract → Component Contract → State Contract →
+  Validation hierarchy; a closed vocabulary of responsive transformations
+  (INVARIANT, SCALE, STACK, COLLAPSE, REORDER, HIDE, SCROLL); five
+  semantic viewport classes (COMPACT/MEDIUM/EXPANDED/LARGE/XL, with
+  specific px boundaries and an accompanying 11-viewport canonical test
+  list); a component-reuse-before-creation protocol; a "search existing
+  before creating" rule against implementation drift (Card/FeatureCard/
+  InfoCard duplication); a source-of-truth precedence order; a
+  design.md-as-authority + DTCG-tokens + per-component/page/pattern .md
+  file repository layout; and a nine-phase agent execution protocol
+  (discover → model → foundations → page → responsive → visual QA →
+  accessibility QA → regression → document), with citations to WCAG 2.2
+  (200% resize, 320px reflow, 24x24 CSS px pointer target, 4.5:1 text
+  contrast), Apple HIG (Dynamic Type, safe areas, adaptive layout),
+  Android window size classes (600/840 compact/medium/expanded
+  boundaries), CSS container queries, DTCG 2025.10, and W3C ARIA
+  Authoring Practices.
+source: "Project owner message, delivered in-session 2026-08-31, a long-form 'reusable knowledge' document ending with an explicit request to 'update accordingly or create new docs when needed with full verifications'."
+source_type: first_party_project_direction
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records project direction as given, the same authority class as
+  EV-20260831-003 (which this record explicitly builds on rather than
+  duplicates). The cited external standards (WCAG 2.2, Apple HIG, Android
+  window size classes, DTCG, ARIA APG) are general, versioned public
+  specifications, not UKBT-specific claims, and are cited here as the
+  document's own stated grounding, not independently re-verified against
+  the live spec text in this pass — see `notes` for what that means for
+  reliance.
+scope: >
+  Governance: knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml,
+  docs/15-ux-operating-system.md,
+  contracts/VISUAL-REGRESSION-CONTRACT.md (AMENDMENT 03),
+  packages/truth/src/contracts/card.contract.md (pre-existing, verified accurate), docs/16-page-contracts/home.md.
+method: >
+  Read the proposal in full. Before encoding any part of it, checked it
+  against this repository's actual, currently-frozen state: read
+  contracts/VISUAL-REGRESSION-CONTRACT.md (including AMENDMENTs 01-02),
+  contracts/COMPONENT-CONTRACT.md, contracts/CSS-CONTRACT.md,
+  contracts/DESIGN-SYSTEM-CONTRACT.md, CLAUDE.md's existing Authority
+  order and its visual-truth-addendum Authority order, and the real
+  rendered structure of apps/web/src/pages/index.astro and
+  apps/web/src/components/Card.astro — rather than transcribing the
+  proposal's own example content (its illustrative homepage section list,
+  its illustrative StatCard/Hero contracts, its illustrative breakpoint
+  numbers) as if they were already true of this repository.
+result: |
+  ENCODED WITH RECONCILIATION, not verbatim adoption. Three material
+  conflicts/gaps found between the proposal and current frozen state,
+  each resolved by extension rather than silent override:
+
+  1. VIEWPORT MATRIX CONFLICT. The proposal's 11-viewport canonical test
+     list (360x800, 390x844, 430x932, 600x900, 768x1024, 834x1194,
+     1024x768, 1280x800, 1440x900, 1536x864, 1920x1080) does not match
+     VISUAL-REGRESSION-CONTRACT.md's FROZEN 7-viewport matrix (1920x1080,
+     1440x900, 1280x800, 1024x768, 768x1024, 430x932, 390x844,
+     AMENDMENT 01/02). That matrix's own text says it "must not change
+     without a contract amendment" and that amendment requires a named
+     evidence-backed reason (a real coverage gap), not just a differently
+     -sized external proposal. Resolution: AMENDMENT 03 adds the
+     proposal's semantic classes (COMPACT/MEDIUM/EXPANDED/LARGE/XL) as a
+     mapping ONTO the existing 7 viewports, and does not add the four
+     extra viewports (360x800, 600x900, 834x1194, 1536x864) to the CI
+     screenshot suite — recorded as a named, honest coverage gap (every
+     size class is represented by at least one frozen viewport, but not
+     every one of the proposal's specific pixel pairs is captured) rather
+     than silently expanding an already-passing, already-evidenced gate.
+     Re-evaluate only if a real defect is later found at one of the
+     uncovered sizes.
+
+  2. AUTHORITY ORDER — NOT REPLACED, EXTENDED. CLAUDE.md already declares
+     an Authority order (repo+evidence > approved decisions > historical
+     audits > model memory), and the visual-truth addendum already
+     extends it (fresh measurement > approved contracts > evidence
+     records > governed visual artifacts > past chat > model memory).
+     The proposal's own "SOURCE OF TRUTH ORDER" (accessibility/platform
+     standards > product requirements > brand tokens > design-system
+     foundations > component > page > section > local implementation >
+     agent preference) is a *different axis* (which layer of the design
+     system wins a conflict, not which evidence class is trusted) and is
+     encoded as such in knowledge/13, explicitly cross-referenced to
+     the existing two orders rather than presented as a third,
+     competing authority hierarchy.
+
+  3. HOMEPAGE SECTION LIST — NOT TRUE OF THIS REPOSITORY. The proposal's
+     own worked example ("HERO / SECTION 01 Club proposition / ... /
+     SECTION 08 Latest news / FOOTER") does not match
+     apps/web/src/pages/index.astro's real composition, which is:
+     Header, Hero, ClubIntro, WhyChooseUs, AcademySection, TournamentGrid,
+     CaptainSpotlight, FranchiseTeaser, AboutCTA, Footer — ten sections,
+     not the proposal's assumed set, and LeadershipGrid/TestimonialSection
+     /NewsTeaser (which the proposal's list implies are homepage sections)
+     are in fact used on /about, /community, /coaching, /tournaments and
+     /news respectively, never on the homepage. The homepage page
+     contract (docs/16-page-contracts/home.md) is written from the real
+     file, not the proposal's illustrative list — per CLAUDE.md's "never
+     invent facts" and anti-drift AD-02 ("restating a template's
+     placeholder values as verified facts").
+
+  Scope of this pass: one demonstrated component contract (Card, the
+  most foundational primitive, already shipped) and one demonstrated
+  page contract (home, already shipped) — not all ~20 components and
+  ~14 pages. The proposal's own component-reuse-before-creation rule and
+  contract *shape* are encoded as the durable, reusable authority
+  (knowledge/13, docs/15); further page/component contracts are written
+  incrementally, against real shipped code, as future work touches them —
+  never speculatively invented for pages/components not yet examined.
+related_files:
+  - knowledge/13-RESPONSIVE-UX-OPERATING-MODEL.yaml
+  - docs/15-ux-operating-system.md
+  - docs/16-page-contracts/home.md
+  - packages/truth/src/contracts/card.contract.md (pre-existing, verified accurate)
+  - contracts/VISUAL-REGRESSION-CONTRACT.md
+  - CLAUDE.md
+  - docs/13-visual-truth-system.md
+  - docs/14-tool-selection-layer.md
+  - apps/web/src/pages/index.astro
+  - apps/web/src/components/Card.astro
+relates_to: [EV-20260831-003, EV-20260826-032]
+notes: >
+  The external standards the proposal cites (WCAG 2.2 SC 1.4.10 Reflow,
+  SC 2.5.8 Target Size Minimum, SC 1.4.4 Resize Text, SC 1.4.3 Contrast
+  Minimum; Android's 600/840dp window size class boundaries; DTCG
+  2025.10) are cited in knowledge/13 and docs/15 as DERIVED background
+  the way docs/14-tool-selection-layer.md already cites platform
+  documentation — useful engineering grounding, not re-verified against
+  the primitive spec text itself in this pass, and not elevated to
+  UKBT-VERIFIED-FACT status. `contracts/ACCESSIBILITY-CONTRACT.md`
+  remains the actual binding UKBT accessibility gate; this record adds
+  no new accessibility requirement beyond what that contract already
+  states, and defers to it wherever the two might be read as differing.
