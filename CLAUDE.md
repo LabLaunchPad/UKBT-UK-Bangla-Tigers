@@ -153,8 +153,8 @@ pnpm deploy:verify               # the full release gate: governance-scaffold, d
                                   # tokens:build, typecheck, test:unit, build, check:links
 ```
 
-Single test file (vitest, from `packages/truth`): `pnpm --filter @ukbt/truth exec vitest run src/gate/rules.test.ts`.
-Single e2e spec (playwright, from `apps/web`): `pnpm --filter @ukbt/web exec playwright test tests/visual/<file>.spec.ts`.
+For a single test file, a single e2e spec, or any other package-scoped
+command, see `packages/truth/CLAUDE.md` and `apps/web/CLAUDE.md`.
 
 `pnpm deploy:verify` is the authoritative release gate — it is what
 `artifacts/receipts/RELEASE.md` must reflect a fresh run of. Never claim a
@@ -163,32 +163,22 @@ subset of it passing is equivalent to a passing release gate.
 ### Architecture
 
 Two workspace packages, cleanly separated by the trust boundary the contract
-describes:
+describes. Each has its own `CLAUDE.md` with package-scoped commands and
+architecture, loaded automatically when working in that subtree — read this
+root file for the cross-cutting/governance picture, and the package file for
+the rest:
 
-- **`packages/truth` (`@ukbt/truth`)** — owns no framework/UI code. Holds:
-  - `src/schema/` — Zod content schemas + provenance types (`content-types.ts`,
-    `provenance.ts`) that every organization-specific claim must satisfy.
-  - `src/gate/` — the deterministic "truth gate": `rules.ts` / `registry.ts` /
-    `derive.ts` decide machine-checkable facts (e.g. evidence classification,
-    UNKNOWN-vs-FACT), not the model.
-  - `src/tokens/` — design tokens (`approved/`, `adapted/`), built by
-    `style-dictionary` into `apps/web/src/styles/generated/` (biome-ignored,
-    generated output — don't hand-edit).
-  - `src/contracts/` — per-component contract docs (`button.contract.md`,
-    `card.contract.md`) that pair with `contracts/COMPONENT-CONTRACT.md`.
-
-- **`apps/web` (`@ukbt/web`)** — the Astro site, `output: 'static'`.
-  - `src/pages/` — one `.astro` file per route (about, players, tournaments,
-    franchises, news incl. `news/[slug].astro`, membership, join, services,
-    coaching, community, club-captain, contact, faq, design-system, 404).
-  - `src/content/*-data.ts` — page content as typed data modules (not an Astro
-    content collection), each shaped against `@ukbt/truth`'s schemas.
-  - `src/layouts/`, `src/components/` — shared layout/UI.
-  - `tests/visual/` — Playwright + `@axe-core/playwright` specs (visual
-    regression + accessibility).
-  - `@astrojs/cloudflare` is a devDependency but **not** an active adapter —
-    it activates only once a real form needs Cloudflare Pages Functions
-    (`contracts/FORM-CONTRACT.md`). Don't wire it up speculatively.
+- **`packages/truth` (`@ukbt/truth`)** — owns no framework/UI code: Zod
+  content schemas + provenance types, the deterministic "truth gate", design
+  tokens, per-component contract docs. See `packages/truth/CLAUDE.md`.
+- **`apps/web` (`@ukbt/web`)** — the Astro site, `output: 'static'`, one
+  route per `src/pages/*.astro` file, typed content data modules, Playwright
+  visual/accessibility specs. See `apps/web/CLAUDE.md`.
+- Deployment target is Cloudflare Workers (static assets), configured by the
+  **root-level** `wrangler.jsonc` (deliberately not under `apps/web/` — see
+  the comments in that file and in `apps/web/astro.config.mjs` for the
+  concrete CI failures that pinned both that location and the
+  `server: { host: '127.0.0.1' }` setting).
 
 - **`contracts/`** — one frozen Markdown contract per concern (routes, SEO,
   CSS, accessibility, forms, deployment, CI, rights, visual regression,
@@ -207,12 +197,6 @@ describes:
   (`artifacts/review/`), and client-blocked content asks
   (`artifacts/content/CLIENT-ASK-LIST.md`). Retrieved only when a decision
   needs it.
-
-- **Deployment target**: Cloudflare Workers (static assets), configured by the
-  root-level `wrangler.jsonc` (deliberately at repo root, not `apps/web/` —
-  see the comments in that file and in `apps/web/astro.config.mjs` for the
-  concrete CI failures that pinned both that location and the
-  `server: { host: '127.0.0.1' }` setting).
 
 - **`docs/10-fresh-repo-pipeline.md`** defines the stage/gate sequence this
   project is built under; `scripts/scaffold-self-test.mjs` checks the
