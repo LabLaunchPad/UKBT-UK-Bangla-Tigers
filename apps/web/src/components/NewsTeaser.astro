@@ -85,8 +85,20 @@ const { posts = [] } = Astro.props;
     gap: var(--ukbt-space-gap-2);
     padding: 0 var(--ukbt-space-gap-3) var(--ukbt-space-gap-3);
   }
+  /* Real post titles are unbounded-length free text (CONTENT-CONTRACT.md
+     has no length ceiling on a headline). Clamped so a long title can
+     never grow the card past its neighbours in the same grid row or
+     push the meta line off the bottom of the media panel — the same
+     failure mode knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml calls
+     "text truncation safety". Currently unreachable (no page passes
+     `posts`, so this card never renders — see NewsTeaser's own SHELL
+     ONLY note above), hardened now so real posts drop in safely later. */
   .ukbt-news__card h4 {
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   /* Reference `.meta-data`: accent-coloured, on the dark card. */
   .ukbt-news__meta {
