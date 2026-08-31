@@ -236,6 +236,7 @@ test('gold accent text always meets contrast, on every route', async ({
     '/club-captain',
     '/tournaments',
     '/franchises',
+    '/franchises/uppsala-tigers',
     '/contact',
   ]) {
     await page.goto(route);

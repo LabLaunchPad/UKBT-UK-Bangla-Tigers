@@ -153,3 +153,53 @@ grammar, and route *content* remains gated by the truth gate per item.
 `/contact` (CLIENT_REQ_001) · `/community`, `/coaching`, `/services`,
 `/membership`, `/join`, `/faq`, `/news`, `/news/[slug]` (CLIENT_REQ_009)
 · `/404` (routing hygiene, no organisational claim).
+
+---
+
+## AMENDMENT 02 — `/franchises/uppsala-tigers`
+
+**Date:** 2026-08-31 · **Authority:** `EV-20260831-001` / `EV-20260831-002`
+· **Status:** AMENDED (AMENDMENT 01 and the frozen text above preserved
+verbatim)
+
+### What changed
+
+`/franchises` is no longer a single-franchise showcase page. It is now a
+card-grid landing listing UKBT's sister franchises, each linking to its
+own detail route under `/franchises/`. `/franchises/uppsala-tigers` is
+added as the first such detail route, carrying the content the old
+`/franchises` page rendered directly.
+
+### Why this is not the behaviour the frozen text forbids
+
+This is not a route derived from Adelux's page list (the frozen text's
+concern) — it is a client instruction about UKBT's own information
+architecture, the same evidence class AMENDMENT 01 already accepts.
+`EV-20260831-001` records the client instruction verbatim: Uppsala
+Tigers "should be under Our Franchise once you click, in future there
+will be more in the list." `EV-20260831-002` records the requester's
+confirmation that this means dedicated per-franchise pages, not a
+reorganisation of the single existing page.
+
+### Conditions attached
+
+1. **No invented future franchises.** The card grid at `/franchises`
+   lists only franchises with real evidence (today: Uppsala Tigers
+   only). A grid slot is not pre-created for a franchise that does not
+   yet exist in evidence — see `apps/web/src/content/franchises-data.ts`'s
+   `ourFranchises` array and its comment.
+2. **Content unchanged, only relocated.** `/franchises/uppsala-tigers`
+   renders the same evidenced facts and overseas-signings roster the old
+   `/franchises` page rendered (as updated by `EV-20260831-001`/`-002`)
+   — this amendment changes routing/IA, not content provenance.
+3. **The rule survives this amendment.** A future franchise detail route
+   still needs its own stated UKBT evidence before being added to
+   `ourFranchises` and given a page — "the grid pattern already exists"
+   is not sufficient justification on its own, matching AMENDMENT 01's
+   condition 3.
+
+### Route set authorised (delta)
+
+Adds `/franchises/uppsala-tigers` to the route set in AMENDMENT 01.
+`/franchises` itself is unchanged as a route (same path), only its
+rendered content changes from a showcase to a grid landing.

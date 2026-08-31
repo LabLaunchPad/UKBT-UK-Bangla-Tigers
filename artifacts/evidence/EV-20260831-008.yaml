@@ -1,0 +1,78 @@
+id: EV-20260831-008
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  The client supplied a zip archive ("Team Squad (Uppsala
+  Tigers)20260831T033734Z1001.zip") containing 23 individual photos —
+  19 of the 20 Uppsala Tigers squad members (all except Dhrubonil Roy,
+  for whom no photo was supplied) plus all 4 team officials (Coach
+  Shaftab Khalid, Team Manager AGM Sabbir, Logistics Manager MD
+  Ashraful Alam, Team Mentor Javed Butt) — each filename carrying the
+  person's name and, for some, a parenthetical country/role tag — plus
+  a duplicate copy of the "Players & Managements List.pdf" already on
+  record as EV-20260831-005 (not treated as new evidence; contents
+  identical).
+  New evidence within the photos: "Roushan Singh (Portugal).jpg" shows
+  him wearing a jersey reading "PORTUGAL" — a second and third
+  independent data point (filename + photo) both agreeing with the
+  original corrections document (EV-20260831-001) that his country is
+  Portugal, against one each for India (EV-20260831-005's Uppsala squad
+  list) and Netherlands (EV-20260831-005's master players list). The
+  session requester confirmed resolving to Portugal on this evidence
+  (see EV-20260831-006 supersession below).
+source: "Uploaded zip (f34f362d-Team_Squad_Uppsala_Tigers20260831T033734Z1001.zip), extracted and every image viewed at full/near-full resolution."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records supplied assets and their content as observed. First-party,
+  same class as every other photo/logo asset in
+  apps/web/src/assets/MANIFEST.md. Original files were HEIF (11 of 23)
+  or PNG (8 of 23) or JPEG (4 of 23); HEIF is not broadly supported by
+  non-Safari browsers, so every image was converted to JPEG
+  (RGB, quality 82, longest edge capped at 640px — the smallest size
+  that still serves a roster-card photo cleanly, avoiding the oversupply
+  waste already flagged elsewhere in this project for crest-512.png)
+  before staging. Conversion changes format/dimensions only; no crop,
+  retouch, or content alteration.
+scope: "Player/official photography for /franchises/uppsala-tigers and the shared 20 names on /players."
+method: >
+  Extracted the zip; converted every HEIF file with pillow-heif (no
+  content change, format only); built a contact sheet and viewed every
+  photo, plus a closer look at three of the more studio/event-style
+  shots, checking specifically for photographer watermarks (none found
+  — unlike EV-20260826-022/-023/-024's watermarked photos) and for
+  third-party branding baked into the image (kit sponsor logos are
+  visible — STEP Group, NEX Education, RS Sport & Company, excel — on
+  the players' own Uppsala Tigers kit itself, not an unrelated event's
+  sponsor bar; disclosed here, not treated as a reason to exclude, per
+  ASSET-CONTRACT.md AMENDMENT 01 rule 4).
+result: |
+  19 of 20 squad photos and all 4 official photos staged to
+  apps/web/public/media/uppsala-squad/<slug>.jpg. Affiliation is
+  independently visually confirmable (an "UPPSALA TIGERS" wordmark or
+  crest is visible on the kit) for 17 of the 19 player photos and for
+  the Coach; NOT independently confirmable from the image alone for
+  Jaspreet Singh (wearing an Italy national jersey, not club kit),
+  Roushan Singh (wearing a Portugal national jersey, not club kit), and
+  the three non-Coach officials (AGM Sabbir, Javed Butt, MD Ashraful
+  Alam — none photographed in team branding) — for those five,
+  affiliation rests on the client's filename/pairing, the same
+  "Client-authorised" epistemic posture as ASSET-CONTRACT.md AMENDMENT
+  01's photography class, disclosed as such in MANIFEST.md rather than
+  overstated. Dhrubonil Roy has no photo and remains text-only, same
+  discipline as before a photo exists for anyone.
+related_files:
+  - apps/web/public/media/uppsala-squad/
+  - apps/web/src/assets/MANIFEST.md
+  - apps/web/src/content/franchises-data.ts
+  - apps/web/src/content/players-data.ts
+  - apps/web/src/components/RosterGrid.astro
+relates_to: [EV-20260831-005, EV-20260831-006, EV-20260826-027]
+notes: >
+  Supersedes EV-20260831-006's Roushan Singh resolution (leave unset) —
+  that decision was correct given the evidence available at the time;
+  this record's new photographic evidence changes the balance and the
+  session requester confirmed updating it, per this project's discipline
+  of revalidating rather than treating a past decision as permanently
+  fixed once new evidence arrives.

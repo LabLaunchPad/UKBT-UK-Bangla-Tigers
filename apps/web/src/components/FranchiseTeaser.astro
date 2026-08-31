@@ -3,7 +3,8 @@
 // template-columns 1fr 1fr, gap 100px — image with an adjacent CTA
 // caption on one side, heading + feature list on the other).
 // Reimplemented with the sister franchise's real, evidenced facts
-// (EV-20260826-026/-030) — no invented feature copy.
+// (EV-20260826-026/-030, updated per EV-20260831-001/-002/-005/-006) —
+// no invented feature copy.
 //
 // The image side does NOT use nordic-smash-slide.webp: that graphic has
 // "NIPO KHADEM / PORTUGAL" baked into the photo itself, and
@@ -18,13 +19,29 @@ interface Props {
 }
 const { name } = Astro.props;
 
+import SubHeading from './SubHeading.astro';
+import Surface from './Surface.astro';
+import { uppsalaOverseasSignings } from '../content/franchises-data';
+
+// Derived, not hand-copied, so this can't drift from the actual roster
+// the way a hand-typed country list did before (Ireland/Portugal both
+// stopped being accurate once EV-20260831-005/-006 revised the squad).
+const overseasCountries = [
+  ...new Set(uppsalaOverseasSignings.map((p) => p.country).filter((c): c is string => Boolean(c))),
+];
+const countryList =
+  overseasCountries.length > 1
+    ? `${overseasCountries.slice(0, -1).join(', ')} and ${overseasCountries.at(-1)}`
+    : (overseasCountries[0] ?? '');
+
 const facts = [
   { label: 'Based in Sweden', body: 'UK Bangla Tigers’ sister franchise, competing internationally.' },
   { label: 'Nordic Smash T20', body: 'Competed in the Nordic Smash T20 tournament, Sweden.' },
-  { label: 'Overseas Signings', body: 'Fields international players from England, Bangladesh, Portugal and Belgium.' },
+  {
+    label: 'Overseas Signings',
+    body: `Fields international players from ${countryList}.`,
+  },
 ];
-import SubHeading from './SubHeading.astro';
-import Surface from './Surface.astro';
 ---
 
 <div class="ukbt-franchise">

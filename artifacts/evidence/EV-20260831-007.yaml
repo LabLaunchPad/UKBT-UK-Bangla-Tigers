@@ -1,0 +1,62 @@
+id: EV-20260831-007
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  The client supplied a sponsor logo — "WOLFFIT" (tagline "FUEL. FOCUS.
+  FITNESS.", registered trademark mark visible) — with the instruction
+  "Here is the UK Bangla Tigers Proud Sponsor. Make sure we apply this
+  properly with best practices." This is the first named
+  sponsor/partner in this project's evidence; `artifacts/content/
+  CLIENT-ASK-LIST.md` §4 previously listed "Sponsor/partner names, if
+  any exist and can be named" as an open, unanswered ask.
+source: "Uploaded image (d8afc2f1-image.jpg, 1254x1254 JPEG), viewed at full resolution."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records the supplied asset and instruction as given. First-party (the
+  club naming and supplying its own sponsor's mark), same class as the
+  crest and Uppsala Tigers logo assets already in
+  apps/web/src/assets/MANIFEST.md. Viewed at full resolution before
+  staging, per ASSET-CONTRACT.md AMENDMENT 01 rule 3 (applied here even
+  though this is not a client-authorised-class photograph, as the same
+  full-resolution-inspection discipline) — no other names, people, or
+  additional third-party marks baked into the image beyond WOLFFIT's own
+  branding.
+scope: "Sponsor/partner content — previously UNKNOWN, per knowledge/07-CONTENT-TRUTH-POLICY.yaml's sponsors_partners_funders category."
+method: >
+  Viewed the supplied image at full resolution; staged to
+  apps/web/public/brand/sponsors/wolffit.jpg; recorded in
+  apps/web/src/assets/MANIFEST.md before any code referenced it.
+  Cross-checked contracts/ASSET-CONTRACT.md and DESIGN-SYSTEM-CONTRACT
+  reference geometry (artifacts/extraction/css-rule-graph.json,
+  `.partnership-container` / `.swiperpartner` / `.partner-img`) before
+  building a Sponsors section, since a sponsor-logo panel is a reference
+  UI pattern this project's Stage 8 build had explicitly omitted for
+  lack of evidence (apps/web/src/components/MissionWelcome.astro's own
+  header comment: "The reference's partner-logo swiper
+  (.partnership-container) is omitted: no sponsor is evidenced.").
+result: |
+  Closes the sponsor branch of CLIENT-ASK-LIST.md §4. A new Sponsors
+  section is added to /about (where MissionWelcome — the component that
+  noted the omission — already lives), reusing the existing Section
+  `wrapper`/`surface="alt"` primitive rather than the reference's
+  literal Adelux accent colour (#C6EF2E is an Adelux-specific token, not
+  part of UKBT's approved Navy/Gold palette — not carried over, per
+  ROUTE-CONTRACT.md's rule against treating Adelux-specific facts as
+  UKBT facts). Structured as an array (sponsors-data.ts) so a second
+  sponsor can be added the same way, without inventing one today.
+related_files:
+  - apps/web/public/brand/sponsors/wolffit.jpg
+  - apps/web/src/assets/MANIFEST.md
+  - apps/web/src/content/sponsors-data.ts
+  - apps/web/src/components/Sponsors.astro
+  - apps/web/src/pages/about.astro
+  - artifacts/content/CLIENT-ASK-LIST.md
+relates_to: []
+notes: >
+  "Apply this properly with best practices" is read as an instruction
+  about implementation quality (correct asset provenance, accessible
+  markup, reference-grammar-consistent geometry, no invented sponsor
+  copy) — not as licence to add promotional claims about WOLFFIT beyond
+  what the supplied mark itself shows (name and tagline).
