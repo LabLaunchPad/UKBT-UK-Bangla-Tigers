@@ -128,17 +128,32 @@ for (const route of routes) {
   });
 }
 
-test('no player photo is rendered on the Our Franchises roster', async ({
+test('Uppsala Tigers roster photos are exactly the evidenced set (EV-20260831-008)', async ({
   page,
 }) => {
   // Roster moved from /franchises (now a card-grid landing) to the
   // Uppsala Tigers detail page — contracts/ROUTE-CONTRACT.md AMENDMENT 02.
+  // Until EV-20260831-008, no player photo existed for anyone and this
+  // test asserted zero roster images. 19 of the 20 squad members now
+  // have a real, evidenced photo — this asserts the roster shows
+  // exactly that set, neither fewer (a photo silently dropped) nor more
+  // (an unevidenced image slipping in).
   await page.goto('/franchises/uppsala-tigers');
-  const rosterImgs = await page.locator('.ukbt-roster-card img').count();
-  expect(
-    rosterImgs,
-    'roster cards must stay text-only, no unconfirmed photos',
-  ).toBe(0);
+  const srcs = await page
+    .locator('.ukbt-roster-card img')
+    .evaluateAll((imgs) => imgs.map((img) => img.getAttribute('src')));
+  expect(srcs, 'roster photo count').toHaveLength(19);
+  for (const src of srcs) {
+    expect(src, 'roster photo path').toMatch(
+      /^\/media\/uppsala-squad\/.+\.jpg$/,
+    );
+  }
+  // Dhrubonil Roy has no supplied photo — must stay text-only, not a
+  // placeholder image.
+  const royCard = page.locator('.ukbt-roster-card', {
+    hasText: 'Dhrubonil Roy',
+  });
+  await expect(royCard.locator('img')).toHaveCount(0);
 });
 
 test('no captain portrait is rendered on the Club Captain page', async ({

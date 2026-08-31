@@ -85,8 +85,19 @@ if (!uppsala) {
         {
           uppsalaOfficials.map((o) => (
             <li>
-              <span class="ukbt-officials-list__role">{o.role}</span>
-              <span class="ukbt-officials-list__name">{o.name}</span>
+              {o.photo && (
+                <img
+                  class="ukbt-officials-list__photo"
+                  src={o.photo}
+                  alt={o.photoAlt ?? `${o.name} — Uppsala Tigers ${o.role}`}
+                  width="64"
+                  height="64"
+                />
+              )}
+              <div>
+                <span class="ukbt-officials-list__role">{o.role}</span>
+                <span class="ukbt-officials-list__name">{o.name}</span>
+              </div>
             </li>
           ))
         }
@@ -157,12 +168,27 @@ if (!uppsala) {
   }
   .ukbt-officials-list li {
     display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-1);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-3);
     background: var(--ukbt-color-surface-alt);
     border-radius: var(--ukbt-radius-lg);
     padding: var(--ukbt-space-4);
     border-top: 3px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-officials-list li > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+  }
+  .ukbt-officials-list__photo {
+    flex: none;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--ukbt-radius-ref-circle);
+    object-fit: cover;
+    object-position: top center;
+    background: var(--ukbt-color-surface);
   }
   .ukbt-officials-list__role {
     font-size: var(--ukbt-font-size-0);

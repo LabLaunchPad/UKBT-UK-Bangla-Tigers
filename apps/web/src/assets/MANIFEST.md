@@ -67,6 +67,54 @@ gallery images plus hero/leadership/uppsala):
 - `nordic-smash-slide.webp` — remains excluded on `CLIENT_REQ_008`
   grounds (visible "NIPO KHADEM"), unaffected by `CLIENT_REQ_010`.
 
+## Uppsala Tigers squad photography
+
+Provenance: `EV-20260831-008` — a zip of individually named photos
+supplied directly for player-card use, distinct from the anonymous
+gallery-derived photos above. Originals were HEIF/PNG/JPEG; all
+converted to JPEG (no HEIF support outside Safari) and downscaled to
+640px max dimension (roster-card size — avoiding the oversupply already
+flagged for `crest-512.png` elsewhere in this project). Every photo was
+viewed before staging; none carries a photographer watermark.
+
+Affiliation is independently confirmable where an "UPPSALA TIGERS"
+wordmark/crest is visible on the subject's own kit in the photo itself.
+Where it is not (a national-team jersey, or no team clothing at all),
+that is stated plainly — the person's affiliation still rests on the
+client's own pairing of name to squad list (`EV-20260831-005`), not on
+this project's independent verification, same posture as the
+Client-authorised class above.
+
+| Path | Person | Kit sponsor marks visible | Affiliation independently confirmable? |
+|---|---|---|---|
+| `public/media/uppsala-squad/mohammad-chowdhury.jpg` | Mohammad Chowdhury | STEP, NEX Education | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/shakib-al-hasan.jpg` | Shakib Al Hasan | STEP, NEX Education | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/karanbir-singh.jpg` | Karanbir Singh | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/owen-palmer.jpg` | Owen Palmer | STEP | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/shaheryar-butt.jpg` | Shaheryar Butt | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/chad-potgieter.jpg` | Chad Potgieter | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/roushan-singh.jpg` | Roushan Singh | adidas (cap) | **No** — wearing a Portugal national jersey, not Uppsala Tigers club kit |
+| `public/media/uppsala-squad/jaspreet-singh.jpg` | Jaspreet Singh | (none) | **No** — wearing an Italy national jersey, not Uppsala Tigers club kit |
+| `public/media/uppsala-squad/armaan-randhawa.jpg` | Armaan Randhawa | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/jawid-stanigze.jpg` | Jawid Stanigze | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/chinthaka-rajapaksha.jpg` | Chinthaka Rajapaksha | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/tasaduq-hussain.jpg` | Tasaduq Hussain | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/lemar-momand.jpg` | Lemar Momand | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/humayun-kabir-jyoti.jpg` | Humayun Kabir Jyoti | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/prashant-shukla.jpg` | Prashant Shukla | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/qudratullah-mir-afzal.jpg` | Qudratullah Mir Afzal | STEP; European Cricket Series medal/trophy | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/hamid-mahmood.jpg` | Hamid Mahmood | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/anas-zaheer.jpg` | Anas Zaheer | (none clearly visible) | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/essa-farooq.jpg` | Essa Farooq | STEP, NEX Education | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/shaftab-khalid.jpg` | Shaftab Khalid (Coach) | STEP, NEX Education | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/agm-sabbir.jpg` | AGM Sabbir (Team Manager) | none — plain headshot | **No** — no team clothing/branding in frame |
+| `public/media/uppsala-squad/md-ashraful-alam.jpg` | MD Ashraful Alam (Logistics Manager) | none — casual outdoor photo | **No** — no team clothing/branding in frame |
+| `public/media/uppsala-squad/javed-butt.jpg` | Javed Butt (Team Mentor) | none — casual outdoor photo | **No** — no team clothing/branding in frame |
+
+**Dhrubonil Roy** (the 20th squad member) has no supplied photo — remains
+text-only on both roster pages, same discipline as everyone else before
+a photo existed.
+
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
 - `home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event

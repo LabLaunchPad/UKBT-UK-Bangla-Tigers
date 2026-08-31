@@ -9,15 +9,21 @@
 // `alsoUppsala` here rather than duplicated with different data.
 // "Nipo Khadem" is absent from this list — CLIENT_REQ_008 unaffected.
 //
-// One conflict resolved per EV-20260831-006, not guessed: Roushan
-// Singh's country has three different values across three documents
-// (Portugal, India, Netherlands) — left UNSET here too, same as on the
-// Uppsala Tigers page, not silently defaulted to any of them.
+// One conflict, resolved not guessed: Roushan Singh's country had three
+// different values across three documents (Portugal, India,
+// Netherlands) — left UNSET per EV-20260831-006, then resolved to
+// Portugal per EV-20260831-008 (his own supplied photo, showing a
+// Portugal national jersey, corroborating both the filename and the
+// original corrections document — 3 sources agree, 1 each for the
+// other two).
 //
-// No photos, no stats: CLIENT_REQ_006 says squad-list pages show only
-// name, picture and country — no picture is supplied for any of these
-// 42 people, so cards stay text-only, the same discipline as
-// RosterGrid's other call site.
+// Photos: EV-20260831-008 supplied photos for the 20 Uppsala Tigers
+// squad members (19 of them — not Dhrubonil Roy), reused here for the
+// same 19 people rather than treated as separate evidence, since it's
+// the same person in both places. No photo exists for the other 22
+// UK Bangla Tigers-only names, so per CLIENT_REQ_006 those stay
+// text-only — the same RosterGrid component, a mixed photo/no-photo
+// grid, not a placeholder standing in for anyone.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
@@ -32,6 +38,11 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260831-006.yaml',
   },
+  {
+    id: 'EV-0831-08',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-008.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
@@ -42,6 +53,8 @@ export interface RosterPlayer {
   country?: string;
   tags?: string[];
   note?: string;
+  photo?: string;
+  photoAlt?: string;
 }
 
 // field-name-safe slug for each player, used only as the truth-gate
@@ -55,46 +68,148 @@ function slug(name: string): string {
 
 const UPPSALA_TAG = 'Also plays for Uppsala Tigers';
 
-const rawRoster: { name: string; country?: string; alsoUppsala?: boolean }[] = [
-  { name: 'Mohammad Chowdhury', country: 'England', alsoUppsala: true },
-  { name: 'Shakib Al Hasan', country: 'Bangladesh', alsoUppsala: true },
+interface RawPlayer {
+  name: string;
+  country?: string;
+  alsoUppsala?: boolean;
+  photoSlug?: string; // matches apps/web/public/media/uppsala-squad/<slug>.jpg
+}
+
+const rawRoster: RawPlayer[] = [
+  {
+    name: 'Mohammad Chowdhury',
+    country: 'England',
+    alsoUppsala: true,
+    photoSlug: 'mohammad-chowdhury',
+  },
+  {
+    name: 'Shakib Al Hasan',
+    country: 'Bangladesh',
+    alsoUppsala: true,
+    photoSlug: 'shakib-al-hasan',
+  },
   { name: 'Mark James Nunn', country: 'England' },
-  { name: 'Karanbir Singh', country: 'Austria', alsoUppsala: true },
+  {
+    name: 'Karanbir Singh',
+    country: 'Austria',
+    alsoUppsala: true,
+    photoSlug: 'karanbir-singh',
+  },
   { name: 'Wayne Parnel', country: 'South Africa' },
   { name: 'Junaid Siddique', country: 'Canada' },
-  { name: 'Owen Palmer', country: 'England', alsoUppsala: true },
-  { name: 'Shaheryar Butt', country: 'Belgium', alsoUppsala: true },
-  { name: 'Chad Potgieter', country: 'South Africa', alsoUppsala: true },
-  { name: 'Roushan Singh', alsoUppsala: true }, // country unset — see file header
+  {
+    name: 'Owen Palmer',
+    country: 'England',
+    alsoUppsala: true,
+    photoSlug: 'owen-palmer',
+  },
+  {
+    name: 'Shaheryar Butt',
+    country: 'Belgium',
+    alsoUppsala: true,
+    photoSlug: 'shaheryar-butt',
+  },
+  {
+    name: 'Chad Potgieter',
+    country: 'South Africa',
+    alsoUppsala: true,
+    photoSlug: 'chad-potgieter',
+  },
+  {
+    name: 'Roushan Singh',
+    country: 'Portugal',
+    alsoUppsala: true,
+    photoSlug: 'roushan-singh',
+  },
   { name: 'Juan Henri', country: 'Portugal' },
   { name: 'Shabbir Rahman', country: 'Bangladesh' },
   { name: 'Kenner Lewis', country: 'West Indies' },
-  { name: 'Jaspreet Singh', country: 'Italy', alsoUppsala: true },
+  {
+    name: 'Jaspreet Singh',
+    country: 'Italy',
+    alsoUppsala: true,
+    photoSlug: 'jaspreet-singh',
+  },
   { name: 'Pater Robert Harness', country: 'England' },
   { name: 'Amahl Nathaniel', country: 'West Indies' },
-  { name: 'Armaan Randhawa', country: 'Austria', alsoUppsala: true },
+  {
+    name: 'Armaan Randhawa',
+    country: 'Austria',
+    alsoUppsala: true,
+    photoSlug: 'armaan-randhawa',
+  },
   { name: 'Sufyan Mehmood', country: 'Oman' },
   { name: 'Arafat Bhuiyan', country: 'England' },
-  { name: 'Jawid Stanigze', country: 'Afghanistan', alsoUppsala: true },
+  {
+    name: 'Jawid Stanigze',
+    country: 'Afghanistan',
+    alsoUppsala: true,
+    photoSlug: 'jawid-stanigze',
+  },
   { name: 'Rajesh Sharma', country: 'India' },
-  { name: 'Chinthaka Rajapaksha', country: 'Sri Lanka', alsoUppsala: true },
+  {
+    name: 'Chinthaka Rajapaksha',
+    country: 'Sri Lanka',
+    alsoUppsala: true,
+    photoSlug: 'chinthaka-rajapaksha',
+  },
   { name: 'Elias Sunny', country: 'Bangladesh' },
   { name: 'Ruman Ahmed', country: 'Bangladesh' },
   { name: 'Forhad Reza', country: 'Bangladesh' },
-  { name: 'Tasaduq Hussain', country: 'Sweden', alsoUppsala: true },
+  {
+    name: 'Tasaduq Hussain',
+    country: 'Sweden',
+    alsoUppsala: true,
+    photoSlug: 'tasaduq-hussain',
+  },
   { name: 'Tawfique Khan Tushar', country: 'Bangladesh' },
-  { name: 'Lemar Momand', country: 'Afghanistan', alsoUppsala: true },
-  { name: 'Humayun Kabir Jyoti', country: 'USA', alsoUppsala: true },
+  {
+    name: 'Lemar Momand',
+    country: 'Afghanistan',
+    alsoUppsala: true,
+    photoSlug: 'lemar-momand',
+  },
+  {
+    name: 'Humayun Kabir Jyoti',
+    country: 'USA',
+    alsoUppsala: true,
+    photoSlug: 'humayun-kabir-jyoti',
+  },
   { name: 'Raminda Wijesooriya', country: 'Sri Lanka' },
   { name: 'Towker Khan', country: 'USA' },
-  { name: 'Prashant Shukla', country: 'India', alsoUppsala: true },
+  {
+    name: 'Prashant Shukla',
+    country: 'India',
+    alsoUppsala: true,
+    photoSlug: 'prashant-shukla',
+  },
   { name: 'Anop Ravi', country: 'Canada' },
-  { name: 'Qudratullah Mir Afzal', country: 'Sweden', alsoUppsala: true },
+  {
+    name: 'Qudratullah Mir Afzal',
+    country: 'Sweden',
+    alsoUppsala: true,
+    photoSlug: 'qudratullah-mir-afzal',
+  },
   { name: 'Elliot Green', country: 'England' },
-  { name: 'Hamid Mahmood', country: 'Sweden', alsoUppsala: true },
-  { name: 'Anas Zaheer', country: 'Sweden', alsoUppsala: true },
-  { name: 'Essa Farooq', country: 'Sweden', alsoUppsala: true },
-  { name: 'Dhrubonil Roy', country: 'Sweden', alsoUppsala: true },
+  {
+    name: 'Hamid Mahmood',
+    country: 'Sweden',
+    alsoUppsala: true,
+    photoSlug: 'hamid-mahmood',
+  },
+  {
+    name: 'Anas Zaheer',
+    country: 'Sweden',
+    alsoUppsala: true,
+    photoSlug: 'anas-zaheer',
+  },
+  {
+    name: 'Essa Farooq',
+    country: 'Sweden',
+    alsoUppsala: true,
+    photoSlug: 'essa-farooq',
+  },
+  { name: 'Dhrubonil Roy', country: 'Sweden', alsoUppsala: true }, // no photo supplied — EV-0831-08
   { name: 'Dhavalkumar Norotam', country: 'Portugal' },
   { name: 'Musa Ahmad', country: 'Netherlands' },
   { name: 'Jeremy Martins', country: 'Portugal' }, // NOT on Uppsala's own squad list — EV-0831-06
@@ -109,10 +224,14 @@ const roster: { field: string; value: RosterPlayer; sources: string[] }[] =
       tags: p.alsoUppsala ? [UPPSALA_TAG] : undefined,
       note:
         p.name === 'Roushan Singh'
-          ? 'Country unconfirmed — three supplied documents give three different countries (Portugal, India, Netherlands); left unset rather than guessed (EV-0831-06).'
+          ? 'Country was unconfirmed across three conflicting documents; resolved to Portugal once his own supplied photo and its filename both corroborated it (EV-0831-08).'
           : undefined,
+      photo: p.photoSlug
+        ? `/media/uppsala-squad/${p.photoSlug}.jpg`
+        : undefined,
+      photoAlt: p.photoSlug ? `${p.name} — Uppsala Tigers` : undefined,
     },
-    sources: ['EV-0831-05'],
+    sources: p.photoSlug ? ['EV-0831-05', 'EV-0831-08'] : ['EV-0831-05'],
   }));
 
 for (const r of roster) {

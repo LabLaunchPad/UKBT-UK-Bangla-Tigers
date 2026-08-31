@@ -9,15 +9,25 @@
 // client (EV-20260826-027, CLIENT_REQ_008) and is absent from every
 // squad list supplied since — excluded here, not rendered.
 //
-// Two conflicts resolved per EV-20260831-006, not guessed:
-// - Roushan Singh's country has three conflicting values across three
-//   documents (Portugal, India, Netherlands) — left UNSET here, not
-//   silently defaulted to any of them; the UI renders "Country
-//   unconfirmed" with a note.
+// Two conflicts resolved, not guessed:
+// - Roushan Singh's country had three conflicting values across three
+//   documents (Portugal, India, Netherlands) — left UNSET per
+//   EV-20260831-006. EV-20260831-008 (his own supplied photo, showing
+//   him in a Portugal national jersey — and the photo's own filename)
+//   tipped the balance to Portugal: 3 sources agree, 1 each for the
+//   other two. Resolved to Portugal on that evidence.
 // - Jeremy Martins is on the UK Bangla Tigers master players list
 //   (players-data.ts) but NOT on Uppsala Tigers' own squad list, despite
 //   being live here previously — removed from this file; see
 //   players-data.ts for where he now appears.
+//
+// `photo`/`photoAlt`: EV-20260831-008, the first roster photography this
+// project has. 19 of 20 squad members have one; Dhrubonil Roy doesn't
+// and stays text-only, same discipline as before anyone had a photo.
+// Affiliation with Uppsala Tigers is independently visible in-photo
+// (an "UPPSALA TIGERS" kit wordmark/crest) for everyone except Jaspreet
+// Singh and Roushan Singh, who are pictured in their national jerseys —
+// see apps/web/src/assets/MANIFEST.md's per-photo breakdown.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
@@ -45,6 +55,11 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260831-006.yaml',
   },
+  {
+    id: 'EV-0831-08',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-008.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
@@ -55,6 +70,8 @@ export interface SquadMember {
   country?: string;
   tags?: string[];
   note?: string;
+  photo?: string;
+  photoAlt?: string;
 }
 
 const squad: { field: string; value: SquadMember; sources: string[] }[] = [
@@ -64,8 +81,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Mohammad Chowdhury',
       country: 'England',
       tags: ['Captain', 'Overseas Signing'],
+      photo: '/media/uppsala-squad/mohammad-chowdhury.jpg',
     },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-05'],
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.hasan',
@@ -74,8 +92,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       country: 'Bangladesh',
       tags: ['Overseas Signing'],
       note: 'Name spelled per the client corrections document (EV-0831-01); identity not independently asserted.',
+      photo: '/media/uppsala-squad/shakib-al-hasan.jpg',
     },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05'],
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.singh_karanbir',
@@ -83,8 +102,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Karanbir Singh',
       country: 'Austria',
       tags: ['Overseas Signing'],
+      photo: '/media/uppsala-squad/karanbir-singh.jpg',
     },
-    sources: ['EV-0831-01', 'EV-0831-05'],
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.palmer',
@@ -92,8 +112,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Owen Palmer',
       country: 'England',
       tags: ['Overseas Signing', 'Wicketkeeper'],
+      photo: '/media/uppsala-squad/owen-palmer.jpg',
     },
-    sources: ['EV-0831-01', 'EV-0831-05'],
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.butt',
@@ -101,8 +122,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Shaheryar Butt',
       country: 'Belgium',
       tags: ['Overseas Signing'],
+      photo: '/media/uppsala-squad/shaheryar-butt.jpg',
     },
-    sources: ['EV-030', 'EV-0831-05'],
+    sources: ['EV-030', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.potgieter',
@@ -110,17 +132,20 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Chad Potgieter',
       country: 'South Africa',
       tags: ['Overseas Signing'],
+      photo: '/media/uppsala-squad/chad-potgieter.jpg',
     },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05'],
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.singh_roushan',
     value: {
       name: 'Roushan Singh',
+      country: 'Portugal',
       tags: ['Overseas Signing', 'Wicketkeeper'],
-      note: 'Country unconfirmed — three supplied documents give three different countries (Portugal, India, Netherlands); left unset rather than guessed (EV-0831-06).',
+      note: 'Country was unconfirmed across three conflicting documents (Portugal/India/Netherlands); resolved to Portugal once his own supplied photo (national jersey reading "PORTUGAL") and its filename both corroborated it (EV-0831-08).',
+      photo: '/media/uppsala-squad/roushan-singh.jpg',
     },
-    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-06'],
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-06', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.singh_jaspreet',
@@ -128,8 +153,9 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Jaspreet Singh',
       country: 'Italy',
       tags: ['Overseas Signing'],
+      photo: '/media/uppsala-squad/jaspreet-singh.jpg',
     },
-    sources: ['EV-0831-01', 'EV-0831-05'],
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.randhawa',
@@ -137,28 +163,45 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Armaan Randhawa',
       country: 'Austria',
       tags: ['Overseas Signing'],
+      photo: '/media/uppsala-squad/armaan-randhawa.jpg',
     },
-    sources: ['EV-0831-01', 'EV-0831-05'],
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.stanigze',
-    value: { name: 'Jawid Stanigze', country: 'Afghanistan' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Jawid Stanigze',
+      country: 'Afghanistan',
+      photo: '/media/uppsala-squad/jawid-stanigze.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.rajapaksha',
-    value: { name: 'Chinthaka Rajapaksha', country: 'Sri Lanka' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Chinthaka Rajapaksha',
+      country: 'Sri Lanka',
+      photo: '/media/uppsala-squad/chinthaka-rajapaksha.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.hussain',
-    value: { name: 'Tasaduq Hussain', country: 'Sweden' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Tasaduq Hussain',
+      country: 'Sweden',
+      photo: '/media/uppsala-squad/tasaduq-hussain.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.momand',
-    value: { name: 'Lemar Momand', country: 'Afghanistan' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Lemar Momand',
+      country: 'Afghanistan',
+      photo: '/media/uppsala-squad/lemar-momand.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.jyoti',
@@ -166,33 +209,56 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Humayun Kabir Jyoti',
       country: 'USA',
       tags: ['Wicketkeeper'],
+      photo: '/media/uppsala-squad/humayun-kabir-jyoti.jpg',
     },
-    sources: ['EV-0831-05'],
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.shukla',
-    value: { name: 'Prashant Shukla', country: 'India' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Prashant Shukla',
+      country: 'India',
+      photo: '/media/uppsala-squad/prashant-shukla.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.afzal',
-    value: { name: 'Qudratullah Mir Afzal', country: 'Sweden' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Qudratullah Mir Afzal',
+      country: 'Sweden',
+      photo: '/media/uppsala-squad/qudratullah-mir-afzal.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.mahmood',
-    value: { name: 'Hamid Mahmood', country: 'Sweden' },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Hamid Mahmood',
+      country: 'Sweden',
+      photo: '/media/uppsala-squad/hamid-mahmood.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.zaheer',
-    value: { name: 'Anas Zaheer', country: 'Sweden', tags: ['U-19'] },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Anas Zaheer',
+      country: 'Sweden',
+      tags: ['U-19'],
+      photo: '/media/uppsala-squad/anas-zaheer.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.farooq',
-    value: { name: 'Essa Farooq', country: 'Sweden', tags: ['U-19'] },
-    sources: ['EV-0831-05'],
+    value: {
+      name: 'Essa Farooq',
+      country: 'Sweden',
+      tags: ['U-19'],
+      photo: '/media/uppsala-squad/essa-farooq.jpg',
+    },
+    sources: ['EV-0831-05', 'EV-0831-08'],
   },
   {
     field: 'uppsala.squad.roy',
@@ -227,14 +293,36 @@ export const uppsalaOverseasSignings: SquadMember[] = uppsalaSquad.filter((m) =>
 export interface TeamOfficial {
   role: string;
   name: string;
+  photo?: string;
+  photoAlt?: string;
 }
 
 // EV-20260831-005 — "Uppsala Tigers Players & Managements List".
+// Photos: EV-20260831-008. Only the Coach is pictured in Uppsala Tigers
+// kit; the other three officials' photos show no team clothing/branding
+// — affiliation there rests on the client's own naming, not on this
+// project's independent visual confirmation (MANIFEST.md's breakdown).
 export const uppsalaOfficials: TeamOfficial[] = [
-  { role: 'Coach', name: 'Shaftab Khalid' },
-  { role: 'Team Manager', name: 'AGM Sabbir' },
-  { role: 'Logistics Manager', name: 'MD Ashraful Alam' },
-  { role: 'Team Mentor', name: 'Javed Butt' },
+  {
+    role: 'Coach',
+    name: 'Shaftab Khalid',
+    photo: '/media/uppsala-squad/shaftab-khalid.jpg',
+  },
+  {
+    role: 'Team Manager',
+    name: 'AGM Sabbir',
+    photo: '/media/uppsala-squad/agm-sabbir.jpg',
+  },
+  {
+    role: 'Logistics Manager',
+    name: 'MD Ashraful Alam',
+    photo: '/media/uppsala-squad/md-ashraful-alam.jpg',
+  },
+  {
+    role: 'Team Mentor',
+    name: 'Javed Butt',
+    photo: '/media/uppsala-squad/javed-butt.jpg',
+  },
 ];
 
 export const uppsalaFacts = [
