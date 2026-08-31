@@ -1,0 +1,148 @@
+# Visual truth, extraction and drift policy.
+# Long form: docs/13-visual-truth-system.md, docs/14-tool-selection-layer.md
+# Adopted 2026-08-31 — evidence: EV-20260831-003.
+# Restates nothing it does not need. Where this and a frozen contract
+# disagree, escalate (DR-015); never resolve silently.
+
+authority_order:                       # refines CLAUDE.md § Authority
+  - current_repository + fresh_executed_measurements + fresh_live_site_observation
+  - current_approved_contracts
+  - current_evidence_records
+  - governed_visual_artifacts
+  - past_chat_and_historical_decisions
+  - model_memory
+  rule: >
+    Historical context is useful, never automatically authoritative. A prior
+    chat instruction is not an approval; a previous PASS is not a current
+    PASS; an old screenshot is not the current baseline.
+
+four_truths:
+  rule: "Never collapse these into one."
+  historical: "what was previously said or decided"
+  repository: "what current code and contracts actually contain"
+  rendered: "what the current UI actually produces"
+  verification: "what has been independently and deterministically proven"
+  corollaries:
+    - "A prior chat is not automatically a specification."
+    - "A specification is not implementation."
+    - "Implementation is not verification."
+    - "A screenshot is not accessibility proof."
+    - "Passing tests are not proof of untested behavior."
+    - "Model confidence is never authorization."
+
+visual_forensics_order:                # AGENTS.md @ukbt:visual, made operational
+  - dom
+  - computed_styles
+  - box_geometry
+  - layout_relationships
+  - assets
+  - viewport_behavior
+  - interaction_states
+  - screenshots
+  - aesthetic_interpretation
+  rule: "Never label a property MEASURED unless it was actually measured."
+
+verification_standard:
+  required_categories: [structural, visual, responsive, interaction, accessibility]
+  rule: >
+    A missing category means NOT_VERIFIED even if every other category
+    passes. Binding source: contracts/VISUAL-REGRESSION-CONTRACT.md.
+  viewport_matrix_source: contracts/VISUAL-REGRESSION-CONTRACT.md   # 7 viewports since AMENDMENT 01
+  transcription: >
+    apps/web/tests/visual/viewports.ts is a TRANSCRIPTION of that contract,
+    not an independent decision. Contract and transcription must agree; a
+    disagreement is CODE_DRIFT and is closed by fixing the transcription,
+    never by weakening the contract.
+
+diff_classification:
+  classes:
+    - EXPECTED
+    - INTENTIONAL
+    - REGRESSION
+    - REFERENCE_ERROR
+    - IMPLEMENTATION_ERROR
+    - CONTENT_DRIFT
+    - ASSET_DRIFT
+    - RESPONSIVE_DRIFT
+    - TYPOGRAPHY_DRIFT
+    - GEOMETRY_DRIFT
+    - UNKNOWN
+  rule: >
+    UNKNOWN is a legitimate terminal class for an un-root-caused diff. It is
+    never upgraded to EXPECTED to close a task. "Looks identical" is never
+    validation.
+
+drift_model:
+  dimensions:
+    - CONTENT_DRIFT
+    - LAYOUT_DRIFT
+    - TYPOGRAPHY_DRIFT
+    - COLOR_DRIFT
+    - ASSET_DRIFT
+    - RESPONSIVE_DRIFT
+    - INTERACTION_DRIFT
+    - ACCESSIBILITY_DRIFT
+    - DESIGN_SYSTEM_DRIFT
+    - DECISION_DRIFT
+  scale: {0: none, 1: minor, 2: moderate, 3: major}
+  rule: >
+    Diagnostic only. A drift score never replaces a deterministic gate, and a
+    low score is never evidence that a gate would pass.
+
+extraction:
+  rendered_ui_priority: [browser_runtime, computed_css, dom_geometry, screenshot]
+  source_truth_priority: [source_files, token_files, css_configuration, generated_css]
+  history_priority: [current_git, current_contracts, decision_ledger, available_past_artifacts]
+  principle: "Use the cheapest authoritative tool that can prove the fact."
+  never:
+    - "screenshot vision where DOM/computed-style measurement can prove it"
+    - "source inspection where runtime behavior is what must be proven"
+    - "model judgement where deterministic extraction is available"
+    - "a new extraction tool where an existing repository tool proves the same fact"
+  tokens_vs_runtime: >
+    Tokens explain the INTENDED system; runtime extraction proves what the
+    browser actually rendered. Never replace a measured runtime value with a
+    guessed token — where they disagree, the disagreement is the finding.
+  detected_stack:                      # verified against this repo 2026-08-31
+    framework: "Astro 7 (output: static)"
+    css: "plain CSS + Astro scoped styles + generated custom properties"
+    tokens: "style-dictionary → apps/web/src/styles/generated/tokens.css"
+    automation: "Playwright + Chromium"
+    accessibility: "@axe-core/playwright"
+    absent: [tailwind, react, vue, scss, css_modules, css_in_js]
+    rule: "Never assume a stack. Absent means absent until detection says otherwise."
+
+past_visual_context:
+  rule: "Never assume unavailable conversation history exists."
+  when_unavailable: "HISTORICAL_CONTEXT = UNAVAILABLE"
+  classes: [CURRENT_APPROVED, CURRENT_OBSERVED, HISTORICAL_ONLY, REJECTED,
+            SUPERSEDED, CONFLICTING, UNKNOWN]
+  act_types: [IDEA, FEEDBACK, PROPOSAL, DECISION, APPROVAL, REJECTION, IMPLEMENTATION]
+  rule_preference: "A historical preference is not automatically a design rule."
+  ledger: artifacts/visual/DECISION-LEDGER.md
+
+domain_visual_audit:
+  may_communicate: [sport, club_identity, team_community, players, competition,
+                    tournaments, academy_coaching, international_presence,
+                    franchise_network, membership_joining, community_news]
+  rule: >
+    Domain relevance is not permission to invent decoration. Cricket/tiger/
+    sports geometry, badges, score-like UI, balls, bats, pitch or competition
+    motifs require CURRENT UKBT EVIDENCE, EXPLICIT APPROVAL, or VERIFIED
+    REFERENCE GRAMMAR. No generic decorative noise.
+
+responsive:
+  rule: "Never prove mobile quality by shrinking desktop."
+  precedent: >
+    mobile-axe.spec.ts exists because desktop-only axe scans missed 4 real
+    heading-order violations; mobile-ux.spec.ts exists because a real
+    horizontal scroll appeared only at 320/360px. Both are OBSERVED failures
+    of desktop-only reasoning, not hypotheticals.
+
+accessibility:
+  rule: >
+    Visual fidelity never requires copying an accessibility defect. A known
+    reference defect is a defect, not sacred design.
+  verify: [semantic_landmarks, heading_order, keyboard_navigation,
+           focus_visible, accessible_names, image_alternatives, contrast,
+           target_sizing, reduced_motion]

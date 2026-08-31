@@ -1,0 +1,95 @@
+id: EV-20260831-003
+classification: FIRST_PARTY_PROJECT_DIRECTION
+claim: >
+  The project owner supplied a specification for a multi-agent visual
+  truth, UX, implementation and anti-drift operating system for all UKBT
+  UI work, and directed that the repository's rules, governance and specs
+  be updated to encode it. Its substance: (1) an expanded authority order
+  placing fresh measurement and live-site observation above contracts,
+  evidence, governed visual artifacts, past chat and model memory in that
+  order; (2) a bounded task contract and an extended state machine adding
+  RENDER / VISUAL DIFF / UX-A11Y VERIFY / INDEPENDENT RED TEAM stages;
+  (3) a nine-role topology (orchestrator, grounding, visual forensics,
+  past-visual-context, UX/responsive, visual diff, implementation, final
+  red team, release/receipt) explicitly framed as capabilities rather
+  than a spawn list, with one code writer and separate-session
+  independence; (4) a visual-forensics ordering rule (DOM → computed
+  styles → geometry → ... → aesthetic interpretation last); (5) a
+  five-part verification standard; (6) a closed diff-classification
+  vocabulary; (7) a ten-dimension drift model, diagnostic only; (8) a
+  visual decision ledger and visual diff memory; (9) twenty never-rules;
+  (10) a tool-selection/extraction layer with a cheapest-authoritative-
+  tool principle and framework-agnostic adapter interface.
+source: "Project owner instruction, delivered in-session 2026-08-31, prefaced 'trust my below prompt and update our rules governances specs'."
+source_type: first_party_project_direction
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records project direction as given. This is direction about the
+  project's own operating rules — the same authority class that
+  established the pipeline and the contracts — not a factual claim about
+  UK Bangla Tigers requiring external provenance. Does not expire.
+scope: "Governance: CLAUDE.md, AGENTS.md, knowledge/, contracts/VISUAL-REGRESSION-CONTRACT.md, docs/, artifacts/visual/."
+method: >
+  Read the specification in full; cross-checked every claim it makes
+  about current repository state against the repository before encoding
+  it, rather than transcribing it verbatim.
+result: |
+  ENCODED, with the following reconciliations recorded rather than
+  silently absorbed:
+
+  1. CONFIRMED-TRUE claim: "The current UKBT visual contract includes the
+     amended 1920x1080 viewport in addition to the six original
+     viewports." VISUAL-REGRESSION-CONTRACT.md AMENDMENT 01 (2026-08-26,
+     EV-20260826-032) does say exactly this.
+
+  2. DRIFT FOUND while verifying (1): apps/web/tests/visual/viewports.ts
+     still listed SIX viewports and still described itself as "the frozen
+     6-viewport matrix", five days after the amendment made it seven.
+     That file is a transcription of the contract, not an independent
+     decision, and says so in its own header. Classified CODE_DRIFT and
+     closed by transcribing the seventh viewport plus capturing the
+     missing 1920x1080 evidence — never by narrowing the contract. See
+     VISUAL-REGRESSION-CONTRACT.md AMENDMENT 02 §1 and DECISION-LEDGER
+     VD-002. This is the first finding produced by the system this
+     record adopts.
+
+  3. NOT-APPLICABLE-HERE material: the specification's Tailwind guidance
+     (v3/v4 config, @theme variables, source-class scanning) is real and
+     correct guidance, but this repository has no Tailwind, React, Vue,
+     SCSS, CSS Modules or CSS-in-JS. Encoded in
+     docs/14-tool-selection-layer.md as adapters marked NOT APPLICABLE,
+     with UKBT's actually-detected stack (Astro 7 static, plain CSS +
+     Astro scoped styles, style-dictionary tokens, Playwright, axe-core)
+     recorded alongside — so a future detection result has somewhere to
+     land without today's document implying a stack that is not present.
+
+  4. ALREADY-BINDING material NOT restated as new: the five-part
+     verification standard (already in VISUAL-REGRESSION-CONTRACT.md),
+     golden-reference immutability (same), "roles are not a spawn list"
+     and separate-session independence (knowledge/09, .claude/README.md),
+     and seven of the twenty never-rules (already in knowledge/10's
+     anti_drift list). knowledge/10's new visual_never block states only
+     the thirteen that add something, and says which were omitted and
+     why.
+related_files:
+  - CLAUDE.md
+  - AGENTS.md
+  - docs/13-visual-truth-system.md
+  - docs/14-tool-selection-layer.md
+  - knowledge/09-AGENT-HARNESS-POLICY.yaml
+  - knowledge/10-ANTI-DRIFT-RULES.yaml
+  - knowledge/11-VISUAL-TRUTH-POLICY.yaml
+  - contracts/VISUAL-REGRESSION-CONTRACT.md
+  - artifacts/visual/DECISION-LEDGER.md
+  - apps/web/tests/visual/viewports.ts
+relates_to: [EV-20260826-032, EV-20260826-013, EV-20260831-001, EV-20260831-002]
+notes: >
+  The specification asserts several things about "the existing UKBT
+  harness policy" and "the UKBT contract". Each was checked against the
+  repository before being echoed; where it was right (roles-not-spawns,
+  executed-evidence-over-subjective-approval, the 1920 amendment, the
+  five-part standard) this encoding cites the existing source rather than
+  duplicating it as if new. No claim in this record rests on the
+  specification's own assertion about repository state alone.

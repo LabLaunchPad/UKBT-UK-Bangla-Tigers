@@ -186,6 +186,35 @@ Workers deploy after the four stacked fixes above.
   this session against a fresh build log since. Confirm on the next real
   Workers Builds run before considering this fully closed.
 
+### 2.3b Visual truth system adopted; 1920×1080 transcription gap CLOSED
+
+- **CLOSED 2026-08-31** — `contracts/VISUAL-REGRESSION-CONTRACT.md`
+  AMENDMENT 01 added 1920×1080 to the frozen matrix on 2026-08-26, but
+  `apps/web/tests/visual/viewports.ts` still listed six viewports and
+  still called itself "the frozen 6-viewport matrix". Every visual,
+  responsive and screenshot run in those five days therefore exercised
+  six viewports against a seven-viewport contract. Classified
+  `CODE_DRIFT`; closed by transcribing the seventh viewport and
+  capturing the 14 missing 1920×1080 screenshots plus geometry rows —
+  never by narrowing the contract. See AMENDMENT 02 §1,
+  `artifacts/visual/DECISION-LEDGER.md` VD-002, `EV-20260831-003`.
+- **Measured at the newly-exercised width, no defect found.** The 1920
+  row exists to observe centring and full-bleed behaviour above the
+  1340px container cap. Measured on the homepage: container renders
+  1340px wide, centred (290px each side); no horizontal overflow on any
+  route at any of the seven viewports. Painted `.ukbt-section` panels
+  measure viewport-minus-gutter at *every* width (30px gutter ≥1280,
+  20px at 768–1024, 10px at 390) — consistent inset design, not a
+  1920-specific regression. Recorded so the next reader does not
+  re-investigate it.
+- **New governance, now in force for UI work:**
+  `docs/13-visual-truth-system.md` (nine roles, state machine,
+  activation policy, ledger, drift model),
+  `docs/14-tool-selection-layer.md` (authoritative tool per fact,
+  UKBT's detected stack, adapter applicability),
+  `knowledge/11-VISUAL-TRUTH-POLICY.yaml`, and the new `visual_never`
+  block in `knowledge/10-ANTI-DRIFT-RULES.yaml`.
+
 ### 2.4 Minor, informational, not blocking anything
 
 - **`crest-512.png` is supplied at 512px into 44-106px mobile slots**

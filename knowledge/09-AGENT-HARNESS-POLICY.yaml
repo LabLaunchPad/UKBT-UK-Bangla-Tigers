@@ -62,3 +62,50 @@ concurrency:
 harness_health:
   rule: "The harness must reduce drift, not become another architecture problem."
   current: "12 slash commands mapping 1:1 to prompts, no added indirection."
+
+# ---------------------------------------------------------------------------
+# Visual-work role vocabulary, adopted 2026-08-31 (EV-20260831-003).
+# Long form: docs/13-visual-truth-system.md § 4-5.
+# This EXTENDS the vocabulary above; it does not repeal anything above it.
+# In particular `rule: "Do not create an agent merely because a task exists"`,
+# SEPARATE_SESSION independence, and single_writer all still bind.
+# ---------------------------------------------------------------------------
+visual_roles:
+  preamble: >
+    Nine roles are CAPABILITIES, not a spawn list. Defining them here does not
+    satisfy when_to_add_a_specialist below, and does not authorise populating
+    .claude/agents/. The orchestrator activates the minimum necessary subset.
+  roles:
+    orchestrator:      {writes_code: false, independence: control}
+    grounding_truth:   {writes_code: false, independence: independent}
+    visual_forensics:  {writes_code: false, independence: independent}
+    past_visual_context: {writes_code: false, independence: independent}
+    ux_responsive:     {writes_code: false, independence: independent}
+    visual_diff:       {writes_code: false, independence: separate_session_for_gate}
+    implementation:    {writes_code: true,  independence: single_writer}
+    final_red_team:    {writes_code: false, independence: separate_session}
+    release_receipt:   {writes_code: false, independence: independent}
+
+  activation:
+    standard_ui_reconstruction:
+      [orchestrator, grounding_truth, visual_forensics, ux_responsive,
+       implementation, visual_diff, release_receipt]
+    history_sensitive: "add past_visual_context"
+    critical_visual_gate: "run visual_diff in a SEPARATE SESSION"
+    release_critical: "run final_red_team then release_receipt in INDEPENDENT CONTEXT"
+
+  never:
+    - "full topology does not mean full spawning"
+    - "no specialist without incremental evidence value"
+    - "no duplicated specialist responsibilities"
+    - "no verifier relying solely on implementer output"
+    - "no concurrent application-code writers"
+    - "no claim of independence when contexts were in fact shared"
+
+  orchestrator_must_not:
+    - invent visual conclusions
+    - override evidence
+    - approve its own critical implementation
+    - silently revise contracts
+    - treat chat history as truth
+    - declare PASS without the required evidence

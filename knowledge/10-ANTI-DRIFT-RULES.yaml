@@ -47,6 +47,57 @@ observed_drift_patterns:
     seen: "Stage 1 reported grep heuristics as PASS beside a deterministic check."
     rule: "WEAK_EVIDENCE exists for this. Use it (DR-010)."
 
+# Visual/multi-agent never-rules, adopted 2026-08-31 (EV-20260831-003).
+# Long form: docs/13-visual-truth-system.md § 16.
+# Only rules NOT already stated in anti_drift above appear here — the ones
+# omitted (frozen decisions, UNKNOWN→VERIFIED, proposal→requirement,
+# generated docs as evidence, undeclared dependencies, unexecuted
+# validation, template facts as UKBT facts) are already binding above and
+# are not restated.
+visual_never:
+  - id: VN-01
+    rule: "Never trust model memory over repository evidence."
+  - id: VN-02
+    rule: "Never trust historical chat over current evidence."
+    note: "A prior chat is not automatically a specification."
+  - id: VN-03
+    rule: "Never treat prior agent output as independent evidence."
+    note: >
+      An agent's own summary is a claim about work, not verification of it.
+      Independence requires NOT INHERITING CONTEXT (knowledge/09).
+  - id: VN-04
+    rule: "Never resurrect a superseded decision without saying it was superseded."
+    seen: "AD-03 above — a red-teamed constraint reappeared verbatim in a later proposal."
+  - id: VN-05
+    rule: "Never use screenshot-only proof for structural correctness."
+  - id: VN-06
+    rule: "Never use DOM-only proof for visual fidelity."
+  - id: VN-07
+    rule: "Never use visual correctness as accessibility proof."
+    seen: >
+      Stage 8 red team F3 — 13 elements had a real, visible focus outline
+      painted at 1.0-1.25:1 against their own background. Visually present,
+      measurably inaccessible.
+  - id: VN-08
+    rule: "Never treat passing tests as proof of untested behavior."
+    seen: >
+      The desktop-only axe suite stayed green through 4 real mobile
+      heading-order violations (mobile-axe.spec.ts's own header).
+  - id: VN-09
+    rule: "Never edit a golden reference to hide a regression."
+    binding_source: contracts/VISUAL-REGRESSION-CONTRACT.md
+  - id: VN-10
+    rule: "Never widen scope without replanning."
+    note: "Record SCOPE_CHANGE / REASON / EVIDENCE / IMPACT, then replan."
+  - id: VN-11
+    rule: "Never claim independence when contexts were in fact shared."
+  - id: VN-12
+    rule: "Never spawn an agent without a named purpose and incremental evidence value."
+  - id: VN-13
+    rule: >
+      Never let a drift score, a confidence level, or a summary stand in for a
+      deterministic gate.
+
 escalation:
   when:
     - two authoritative sources conflict
