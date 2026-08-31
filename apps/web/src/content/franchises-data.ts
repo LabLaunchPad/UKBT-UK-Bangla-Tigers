@@ -142,11 +142,17 @@ export const uppsalaFacts = [
 // under a clickable "Our Franchise" list "in future there will be more in
 // the list" (EV-0831-01/EV-0831-02). Only Uppsala Tigers is evidenced
 // today — this list is not pre-populated with any invented future entry.
+//
+// `logo` is Uppsala Tigers' own supplied crest (EV-20260831-004,
+// apps/web/src/assets/MANIFEST.md), replacing the UK Bangla Tigers crest
+// this page and the detail page fell back to before it was supplied.
 export interface FranchiseSummary {
   slug: string;
   name: string;
   country: string;
   blurb: string;
+  logo: string;
+  logoAlt: string;
 }
 
 export const ourFranchises: FranchiseSummary[] = [
@@ -155,5 +161,7 @@ export const ourFranchises: FranchiseSummary[] = [
     name: 'Uppsala Tigers',
     country: 'Sweden',
     blurb: "UK Bangla Tigers' sister franchise, competing internationally.",
+    logo: '/brand/uppsala-tigers-crest.jpg',
+    logoAlt: 'Uppsala Tigers crest',
   },
 ];

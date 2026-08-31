@@ -6,15 +6,14 @@
 // contracts/ROUTE-CONTRACT.md AMENDMENT 02). Real overseas roster below,
 // "Nipo Khadem" excluded per CLIENT_REQ_008.
 //
-// The intro image is the crest, not nordic-smash-slide.webp: that
-// graphic has "NIPO KHADEM / PORTUGAL" baked into the photo itself
-// (EV-20260826-031, found on direct visual inspection of this page's own
-// screenshot) — no text-content check can catch a name inside a raster
-// image. No alternative photo excluding that player exists in evidence.
-// The client separately asked for the Uppsala Tigers logo itself to be
-// changed (EV-20260831-001 item 4) — no replacement file was supplied,
-// so the crest fallback stays until one is (see
-// artifacts/content/CLIENT-ASK-LIST.md).
+// The intro image is Uppsala Tigers' own supplied crest
+// (EV-20260831-004), not nordic-smash-slide.webp: that graphic has "NIPO
+// KHADEM / PORTUGAL" baked into the photo itself (EV-20260826-031, found
+// on direct visual inspection of this page's own screenshot) — no
+// text-content check can catch a name inside a raster image. No
+// alternative photo excluding that player exists in evidence. Before
+// EV-20260831-004 was supplied this panel fell back to the UK Bangla
+// Tigers crest; it now uses Uppsala Tigers' own mark.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import PageBanner from '../../components/PageBanner.astro';
@@ -22,8 +21,17 @@ import Section from '../../components/Section.astro';
 import RosterGrid from '../../components/RosterGrid.astro';
 import Footer from '../../components/Footer.astro';
 import { homepage } from '../../content/homepage-data';
-import { uppsalaFacts, uppsalaOverseasSignings } from '../../content/franchises-data';
+import {
+  ourFranchises,
+  uppsalaFacts,
+  uppsalaOverseasSignings,
+} from '../../content/franchises-data';
 import SubHeading from '../../components/SubHeading.astro';
+
+const uppsala = ourFranchises.find((f) => f.slug === 'uppsala-tigers');
+if (!uppsala) {
+  throw new Error("franchises-data.ts's ourFranchises is missing 'uppsala-tigers'");
+}
 ---
 
 <BaseLayout
@@ -45,7 +53,7 @@ import SubHeading from '../../components/SubHeading.astro';
     <Section>
       <div class="ukbt-franchise-intro">
         <div class="ukbt-franchise-intro__crest-panel">
-          <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
+          <img src={uppsala.logo} width="220" height="220" alt={uppsala.logoAlt} />
         </div>
         <div>
           <SubHeading label="Sister Franchise" />

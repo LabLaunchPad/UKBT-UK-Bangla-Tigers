@@ -26,13 +26,11 @@ citations are in `knowledge/01-VERIFIED-FACTS.yaml`'s unknowns register
   any published roster or photo per your earlier instruction — please flag
   if that instruction has changed.
 
-## 2a. Uppsala Tigers logo
-- Your 2026-08-31 corrections document (`Website_Corrections_1.pdf`) asks
-  for the Uppsala Tigers logo to be changed, but no replacement file was
-  attached. The franchise pages currently keep showing the UK Bangla
-  Tigers crest in that spot until you send the actual new logo file —
-  please upload it directly (a link we can't fetch, like Google Drive,
-  won't work — see the squad-photo note above for why).
+## 2a. Uppsala Tigers logo — RESOLVED 2026-08-31
+- You supplied the new Uppsala Tigers crest as a direct upload
+  (`EV-20260831-004`). It now renders on the `/franchises` card grid and
+  the `/franchises/uppsala-tigers` detail page, replacing the UK Bangla
+  Tigers crest it fell back to. No action needed from you here.
 
 ## 3. Photography rights
 - Two supplied photos carry third-party photographer watermarks ("FSR

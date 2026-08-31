@@ -34,12 +34,7 @@ import { ourFranchises } from '../content/franchises-data';
           ourFranchises.map((f) => (
             <a class="ukbt-franchise-card" href={`/franchises/${f.slug}`}>
               <div class="ukbt-franchise-card__crest-panel">
-                <img
-                  src="/brand/crest-512.png"
-                  width="220"
-                  height="302"
-                  alt="UK Bangla Tigers crest"
-                />
+                <img src={f.logo} width="220" height="220" alt={f.logoAlt} />
               </div>
               <div class="ukbt-franchise-card__body">
                 <h2>{f.name}</h2>
