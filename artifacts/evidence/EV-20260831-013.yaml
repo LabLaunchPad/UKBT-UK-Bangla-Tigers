@@ -1,0 +1,89 @@
+id: EV-20260831-013
+classification: DERIVED
+claim: >
+  The auto-deploy path from a merge to `main` through to a live update of
+  the Cloudflare Worker `ukbt-uk-bangla-tigers` is currently working and
+  has been reliably working since 2026-08-27T05:33:36Z (commit `f8d030c`,
+  PR #10) — verified by two independent sources rather than assumed from
+  the workflow file or from stale contract prose.
+source: "GitHub Actions API (mcp__github__actions_list/actions_get) and Cloudflare Workers API (mcp__*__workers_list/workers_get_worker), both queried live in this session."
+source_type: tool_output
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  A point-in-time operational confirmation, not a claim requiring
+  re-verification on a schedule — its purpose is to close the "not yet
+  confirmed" item DEPLOYMENT-CONTRACT.md's prior amendment explicitly
+  left open, using real tool output rather than restating the file's own
+  unverified expectation.
+scope: "contracts/DEPLOYMENT-CONTRACT.md (new amendment), docs/12-roadmap-and-open-items.md §2.3."
+method: >
+  Prompted by the user's explicit request to "make sure our cloudflare
+  workers and pages [are] updated systematically so auto deploy in
+  cloudflare workers and pages [works]." Rather than assume the existing
+  DEPLOYMENT-CONTRACT.md narrative (which described an open,
+  owner-dashboard-only blocker) was still current, queried live state:
+  1. `mcp__github__actions_list` (list_workflow_runs, branch=main,
+     event=push) — read all 21 historical CI runs on main, oldest to
+     newest, noting exact conclusion per run.
+  2. `mcp__github__actions_list` (list_workflow_jobs) on the three most
+     recent runs (PRs #19/#21/#20 merges) — confirmed the `workers-deploy`
+     job specifically (not just the overall workflow conclusion)
+     succeeded on each, including its "Deploy Workers" step.
+  3. `mcp__6ae052df..__workers_list` / `workers_get_worker` (Cloudflare
+     MCP connector) — read the live Worker's `modified_on` timestamp
+     independently, to cross-check against the GitHub Actions log rather
+     than trust one source alone.
+  4. Re-read `contracts/DEPLOYMENT-CONTRACT.md` in full (all amendments)
+     and `docs/12-roadmap-and-open-items.md` §2.3 to identify exactly
+     which prior claims this new evidence confirms, supersedes, or
+     leaves open — not a wholesale rewrite.
+result: |
+  CONFIRMED WORKING, with specifics:
+
+  - 10 consecutive successful push-to-main CI runs since 2026-08-27T05:33:36Z
+    (`f8d030c`, PR #10) through 2026-08-31T04:20:31Z (PR #20's merge) —
+    zero failures in that window. Before that fix, runs had been failing
+    (5 failures visible in the log for 2026-08-27T03:39-05:20Z, the
+    period DEPLOYMENT-CONTRACT.md's earlier amendments already
+    diagnosed).
+  - The `workers-deploy` job specifically (not just the overall workflow)
+    checked directly on the 3 most recent runs (PRs #19, #21, #20):
+    all three show `"Deploy Workers"` step `conclusion: success`.
+  - Cross-check: Worker `ukbt-uk-bangla-tigers`'s `modified_on` via the
+    Cloudflare API reads `2026-08-31T04:24:51Z` — the same second
+    run `33356743132`'s `workers-deploy` job's "Deploy Workers" step
+    completed (`04:24:44Z`-`04:24:51Z`). Two independent systems (GitHub's
+    job-conclusion record, Cloudflare's own resource metadata) agree.
+
+  This closes the specific "Not yet confirmed... verify against the next
+  push-to-main CI run's Workers deploy (GitHub Actions) job conclusion"
+  item the 2026-08-27 (third) amendment to DEPLOYMENT-CONTRACT.md left
+  open.
+
+  NOT resolved by this record, and said so explicitly rather than
+  silently dropped: (1) Cloudflare's own separate dashboard-native
+  "Workers Builds" Git integration's current state — no tool in this
+  session reads Cloudflare dashboard Build settings, so its enabled/
+  disabled state and Build-command value remain genuinely unverified
+  here; (2) `main` branch protection status — no branch-protection-
+  reading tool was available this session, so `docs/11-github-branch-
+  protection.md`'s prior `protected: false` finding is carried forward
+  as potentially stale, not reconfirmed. Both are named as the two
+  remaining owner-only, dashboard-only actions.
+related_files:
+  - contracts/DEPLOYMENT-CONTRACT.md
+  - docs/12-roadmap-and-open-items.md
+  - .github/workflows/ci.yml
+  - wrangler.jsonc
+relates_to: []
+notes: >
+  The user's request used "Cloudflare Pages" alongside "Workers" — this
+  project's actual, contract-frozen deployment target is Cloudflare
+  Workers (static assets), not Pages (DEPLOYMENT-CONTRACT.md's own
+  2026-08-27 amendment already recorded this substitution, with its own
+  reasoning for why it isn't a new architecture decision). No Pages
+  project exists for this repository and none was created here — "Pages"
+  in the request is read as the general concept of the deployed site,
+  not a request to add a second, different Cloudflare product.

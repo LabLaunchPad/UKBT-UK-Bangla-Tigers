@@ -278,3 +278,59 @@ both paths, not just the GitHub Actions one.
 that carries this fix. Verify against the next push-to-main CI run's
 "Workers deploy (GitHub Actions)" job conclusion before treating this as
 resolved.
+
+## Amendment, 2026-08-31: `workers-deploy` confirmed reliable — 10 consecutive successful runs, including auto-deploy of real site content
+
+**What changed:** the previous amendment's open verification item is
+closed. Queried GitHub Actions directly (`mcp__github__actions_list` /
+`actions_get`, not assumed from the workflow file alone) for every
+push-to-`main` `CI` run since the root-level-`wrangler` fix
+(`f8d030c`, 2026-08-27T05:33:36Z). Result: **every run since has
+succeeded**, `workers-deploy` included — 10 consecutive green runs, most
+recently the three merges that landed the hierarchical `CLAUDE.md` split,
+the visual-truth governance system, and the client corrections + Uppsala
+Tigers roster/photos (PRs #19, #21, #20, 2026-08-31T04:02-04:24Z).
+
+Cross-checked against the Worker itself, independent of the CI log:
+`workers_get_worker`/`workers_list` (Cloudflare MCP connector) reports
+`ukbt-uk-bangla-tigers`'s `modified_on` as `2026-08-31T04:24:51Z` — the
+exact same second the "Deploy Workers" step of run `33356743132`'s
+`workers-deploy` job completed (`04:24:44Z`–`04:24:51Z`). Two independent
+sources (GitHub's own job-conclusion record and Cloudflare's own resource
+metadata) agree, not just one.
+
+**Conclusion:** auto-deploy on merge to `main` is CONFIRMED WORKING, via
+the GitHub-Actions-driven path (`workers-deploy` job,
+`cloudflare/wrangler-action@v4`, `CLOUDFLARE_API_TOKEN`/
+`CLOUDFLARE_ACCOUNT_ID` GitHub Actions secrets) — every merge to `main`
+now goes through the full `CI-CONTRACT.md` gate set and, only if every
+gate passes, deploys the built `apps/web/dist` to the live Worker. This
+is the mechanism this contract's `PRODUCTION_DEPLOYMENT = on merge to the
+default branch` line describes; it is satisfied.
+
+**What is still genuinely open, and cannot be closed from this session:**
+- **Cloudflare's own dashboard-native "Workers Builds" Git integration**
+  (the *separate* path the first 2026-08-27 amendment describes — the
+  dashboard's own "Connect to a repository" flow, with its own Build
+  command field) is a second, independent trigger on the same Worker.
+  This session has no tool access to the Cloudflare dashboard's Build
+  settings UI, so its current enabled/disabled state and whether its
+  Build command field was ever actually set cannot be verified here. It
+  does **not** block the confirmed-working GitHub Actions path above —
+  production deploys do not depend on it. But if it is still connected
+  and its Build command is still unset, it likely still fails on every
+  push (the exact `Missing entry-point to Worker script or to assets
+  directory` failure the first amendment diagnosed), producing a
+  confusing "failed build" notification in the Cloudflare dashboard next
+  to a site that actually deployed fine via GitHub Actions. **Owner
+  action, dashboard-only:** check Cloudflare dashboard → Workers &
+  Pages → `ukbt-uk-bangla-tigers` → Settings → Build, and either set the
+  Build command (`pnpm install --frozen-lockfile && pnpm run build`) so
+  it succeeds too, or disconnect the Git integration entirely so
+  `workers-deploy` is the single, unambiguous deploy path. Either
+  resolves the confusion; neither is required for the live site to keep
+  working.
+- Branch protection on `main` — status not re-verified this session (no
+  branch-protection-reading tool was available); treat `docs/11-github-
+  branch-protection.md`'s prior finding (`protected: false`) as
+  potentially stale rather than reconfirmed current.

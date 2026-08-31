@@ -173,18 +173,35 @@ https://github.com/LabLaunchPad/UKBT-UK-Bangla-Tigers/actions/runs/33042878477/j
 This is the first fully successful GitHub-Actions-driven Cloudflare
 Workers deploy after the four stacked fixes above.
 
+**RECONFIRMED 2026-08-31** (`contracts/DEPLOYMENT-CONTRACT.md`'s matching
+amendment has the full evidence trail) — not just that one run: every
+push-to-`main` `CI` run since has stayed green, 10 in a row, most
+recently the three merges landing PRs #19/#21/#20
+(2026-08-31T04:02-04:24Z). Cross-checked against the Cloudflare Worker's
+own `modified_on` timestamp (`workers_get_worker`, Cloudflare MCP
+connector) independently of the GitHub Actions log — both agree to the
+second. Auto-deploy on merge to `main` is not just fixed-once, it is
+demonstrably still working today.
+
 **Still open, dashboard-only, cannot be fixed from this repository:**
 - **Branch protection is not applied to `main`** (`docs/11-github-
-  branch-protection.md` — `protected: false`, verified via the GitHub API).
-  The rule, required-check list, and rationale are fully specified in that
-  document; an admin must apply it in the GitHub web UI. Do this before
-  treating `main` as a real production branch — right now a single
-  mistaken push or force-push has no guard.
-- **Cloudflare dashboard's Build command field**: reported empty in one
-  amendment, then reported populated in a later dashboard screenshot
-  supplied directly by the owner — not independently re-verified from
-  this session against a fresh build log since. Confirm on the next real
-  Workers Builds run before considering this fully closed.
+  branch-protection.md` — `protected: false`, verified via the GitHub API
+  as of that document's writing; not re-verified this session — no
+  branch-protection-reading tool was available here). The rule, required-
+  check list, and rationale are fully specified in that document; an
+  admin must apply it in the GitHub web UI. Do this before treating
+  `main` as a real production branch — right now a single mistaken push
+  or force-push has no guard. This has been open since 2026-08-27 and is
+  the single highest-value remaining owner action for deploy safety —
+  everything else in this section is now closed or non-blocking.
+- **Cloudflare dashboard's own "Workers Builds" Git integration**
+  (separate from the confirmed-working GitHub Actions path above — see
+  `DEPLOYMENT-CONTRACT.md`'s 2026-08-31 amendment for the distinction).
+  Its Build command field's current state is unverified from this
+  session; if still unset, it likely still fails every push. Does not
+  block the live site (GitHub Actions deploys it regardless), but is
+  worth the owner disconnecting or fixing in the Cloudflare dashboard to
+  stop duplicate/confusing failed-build notifications.
 
 ### 2.3b Visual truth system adopted; 1920×1080 transcription gap CLOSED
 
