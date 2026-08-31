@@ -14,17 +14,31 @@ citations are in `knowledge/01-VERIFIED-FACTS.yaml`'s unknowns register
   offers only social-media links.
 
 ## 2. People
-- Full player roster (currently only the aggregate "30+ Players" stat and
-  the one full profile — the Club Captain — exist).
+- **Full player roster — RESOLVED 2026-08-31.** Your "Players Profile" and
+  "Uppsala Tigers Players & Managements List" documents gave us the full
+  42-name UK Bangla Tigers roster and the full 20-player Uppsala Tigers
+  squad + 4 team officials. Both now render on `/players` and
+  `/franchises/uppsala-tigers`. Still open: full individual profiles
+  (biography, career stats, photo) beyond the Club Captain — names and
+  countries only for everyone else.
+- **One conflict we couldn't resolve ourselves — please confirm:**
+  Roushan Singh's country. Your Aug 31 corrections document said
+  Portugal; the Uppsala squad list says India; the master players list
+  says Netherlands. We've left it showing "Country unconfirmed" on both
+  pages rather than guess — let us know which is right.
 - Full committee list (Founder/CEO, Acting Chairman, Vice-Chairman are named;
   the rest is not).
-- Coaching staff names and roles (the Coaching page is an empty shell).
-- UK Bangla Tigers **and** Uppsala Tigers squad photos/list — you pointed us
+- Coaching staff names and roles for UK Bangla Tigers itself (the Coaching
+  page is an empty shell) — Uppsala Tigers' own coach (Shaftab Khalid) and
+  team officials are now on record and published.
+- UK Bangla Tigers **and** Uppsala Tigers squad **photos** — you pointed us
   to two Google Drive folders previously, but our tooling can't fetch from
-  Google Drive; these need to come as direct file uploads.
+  Google Drive; these still need to come as direct file uploads. Names and
+  countries no longer need this — see above.
 - Reminder: "Nipo Khadem" / "MD Siraj Ullah Khadem Nipo" stays excluded from
-  any published roster or photo per your earlier instruction — please flag
-  if that instruction has changed.
+  any published roster or photo per your earlier instruction — absent from
+  both new roster documents, so this is unaffected; please flag if that
+  instruction has changed.
 
 ## 2a. Uppsala Tigers logo — RESOLVED 2026-08-31
 - You supplied the new Uppsala Tigers crest as a direct upload

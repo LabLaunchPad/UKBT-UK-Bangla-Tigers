@@ -3,7 +3,7 @@
 # Adding an unevidenced entry here is a defect, not a shortcut.
 
 meta:
-  last_updated: 2026-08-26
+  last_updated: 2026-08-31
   established_at_sha: 0cd3129
   last_audited_sha: d08841d   # zoom-out state audit, 2026-08-26 — see architecture.stage_detail below
   rule: "If it is not evidenced, it does not belong in this file as true."
@@ -62,17 +62,27 @@ leadership:                          # U-04 further narrowed, not closed — EV-
   vice_chairman: "Sayem Rahman"          # NEW — EV-20260826-029
   club_captain: "Mohammad Chowdhury"
   full_committee_status: UNKNOWN     # Founder/CEO, Chairman, Vice-Chairman now named; still not a complete committee
-  full_roster_status: UNKNOWN        # only the Club Captain has a full profile; "30+ Players" is an aggregate, not a roster
+  full_roster_status: KNOWN (names/countries only)  # NEW — EV-20260831-005/-006: 42-name roster now on record (apps/web/src/content/players-data.ts). Full individual profiles (bio/stats/photo) beyond the Club Captain remain UNKNOWN — this closes the roster-existence unknown, not the profile-completeness one.
   homepage_critical: false           # explicit: full roster/committee are NOT required for the Homepage Contract (see artifacts/STAGE_7_READINESS_MATRIX.md)
 
-sister_franchise_uppsala_tigers:      # NEW — EV-20260826-030, a real "Overseas Signings" graphic
-  overseas_signings:                  # name, country as shown on the graphic — not independently verified beyond the image itself
-    - {name: "Mohammad Chowdhury", country: England}
-    - {name: "Shakibal Hasan", country: Bangladesh, note: "Name closely resembles a well-known Bangladeshi international cricketer spelled slightly differently ('Shakib Al Hasan') — recorded as shown, identity NOT asserted"}
-    - {name: "Chad Potgieter", country: Portugal}
-    - {name: "Jeremy Martins", country: Portugal}
-    - {name: "Shaheryar Butt", country: Belgium}
-    - {name: "Nipo Khadem", country: Portugal, note: "Very likely the same person as 'MD Siraj Ullah Khadem Nipo', whose removal from the squad list was explicitly instructed (EV-20260826-027, CLIENT_REQ_008) — EXCLUDED from any published roster per that instruction"}
+sister_franchise_uppsala_tigers:
+  status: "Owned and managed by UK Bangla Tigers"  # EV-20260831-005, stated on the document itself; consistent with, not new beyond, EV-20260826-028's Companies House corroboration
+  squad_status: KNOWN (20 named players + 4 team officials)  # NEW — EV-20260831-005/-006, superseding the overseas_signings list below. See apps/web/src/content/franchises-data.ts's uppsalaSquad/uppsalaOfficials.
+  overseas_signings:                  # SUPERSEDED — see squad_status above and EV-20260831-005/-006. Kept here as history, not current.
+    superseded: true
+    superseded_by: EV-20260831-005
+    values_at_time_of_superseding:
+      - {name: "Mohammad Chowdhury", country: England}
+      - {name: "Shakibal Hasan", country: Bangladesh, note: "Name closely resembles a well-known Bangladeshi international cricketer spelled slightly differently ('Shakib Al Hasan') — recorded as shown, identity NOT asserted"}
+      - {name: "Chad Potgieter", country: Portugal}
+      - {name: "Jeremy Martins", country: Portugal}
+      - {name: "Shaheryar Butt", country: Belgium}
+      - {name: "Nipo Khadem", country: Portugal, note: "Very likely the same person as 'MD Siraj Ullah Khadem Nipo', whose removal from the squad list was explicitly instructed (EV-20260826-027, CLIENT_REQ_008) — EXCLUDED from any published roster per that instruction"}
+  unresolved_conflict:                # NOT closed — recorded honestly rather than guessed
+    who: "Roushan Singh"
+    values: [Portugal, India, Netherlands]
+    across: [EV-20260831-001, EV-20260831-005 (Uppsala squad list), EV-20260831-005 (UK Bangla Tigers master list)]
+    resolution: "Left UNSET on both franchises-data.ts and players-data.ts per EV-20260831-006 — never guessed"
 
 image_affiliation_caution:            # EV-20260826-030 — SUPERSEDED as a blocker by EV-20260826-032
   status: SUPERSEDED_BY_CLIENT_AUTHORISATION

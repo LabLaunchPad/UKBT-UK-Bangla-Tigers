@@ -1,26 +1,23 @@
 // Our Franchises page content, bound to @ukbt/truth's gate. The Uppsala
-// Tigers overseas-signings roster is real evidence (EV-20260826-030, an
-// "Overseas Signings" graphic) with one explicit exclusion carried
-// forward: "Nipo Khadem" was named for removal from any published squad
-// list by the client (EV-20260826-027, CLIENT_REQ_008) and very likely
-// matches this graphic's "Nipo Khadem" entry — excluded here, not
-// rendered.
+// Tigers squad is real evidence — originally an "Overseas Signings"
+// graphic (EV-20260826-030), later a full squad list and country
+// corrections (EV-20260831-001/-002), now superseded by the club's own
+// "Uppsala Tigers Players & Managements List" (EV-20260831-005/-006),
+// which supplies the full 20-player squad (9 overseas signings + 11
+// domestic players, three of them U-19) plus team officials. "Nipo
+// Khadem" was named for removal from any published squad list by the
+// client (EV-20260826-027, CLIENT_REQ_008) and is absent from every
+// squad list supplied since — excluded here, not rendered.
 //
-// Roster corrected/expanded per a client corrections document
-// (EV-20260831-001) and the clarifying decision to trust it over the
-// prior graphic evidence for two country conflicts (EV-20260831-002):
-// Chad Potgieter is now South Africa (was Portugal), Jeremy Martins is
-// now Ireland (was Portugal). The Bangladesh signing's name is now
-// spelled "Shakib Al Hasan," per the client typing it directly in the
-// correction document — a more deliberate signal than the prior
-// image-OCR-style read ("Shakibal Hasan"); identity is still not
-// asserted beyond the name string. 5 new signings added (Owen Palmer,
-// Jaspreet Singh, Armaan Randhawa, Karanbir Singh, Roushan Singh). The
-// correction document spells the Belgium signing "Shaheryar But" (one
-// fewer letter than the existing "Shaheryar Butt") — judged a likely
-// single-letter drop in that document rather than a deliberate
-// correction, and left unchanged pending an explicit instruction either
-// way (EV-20260831-002 notes).
+// Two conflicts resolved per EV-20260831-006, not guessed:
+// - Roushan Singh's country has three conflicting values across three
+//   documents (Portugal, India, Netherlands) — left UNSET here, not
+//   silently defaulted to any of them; the UI renders "Country
+//   unconfirmed" with a note.
+// - Jeremy Martins is on the UK Bangla Tigers master players list
+//   (players-data.ts) but NOT on Uppsala Tigers' own squad list, despite
+//   being live here previously — removed from this file; see
+//   players-data.ts for where he now appears.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
@@ -38,76 +35,174 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260831-002.yaml',
   },
+  {
+    id: 'EV-0831-05',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-005.yaml',
+  },
+  {
+    id: 'EV-0831-06',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-006.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
 const gateOptions = { registry, exemptFields, twoSourceFields };
 
-interface Signing {
+export interface SquadMember {
   name: string;
-  country: string;
+  country?: string;
+  tags?: string[];
   note?: string;
 }
 
-const roster: { field: string; value: Signing; sources: string[] }[] = [
+const squad: { field: string; value: SquadMember; sources: string[] }[] = [
   {
-    field: 'uppsala.signing.chowdhury',
-    value: { name: 'Mohammad Chowdhury', country: 'England' },
-    sources: ['EV-030', 'EV-0831-01'],
+    field: 'uppsala.squad.chowdhury',
+    value: {
+      name: 'Mohammad Chowdhury',
+      country: 'England',
+      tags: ['Captain', 'Overseas Signing'],
+    },
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.hasan',
+    field: 'uppsala.squad.hasan',
     value: {
       name: 'Shakib Al Hasan',
       country: 'Bangladesh',
+      tags: ['Overseas Signing'],
       note: 'Name spelled per the client corrections document (EV-0831-01); identity not independently asserted.',
     },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02'],
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.potgieter',
-    value: { name: 'Chad Potgieter', country: 'South Africa' },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02'],
+    field: 'uppsala.squad.singh_karanbir',
+    value: {
+      name: 'Karanbir Singh',
+      country: 'Austria',
+      tags: ['Overseas Signing'],
+    },
+    sources: ['EV-0831-01', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.martins',
-    value: { name: 'Jeremy Martins', country: 'Ireland' },
-    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02'],
+    field: 'uppsala.squad.palmer',
+    value: {
+      name: 'Owen Palmer',
+      country: 'England',
+      tags: ['Overseas Signing', 'Wicketkeeper'],
+    },
+    sources: ['EV-0831-01', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.butt',
-    value: { name: 'Shaheryar Butt', country: 'Belgium' },
-    sources: ['EV-030'],
+    field: 'uppsala.squad.butt',
+    value: {
+      name: 'Shaheryar Butt',
+      country: 'Belgium',
+      tags: ['Overseas Signing'],
+    },
+    sources: ['EV-030', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.palmer',
-    value: { name: 'Owen Palmer', country: 'England' },
-    sources: ['EV-0831-01'],
+    field: 'uppsala.squad.potgieter',
+    value: {
+      name: 'Chad Potgieter',
+      country: 'South Africa',
+      tags: ['Overseas Signing'],
+    },
+    sources: ['EV-030', 'EV-0831-01', 'EV-0831-02', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.singh_jaspreet',
-    value: { name: 'Jaspreet Singh', country: 'Italy' },
-    sources: ['EV-0831-01'],
+    field: 'uppsala.squad.singh_roushan',
+    value: {
+      name: 'Roushan Singh',
+      tags: ['Overseas Signing', 'Wicketkeeper'],
+      note: 'Country unconfirmed — three supplied documents give three different countries (Portugal, India, Netherlands); left unset rather than guessed (EV-0831-06).',
+    },
+    sources: ['EV-0831-01', 'EV-0831-05', 'EV-0831-06'],
   },
   {
-    field: 'uppsala.signing.randhawa',
-    value: { name: 'Armaan Randhawa', country: 'Austria' },
-    sources: ['EV-0831-01'],
+    field: 'uppsala.squad.singh_jaspreet',
+    value: {
+      name: 'Jaspreet Singh',
+      country: 'Italy',
+      tags: ['Overseas Signing'],
+    },
+    sources: ['EV-0831-01', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.singh_karanbir',
-    value: { name: 'Karanbir Singh', country: 'Austria' },
-    sources: ['EV-0831-01'],
+    field: 'uppsala.squad.randhawa',
+    value: {
+      name: 'Armaan Randhawa',
+      country: 'Austria',
+      tags: ['Overseas Signing'],
+    },
+    sources: ['EV-0831-01', 'EV-0831-05'],
   },
   {
-    field: 'uppsala.signing.singh_roushan',
-    value: { name: 'Roushan Singh', country: 'Portugal' },
-    sources: ['EV-0831-01'],
+    field: 'uppsala.squad.stanigze',
+    value: { name: 'Jawid Stanigze', country: 'Afghanistan' },
+    sources: ['EV-0831-05'],
   },
-  // "Nipo Khadem" (Portugal) deliberately excluded — CLIENT_REQ_008.
+  {
+    field: 'uppsala.squad.rajapaksha',
+    value: { name: 'Chinthaka Rajapaksha', country: 'Sri Lanka' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.hussain',
+    value: { name: 'Tasaduq Hussain', country: 'Sweden' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.momand',
+    value: { name: 'Lemar Momand', country: 'Afghanistan' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.jyoti',
+    value: {
+      name: 'Humayun Kabir Jyoti',
+      country: 'USA',
+      tags: ['Wicketkeeper'],
+    },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.shukla',
+    value: { name: 'Prashant Shukla', country: 'India' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.afzal',
+    value: { name: 'Qudratullah Mir Afzal', country: 'Sweden' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.mahmood',
+    value: { name: 'Hamid Mahmood', country: 'Sweden' },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.zaheer',
+    value: { name: 'Anas Zaheer', country: 'Sweden', tags: ['U-19'] },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.farooq',
+    value: { name: 'Essa Farooq', country: 'Sweden', tags: ['U-19'] },
+    sources: ['EV-0831-05'],
+  },
+  {
+    field: 'uppsala.squad.roy',
+    value: { name: 'Dhrubonil Roy', country: 'Sweden', tags: ['U-19'] },
+    sources: ['EV-0831-05'],
+  },
+  // "Nipo Khadem" deliberately excluded — CLIENT_REQ_008.
 ];
 
-for (const r of roster) {
+for (const r of squad) {
   // RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
   // ContentRecordSchema doc comment.
   const rec = ContentRecordSchema.parse({
@@ -124,7 +219,23 @@ for (const r of roster) {
   }
 }
 
-export const uppsalaOverseasSignings: Signing[] = roster.map((r) => r.value);
+export const uppsalaSquad: SquadMember[] = squad.map((r) => r.value);
+export const uppsalaOverseasSignings: SquadMember[] = uppsalaSquad.filter((m) =>
+  m.tags?.includes('Overseas Signing'),
+);
+
+export interface TeamOfficial {
+  role: string;
+  name: string;
+}
+
+// EV-20260831-005 — "Uppsala Tigers Players & Managements List".
+export const uppsalaOfficials: TeamOfficial[] = [
+  { role: 'Coach', name: 'Shaftab Khalid' },
+  { role: 'Team Manager', name: 'AGM Sabbir' },
+  { role: 'Logistics Manager', name: 'MD Ashraful Alam' },
+  { role: 'Team Mentor', name: 'Javed Butt' },
+];
 
 export const uppsalaFacts = [
   {

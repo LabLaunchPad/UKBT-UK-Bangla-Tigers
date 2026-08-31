@@ -1,11 +1,18 @@
 ---
-// UKBT-original — no player photo exists for any of these signings, so
+// UKBT-original — no player photo exists for any of these players, so
 // cards are text-only (name + country), same discipline as
 // LeadershipGrid.astro: never a placeholder image standing in for a real
 // person.
+//
+// `country` is optional: EV-20260831-006 records one real case (Roushan
+// Singh) where three supplied documents give three different countries
+// for the same person — rather than guess one, the field is left unset
+// and the card says so explicitly ("Country unconfirmed"), never a
+// silently blank line.
 interface Player {
   name: string;
-  country: string;
+  country?: string;
+  tags?: string[];
   note?: string;
 }
 interface Props {
@@ -19,7 +26,16 @@ const { players } = Astro.props;
     players.map((p) => (
       <div class="ukbt-roster-card">
         <h3>{p.name}</h3>
-        <p class="ukbt-roster-card__country">{p.country}</p>
+        <p class="ukbt-roster-card__country">
+          {p.country ?? 'Country unconfirmed'}
+        </p>
+        {p.tags && p.tags.length > 0 && (
+          <ul class="ukbt-roster-card__tags">
+            {p.tags.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        )}
         {p.note && <p class="ukbt-roster-card__note">{p.note}</p>}
       </div>
     ))
@@ -52,6 +68,21 @@ const { players } = Astro.props;
     margin: 0;
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-roster-card__tags {
+    list-style: none;
+    margin: var(--ukbt-space-2) 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-1);
+  }
+  .ukbt-roster-card__tags li {
+    background: var(--ukbt-color-surface);
+    border-radius: var(--ukbt-radius-sm, 4px);
+    padding: 2px var(--ukbt-space-1);
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
   }
   .ukbt-roster-card__note {
     margin: var(--ukbt-space-2) 0 0 0;

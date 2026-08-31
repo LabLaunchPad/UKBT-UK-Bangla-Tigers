@@ -1,16 +1,21 @@
 ---
-// Players Profile page. Per knowledge/01-VERIFIED-FACTS.yaml:
-// full_roster_status is UNKNOWN — only the Club Captain has a complete
-// profile; "30+ Players" is an aggregate, not a roster. This page states
-// that honestly rather than inventing player entries to fill a grid.
+// Players Profile page. The full 42-name roster is now real evidence
+// (EV-20260831-005) — full_roster_status in
+// knowledge/01-VERIFIED-FACTS.yaml is stale and should be updated
+// alongside this page. Individual full profiles (bio, stats, photo)
+// beyond the Club Captain remain UNKNOWN and are stated as such rather
+// than invented; per CLIENT_REQ_006 the roster itself renders name +
+// country only, no photo (none supplied) and no stats table.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import CaptainSpotlight from '../components/CaptainSpotlight.astro';
+import RosterGrid from '../components/RosterGrid.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain } from '../content/captain-data';
+import { fullRoster } from '../content/players-data';
 ---
 
 <BaseLayout
@@ -33,11 +38,17 @@ import { captain } from '../content/captain-data';
       <CaptainSpotlight name={captain.name} role={captain.role} />
     </Section>
 
-    <Section surface="alt" paddingBottom="normal">
+    <Section surface="alt">
+      <h2>Squad</h2>
+      <RosterGrid players={fullRoster} />
+    </Section>
+
+    <Section paddingBottom="normal">
       <p class="ukbt-players-note">
-        Individual profiles for the full squad are being confirmed with the
-        club and will be published here as they're ready. The Club
-        Captain's full profile is available now.
+        Full individual profiles (biography, career statistics, photo) for
+        the rest of the squad are being confirmed with the club and will be
+        published here as they're ready. The Club Captain's full profile is
+        available now.
       </p>
     </Section>
   </main>
@@ -46,6 +57,9 @@ import { captain } from '../content/captain-data';
 </BaseLayout>
 
 <style>
+  h2 {
+    margin: 0 0 var(--ukbt-space-gap-5) 0;
+  }
   .ukbt-players-stat {
     display: flex;
     align-items: baseline;

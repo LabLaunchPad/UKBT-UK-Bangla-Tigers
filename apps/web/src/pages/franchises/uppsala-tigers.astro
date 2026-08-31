@@ -3,17 +3,18 @@
 // /franchises showcase (which is now the Our Franchises card-grid
 // landing) per the client's instruction that this franchise sit under a
 // clickable "Our Franchise" list (EV-20260831-001, EV-20260831-002;
-// contracts/ROUTE-CONTRACT.md AMENDMENT 02). Real overseas roster below,
-// "Nipo Khadem" excluded per CLIENT_REQ_008.
+// contracts/ROUTE-CONTRACT.md AMENDMENT 02). Full squad + team officials
+// per the club's own "Uppsala Tigers Players & Managements List"
+// (EV-20260831-005/-006), superseding the earlier overseas-only roster.
+// "Nipo Khadem" excluded per CLIENT_REQ_008 — absent from every squad
+// list supplied since that instruction.
 //
 // The intro image is Uppsala Tigers' own supplied crest
 // (EV-20260831-004), not nordic-smash-slide.webp: that graphic has "NIPO
 // KHADEM / PORTUGAL" baked into the photo itself (EV-20260826-031, found
 // on direct visual inspection of this page's own screenshot) — no
 // text-content check can catch a name inside a raster image. No
-// alternative photo excluding that player exists in evidence. Before
-// EV-20260831-004 was supplied this panel fell back to the UK Bangla
-// Tigers crest; it now uses Uppsala Tigers' own mark.
+// alternative photo excluding that player exists in evidence.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import PageBanner from '../../components/PageBanner.astro';
@@ -24,7 +25,8 @@ import { homepage } from '../../content/homepage-data';
 import {
   ourFranchises,
   uppsalaFacts,
-  uppsalaOverseasSignings,
+  uppsalaOfficials,
+  uppsalaSquad,
 } from '../../content/franchises-data';
 import SubHeading from '../../components/SubHeading.astro';
 
@@ -72,9 +74,23 @@ if (!uppsala) {
       </div>
     </Section>
 
-    <Section surface="alt" paddingBottom="normal">
-      <h2>Overseas Signings</h2>
-      <RosterGrid players={uppsalaOverseasSignings} />
+    <Section surface="alt">
+      <h2>Squad</h2>
+      <RosterGrid players={uppsalaSquad} />
+    </Section>
+
+    <Section paddingBottom="normal">
+      <h2>Team Officials</h2>
+      <ul class="ukbt-officials-list">
+        {
+          uppsalaOfficials.map((o) => (
+            <li>
+              <span class="ukbt-officials-list__role">{o.role}</span>
+              <span class="ukbt-officials-list__name">{o.name}</span>
+            </li>
+          ))
+        }
+      </ul>
     </Section>
   </main>
 
@@ -129,5 +145,30 @@ if (!uppsala) {
       grid-template-columns: 1fr;
       gap: var(--ukbt-space-gap-5);
     }
+  }
+
+  .ukbt-officials-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-officials-list li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+    background: var(--ukbt-color-surface-alt);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-4);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+  }
+  .ukbt-officials-list__role {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-officials-list__name {
+    font-weight: var(--ukbt-font-weight-bold);
   }
 </style>
