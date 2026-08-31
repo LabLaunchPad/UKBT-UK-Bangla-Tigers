@@ -62,11 +62,21 @@ rules:
     dont: an <img> with only a CSS width and no ratio/fit — it distorts or
       reflows as the real (evidenced) photo's dimensions vary
     repo_state: >
-      COMPLIANT. RosterGrid.astro's `__photo` rule already sets
-      `aspect-ratio: 1 / 1; object-fit: cover;` alongside HTML
-      width="160" height="160". Apply the same pair to any new photo
-      surface (team-official cards, future sponsor logos with variable
-      source dimensions).
+      COMPLIANT for RosterGrid.astro's `__photo` rule (`aspect-ratio:
+      1 / 1; object-fit: cover;` alongside HTML width="160" height="160").
+      GAP FOUND AND FIXED (EV-20260831-012, follow-up sweep):
+      Sponsors.astro's logo `<img>` had neither `aspect-ratio` nor
+      `object-fit` — invisible today only because WOLFFIT's logo
+      (EV-20260831-007) happens to measure exactly 1254x1254 (checked
+      directly), so the fixed 8rem square box never had anything to
+      distort. Fixed with `aspect-ratio: 1/1; object-fit: contain`
+      (contain, not RosterGrid's cover — a logo's whole mark must never
+      be cropped the way a photo can be). The Uppsala Tigers officials-
+      list photo (`franchises/uppsala-tigers.astro`) already had
+      `object-fit: cover` but was missing the `aspect-ratio` declaration
+      alongside it — added for consistency with this rule, though its
+      matching 4rem/4rem width+height meant no actual distortion risk
+      existed there.
 
   - id: SLOP-04
     name: Unbounded free text inside a fixed/min-height card gets a line-clamp

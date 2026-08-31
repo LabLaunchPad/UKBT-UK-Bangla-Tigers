@@ -1,0 +1,102 @@
+id: EV-20260831-012
+classification: FIRST_PARTY_PROJECT_DIRECTION
+claim: >
+  The project owner asked, after PR #22 (anti-slop audit) and PR #23
+  (UX operating system) were both opened and green, to "continue and
+  ensure find all gaps that we may have missed before" — a directive to
+  re-sweep the earlier anti-slop audit (EV-20260831-009) more
+  thoroughly rather than treat it as closed.
+source: "Project owner message, delivered in-session 2026-08-31, after both PR #22 and PR #23 were reported green and in draft."
+source_type: first_party_project_direction
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records project direction as given, the same authority class as
+  EV-20260831-009/-010/-011.
+scope: "Code: apps/web/src/components/Sponsors.astro, apps/web/src/pages/franchises/uppsala-tigers.astro. Governance: knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml SLOP-03."
+method: >
+  Re-read every `<img>` tag in apps/web/src/components/*.astro and
+  apps/web/src/pages/franchises/uppsala-tigers.astro (the one page-level
+  file with its own image CSS, not just component CSS) against
+  knowledge/12's SLOP-03 rule, one at a time — rather than re-running the
+  same category-level check EV-20260831-009 already did. For every
+  crest/logo instance, checked whether the surrounding CSS forces a fixed
+  box (risk) or lets width:auto preserve intrinsic ratio (safe), and for
+  the one genuine fixed-box case with no ratio/fit declared
+  (Sponsors.astro), measured the real source image's pixel dimensions
+  with Pillow rather than assuming distortion existed or didn't.
+  Also checked touch-target sizing across every interactive component
+  (grep for min-height/min-width near WCAG 2.5.8 references) and
+  RosterGrid's actual container width consistency across its two call
+  sites (players.astro, franchises/uppsala-tigers.astro) — both areas
+  the original EV-20260831-009 pass had asserted compliant without this
+  level of per-instance verification.
+result: |
+  TWO CONFIRMED FINDINGS (both fixed), REST RE-CONFIRMED COMPLIANT:
+
+  1. Sponsors.astro's `.ukbt-sponsors__item img` had a fixed 8rem x 8rem
+     box with `max-width: 75%` but NO `aspect-ratio` or `object-fit`.
+     Measured the only real sponsor asset in evidence
+     (apps/web/public/brand/sponsors/wolffit.jpg) at exactly 1254x1254px
+     — a perfect square, which is precisely why this gap produced zero
+     visible symptom and was missed in the faster EV-20260831-009 pass
+     (that pass checked "is there a bug visible today", this pass checked
+     "does the CSS structurally guarantee no bug tomorrow"). Fixed:
+     added `aspect-ratio: 1/1; object-fit: contain`. `contain` chosen
+     over RosterGrid's `cover` deliberately — a sponsor's logo/wordmark
+     must never be cropped, unlike a headshot photo where a crop is
+     acceptable.
+
+     CONFIRMED with a real rendered diff, not assumed harmless: local
+     screenshot regeneration (screenshots.spec.ts) changed all 7 /about
+     viewport screenshots (Sponsors' only call site) and NO other page —
+     a tightly localized, deterministic diff, not environment noise.
+     Cropped to the changed region at 390x844: the logo was visibly
+     squished narrower/taller pre-fix (the fixed `height: 8rem` held
+     while `max-width: 75%` was free to shrink the box's *width* below
+     8rem at this viewport, since no `aspect-ratio` tied the two
+     together) — `aspect-ratio: 1/1` corrects this, a real if subtle
+     distortion this rule's own SLOP-03 exists to prevent, not merely a
+     theoretical future risk. The updated screenshots are the new
+     reference for this pass.
+
+  2. franchises/uppsala-tigers.astro's `.ukbt-officials-list__photo` had
+     `object-fit: cover` but no `aspect-ratio` declaration alongside it.
+     LOW severity — its width:4rem/height:4rem pair already match, so no
+     actual distortion is possible — added for rule consistency, not
+     because a real defect existed.
+
+  RE-CONFIRMED, not newly checked: every other crest usage (Footer,
+  Header, Hero, FranchiseTeaser, ProfileHeader, the Uppsala crest panel)
+  sets `width: auto` or lets the browser compute one axis from the real
+  intrinsic ratio, so none of them share this risk class — verified by
+  reading each rule, not assumed from the pattern looking similar.
+  Touch targets: every interactive text link across Hero, Footer,
+  CaptainSpotlight, AboutCTA, TournamentGrid, PageBanner, FranchiseTeaser
+  already carries an explicit `min-height: 24px` (`min-width` too where
+  a single glyph/short label could be narrower) with a WCAG 2.5.8 code
+  comment — this was already thoroughly closed by earlier work
+  (`artifacts/review/HOMEPAGE-REDTEAM.md` F3's era), not a gap.
+  RosterGrid's container width: confirmed identical on both call sites
+  (both wrapped in the shared `<Section>`/`.ukbt-container` primitive),
+  so docs/15-ux-operating-system.md §6's claim that "no current component
+  is dropped into meaningfully different container widths" holds for
+  RosterGrid specifically, checked directly rather than left as an
+  unverified assertion.
+related_files:
+  - apps/web/src/components/Sponsors.astro
+  - apps/web/src/pages/franchises/uppsala-tigers.astro
+  - knowledge/12-UI-SCALING-ANTI-SLOP-POLICY.yaml
+  - apps/web/public/brand/sponsors/wolffit.jpg
+relates_to: [EV-20260831-009]
+notes: >
+  This is exactly the distinction knowledge/13's truth-classification
+  layer (EV-20260831-011) names: EV-20260831-009's "COMPLIANT, checked
+  directly" claim for images was accurate for the instances it actually
+  inspected (RosterGrid) but was read, on this second pass, as having
+  implicitly covered every image in the codebase — it hadn't. No claim
+  in EV-20260831-009 was false; its scope was narrower than a casual
+  re-reading would suggest. Recorded here so the same narrowing does not
+  happen again: "audited card/grid components" is not the same claim as
+  "audited every <img> tag."

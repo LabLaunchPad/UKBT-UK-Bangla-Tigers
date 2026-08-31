@@ -79,12 +79,20 @@ import SubHeading from './SubHeading.astro';
     gap: var(--ukbt-space-2);
   }
   /* Reference `.partner-img`: max-width 75% (of its slide). Fixed here
-     since each logo is its own flex item, not a shared-width slide. */
+     since each logo is its own flex item, not a shared-width slide.
+     object-fit: contain (not RosterGrid's cover) because this is a logo,
+     not a photo — cropping a sponsor's wordmark is never acceptable, even
+     though today's only sponsor (WOLFFIT, EV-20260831-007) happens to be
+     a perfect square (1254x1254, measured) so the gap was invisible until
+     checked directly. The next non-square sponsor logo would otherwise be
+     squashed into this fixed box with no defensive crop-safety. */
   .ukbt-sponsors__item img {
     display: block;
     height: 8rem;
     width: 8rem;
     max-width: 75%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
     border-radius: var(--ukbt-radius-lg);
   }
   .ukbt-sponsors__name {
