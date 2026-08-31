@@ -1,6 +1,6 @@
 # What We Need From the Client
 
-**Date:** 2026-08-26. Everything below is already handled correctly on the
+**Date:** 2026-08-26, updated 2026-08-31. Everything below is already handled correctly on the
 site — each is either a `PendingContent` shell, an `UNKNOWN` field, or a
 held-back asset (never a fabricated fact) — so nothing here is blocking a
 code fix. It's blocking on real information only the club can supply. Full
@@ -25,6 +25,14 @@ citations are in `knowledge/01-VERIFIED-FACTS.yaml`'s unknowns register
 - Reminder: "Nipo Khadem" / "MD Siraj Ullah Khadem Nipo" stays excluded from
   any published roster or photo per your earlier instruction — please flag
   if that instruction has changed.
+
+## 2a. Uppsala Tigers logo
+- Your 2026-08-31 corrections document (`Website_Corrections_1.pdf`) asks
+  for the Uppsala Tigers logo to be changed, but no replacement file was
+  attached. The franchise pages currently keep showing the UK Bangla
+  Tigers crest in that spot until you send the actual new logo file —
+  please upload it directly (a link we can't fetch, like Google Drive,
+  won't work — see the squad-photo note above for why).
 
 ## 3. Photography rights
 - Two supplied photos carry third-party photographer watermarks ("FSR

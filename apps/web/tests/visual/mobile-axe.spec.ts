@@ -20,6 +20,7 @@ const ALL_ROUTES = [
   '/club-captain',
   '/players',
   '/franchises',
+  '/franchises/uppsala-tigers',
   '/tournaments',
   '/news',
   '/contact',

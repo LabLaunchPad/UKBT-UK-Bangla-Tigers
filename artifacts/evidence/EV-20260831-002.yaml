@@ -1,0 +1,64 @@
+id: EV-20260831-002
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Session requester's clarifying answers, resolving the ambiguities and
+  conflicts flagged in EV-20260831-001 before any implementation:
+  1. "Founder & CEO" removal scope: remove only from the Club Captain /
+     Players Profile page (captain-data.ts). The separate About-page
+     leadership entry naming Mohammad Chowdhury as Founder & CEO
+     (about-data.ts, org.leader.founder_ceo) is explicitly NOT affected —
+     he still holds that title organization-wide; it is only omitted from
+     his player-profile display.
+  2. Franchise History table: match EV-20260831-001's PDF exactly for
+     Previous Teams (all 8 entries). Current Teams is NOT actually empty
+     as the blank PDF column might suggest — the requester confirmed he
+     is currently playing for UK Bangla Tigers and Uppsala Tigers (both
+     already on record as Current per EV-20260826-026). The other two
+     previously-listed Current entries, London Blaze and Roma Ovest
+     Titans, are NOT current — move both into Previous Teams alongside
+     the PDF's 8 entries.
+  3. Overseas Signings country conflict (Chad Potgieter, Jeremy Martins):
+     trust EV-20260831-001's PDF as the authoritative, more recent
+     correction over the prior graphic-sourced evidence
+     (EV-20260826-030) — South Africa and Ireland respectively.
+  4. Our Franchises page structure: build new dedicated per-franchise
+     pages (a card-grid landing at /franchises linking to
+     /franchises/uppsala-tigers), not a restructure of the single
+     existing page in place — explicitly so future franchises can be
+     added the same way, per EV-20260831-001 item (3).
+source: "Session Q&A (AskUserQuestion), session requester answering on behalf of / relaying the client's corrections."
+source_type: first_party_client_supplied
+retrieved_at: 2026-08-31
+verified_at: 2026-08-31
+valid_until: null
+justification_for_null: >
+  Records instructions as given by the session requester, the same
+  first-party channel this project has used throughout (the same class
+  as CLIENT_REQ_001 through CLIENT_REQ_009). Does not expire.
+scope: "Resolves the ambiguities EV-20260831-001 explicitly could not resolve on its own, per this project's 'never invent facts' invariant."
+method: >
+  Presented each ambiguity/conflict from EV-20260831-001 as a direct
+  multiple-choice question (AskUserQuestion) rather than guessing; a
+  follow-up question was asked when the first Franchise History answer
+  ("it's his history or past experiences and currently") did not fully
+  resolve Current vs Previous — resolved with a second, narrower question
+  naming the specific 4 candidate current teams.
+result: |
+  All four items above are now actionable. Implemented in
+  apps/web/src/content/captain-data.ts (items 1, 2) and
+  apps/web/src/content/franchises-data.ts (item 3), and as a new route
+  addition to contracts/ROUTE-CONTRACT.md + apps/web/src/pages/franchises/
+  (item 4).
+related_files:
+  - apps/web/src/content/captain-data.ts
+  - apps/web/src/content/franchises-data.ts
+  - apps/web/src/content/about-data.ts
+  - contracts/ROUTE-CONTRACT.md
+relates_to: [EV-20260831-001, EV-20260826-026, EV-20260826-030]
+notes: >
+  Item 3's minor spelling variant ("Shaheryar But" in the PDF vs.
+  "Shaheryar Butt" already on record) was not put to the requester —
+  judged a likely single-letter drop in the corrections document rather
+  than a deliberate correction, and left unchanged pending an explicit
+  instruction either way. Flagged in captain-data.ts / franchises-data.ts
+  as a code comment, not silently resolved.

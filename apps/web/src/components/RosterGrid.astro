@@ -39,10 +39,11 @@ const { players } = Astro.props;
     border-top: 3px solid var(--ukbt-color-brand-accent);
   }
   /* Promoted from h4 to h3 (found by a mobile axe-core sweep across all
-     16 routes: this component's only call site, /franchises, puts it
-     directly after an h2 with no h3 between — the same class of gap F4
-     fixed on the homepage, but never checked page-by-page). Explicit
-     size keeps the pre-existing visual weight. */
+     16 routes: this component's only call site, then /franchises, now
+     /franchises/uppsala-tigers (contracts/ROUTE-CONTRACT.md AMENDMENT
+     02), puts it directly after an h2 with no h3 between — the same
+     class of gap F4 fixed on the homepage, but never checked
+     page-by-page). Explicit size keeps the pre-existing visual weight. */
   .ukbt-roster-card h3 {
     margin: 0 0 var(--ukbt-space-1) 0;
     font-size: var(--ukbt-font-size-1);

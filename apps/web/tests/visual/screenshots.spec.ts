@@ -26,6 +26,7 @@ const pages = [
   { route: '/club-captain', slug: 'club-captain' },
   { route: '/players', slug: 'players' },
   { route: '/franchises', slug: 'franchises' },
+  { route: '/franchises/uppsala-tigers', slug: 'franchises-uppsala-tigers' },
   { route: '/tournaments', slug: 'tournaments' },
   { route: '/contact', slug: 'contact' },
   { route: '/community', slug: 'community' },

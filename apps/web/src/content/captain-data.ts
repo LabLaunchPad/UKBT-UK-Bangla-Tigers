@@ -7,11 +7,30 @@
 // source PDF names them); their literal URL strings were not transcribed
 // during ingestion and are not retrievable in this session, so they are
 // rendered as plain text, never as a fabricated href.
+//
+// Role and Franchise History were corrected per a client corrections
+// document (EV-20260831-001) and the clarifying decisions it required
+// (EV-20260831-002): role drops "Founder & CEO" on THIS page only (he
+// still holds that title org-wide — see about-data.ts, unaffected by
+// this change); Franchise History's Previous Teams now matches the
+// correction document's 8 entries plus London Blaze and Roma Ovest
+// Titans (moved from Current, per the client's confirmation he is
+// currently only playing for UK Bangla Tigers and Uppsala Tigers).
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
 const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
+  {
+    id: 'EV-0831-01',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-001.yaml',
+  },
+  {
+    id: 'EV-0831-02',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260831-002.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
@@ -45,8 +64,8 @@ const facts = {
   },
   role: {
     field: 'captain.role',
-    value: 'Founder & CEO, Club Captain',
-    sources: ['EV-026'],
+    value: 'Club Captain',
+    sources: ['EV-026', 'EV-0831-01', 'EV-0831-02'],
   },
   dob: { field: 'captain.dob', value: '10 December 1990', sources: ['EV-026'] },
   nationality: {
@@ -83,19 +102,25 @@ export const captain = {
   nationality: facts.nationality.value,
   battingStyle: facts.battingStyle.value,
   bowlingStyle: facts.bowlingStyle.value,
+  // Current/Previous per EV-0831-01 + EV-0831-02: he is currently playing
+  // for UK Bangla Tigers and Uppsala Tigers only; London Blaze and Roma
+  // Ovest Titans moved to Previous; Previous Teams otherwise matches the
+  // correction document's 8 entries exactly.
   currentFranchises: [
-    'London Blaze (England, Gateway T20)',
-    'Roma Ovest Titans (Italy, RPL T10)',
     'UK Bangla Tigers (UAE, Safari International T20 Cup)',
     'Uppsala Tigers (Sweden, Nordic Smash T20)',
   ],
   previousFranchises: [
-    'Yankee Royals (Florida, US Open)',
-    'Bangladesh Tigers of USA',
-    'US All Stars',
-    'West Indies (Caribbean T10)',
+    'London Blaze (England, Gateway T20)',
+    'Roma Ovest Titans (Italy, RPL T10)',
+    'Yankee Royals (USA, US Open)',
+    'Bangladesh Tigers of USA (USA, Atlanta Open)',
+    'US All Stars (West Indies, Caribbean T10)',
+    'Dynamite Ducks (South Africa, LMS World Championship)',
+    'Bangladesh Tigers (USA, Diversity Cup)',
     'BAS Vampire (England, T20 Pro-Am)',
-    'Faisalabad Falcons (Florida, US Open)',
+    'Bangladesh Tigers of USA (USA, Motor City Championship)',
+    'Faisalabad Falcons (USA, US Open)',
   ],
   battingStats: [
     {

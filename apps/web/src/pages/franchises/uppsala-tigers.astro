@@ -1,0 +1,125 @@
+---
+// Uppsala Tigers franchise detail page — moved here from the single-page
+// /franchises showcase (which is now the Our Franchises card-grid
+// landing) per the client's instruction that this franchise sit under a
+// clickable "Our Franchise" list (EV-20260831-001, EV-20260831-002;
+// contracts/ROUTE-CONTRACT.md AMENDMENT 02). Real overseas roster below,
+// "Nipo Khadem" excluded per CLIENT_REQ_008.
+//
+// The intro image is the crest, not nordic-smash-slide.webp: that
+// graphic has "NIPO KHADEM / PORTUGAL" baked into the photo itself
+// (EV-20260826-031, found on direct visual inspection of this page's own
+// screenshot) — no text-content check can catch a name inside a raster
+// image. No alternative photo excluding that player exists in evidence.
+// The client separately asked for the Uppsala Tigers logo itself to be
+// changed (EV-20260831-001 item 4) — no replacement file was supplied,
+// so the crest fallback stays until one is (see
+// artifacts/content/CLIENT-ASK-LIST.md).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import PageBanner from '../../components/PageBanner.astro';
+import Section from '../../components/Section.astro';
+import RosterGrid from '../../components/RosterGrid.astro';
+import Footer from '../../components/Footer.astro';
+import { homepage } from '../../content/homepage-data';
+import { uppsalaFacts, uppsalaOverseasSignings } from '../../content/franchises-data';
+import SubHeading from '../../components/SubHeading.astro';
+---
+
+<BaseLayout
+  title="Uppsala Tigers — Our Franchises — UK Bangla Tigers"
+  description="UK Bangla Tigers' sister franchise, Uppsala Tigers (Sweden)."
+>
+  <Header nav={homepage.nav} />
+
+  <main id="main-content" tabindex="-1">
+    <PageBanner
+      title="Uppsala Tigers"
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Our Franchises', href: '/franchises' },
+        { label: 'Uppsala Tigers' },
+      ]}
+    />
+
+    <Section>
+      <div class="ukbt-franchise-intro">
+        <div class="ukbt-franchise-intro__crest-panel">
+          <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
+        </div>
+        <div>
+          <SubHeading label="Sister Franchise" />
+          <h2>Uppsala Tigers, Sweden</h2>
+          <ul class="ukbt-franchise-intro__facts">
+            {
+              uppsalaFacts.map((f) => (
+                <li>
+                  <h3>{f.title}</h3>
+                  <p>{f.body}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </Section>
+
+    <Section surface="alt" paddingBottom="normal">
+      <h2>Overseas Signings</h2>
+      <RosterGrid players={uppsalaOverseasSignings} />
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  h2 {
+    margin: var(--ukbt-space-gap-2) 0 var(--ukbt-space-gap-5) 0;
+  }
+  /* .community-grid: grid-template-columns 1fr 1fr, gap 100px */
+  .ukbt-franchise-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ukbt-space-gap-100);
+    align-items: center;
+  }
+  .ukbt-franchise-intro__crest-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ukbt-color-surface-alt);
+    border-radius: var(--ukbt-radius-lg);
+    padding: var(--ukbt-space-8) var(--ukbt-space-4);
+  }
+  .ukbt-franchise-intro__crest-panel img {
+    display: block;
+    height: 14rem;
+    width: auto;
+  }
+  .ukbt-franchise-intro__facts {
+    list-style: none;
+    margin: var(--ukbt-space-4) 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-franchise-intro__facts h3 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-franchise-intro__facts p {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+  }
+
+  /* Reference `.community-grid` collapses to a single column at <=1025px. */
+  @media screen and (max-width: 1025px) {
+    .ukbt-franchise-intro {
+      grid-template-columns: 1fr;
+      gap: var(--ukbt-space-gap-5);
+    }
+  }
+</style>

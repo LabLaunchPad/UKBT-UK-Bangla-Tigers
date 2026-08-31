@@ -12,6 +12,7 @@ const routes = [
   { path: '/club-captain', name: 'Club Captain' },
   { path: '/players', name: 'Players Profile' },
   { path: '/franchises', name: 'Our Franchises' },
+  { path: '/franchises/uppsala-tigers', name: 'Uppsala Tigers' },
   { path: '/tournaments', name: 'International Tournaments/Events' },
   { path: '/contact', name: 'Contact Us' },
   // Template-mirrored routes (CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01).
@@ -130,7 +131,9 @@ for (const route of routes) {
 test('no player photo is rendered on the Our Franchises roster', async ({
   page,
 }) => {
-  await page.goto('/franchises');
+  // Roster moved from /franchises (now a card-grid landing) to the
+  // Uppsala Tigers detail page — contracts/ROUTE-CONTRACT.md AMENDMENT 02.
+  await page.goto('/franchises/uppsala-tigers');
   const rosterImgs = await page.locator('.ukbt-roster-card img').count();
   expect(
     rosterImgs,

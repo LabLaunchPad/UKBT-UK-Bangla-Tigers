@@ -1,30 +1,24 @@
 ---
-// Our Franchises page — mirrors the same `.community-grid` geometry used
-// by FranchiseTeaser.astro on the Homepage (grid-template-columns 1fr
-// 1fr, gap 100px), but as this page's own intro block (not reusing that
-// component directly, since its CTA links to this very page — a
-// self-link that only makes sense as a homepage teaser). Real overseas
-// roster below, "Nipo Khadem" excluded per CLIENT_REQ_008.
-//
-// The intro image is the crest, not nordic-smash-slide.webp: that
-// graphic has "NIPO KHADEM / PORTUGAL" baked into the photo itself
-// (EV-20260826-031, found on direct visual inspection of this page's own
-// screenshot) — no text-content check can catch a name inside a raster
-// image. No alternative photo excluding that player exists in evidence.
+// Our Franchises landing — a card grid, one entry per sister franchise,
+// each linking to its own detail page under /franchises/. Restructured
+// from a single-franchise showcase per the client's instruction that
+// Uppsala Tigers sit under a clickable "Our Franchise" list, built so
+// future franchises can be added the same way (EV-20260831-001,
+// EV-20260831-002) — route addition authorised by
+// contracts/ROUTE-CONTRACT.md AMENDMENT 02. Only Uppsala Tigers exists
+// today; no future franchise is invented to fill out the grid.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
-import RosterGrid from '../components/RosterGrid.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
-import { uppsalaFacts, uppsalaOverseasSignings } from '../content/franchises-data';
-import SubHeading from '../components/SubHeading.astro';
+import { ourFranchises } from '../content/franchises-data';
 ---
 
 <BaseLayout
   title="Our Franchises — UK Bangla Tigers"
-  description="UK Bangla Tigers' sister franchise, Uppsala Tigers (Sweden)."
+  description="UK Bangla Tigers' sister franchises, competing internationally."
 >
   <Header nav={homepage.nav} />
 
@@ -34,31 +28,28 @@ import SubHeading from '../components/SubHeading.astro';
       crumbs={[{ label: 'Home', href: '/' }, { label: 'Our Franchises' }]}
     />
 
-    <Section>
-      <div class="ukbt-franchise-intro">
-        <div class="ukbt-franchise-intro__crest-panel">
-          <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
-        </div>
-        <div>
-          <SubHeading label="Sister Franchise" />
-          <h2>Uppsala Tigers, Sweden</h2>
-          <ul class="ukbt-franchise-intro__facts">
-            {
-              uppsalaFacts.map((f) => (
-                <li>
-                  <h3>{f.title}</h3>
-                  <p>{f.body}</p>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+    <Section paddingBottom="normal">
+      <div class="ukbt-franchise-grid">
+        {
+          ourFranchises.map((f) => (
+            <a class="ukbt-franchise-card" href={`/franchises/${f.slug}`}>
+              <div class="ukbt-franchise-card__crest-panel">
+                <img
+                  src="/brand/crest-512.png"
+                  width="220"
+                  height="302"
+                  alt="UK Bangla Tigers crest"
+                />
+              </div>
+              <div class="ukbt-franchise-card__body">
+                <h2>{f.name}</h2>
+                <p class="ukbt-franchise-card__country">{f.country}</p>
+                <p>{f.blurb}</p>
+              </div>
+            </a>
+          ))
+        }
       </div>
-    </Section>
-
-    <Section surface="alt" paddingBottom="normal">
-      <h2>Overseas Signings</h2>
-      <RosterGrid players={uppsalaOverseasSignings} />
     </Section>
   </main>
 
@@ -66,55 +57,47 @@ import SubHeading from '../components/SubHeading.astro';
 </BaseLayout>
 
 <style>
-  h2 {
-    margin: var(--ukbt-space-gap-2) 0 var(--ukbt-space-gap-5) 0;
-  }
-  /* .community-grid: grid-template-columns 1fr 1fr, gap 100px */
-  .ukbt-franchise-intro {
+  .ukbt-franchise-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ukbt-space-gap-100);
-    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--ukbt-space-8);
   }
-  .ukbt-franchise-intro__crest-panel {
+  .ukbt-franchise-card {
+    display: block;
+    background: var(--ukbt-color-surface-alt);
+    border-radius: var(--ukbt-radius-lg);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+  }
+  .ukbt-franchise-card__crest-panel {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--ukbt-color-surface-alt);
-    border-radius: var(--ukbt-radius-lg);
+    background: var(--ukbt-color-surface);
     padding: var(--ukbt-space-8) var(--ukbt-space-4);
   }
-  .ukbt-franchise-intro__crest-panel img {
+  .ukbt-franchise-card__crest-panel img {
     display: block;
-    height: 14rem;
+    height: 8rem;
     width: auto;
   }
-  .ukbt-franchise-intro__facts {
-    list-style: none;
-    margin: var(--ukbt-space-4) 0 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-4);
+  .ukbt-franchise-card__body {
+    padding: var(--ukbt-space-4);
   }
-  /* Promoted from h4 to h3 (mobile axe-core sweep across all 16 routes:
-     this list sits directly after this page's own h2 with no h3
-     between). Explicit size keeps the pre-existing visual weight. */
-  .ukbt-franchise-intro__facts h3 {
-    margin: 0;
-    font-size: var(--ukbt-font-size-1);
+  .ukbt-franchise-card__body h2 {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    font-size: var(--ukbt-font-size-2);
   }
-  .ukbt-franchise-intro__facts p {
-    margin: 0;
+  .ukbt-franchise-card__country {
+    margin: 0 0 var(--ukbt-space-2) 0;
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
   }
-
-  /* Reference `.community-grid` collapses to a single column at <=1025px. */
-  @media screen and (max-width: 1025px) {
-    .ukbt-franchise-intro {
-      grid-template-columns: 1fr;
-      gap: var(--ukbt-space-gap-5);
-    }
+  .ukbt-franchise-card__body p:last-child {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
   }
 </style>
