@@ -93,3 +93,13 @@ export type GenericCopy = z.infer<typeof GenericCopySchema>;
 
 export const UIStringSchema = z.object({ key: z.string(), label: z.string() });
 export type UIString = z.infer<typeof UIStringSchema>;
+
+/**
+ * Navigation item — shared type for header, footer, and any navigation
+ * component. Supports nested children for dropdowns.
+ */
+export interface NavItem {
+  label: string;
+  href: string;
+  children?: NavItem[];
+}

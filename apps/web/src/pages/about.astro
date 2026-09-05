@@ -1,16 +1,16 @@
 ---
-// About Us page — implements artifacts/pages/ABOUT-CONTRACT.md. Content
+// About Us page â€” implements artifacts/pages/ABOUT-CONTRACT.md. Content
 // bound to @ukbt/truth's gate (src/content/about-data.ts); shared nav/
 // social come from homepage-data.ts so they are gated exactly once.
 // Each section's geometry mirrors the reference's actual measured layout
-// (checked directly against the Adelux `about.html`/`main.css` source —
+// (checked directly against the Adelux `about.html`/`main.css` source â€”
 // see per-component comments), reimplemented with UKBT content/branding.
 // No Adelux code, content, or branding appears anywhere below.
 //
 // Sponsors section (EV-20260831-007) reinstates the reference's
 // partner-logo panel (`.partnership-container`) right where
 // MissionWelcome.astro's own header comment noted its omission "no
-// sponsor is evidenced" — now one is.
+// sponsor is evidenced" â€” now one is.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
@@ -66,11 +66,11 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="About Us — UK Bangla Tigers"
+  title="About Us â€” UK Bangla Tigers"
   description={about.tagline}
   structuredData={structuredData}
 >
-  <Header nav={homepage.nav} />
+  <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
     <PageBanner title="About Us" crumbs={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />

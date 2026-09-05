@@ -7,6 +7,7 @@
 // and artifacts/pages/HOMEPAGE-CONTRACT.md for the decisions this data reflects.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
+import { primaryCta, primaryNav, secondaryNav } from './navigation-data';
 
 const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
@@ -180,25 +181,7 @@ export const homepage = {
   sisterFranchise: facts.franchiseName.value,
   upcomingTournaments: tournamentUpcoming,
   social: socialLinks,
-  // The primary nav is exactly CLIENT_REQ_001's stated seven items; the
-  // template-mirrored routes (CLIENT_REQ_009) are reachable from the
-  // footer instead, so the client's own IA is not silently widened.
-  // The commerce-shaped shells (/services, /membership, /join) appear in
-  // NEITHER: ROUTE-CONTRACT Amendment 01 condition 2 keeps them out of
-  // navigation until they carry real content.
-  secondaryNav: [
-    { label: 'Community', href: '/community' },
-    { label: 'Coaching & Development', href: '/coaching' },
-    { label: 'Club News', href: '/news' },
-    { label: 'FAQ', href: '/faq' },
-  ],
-  nav: [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Club Captain', href: '/club-captain' },
-    { label: 'Players Profile', href: '/players' },
-    { label: 'Our Franchises', href: '/franchises' },
-    { label: 'International Tournaments/Events', href: '/tournaments' },
-    { label: 'Contact Us', href: '/contact' },
-  ],
+  primaryCta,
+  secondaryNav,
+  nav: primaryNav,
 };

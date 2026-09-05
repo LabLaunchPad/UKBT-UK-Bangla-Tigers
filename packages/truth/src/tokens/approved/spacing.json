@@ -64,7 +64,18 @@
       },
       "paddingInline": {
         "$value": "20px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$description": "Mobile gutter (20px). Tablet 32px, desktop 48px — see gutter tokens below."
+      },
+      "paddingInlineMd": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "Tablet gutter (32px) at <=1025px."
+      },
+      "paddingInlineLg": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "Desktop gutter (48px) at >=1280px."
       },
       "wrapper": {
         "$value": "30px",

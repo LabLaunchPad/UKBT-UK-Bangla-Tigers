@@ -1,11 +1,11 @@
 ---
 // Contact Us page. knowledge/01-VERIFIED-FACTS.yaml's unknowns register
-// (U-16) records venue/phone/email/opening-hours as UNKNOWN — no such
+// (U-16) records venue/phone/email/opening-hours as UNKNOWN â€” no such
 // fact has ever been supplied. Per contracts/FORM-CONTRACT.md, a real
 // submission form requires the submitForm adapter boundary and a backend
 // implementation, neither of which exist yet (no Cloudflare Functions
 // deployment). Shipping a "Send us a message" form with no working
-// backend would silently drop real inquiries — worse than not having
+// backend would silently drop real inquiries â€” worse than not having
 // one. This page therefore offers only the real, working channels that
 // exist today (official social media) and states the gap honestly
 // instead of fabricating contact details or a non-functional form.
@@ -20,10 +20,10 @@ import SubHeading from '../components/SubHeading.astro';
 ---
 
 <BaseLayout
-  title="Contact Us — UK Bangla Tigers"
+  title="Contact Us â€” UK Bangla Tigers"
   description="Get in touch with UK Bangla Tigers via social media."
 >
-  <Header nav={homepage.nav} />
+  <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
     <PageBanner

@@ -1,5 +1,5 @@
 ---
-// Mirrors the reference's `faq.html` (Banner → FAQ → Membership CTA →
+// Mirrors the reference's `faq.html` (Banner â†’ FAQ â†’ Membership CTA â†’
 // Blog). Route added under CLIENT_REQ_009 / ROUTE-CONTRACT Amendment 01.
 //
 // SHELL. Not `noindex`: an FAQ page is a generic page type for any club
@@ -18,8 +18,8 @@ import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 ---
 
-<BaseLayout title="FAQ — UK Bangla Tigers" description="Answers to common questions about UK Bangla Tigers.">
-  <Header nav={homepage.nav} />
+<BaseLayout title="FAQ â€” UK Bangla Tigers" description="Answers to common questions about UK Bangla Tigers.">
+  <Header nav={homepage.nav} cta={homepage.primaryCta} />
   <main id="main-content" tabindex="-1">
     <PageBanner title="Frequently Asked Questions" crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]} />
 

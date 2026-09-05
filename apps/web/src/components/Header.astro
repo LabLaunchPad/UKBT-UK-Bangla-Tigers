@@ -1,41 +1,17 @@
 ---
-// Site header, rebuilt to the reference's measured navbar geometry
-// (CLIENT_REQ_012 / EV-20260826-032).
-//
-// Reference `.navbar-nav-container`: flex row, `justify-content:
-// space-between`, `padding: 20px`, with three regions — logo, centred
-// nav links, and a trailing CTA (`.navbar-cta-container`, width 18%,
-// aligned to the end). `.nav-link`: Montserrat 16px/600, `padding: 0 15px`.
-// Measured height 162px at 1440 — our previous 72px bar was less than
-// half the reference's, which read as a different site before any section
-// was even considered.
-//
-// Below the collapse breakpoint the reference swaps to an off-canvas
-// drawer (`.sidebar`: fixed, 300px wide, slides in from the left over a
-// dimmed `.sidebar-overlay`). That is reproduced here with a real
-// <button aria-expanded>/inert-driven toggle and a small inline script
-// (zero new dependencies) rather than the reference's jQuery. An earlier
-// CSS-only checkbox+label version of this toggle shipped with no way for
-// a keyboard user to ever reach it — a plain <label> is not in the tab
-// order and the checkbox itself was display:none — found by the Stage 8
-// independent red team (artifacts/review/HOMEPAGE-REDTEAM.md, F1) and
-// fixed here with a real focusable control plus `inert` on the closed
-// drawer so its links aren't silently tab-reachable while off-screen.
-//
-// Two reference defects are deliberately NOT reproduced: its invisible
-// focus outline (INTERACTION-FORENSICS.md) and its client-side
-// active-link script — active state is resolved from Astro's routing at
-// build time.
+// Site header with dropdown navigation support.
+// Parent items with children remain navigable — clicking the label navigates
+// to the href, clicking the arrow/toggle opens the submenu.
+// Dropdowns support mouse, keyboard (Enter, Space, ArrowDown, ArrowUp, Escape)
+// and touch (accordion on mobile).
+import type { NavItem } from '@ukbt/truth';
 import Button from './Button.astro';
 
-interface NavItem {
-  label: string;
-  href: string;
-}
 interface Props {
   nav: NavItem[];
+  cta?: { label: string; href: string };
 }
-const { nav } = Astro.props;
+const { nav, cta } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
@@ -59,10 +35,34 @@ const isActive = (href: string) =>
       <ul>
         {
           nav.map((item) => (
-            <li>
+            <li class:list={[item.children && 'ukbt-header__nav-item--has-dropdown']}>
               <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
                 {item.label}
               </a>
+              {item.children && (
+                <button
+                  type="button"
+                  class="ukbt-header__dropdown-toggle"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label={`${item.label} submenu`}
+                >
+                  <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" />
+                  </svg>
+                </button>
+              )}
+              {item.children && (
+                <ul class="ukbt-header__dropdown" role="menu">
+                  {item.children.map((child) => (
+                    <li role="none">
+                      <a href={child.href} role="menuitem" aria-current={isActive(child.href) ? 'page' : undefined}>
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))
         }
@@ -70,7 +70,7 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="ukbt-header__cta">
-      <Button label="Join the Club" href="/contact" variant="primary" />
+      {cta && <Button label={cta.label} href={cta.href} variant="primary" />}
     </div>
 
     <button
@@ -99,10 +99,39 @@ const isActive = (href: string) =>
     <ul class="ukbt-header__drawer-menu">
       {
         nav.map((item) => (
-          <li>
-            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-              {item.label}
-            </a>
+          <li class:list={[item.children && 'ukbt-header__drawer-item--has-children']}>
+            {item.children ? (
+              <div class="ukbt-header__drawer-group">
+                <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+                <button
+                  type="button"
+                  class="ukbt-header__drawer-accordion"
+                  aria-expanded="false"
+                  aria-label={`${item.label} submenu`}
+                >
+                  <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            )}
+            {item.children && (
+              <ul class="ukbt-header__drawer-submenu">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href} aria-current={isActive(child.href) ? 'page' : undefined}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
@@ -174,6 +203,78 @@ const isActive = (href: string) =>
       e.preventDefault();
       first.focus();
     }
+  });
+  // Desktop dropdown toggles — click opens/closes submenu
+  document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((btn) => {
+    const menu = btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown');
+    if (!menu) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      // Close all other dropdowns first
+      document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((other) => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          other.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown')
+            ?.removeAttribute('aria-expanded');
+        }
+      });
+      btn.setAttribute('aria-expanded', String(!expanded));
+      menu.setAttribute('aria-expanded', String(!expanded));
+    });
+  });
+
+  // Close desktop dropdowns when clicking outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((btn) => {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown')
+        ?.removeAttribute('aria-expanded');
+    });
+  });
+
+  // Desktop dropdown keyboard navigation
+  document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown').forEach((menu) => {
+    menu.addEventListener('keydown', (e) => {
+      const items = menu.querySelectorAll<HTMLElement>('a[href]');
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (e.key === 'Escape') {
+        const btn = menu.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
+        btn?.setAttribute('aria-expanded', 'false');
+        menu.removeAttribute('aria-expanded');
+        btn?.focus();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (active === last) first?.focus();
+        else {
+          const idx = Array.from(items).indexOf(active as HTMLElement);
+          items[idx + 1]?.focus();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (active === first) last?.focus();
+        else {
+          const idx = Array.from(items).indexOf(active as HTMLElement);
+          items[idx - 1]?.focus();
+        }
+      }
+    });
+  });
+
+  // Drawer accordion toggles
+  document.querySelectorAll<HTMLElement>('.ukbt-header__drawer-accordion').forEach((btn) => {
+    const submenu = btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__drawer-submenu');
+    if (!submenu) return;
+
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      submenu.setAttribute('aria-expanded', String(!expanded));
+    });
   });
 </script>
 
@@ -255,6 +356,58 @@ const isActive = (href: string) =>
   }
   .ukbt-header__nav a:hover {
     color: var(--ukbt-color-brand-accent);
+  }
+
+  /* Dropdown toggle button — arrow next to nav items with children */
+  .ukbt-header__nav-item--has-dropdown {
+    position: relative;
+  }
+  .ukbt-header__dropdown-toggle {
+    appearance: none;
+    border: none;
+    background: none;
+    color: inherit;
+    padding: 0;
+    margin-inline-start: -4px;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  .ukbt-header__dropdown-toggle svg {
+    transition: transform 0.2s ease;
+  }
+  .ukbt-header__dropdown-toggle[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
+
+  /* Desktop dropdown menu */
+  .ukbt-header__dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    margin: 0;
+    padding: var(--ukbt-space-2) 0;
+    list-style: none;
+    background: var(--ukbt-color-surface-background);
+    color: var(--ukbt-color-surface-foreground);
+    border-radius: var(--ukbt-radius-ref-sm);
+    box-shadow: var(--ukbt-shadow-md);
+    z-index: 30;
+  }
+  .ukbt-header__dropdown[aria-expanded='true'],
+  .ukbt-header__nav-item--has-dropdown:hover .ukbt-header__dropdown {
+    display: block;
+  }
+  .ukbt-header__dropdown a {
+    padding: var(--ukbt-space-2) var(--ukbt-space-4);
+    border-bottom: none;
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-header__dropdown a[aria-current='page'] {
+    background: var(--ukbt-color-surface-alt);
+    border-radius: 0;
   }
 
   .ukbt-header__cta {
@@ -396,6 +549,47 @@ const isActive = (href: string) =>
     color: var(--ukbt-color-brand-accent-contrast);
     background: var(--ukbt-color-brand-accent);
     border-radius: var(--ukbt-radius-ref-xs);
+  }
+
+  /* Drawer accordion — items with children get expand/collapse toggle */
+  .ukbt-header__drawer-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ukbt-color-neutral-100);
+  }
+  .ukbt-header__drawer-group a {
+    flex: 1;
+    border-bottom: none;
+  }
+  .ukbt-header__drawer-accordion {
+    appearance: none;
+    border: none;
+    background: none;
+    color: inherit;
+    padding: var(--ukbt-space-gap-2);
+    cursor: pointer;
+    line-height: 1;
+  }
+  .ukbt-header__drawer-accordion svg {
+    transition: transform 0.2s ease;
+  }
+  .ukbt-header__drawer-accordion[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
+  .ukbt-header__drawer-submenu {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--ukbt-space-gap-4);
+  }
+  .ukbt-header__drawer-submenu[aria-expanded='true'] {
+    display: block;
+  }
+  .ukbt-header__drawer-submenu a {
+    font-size: var(--ukbt-font-size-0);
+    padding: var(--ukbt-space-gap-1) var(--ukbt-space-gap-2);
+    border-bottom: none;
   }
 
   /* Accessibility skip link for keyboard navigation */

@@ -23,14 +23,15 @@
         "$description": "CLASSIFICATION: DERIVED — Stage 6 measured a ~1360-1440px content width at desktop-large viewports (RESPONSIVE-MATRIX.yaml). Added for the homepage's wide-desktop sections; not present at Stage 5."
       },
       "page": {
-        "$value": "1340px",
+        "$value": "1240px",
         "$type": "dimension",
-        "$description": "CLASSIFICATION: MEASURED. The reference's own .hero-container max-width, ported verbatim per CLIENT_REQ_012 / EV-20260826-032. This is the single canonical page container for parity work; the sm/md/lg/xl/xxl DERIVED ladder above predates it and is not the page container. Because content caps at 1340px, behaviour above that width is only observable at >=1440 - the reason VISUAL-REGRESSION-CONTRACT Amendment 01 added a 1920x1080 row."
+        "$description": "Primary content container. Selected editorial imagery may break beyond this width. Revised from 1340px per design handoff: container is a grid constraint, not a cage."
       }
     },
     "gutter": {
-      "$value": "1rem",
-      "$type": "dimension"
+      "$value": "3rem",
+      "$type": "dimension",
+      "$description": "Desktop gutter (48px). Steps down to 32px at tablet, 20px at mobile — handled in base.css."
     }
   }
 }

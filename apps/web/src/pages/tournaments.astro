@@ -1,5 +1,5 @@
 ---
-// International Tournaments/Events page — the full evidenced calendar
+// International Tournaments/Events page â€” the full evidenced calendar
 // (2 upcoming, 3 completed). Uses the reference's dark-card/pill-tag
 // visual language (already established via TournamentCard.astro) in a
 // simple grid, since Adelux's own event.html grammar (main-event + CTA +
@@ -18,10 +18,10 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
 ---
 
 <BaseLayout
-  title="International Tournaments/Events — UK Bangla Tigers"
+  title="International Tournaments/Events â€” UK Bangla Tigers"
   description="UK Bangla Tigers' international tournament calendar."
 >
-  <Header nav={homepage.nav} />
+  <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
     <PageBanner
@@ -64,7 +64,7 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
     grid-template-columns: repeat(3, 1fr);
     gap: var(--ukbt-space-6);
   }
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     .ukbt-events-grid {
       grid-template-columns: 1fr 1fr;
     }

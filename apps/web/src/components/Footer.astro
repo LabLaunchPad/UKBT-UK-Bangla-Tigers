@@ -1,35 +1,15 @@
 ---
-// Footer rebuilt to the reference's measured architecture
-// (CLIENT_REQ_012 / EV-20260826-032).
-//
-// Reference structure: a 4-column row (brand / quick links / contact info
-// / newsletter) inside `.footer-content-container` (flex column, 120px
-// gap), closed by `.footer-copyright-container` — a `space-between` bar
-// with a 1px top border and 30px block padding, carrying legal links on
-// one side and the copyright on the other.
-//
-// Two columns are adapted rather than copied, because the underlying UKBT
-// facts do not exist:
-//   * Contact info — phone, email and address are UNKNOWN (unknowns
-//     register U-16). The column keeps its structure and renders only the
-//     channels that do exist, rather than inventing a number.
-//   * Newsletter — the reference posts to a PHP endpoint. We have no
-//     backend (FORM-CONTRACT: the submitForm adapter is unimplemented),
-//     and a subscribe box that silently discards addresses is worse than
-//     none. The slot carries the club's own line instead.
-//
-// Social links stay icon-only per CLIENT_REQ_004, using the reference's
-// `.social-icon` treatment (accent tile, 9px radius) rather than bare
-// glyphs.
+// Footer — final brand statement. Uses shared NavItem type.
+import type { NavItem } from '@ukbt/truth';
+
 interface SocialLink {
   platform: string;
   url: string;
 }
 interface Props {
   social: SocialLink[];
-  nav: { label: string; href: string }[];
-  /** Template-mirrored routes kept out of the primary nav; see homepage-data. */
-  secondaryNav?: { label: string; href: string }[];
+  nav: NavItem[];
+  secondaryNav?: NavItem[];
 }
 const { social, nav, secondaryNav = [] } = Astro.props;
 

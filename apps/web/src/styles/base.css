@@ -103,14 +103,26 @@ p {
   p { font-size: var(--ukbt-font-body-paragraph-size-sm); }
 }
 
-/* Reference .hero-container: 1340px, centred. The inline padding matches
-   the reference's own .section inline padding so content never touches the
-   viewport edge below the container width. */
+/* Primary content container. 1240px max-width with responsive gutters:
+   desktop 48px, tablet 32px, mobile 20px. Selected editorial imagery
+   may break beyond this width. */
 .ukbt-container {
   width: 100%;
   max-width: var(--ukbt-container-max-width-page);
   margin-inline: auto;
   padding-inline: var(--ukbt-space-section-padding-inline);
+}
+
+@media screen and (max-width: 1025px) {
+  .ukbt-container {
+    padding-inline: var(--ukbt-space-section-padding-inline-md);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .ukbt-container {
+    padding-inline: var(--ukbt-space-section-padding-inline-lg);
+  }
 }
 
 /* contracts/ACCESSIBILITY-CONTRACT.md: visible focus indicator on every
