@@ -1,5 +1,6 @@
 ---
 // Footer — final brand statement. Uses shared NavItem type.
+// Editorial composition: brand identity, quick links, contact, follow.
 import type { NavItem } from '@ukbt/truth';
 
 interface SocialLink {
@@ -25,10 +26,9 @@ const year = new Date().getFullYear();
 <footer class="ukbt-footer">
   <div class="ukbt-container ukbt-footer__inner">
     <div class="ukbt-footer__columns">
-      <div class="ukbt-footer__col">
+      <div class="ukbt-footer__col ukbt-footer__col--brand">
         <img src="/brand/crest-144.png" width="72" height="99" alt="" class="ukbt-footer__logo" />
-        <h3>UK Bangla Tigers</h3>
-        <p>A cricket franchise built on international competition and community.</p>
+        <p class="ukbt-footer__tagline">United by Passion. Driven by Cricket.</p>
         <ul class="ukbt-footer__social" aria-label="UK Bangla Tigers on social media">
           {
             social.map((link) => (
@@ -37,11 +37,12 @@ const year = new Date().getFullYear();
                   href={link.url}
                   aria-label={`UK Bangla Tigers on ${link.platform}`}
                   rel="me noopener"
-                  class="ukbt-footer__social-icon"
+                  class="ukbt-footer__social-link"
                 >
                   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor">
                     <path d={icons[link.platform]} />
                   </svg>
+                  <span>{link.platform}</span>
                 </a>
               </li>
             ))
@@ -51,7 +52,6 @@ const year = new Date().getFullYear();
 
       <div class="ukbt-footer__col">
         <h3>Quick Links</h3>
-        <div class="ukbt-footer__rule"></div>
         <nav aria-label="Footer">
           <ul class="ukbt-footer__links">
             {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
@@ -62,7 +62,6 @@ const year = new Date().getFullYear();
 
       <div class="ukbt-footer__col">
         <h3>Get in Touch</h3>
-        <div class="ukbt-footer__rule"></div>
         <p class="ukbt-footer__note">
           A direct phone line, email address and venue are still being
           confirmed with the club.
@@ -72,7 +71,6 @@ const year = new Date().getFullYear();
 
       <div class="ukbt-footer__col">
         <h3>Follow the Tigers</h3>
-        <div class="ukbt-footer__rule"></div>
         <p class="ukbt-footer__note">
           Every match, signing and tournament, straight from the club.
         </p>
@@ -91,34 +89,33 @@ const year = new Date().getFullYear();
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
   }
-  /* Reference `.footer-content-container`: flex column, large internal gap. */
   .ukbt-footer__inner {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-gap-5);
     padding-block: var(--ukbt-space-section-padding) 0;
   }
-  /* Reference footer row: 4 columns at xl, 2 at md, 1 below. */
   .ukbt-footer__columns {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--ukbt-space-gap-4);
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: var(--ukbt-space-gap-5);
   }
   .ukbt-footer__col {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-gap-2);
   }
+  .ukbt-footer__col--brand {
+    gap: var(--ukbt-space-gap-3);
+  }
   .ukbt-footer__col h3 {
     margin: 0;
-    /* Promoted from h4 to h3 (Stage 8 red team F4: h4 columns skipped a
-       level whenever nothing preceding the footer happened to be h3).
-       Explicit size keeps the pre-existing visual weight. */
-    font-size: var(--ukbt-font-heading-h4-size);
+    font-size: var(--ukbt-font-size-1);
+    font-weight: 600;
   }
   .ukbt-footer__col p {
     margin: 0;
-    font-size: var(--ukbt-font-heading-h6-size);
+    font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-300);
   }
   .ukbt-footer__logo {
@@ -126,11 +123,11 @@ const year = new Date().getFullYear();
     width: auto;
     align-self: flex-start;
   }
-  /* Reference `.underline-primary-accent`. Stage 8 red team F8: was
-     a bare rgb() literal duplicating neutral-0 instead of
-     referencing it — same rendered color, token reference only. */
-  .ukbt-footer__rule {
-    border-bottom: 1px solid color-mix(in srgb, var(--ukbt-color-neutral-0) 25%, transparent);
+  .ukbt-footer__tagline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-1);
+    font-weight: 600;
+    color: var(--ukbt-color-surface-inverse-foreground);
   }
   .ukbt-footer__links {
     list-style: none;
@@ -144,12 +141,7 @@ const year = new Date().getFullYear();
   .ukbt-footer__inline-link {
     color: var(--ukbt-color-neutral-300);
     text-decoration: none;
-    font-size: var(--ukbt-font-heading-h6-size);
-    /* Measured at 320-430px these resolved to a bare 19px line box —
-       below WCAG 2.5.8 Target Size (Minimum)'s 24px floor, in the one
-       place on the page that is nothing but a stack of tap targets.
-       inline-flex + min-height enlarges the target without changing
-       the type scale or the visual rhythm. */
+    font-size: var(--ukbt-font-size-0);
     display: inline-flex;
     align-items: center;
     min-height: 24px;
@@ -166,38 +158,26 @@ const year = new Date().getFullYear();
   .ukbt-footer__note {
     max-width: 24rem;
   }
-
-  /* Reference `.social-icon`: accent tile, 9px radius, dark glyph. */
   .ukbt-footer__social {
     display: flex;
-    flex-direction: row;
-    gap: var(--ukbt-space-gap-1);
-    align-items: center;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .ukbt-footer__social-icon {
+  .ukbt-footer__social-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.5em;
-    /* 32x32 measured; 44x44 is the Apple/Android touch guidance and the
-       comfortable floor for an icon-only control with no text fallback. */
-    min-width: 44px;
-    min-height: 44px;
-    border-radius: 9px;
-    background: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
-    transition: background-color var(--ukbt-motion-duration-base)
-      var(--ukbt-motion-easing-standard);
+    gap: var(--ukbt-space-2);
+    color: var(--ukbt-color-neutral-300);
+    text-decoration: none;
+    font-size: var(--ukbt-font-size-0);
+    min-height: 24px;
   }
-  .ukbt-footer__social-icon:hover {
-    background: var(--ukbt-color-brand-accent-hover);
+  .ukbt-footer__social-link:hover {
+    color: var(--ukbt-color-brand-accent);
   }
-
-  /* Reference `.footer-copyright-container`: space-between, 1px top
-     border, 30px block padding. */
   .ukbt-footer__copyright {
     display: flex;
     flex-direction: row;
@@ -205,52 +185,16 @@ const year = new Date().getFullYear();
     gap: var(--ukbt-space-gap-2);
     justify-content: space-between;
     padding-block: var(--ukbt-space-gap-3);
-    /* Stage 8 red team F8: same neutral-0-at-25% color as .ukbt-footer__rule above. */
     border-top: 1px solid color-mix(in srgb, var(--ukbt-color-neutral-0) 25%, transparent);
   }
   .ukbt-footer__copyright p {
     margin: 0;
-    font-size: var(--ukbt-font-heading-h6-size);
+    font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-300);
   }
-
   .ukbt-footer a:focus-visible {
     outline: 2px solid var(--ukbt-color-brand-accent);
     outline-offset: 2px;
-  }
-  /* Stage 8 red team F3: the social icons' own fill is already gold, so
-     the rule above paints a gold ring on a gold tile (~1:1). Navy
-     contrasts 7.2:1 against gold (Button.astro) — override back to it
-     for just this element.
-     The previous version of this rule (`a.ukbt-footer__social-icon`,
-     no ancestor qualifier) never actually won: Astro's per-component
-     scoping attribute gets appended to *every* compound selector in a
-     rule, so the rule above — `.ukbt-footer a:focus-visible` — became
-     `.ukbt-footer[data-astro-cid] a[data-astro-cid]:focus-visible`,
-     two scoping attributes instead of one, which out-specifies a
-     same-shape rule with only one. Verified against the live CSSOM
-     (`el.matches()` against both selectors) and against a real
-     rendered focus screenshot: the ring was gold-on-gold, invisible.
-     Qualifying with the same `.ukbt-footer` ancestor makes both rules
-     pick up the scoping attribute an equal number of times, so this
-     rule's own extra class (`.ukbt-footer__social-icon`) is what
-     decides it, independent of the compiler's scoping mechanics.
-
-     `outline-offset` also needs to change, not just color. The base
-     2px offset pushes the ring outside the 32x32 gold tile, onto the
-     footer's own navy background — so one side of a navy ring sits on
-     gold (7.2:1, fine) and the other sits on navy (1:1, invisible
-     there). No single solid color can fix both sides at once: navy's
-     and gold's relative luminances (0.012 and 0.399) are far enough
-     apart that no third color reaches 3:1 against both simultaneously
-     (verified by solving the WCAG contrast formula for both
-     constraints — no solution exists). A negative offset keeps the
-     ring entirely inside the tile, where the only adjacent color is
-     ever gold, at 7.2:1, both sides. -6px clears the 16px icon glyph
-     (padding 0.5em ~= 8px) comfortably on a 32-44px tile. */
-  .ukbt-footer a.ukbt-footer__social-icon:focus-visible {
-    outline-color: var(--ukbt-color-brand-primary);
-    outline-offset: -6px;
   }
 
   @media screen and (max-width: 1025px) {
