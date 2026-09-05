@@ -6,7 +6,10 @@ recorded here with its provenance class before use. Source stage: 7
 
 | Path | Source | Identity | Usage | Rights status | UKBT-required | Alternative |
 |---|---|---|---|---|---|---|
-| `public/brand/crest-512.png` | `artifacts/brand/raw/brand/crest-512.png` | UK Bangla Tigers crest logo | Header logo, hero mark | UKBT-owned (client-supplied) | Yes | None — canonical logo |
+| `public/brand/crest-512.png` | `artifacts/brand/raw/brand/crest-512.png` | UK Bangla Tigers crest logo (original, 512×512) | Homepage hero, fallback | UKBT-owned (client-supplied) | Yes | None — canonical source for responsive variants below |
+| `public/brand/crest-144.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 144×144 (84% smaller, 29KB) | Footer logo (72×99 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-120.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 120×120 (87% smaller, 23KB) | Header desktop logo (60×82 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-88.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 88×88 (92% smaller, 15KB) | Header drawer logo (44×60 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
 | `public/brand/crest-256.webp` | `artifacts/brand/raw/brand/crest-256.webp` | Same crest, WebP, smaller size | Smaller-context logo instances (footer) | UKBT-owned (client-supplied) | Yes | `crest-512.png` |
 | `public/favicon.svg` | `artifacts/brand/raw/brand/favicon.svg` | Simplified "UBT" monogram favicon | `<link rel="icon">` | UKBT-owned (client-supplied) | Yes | `icon-32.png` |
 | `public/icon-32.png` | `artifacts/brand/raw/brand/icon-32.png` | Favicon PNG fallback | `<link rel="icon" sizes="32x32">` | UKBT-owned (client-supplied) | Yes | None |

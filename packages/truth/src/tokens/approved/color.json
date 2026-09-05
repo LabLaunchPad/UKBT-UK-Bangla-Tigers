@@ -71,6 +71,14 @@
         "$type": "color"
       }
     },
+    "overlay": {
+      "$description": "Overlay/ scrim colors. Named so components reference a token rather than bare rgba() literals (Stage 8 red team F8, closed for all 4 instances).",
+      "scrim": {
+        "$value": "rgba(0, 0, 0, 0.53)",
+        "$type": "color",
+        "$description": "Modal/drawer overlay scrim — true-black at 53% opacity. Deliberately not neutral-900 (#17181c): that color is not true black, and swapping it in would be a real color shift, not a same-color token reference."
+      }
+    },
     "feedback": {
       "$description": "Generic, widely-recognized semantic hues (danger/success/warning) \u2014 a UI-communication convention, not a UKBT brand claim.",
       "danger": {

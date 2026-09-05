@@ -1,0 +1,22 @@
+# Enforce LF line endings for source files — contracts/REPOSITORY-CONTRACT.md
+# requires Biome to pass, and Biome expects LF. CRLF breaks the lint gate
+# on Windows clones (ADAPTIVE-LEARNING L-01).
+*.ts text eol=lf
+*.mjs text eol=lf
+*.astro text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.svg text eol=lf
+
+# Binary files — must not be modified by line-ending normalization
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.woff2 binary
+*.woff binary
+*.ttf binary

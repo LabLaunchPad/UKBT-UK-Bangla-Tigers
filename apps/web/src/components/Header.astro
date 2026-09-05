@@ -47,7 +47,7 @@ const isActive = (href: string) =>
   <div class="ukbt-container ukbt-header__bar">
     <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
       <img
-        src="/brand/crest-512.png"
+        src="/brand/crest-120.png"
         width="60"
         height="82"
         alt=""
@@ -89,7 +89,7 @@ const isActive = (href: string) =>
   <div class="ukbt-header__overlay" id="ukbt-nav-overlay"></div>
   <div class="ukbt-header__drawer" id="ukbt-nav-drawer" role="dialog" aria-label="Site menu" aria-modal="true" inert>
     <div class="ukbt-header__drawer-head">
-      <img src="/brand/crest-512.png" width="44" height="60" alt="" />
+      <img src="/brand/crest-88.png" width="44" height="60" alt="" />
       <button type="button" class="ukbt-header__close" id="ukbt-nav-close" aria-label="Close menu">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" />
@@ -220,7 +220,7 @@ const isActive = (href: string) =>
     flex: none;
   }
   .ukbt-header__logo {
-    height: 60px;
+    height: 42px;
     width: auto;
     flex: none;
   }
@@ -318,14 +318,11 @@ const isActive = (href: string) =>
       display: block;
       position: fixed;
       inset: 0;
-      /* Stage 8 red team F8 flagged this as a bare literal that should
-         reference a token. Left as literal, deliberately: this is a
-         true-black scrim (a generic dim, not a brand color), and the
-         closest named token (neutral-900, #17181c) is not true black —
-         swapping it in would be a real (if tiny) color shift, not a
-         same-color token reference like the white overlays elsewhere in
-         this file/Footer.astro/SubHeading.astro, which were converted. */
-      background: rgb(0 0 0 / 53%);
+      /* Stage 8 red team F8: was a bare rgb() literal. Now references the
+         overlay.scrim token (packages/truth/src/tokens/approved/color.json),
+         which carries the identical rgba(0,0,0,0.53) value. Named so any
+         future overlay uses the same token, not another literal. */
+      background: var(--ukbt-color-overlay-scrim);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-in-out;
