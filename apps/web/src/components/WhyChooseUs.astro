@@ -100,13 +100,6 @@ const { reasons } = Astro.props;
     line-height: 1;
     color: var(--ukbt-color-brand-primary);
   }
-  /* Solid navy, no opacity. A 0.55 alpha here blended to an effective
-     #5c5a43 on gold — 2.99:1, just under the 3:1 large-text threshold.
-     Opacity is invisible to a computed-`color` check, so only the axe
-     scan caught it; solid values keep both guards effective. */
-  :global(.ukbt-chooseus__card--accent) .ukbt-chooseus__index {
-    color: var(--ukbt-color-brand-primary);
-  }
   :global(.ukbt-chooseus__card) h3 {
     margin: 0;
     font-size: var(--ukbt-font-heading-h5-size);
