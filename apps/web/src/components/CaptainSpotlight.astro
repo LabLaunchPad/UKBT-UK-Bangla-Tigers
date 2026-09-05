@@ -1,78 +1,71 @@
 ---
-// Mirrors the reference's "Academy Section" title row
-// (.academy-title-container: flex row, align-items center, gap 50px,
-// border-bottom 3px solid primary). No stats/table here — per
-// CLIENT_REQ_003, the full statistics table belongs on the Club
-// Captain's own page, not the homepage spotlight.
+// CaptainSpotlight — re-art-directed. Editorial composition:
+// large statement + clean info below. Not a two-column layout.
 interface Props {
   name: string;
   role: string;
 }
 const { name, role } = Astro.props;
-import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-captain">
-  <div class="ukbt-captain__heading">
-    <SubHeading label="Club Captain" />
-    <h2>Leading from the Front</h2>
-  </div>
+  <span class="ukbt-captain__eyebrow">Club Captain</span>
+  <h2 class="ukbt-captain__headline">Leading from the Front</h2>
   <div class="ukbt-captain__info">
-    <h3>{name}</h3>
-    <p>{role}</p>
-    <a href="/club-captain" class="ukbt-captain__link">Full profile &rarr;</a>
+    <span class="ukbt-captain__name">{name}</span>
+    <span class="ukbt-captain__role">{role}</span>
   </div>
+  <a href="/club-captain" class="ukbt-captain__link">Full profile &rarr;</a>
 </div>
 
 <style>
-  /* .academy-title-container: flex row, align-items center, gap 50px, border-bottom 3px solid primary */
   .ukbt-captain {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--ukbt-space-gap-5);
-    border-bottom: 3px solid var(--ukbt-color-brand-primary);
-    padding-bottom: var(--ukbt-space-6);
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+    border-top: 3px solid var(--ukbt-color-brand-primary);
+    padding-top: var(--ukbt-space-6);
   }
-  .ukbt-captain__heading {
-    flex: 1 1 auto;
+  .ukbt-captain__eyebrow {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ukbt-color-brand-accent);
   }
-  .ukbt-captain__heading h2 {
+  .ukbt-captain__headline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
     margin: 0;
+    letter-spacing: -0.02em;
   }
   .ukbt-captain__info {
-    flex: 1 1 auto;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
   }
-  .ukbt-captain__info h3 {
-    margin: 0 0 var(--ukbt-space-1) 0;
+  .ukbt-captain__name {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-2);
+    font-weight: 600;
   }
-  .ukbt-captain__info p {
-    margin: 0 0 var(--ukbt-space-2) 0;
+  .ukbt-captain__role {
+    font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
   }
   .ukbt-captain__link {
-    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
-       box at every mobile width. inline-flex + min-height lifts the
-       tap area past the 24px floor without altering the type scale. */
     display: inline-flex;
     align-items: center;
     min-height: 24px;
     color: var(--ukbt-color-brand-primary);
     font-weight: var(--ukbt-font-weight-bold);
     text-decoration: none;
+    margin-top: var(--ukbt-space-2);
   }
   .ukbt-captain__link:hover {
     text-decoration: underline;
-  }
-
-  @media (max-width: 767px) {
-    .ukbt-captain {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .ukbt-captain__info {
-      text-align: left;
-    }
   }
 </style>

@@ -1,19 +1,7 @@
 ---
-// Mirrors the reference's "Membership CTA Section" 2-column card grammar
-// (`.card-membership-cta.cta-content` + `.cta-benefit`). The reference's
-// specific membership-perks bullet list (priority booking, discounted
-// coaching, etc.) has no UKBT equivalent evidence and is not invented —
-// this card carries only evidenced content: a follow CTA and the real
-// social handles.
-//
-// The button used to repeat "Join the Club" → /contact verbatim, the
-// same CTA already in the header and hero — a real duplicate found by
-// the Stage 8 red team (F5). This card's own copy ("Follow the Tigers")
-// asks the visitor to follow, not join, so the button now does that:
-// it links to the first listed social platform rather than restating
-// the site-wide join CTA a third time.
+// AboutCTA — re-art-directed. Clean editorial CTA, not two-column card.
+// Statement + CTA + social links as a typographic row.
 import Button from './Button.astro';
-import Surface from './Surface.astro';
 
 interface Social {
   platform: string;
@@ -28,13 +16,9 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <div class="ukbt-about-cta">
-  <Surface
-    background="var(--ukbt-color-brand-accent)"
-    foreground="var(--ukbt-color-brand-accent-contrast)"
-    class="ukbt-about-cta__content"
-  >
-    <h3>Follow the Tigers</h3>
-    <p>Stay with every match, signing, and tournament as it happens.</p>
+  <div class="ukbt-about-cta__content">
+    <h2 class="ukbt-about-cta__headline">Follow the Tigers</h2>
+    <p class="ukbt-about-cta__body">Every tournament, every result — straight from the club.</p>
     {primarySocial && (
       <Button
         label={`Follow on ${capitalize(primarySocial.platform)}`}
@@ -42,96 +26,49 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
         variant="primary"
       />
     )}
-  </Surface>
-  <Surface
-    background="var(--ukbt-color-surface-inverse)"
-    foreground="var(--ukbt-color-surface-inverse-foreground)"
-    class="ukbt-about-cta__benefit"
-  >
-    <p class="ukbt-about-cta__benefit-lede">
-      Stay connected across every platform we play on.
-    </p>
-    <ul class="ukbt-about-cta__social">
+  </div>
+  <div class="ukbt-about-cta__social">
+    <span class="ukbt-about-cta__social-label">Also on</span>
+    <ul class="ukbt-about-cta__social-list">
       {
         social.map((s) => (
           <li>
-            <a href={s.url} rel="me noopener">{s.platform}</a>
+            <a href={s.url} rel="me noopener">{capitalize(s.platform)}</a>
           </li>
         ))
       }
     </ul>
-  </Surface>
+  </div>
 </div>
 
 <style>
-  /* .row.row-cols-xl-2: 2-column CTA card pair */
   .ukbt-about-cta {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: var(--ukbt-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-5);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-6);
   }
-  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
-     red team F6) — these two classes only carry layout. :global()
-     because Surface (a separate component) renders the div carrying
-     each class, so it never picks up AboutCTA's own Astro scope
-     attribute — a scoped selector would silently never match it (same
-     class of bug fixed in FranchiseTeaser.astro's
-     `.ukbt-franchise__cta`). */
-  /* .cta-content: accent-forward */
-  :global(.ukbt-about-cta__content) {
+  .ukbt-about-cta__content {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-3);
     align-items: flex-start;
+    max-width: 36rem;
   }
-  :global(.ukbt-about-cta__content) h3 {
+  .ukbt-about-cta__headline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
     margin: 0;
+    letter-spacing: -0.02em;
   }
-  :global(.ukbt-about-cta__content) p {
+  .ukbt-about-cta__body {
     margin: 0;
+    font-size: var(--ukbt-font-size-2);
+    color: var(--ukbt-color-neutral-700);
   }
-  /* .cta-benefit: neutral surface */
-  :global(.ukbt-about-cta__benefit) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--ukbt-space-4);
-    /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
-       this navy panel; gold-on-navy measures 7+:1. */
-    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
-  }
-  .ukbt-about-cta__benefit-lede {
-    margin: 0;
-    font-size: var(--ukbt-font-size-1);
-  }
-  .ukbt-about-cta__social {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ukbt-space-4);
-  }
-  .ukbt-about-cta__social a {
-    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
-       box at every mobile width. inline-flex + min-height lifts the
-       tap area past the 24px floor without altering the type scale. */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 24px;
-    /* 'X' is a one-character label — height alone left an 11px-wide
-       target, so the 24px floor has to apply on both axes. */
-    min-width: 24px;
-    color: var(--ukbt-color-brand-accent);
-    text-decoration: none;
-    text-transform: capitalize;
-    font-weight: var(--ukbt-font-weight-bold);
-  }
-  .ukbt-about-cta__social a:hover {
-    text-decoration: underline;
-  }
-
   .ukbt-about-cta :global(.ukbt-button--primary) {
     background: var(--ukbt-color-brand-primary);
     border-color: var(--ukbt-color-brand-primary);
@@ -141,10 +78,33 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     background: var(--ukbt-color-brand-primary-hover);
     border-color: var(--ukbt-color-brand-primary-hover);
   }
-
-  @media (max-width: 767px) {
-    .ukbt-about-cta {
-      grid-template-columns: 1fr;
-    }
+  .ukbt-about-cta__social {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+  }
+  .ukbt-about-cta__social-label {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-about-cta__social-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-about-cta__social-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    color: var(--ukbt-color-brand-primary);
+    text-decoration: none;
+    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-about-cta__social-list a:hover {
+    text-decoration: underline;
   }
 </style>

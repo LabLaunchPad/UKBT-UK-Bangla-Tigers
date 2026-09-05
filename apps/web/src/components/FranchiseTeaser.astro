@@ -1,31 +1,13 @@
 ---
-// Mirrors the reference's "Community Section" (.community-grid: grid-
-// template-columns 1fr 1fr, gap 100px — image with an adjacent CTA
-// caption on one side, heading + feature list on the other).
-// Reimplemented with the sister franchise's real, evidenced facts
-// (EV-20260826-026/-030, updated per EV-20260831-001/-002/-005/-006) —
-// no invented feature copy.
-//
-// The image side does NOT use nordic-smash-slide.webp: that graphic has
-// "NIPO KHADEM / PORTUGAL" baked into the photo itself, and
-// CLIENT_REQ_008 requires that name excluded from any published content
-// (EV-20260826-031, found on direct visual inspection — a text-content
-// grep cannot catch a name baked into a raster image). No alternative
-// Uppsala Tigers photo excluding that player exists in evidence, so this
-// falls back to the crest, the same pattern already used wherever no
-// confirmed-safe photo exists.
+// FranchiseTeaser — re-art-directed. Clean editorial row, not a two-column card.
+// One crest, one sentence. Typography + space, not decorative panels.
 interface Props {
   name: string;
 }
 const { name } = Astro.props;
 
-import SubHeading from './SubHeading.astro';
-import Surface from './Surface.astro';
 import { uppsalaOverseasSignings } from '../content/franchises-data';
 
-// Derived, not hand-copied, so this can't drift from the actual roster
-// the way a hand-typed country list did before (Ireland/Portugal both
-// stopped being accurate once EV-20260831-005/-006 revised the squad).
 const overseasCountries = [
   ...new Set(uppsalaOverseasSignings.map((p) => p.country).filter((c): c is string => Boolean(c))),
 ];
@@ -33,134 +15,74 @@ const countryList =
   overseasCountries.length > 1
     ? `${overseasCountries.slice(0, -1).join(', ')} and ${overseasCountries.at(-1)}`
     : (overseasCountries[0] ?? '');
-
-const facts = [
-  { label: 'Based in Sweden', body: 'UK Bangla Tigers’ sister franchise, competing internationally.' },
-  { label: 'Nordic Smash T20', body: 'Competed in the Nordic Smash T20 tournament, Sweden.' },
-  {
-    label: 'Overseas Signings',
-    body: `Fields international players from ${countryList}.`,
-  },
-];
 ---
 
 <div class="ukbt-franchise">
-  <div class="ukbt-franchise__image-side">
-    <div class="ukbt-franchise__crest-panel">
-      <img src="/brand/crest-512.png" width="220" height="302" alt="UK Bangla Tigers crest" />
-    </div>
-    <Surface
-      background="var(--ukbt-color-surface-inverse)"
-      foreground="var(--ukbt-color-surface-inverse-foreground)"
-      radius="0 0 var(--ukbt-radius-lg) var(--ukbt-radius-lg)"
-      padding="var(--ukbt-space-3) var(--ukbt-space-4)"
-      class="ukbt-franchise__cta"
-    >
-      <h3>Meet {name}</h3>
-      <a href="/franchises">See the franchise &rarr;</a>
-    </Surface>
+  <div class="ukbt-franchise__crest">
+    <img src="/brand/crest-512.png" width="110" height="151" alt="UK Bangla Tigers crest" />
   </div>
-  <div class="ukbt-franchise__content-side">
-    <SubHeading label="Our Franchises" />
-    <h2>One Tigers Family, Two Nations</h2>
-    <ul class="ukbt-franchise__facts">
-      {
-        facts.map((f) => (
-          <li>
-            <h3>{f.label}</h3>
-            <p>{f.body}</p>
-          </li>
-        ))
-      }
-    </ul>
+  <div class="ukbt-franchise__content">
+    <h2 class="ukbt-franchise__headline">One Tigers Family,<br />Two Nations</h2>
+    <p class="ukbt-franchise__body">
+      UK Bangla Tigers' sister franchise, <strong>{name}</strong>, based in Sweden, competing in the Nordic Smash T20.
+      Fields international players from {countryList}.
+    </p>
+    <a href="/franchises" class="ukbt-franchise__link">See the franchise &rarr;</a>
   </div>
 </div>
 
 <style>
-  /* .community-grid: grid-template-columns 1fr 1fr, gap 100px */
   .ukbt-franchise {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: var(--ukbt-space-gap-100);
-    align-items: center;
   }
-  .ukbt-franchise__image-side {
-    display: flex;
-    flex-direction: column;
+  .ukbt-franchise__crest {
+    flex-shrink: 0;
   }
-  .ukbt-franchise__crest-panel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--ukbt-color-surface-alt);
-    border-radius: var(--ukbt-radius-lg) var(--ukbt-radius-lg) 0 0;
-    padding: var(--ukbt-space-8) var(--ukbt-space-4);
-  }
-  .ukbt-franchise__crest-panel img {
+  .ukbt-franchise__crest img {
     display: block;
-    height: 12rem;
+    height: 8rem;
     width: auto;
   }
-  /* Mirrors .community-cta's role (a CTA anchored to the image) without
-     overlaying text on top of the photo itself. Box (background/radius/
-     padding) now owned by Surface.astro (Stage 8 red team F6) — this
-     class only carries what Surface doesn't: the focus-ring override. */
-  /* :global() on the ancestor class only: Surface.astro (a separate
-     component) now renders the div carrying this class, so it never
-     picks up FranchiseTeaser's own Astro scope attribute — a scoped
-     `.ukbt-franchise__cta ...` selector would silently never match it.
-     Found by a real regression: axe's color-contrast check caught the
-     link losing its gold color to browser-default blue once this rule
-     stopped matching (Stage 8 red team F6 migration). The descendant
-     part (h3/a, both written directly in this component's own slot
-     content) stays a normal scoped selector. */
-  :global(.ukbt-franchise__cta) {
-    /* Stage 8 red team F3: black default focus ring measured 1.25:1 on
-       this navy panel; gold-on-navy measures 7+:1. */
-    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
-  }
-  /* Promoted from h4 to h3 (mobile axe-core sweep: on /community this
-     panel follows this page's own h2 with no h3 between; on the
-     homepage it already followed an h3, so h3-after-h3 stays legal
-     too). Explicit size keeps the pre-existing visual weight. */
-  :global(.ukbt-franchise__cta) h3 {
-    margin: 0 0 var(--ukbt-space-1) 0;
-    font-size: var(--ukbt-font-size-1);
-  }
-  :global(.ukbt-franchise__cta) a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;  /* WCAG 2.5.8 target-size floor; was a ~16px line box on mobile. */
-    color: var(--ukbt-color-brand-accent);
-    text-decoration: none;
-    font-size: var(--ukbt-font-size-0);
-  }
-  .ukbt-franchise__content-side h2 {
-    margin: 0 0 var(--ukbt-space-4) 0;
-  }
-  .ukbt-franchise__facts {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .ukbt-franchise__content {
     display: flex;
     flex-direction: column;
-    gap: var(--ukbt-space-4);
+    gap: var(--ukbt-space-3);
   }
-  .ukbt-franchise__facts h3 {
+  .ukbt-franchise__headline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(1.6rem, 1.2rem + 2vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.1;
     margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .ukbt-franchise__body {
     font-size: var(--ukbt-font-size-1);
-  }
-  .ukbt-franchise__facts p {
-    margin: 0;
     color: var(--ukbt-color-neutral-700);
-    font-size: var(--ukbt-font-size-0);
+    max-width: 40rem;
+    margin: 0;
+  }
+  .ukbt-franchise__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    color: var(--ukbt-color-brand-primary);
+    font-weight: var(--ukbt-font-weight-bold);
+    text-decoration: none;
+    margin-top: var(--ukbt-space-1);
+  }
+  .ukbt-franchise__link:hover {
+    text-decoration: underline;
   }
 
-  /* Reference `.community-grid` collapses to a single column at <=1025px. */
-  @media screen and (max-width: 1025px) {
+  @media screen and (max-width: 767px) {
     .ukbt-franchise {
-      grid-template-columns: 1fr;
-      gap: var(--ukbt-space-gap-5);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--ukbt-space-6);
     }
   }
 </style>

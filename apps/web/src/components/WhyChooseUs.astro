@@ -1,16 +1,7 @@
 ---
-// Reference "Why Choose Us" section: `.section-chooseus` (tinted, 20px
-// radius) containing a 40/60 split — `.chooseus-title-container` (flex
-// column, 50px gap) beside `.chooseus-card-container`, whose cards
-// (`.card-chooseus`: column, 40px gap, 20px radius, 40px padding,
-// centred) sit in a 2x2 grid with one card carrying the accent fill.
-//
-// Populated only with facts already on record. Each card restates
-// something evidenced elsewhere in this repo rather than asserting a new
-// claim — the reference's own copy here is marketing about padel
-// facilities, which has no UKBT counterpart.
+// WhyChooseUs — re-art-directed. Clean vertical reasons, not a four-box grid.
+// Editorial composition: statement + reasons as a typographic list.
 import SectionHeader from './SectionHeader.astro';
-import Surface from './Surface.astro';
 
 interface Reason {
   title: string;
@@ -23,7 +14,7 @@ const { reasons } = Astro.props;
 ---
 
 <div class="ukbt-chooseus">
-  <div class="ukbt-chooseus__title">
+  <div class="ukbt-chooseus__header">
     <SectionHeader
       eyebrow="Why the Tigers"
       heading="A Club Built for the International Stage"
@@ -31,102 +22,71 @@ const { reasons } = Astro.props;
       rule="none"
     />
   </div>
-  <div class="ukbt-chooseus__cards">
+  <div class="ukbt-chooseus__list">
     {
-      reasons.map((r, i) => {
-        const accent = i === 1;
-        return (
-          <Surface
-            background={accent ? 'var(--ukbt-color-brand-accent)' : 'var(--ukbt-color-surface-background)'}
-            foreground={accent ? 'var(--ukbt-color-brand-accent-contrast)' : undefined}
-            radius="card"
-            padding="var(--ukbt-space-gap-4)"
-            class={`ukbt-chooseus__card${accent ? ' ukbt-chooseus__card--accent' : ''}`}
-          >
-            <span class="ukbt-chooseus__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      reasons.map((r, i) => (
+        <div class="ukbt-chooseus__item">
+          <span class="ukbt-chooseus__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <div class="ukbt-chooseus__text">
             <h3>{r.title}</h3>
             <p>{r.body}</p>
-          </Surface>
-        );
-      })
+          </div>
+        </div>
+      ))
     }
   </div>
 </div>
 
 <style>
-  /* Reference: `.chooseus-title-container` 40% / `.chooseus-card-container` 60% */
   .ukbt-chooseus {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     gap: var(--ukbt-space-gap-100);
   }
-  .ukbt-chooseus__title {
-    flex: 0 0 40%;
-    max-width: 40%;
+  .ukbt-chooseus__header {
+    max-width: 36rem;
+  }
+  .ukbt-chooseus__list {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-gap-5);
   }
-  .ukbt-chooseus__cards {
-    flex: 1 1 60%;
-    min-width: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ukbt-space-gap-2);
-  }
-  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
-     red team F6) — this keeps only the layout, matching every other
-     migrated panel. Reference `.card-chooseus`: column, 20px radius,
-     40px padding — unchanged, just centralized. :global() because
-     Surface (a separate component) renders the div carrying this
-     class, so it never picks up WhyChooseUs's own Astro scope
-     attribute — a scoped selector would silently never match it (same
-     class of bug fixed in FranchiseTeaser.astro's
-     `.ukbt-franchise__cta`). */
-  :global(.ukbt-chooseus__card) {
+  .ukbt-chooseus__item {
     display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-gap-1);
+    flex-direction: row;
+    gap: var(--ukbt-space-4);
+    padding-top: var(--ukbt-space-4);
+    border-top: 1px solid var(--ukbt-color-border-subtle);
   }
-  /* Navy, not gold. Gold on the white card measures 2.33:1 and fails even
-     the 3:1 large-text threshold — the same trap already hit in
-     ProfileHeader and TournamentCard this build. Gold is legible on the
-     accent-filled card and on dark surfaces, never as text on a light one. */
   .ukbt-chooseus__index {
     font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-heading-h3-size);
+    font-size: var(--ukbt-font-size-3);
     font-weight: var(--ukbt-font-weight-bold);
     line-height: 1;
-    color: var(--ukbt-color-brand-primary);
+    color: var(--ukbt-color-brand-accent);
+    flex-shrink: 0;
+    min-width: 3rem;
   }
-  :global(.ukbt-chooseus__card) h3 {
-    margin: 0;
-    font-size: var(--ukbt-font-heading-h5-size);
+  .ukbt-chooseus__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
   }
-  :global(.ukbt-chooseus__card) p {
+  .ukbt-chooseus__text h3 {
     margin: 0;
-    font-size: var(--ukbt-font-heading-h6-size);
+    font-size: var(--ukbt-font-size-2);
+  }
+  .ukbt-chooseus__text p {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
-  }
-  :global(.ukbt-chooseus__card--accent) p {
-    color: inherit;
+    max-width: 48rem;
   }
 
-  @media screen and (max-width: 1025px) {
-    .ukbt-chooseus {
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--ukbt-space-gap-5);
-    }
-    .ukbt-chooseus__title {
-      flex: 1 1 auto;
-      max-width: 100%;
-    }
-  }
   @media screen and (max-width: 767px) {
-    .ukbt-chooseus__cards {
-      grid-template-columns: 1fr;
+    .ukbt-chooseus__item {
+      flex-direction: column;
+      gap: var(--ukbt-space-2);
     }
   }
 </style>

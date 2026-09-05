@@ -1,12 +1,6 @@
 ---
-// Mirrors the reference's "Tournament Section" (.tournament-grid:
-// grid-template-columns 0.32fr 0.68fr, gap 27px — a large main-event
-// card beside a stacked column of a CTA card [1fr 1fr internal grid]
-// and two smaller event cards [.other-tournament-container: 1fr 1fr]).
-// Reimplemented with UKBT's real tournament calendar (EV-20260826-026) —
-// no fictional event, date, or prize value.
-import Surface from './Surface.astro';
-
+// TournamentGrid — re-art-directed. One large event + editorial CTA.
+// Not four cards. Clean typography, accent border, no decorative tags.
 interface Tournament {
   name: string;
   when: string;
@@ -19,153 +13,127 @@ interface Props {
 const { mainEvent, otherEvents } = Astro.props;
 ---
 
-<div class="ukbt-tournament-grid">
-  <Surface
-    background="var(--ukbt-color-surface-inverse)"
-    foreground="var(--ukbt-color-surface-inverse-foreground)"
-    padding="var(--ukbt-space-4)"
-    class="ukbt-tournament-card ukbt-tournament-card--main"
-  >
-    <div class="ukbt-tournament-tags">
-      <span>Upcoming</span>
-      <span>International</span>
-      <span>Franchise T20</span>
+<div class="ukbt-tournaments">
+  <div class="ukbt-tournaments__main">
+    <span class="ukbt-tournaments__eyebrow">Next Tournament</span>
+    <h2 class="ukbt-tournaments__title">{mainEvent.name}</h2>
+    <div class="ukbt-tournaments__meta">
+      <span>{mainEvent.when}</span>
+      <span class="ukbt-tournaments__sep" aria-hidden="true">&middot;</span>
+      <span>{mainEvent.where}</span>
     </div>
-    <div class="ukbt-tournament-content">
-      <h3>{mainEvent.name}</h3>
-      <div class="ukbt-tournament-meta">
-        <span>{mainEvent.when}</span>
-        <span>{mainEvent.where}</span>
-      </div>
-    </div>
-  </Surface>
-
-  <div class="ukbt-tournament-side">
-    <Surface
-      background="var(--ukbt-color-brand-accent)"
-      foreground="var(--ukbt-color-brand-accent-contrast)"
-      class="ukbt-tournament-cta"
-    >
-      <div>
-        <h3>Follow the Tigers</h3>
-        <p>Every tournament, every result — straight from the club.</p>
-        <a href="/tournaments" class="ukbt-tournament-cta__link">See all tournaments &rarr;</a>
-      </div>
-    </Surface>
-    <div class="ukbt-tournament-others">
-      {
-        otherEvents.map((t) => (
-          <Surface
-            background="var(--ukbt-color-surface-inverse)"
-            foreground="var(--ukbt-color-surface-inverse-foreground)"
-            padding="var(--ukbt-space-4)"
-            class="ukbt-tournament-card"
-          >
-            <div class="ukbt-tournament-tags">
-              <span>Upcoming</span>
-            </div>
-            <div class="ukbt-tournament-content">
-              <h4>{t.name}</h4>
-              <div class="ukbt-tournament-meta">
-                <span>{t.when}</span>
-                <span>{t.where}</span>
-              </div>
-            </div>
-          </Surface>
-        ))
-      }
-    </div>
+    <a href="/tournaments" class="ukbt-tournaments__link">See all tournaments &rarr;</a>
   </div>
+  {
+    otherEvents.length > 0 && (
+      <div class="ukbt-tournaments__others">
+        <span class="ukbt-tournaments__eyebrow">Also Coming</span>
+        <ul class="ukbt-tournaments__list">
+          {otherEvents.map((t) => (
+            <li class="ukbt-tournaments__item">
+              <span class="ukbt-tournaments__item-name">{t.name}</span>
+              <span class="ukbt-tournaments__item-meta">
+                {t.when} &middot; {t.where}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </div>
 
 <style>
-  /* .tournament-grid: grid-template-columns 0.32fr 0.68fr, gap 27px */
-  .ukbt-tournament-grid {
-    display: grid;
-    grid-template-columns: 0.32fr 0.68fr;
-    gap: var(--ukbt-space-6);
-  }
-  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
-     red team F6) — this class only carries layout. :global() because
-     Surface (a separate component) renders the div carrying this class,
-     so it never picks up TournamentGrid's own Astro scope attribute — a
-     scoped selector would silently never match it (same class of bug
-     fixed in FranchiseTeaser.astro's `.ukbt-franchise__cta`). */
-  :global(.ukbt-tournament-card) {
+  .ukbt-tournaments {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    min-height: 12rem;
+    gap: var(--ukbt-space-gap-100);
   }
-  :global(.ukbt-tournament-card--main) {
-    min-height: 22rem;
+  .ukbt-tournaments__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-6);
   }
-  .ukbt-tournament-tags {
+  .ukbt-tournaments__eyebrow {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-tournaments__title {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .ukbt-tournaments__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--ukbt-space-1);
-    margin-bottom: var(--ukbt-space-4);
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    font-size: var(--ukbt-font-size-1);
+    color: var(--ukbt-color-neutral-700);
   }
-  .ukbt-tournament-tags span {
-    border: 1px solid var(--ukbt-color-brand-accent);
-    border-radius: var(--ukbt-radius-pill);
-    padding: 0 var(--ukbt-space-2);
-    font-size: var(--ukbt-font-size-0);
+  .ukbt-tournaments__sep {
+    color: var(--ukbt-color-brand-accent);
   }
-  .ukbt-tournament-content h3,
-  .ukbt-tournament-content h4 {
-    margin: 0 0 var(--ukbt-space-2) 0;
-  }
-  .ukbt-tournament-meta {
-    display: flex;
-    gap: var(--ukbt-space-3);
-    font-size: var(--ukbt-font-size-0);
-    color: var(--ukbt-color-neutral-300);
-  }
-
-  /* .tournament-event-list: flex column, gap 27px */
-  .ukbt-tournament-side {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-6);
-  }
-  /* .card-tournament.tournament-cta: grid-template-columns 1fr 1fr */
-  /* Box (background/radius/padding) now owned by Surface.astro (Stage 8
-     red team F6). :global() on the ancestor for the same reason as
-     .ukbt-tournament-card above. */
-  :global(.ukbt-tournament-cta) h3 {
-    margin: 0 0 var(--ukbt-space-2) 0;
-  }
-  :global(.ukbt-tournament-cta) p {
-    margin: 0 0 var(--ukbt-space-2) 0;
-  }
-  .ukbt-tournament-cta__link {
-    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
-       box at every mobile width. inline-flex + min-height lifts the
-       tap area past the 24px floor without altering the type scale. */
+  .ukbt-tournaments__link {
     display: inline-flex;
     align-items: center;
     min-height: 24px;
-    color: inherit;
+    color: var(--ukbt-color-brand-primary);
     font-weight: var(--ukbt-font-weight-bold);
     text-decoration: none;
+    margin-top: var(--ukbt-space-2);
   }
-  .ukbt-tournament-cta__link:hover {
+  .ukbt-tournaments__link:hover {
     text-decoration: underline;
   }
-  /* .other-tournament-container: grid-template-columns 1fr 1fr */
-  .ukbt-tournament-others {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ukbt-space-6);
+
+  .ukbt-tournaments__others {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-tournaments__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+  }
+  .ukbt-tournaments__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+    padding-top: var(--ukbt-space-4);
+    border-top: 1px solid var(--ukbt-color-border-subtle);
+  }
+  .ukbt-tournaments__item-name {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-1);
+    font-weight: 600;
+  }
+  .ukbt-tournaments__item-meta {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
   }
 
   @media (max-width: 767px) {
-    .ukbt-tournament-grid {
-      grid-template-columns: 1fr;
+    .ukbt-tournaments__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--ukbt-space-1);
     }
-    .ukbt-tournament-others {
-      grid-template-columns: 1fr;
+    .ukbt-tournaments__sep {
+      display: none;
     }
   }
 </style>

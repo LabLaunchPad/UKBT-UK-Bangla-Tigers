@@ -1,17 +1,6 @@
 ---
-// Reference "Academy Section": `.section-academy` (accent-filled, 20px
-// radius) with `.academy-title-container` — flex row, 50px gap,
-// `border-bottom: 3px solid <primary>` — over a counter row.
-//
-// This is the reference section with the strongest UKBT counterpart. The
-// club's own corroborated tagline is "we are not only a team, but also an
-// institute for learning" (EV-20260826-028 and -029, two independent
-// sources), so an academy/development block states something the club
-// actually says about itself rather than borrowing the reference's
-// coaching-programme copy.
-//
-// The counters are the real aggregate figures already used elsewhere on
-// the site, not invented programme statistics.
+// AcademySection — re-art-directed. Full-width navy, typographic statistics.
+// Clean counters with accent borders, no cards, no decorative elements.
 import SectionHeader from './SectionHeader.astro';
 
 interface Counter {
@@ -50,33 +39,35 @@ const { tagline, counters } = Astro.props;
     display: flex;
     flex-direction: column;
   }
-  /* Reference `.academy-counter-container`: a counter row beneath the
-     rule, evenly distributed. */
   .ukbt-academy__counters {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--ukbt-space-gap-4);
+    display: flex;
+    gap: var(--ukbt-space-gap-100);
+    margin-top: var(--ukbt-space-8);
   }
   .ukbt-academy__counter {
     display: flex;
     flex-direction: column;
-    gap: var(--ukbt-space-gap-1);
+    gap: var(--ukbt-space-1);
+    flex: 1;
+    border-top: 2px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-3);
   }
   .ukbt-academy__value {
     font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-heading-h2-size);
-    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-5);
+    font-weight: 700;
     line-height: 1;
     color: var(--ukbt-color-brand-accent);
   }
   .ukbt-academy__label {
-    font-size: var(--ukbt-font-heading-h6-size);
+    font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-300);
   }
 
   @media screen and (max-width: 767px) {
     .ukbt-academy__counters {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      gap: var(--ukbt-space-6);
     }
   }
 </style>

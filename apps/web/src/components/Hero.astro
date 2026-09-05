@@ -1,12 +1,8 @@
 ---
-// Homepage hero — mirrors the reference's actual measured banner
-// geometry (Adelux HTML_TEMPLATE/index.html "Banner Home Section":
-// .banner-home-top / .banner-home-bottom, each `display:flex; flex-
-// direction:row; justify-content:space-between; gap:100px`), reimplemented
-// with UKBT content/branding, never Adelux copy or imagery. Per
-// HOMEPAGE-CONTRACT.md: the crest/wordmark treatment is the committed
-// hero — home-hero.webp is excluded (EV-20260826-030, team affiliation
-// unconfirmed).
+// Hero — re-art-directed. One dominant visual idea: "WE'RE NOT JUST A TEAM."
+// Legacy two-row structure (heading+social, community+CTA cards) replaced
+// with editorial composition: large statement, supporting copy, primary CTA.
+// Social links become a subtle horizontal row, not a full column.
 import Button from './Button.astro';
 
 interface Props {
@@ -25,43 +21,36 @@ const icons: Record<string, string> = {
 
 <div class="ukbt-hero">
   <div class="ukbt-container ukbt-hero__inner">
-    <!-- Top row: mirrors .banner-home-top (heading left, social+highlight right) -->
-    <div class="ukbt-hero__top">
-      <div class="ukbt-hero__title">
-        <img src="/brand/crest-512.png" width="100" height="137" alt="UK Bangla Tigers crest" class="ukbt-hero__crest" fetchpriority="high" />
-        <h1 class="ukbt-hero__headline">UK Bangla Tigers</h1>
-        <p class="ukbt-hero__tagline-short">{taglineShort}</p>
+    <div class="ukbt-hero__content">
+      <img
+        src="/brand/crest-512.png"
+        width="100"
+        height="137"
+        alt=""
+        class="ukbt-hero__crest"
+        fetchpriority="high"
+      />
+      <h1 class="ukbt-hero__headline">
+        We're not just<br />a team.
+      </h1>
+      <p class="ukbt-hero__tagline">{taglineShort}</p>
+      <div class="ukbt-hero__actions">
+        <Button label="Join the Club" href="/join" variant="primary" />
       </div>
-      <div class="ukbt-hero__network">
-        <ul class="ukbt-hero__social">
-          {
-            social.map((s) => (
-              <li>
-                <a href={s.url} aria-label={`UK Bangla Tigers on ${s.platform}`} rel="me noopener">
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d={icons[s.platform]} /></svg>
-                  <span>{s.platform}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-
-    <!-- Bottom row: mirrors .banner-home-bottom (community/stat card left, CTA card right) -->
-    <div class="ukbt-hero__bottom">
-      <div class="ukbt-hero__community-card">
-        <span class="ukbt-hero__community-stat">30+</span>
-        <div>
-          <h2>Players. One Club</h2>
-          <p>A cricket franchise built on international competition and community.</p>
-        </div>
-      </div>
-      <div class="ukbt-hero__cta-card">
-        <h3>Join the Tigers</h3>
-        <p>Be part of the next chapter, on and off the pitch.</p>
-        <Button label="Join the Club" href="/contact" variant="primary" />
-      </div>
+      <ul class="ukbt-hero__social">
+        {
+          social.map((s) => (
+            <li>
+              <a href={s.url} aria-label={`UK Bangla Tigers on ${s.platform}`} rel="me noopener">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor">
+                  <path d={icons[s.platform]} />
+                </svg>
+                <span>{s.platform}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </div>
@@ -70,161 +59,79 @@ const icons: Record<string, string> = {
   .ukbt-hero {
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
-    /* Gold-on-navy measures 7+:1 (Button.astro) — repaints the global
-       focus ring for every descendant without its own override. Stage 8
-       red team F3: the black default ring measured 1.25:1 here. */
     --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-hero__inner {
     display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-8);
-    padding-block: var(--ukbt-space-8);
+    align-items: center;
+    min-height: clamp(20rem, 60vh, 34rem);
+    padding-block: var(--ukbt-space-section-padding);
   }
-
-  /* .banner-home-top: flex row, justify-content space-between, gap 100px */
-  .ukbt-hero__top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--ukbt-space-gap-100);
-    flex-wrap: wrap;
-  }
-  .ukbt-hero__title {
+  .ukbt-hero__content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--ukbt-space-3);
+    gap: var(--ukbt-space-4);
+    max-width: 48rem;
   }
   .ukbt-hero__crest {
     height: 5rem;
     width: auto;
-    flex: none;
+    opacity: 0.6;
   }
-  /* Inherits the reference's h1 scale (90/70/50 with its own breakpoints)
-     from base.css rather than the earlier fluid clamp, which rendered
-     60px against the reference's 90px — flagged by the geometry
-     comparison at three viewports. */
   .ukbt-hero__headline {
     font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
     margin: 0;
+    letter-spacing: -0.02em;
   }
-  .ukbt-hero__tagline-short {
+  .ukbt-hero__tagline {
     font-family: var(--ukbt-font-family-heading);
     color: var(--ukbt-color-brand-accent);
-    font-size: var(--ukbt-font-size-3);
-    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-2);
+    font-weight: 600;
     margin: 0;
   }
-  .ukbt-hero__network {
-    display: flex;
-    align-items: center;
+  .ukbt-hero__actions {
+    margin-top: var(--ukbt-space-2);
+  }
+  .ukbt-hero :global(.ukbt-button--primary) {
+    background: var(--ukbt-color-brand-accent);
+    border-color: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent-contrast);
+  }
+  .ukbt-hero :global(.ukbt-button--primary:hover) {
+    background: var(--ukbt-color-brand-accent-hover);
+    border-color: var(--ukbt-color-brand-accent-hover);
   }
   .ukbt-hero__social {
     display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-2);
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-4);
     list-style: none;
-    margin: 0;
+    margin: var(--ukbt-space-4) 0 0 0;
     padding: 0;
   }
   .ukbt-hero__social a {
-    /* WCAG 2.5.8 Target Size (Minimum): measured as a bare ~19px line
-       box at every mobile width. inline-flex + min-height lifts the
-       tap area past the 24px floor without altering the type scale. */
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 24px;
-    /* 'X' is a one-character label — height alone left an 11px-wide
-       target, so the 24px floor has to apply on both axes. */
-    min-width: 24px;
-    gap: var(--ukbt-space-2);
+    gap: var(--ukbt-space-1);
     color: inherit;
     text-decoration: none;
-    text-transform: capitalize;
     font-size: var(--ukbt-font-size-0);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
   }
   .ukbt-hero__social a:hover {
+    opacity: 1;
     color: var(--ukbt-color-brand-accent);
   }
 
-  /* .banner-home-bottom: flex row, justify-content space-between, gap 100px */
-  .ukbt-hero__bottom {
-    display: flex;
-    flex-direction: row;
-    gap: var(--ukbt-space-6);
-    flex-wrap: wrap;
-  }
-  .ukbt-hero__community-card,
-  .ukbt-hero__cta-card {
-    flex: 1 1 20rem;
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-6);
-  }
-  /* Mirrors .banner-home-community: image/stat card, light surface */
-  .ukbt-hero__community-card {
-    background: var(--ukbt-color-surface-inverse-foreground);
-    color: var(--ukbt-color-brand-primary);
-    /* Light card nested inside the navy hero — re-override the ring back
-       to a light-surface-safe value so a future focusable element here
-       doesn't inherit the hero's gold-on-dark ring onto a light bg. */
-    --ukbt-color-focus-ring: var(--ukbt-color-brand-primary);
-    display: flex;
-    align-items: center;
-    gap: var(--ukbt-space-4);
-  }
-  .ukbt-hero__community-stat {
-    font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-5);
-    font-weight: var(--ukbt-font-weight-bold);
-  }
-  .ukbt-hero__community-card h2 {
-    margin: 0 0 var(--ukbt-space-1) 0;
-    font-size: var(--ukbt-font-size-1);
-  }
-  .ukbt-hero__community-card p {
-    margin: 0;
-    font-size: var(--ukbt-font-size-0);
-    color: var(--ukbt-color-neutral-700);
-  }
-  /* Mirrors .banner-home-cta: accent-forward CTA card */
-  .ukbt-hero__cta-card {
-    background: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
-    display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-2);
-    align-items: flex-start;
-    /* Gold card nested inside the navy hero. The outer `.ukbt-hero` rule
-       repaints the ring gold for the hero generally, which is exactly
-       wrong here since this card's own fill IS gold (measured 1:1 by the
-       new focus-contrast test) — re-override back to navy, which
-       contrasts 7+:1 against gold (Button.astro). */
-    --ukbt-color-focus-ring: var(--ukbt-color-brand-primary);
-  }
-  .ukbt-hero__cta-card h3 {
-    margin: 0;
-    font-size: var(--ukbt-font-size-3);
-  }
-  .ukbt-hero__cta-card p {
-    margin: 0 0 var(--ukbt-space-2) 0;
-  }
-  .ukbt-hero :global(.ukbt-button--primary) {
-    background: var(--ukbt-color-brand-primary);
-    border-color: var(--ukbt-color-brand-primary);
-    color: var(--ukbt-color-brand-primary-contrast);
-  }
-  .ukbt-hero :global(.ukbt-button--primary:hover) {
-    background: var(--ukbt-color-brand-primary-hover);
-    border-color: var(--ukbt-color-brand-primary-hover);
-  }
-
   @media (max-width: 767px) {
-    .ukbt-hero__top,
-    .ukbt-hero__bottom {
-      flex-direction: column;
+    .ukbt-hero__headline {
+      font-size: clamp(2rem, 1.2rem + 4vw, 3rem);
     }
   }
 </style>

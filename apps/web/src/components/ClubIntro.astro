@@ -1,11 +1,7 @@
 ---
-// Mirrors the reference's "About Section" (.about-wrapper: flex row,
-// gap 100px, align-items center — image side with an overlapping detail
-// card, content side with heading/paragraph and a 3-column stat row,
-// .about-highlight-box: border-top accent + big number + label).
-// Reimplemented with UKBT content — crest instead of a stock/unconfirmed
-// photo (no confirmed real UKBT "about" photograph exists yet,
-// EV-20260826-030), real corroborated tagline, real aggregate stats.
+// ClubIntro — re-art-directed. Editorial composition:
+// large image, large statement, supporting copy, typographic statistics.
+// No cards, no overlay, no boxes around numbers.
 interface Stat {
   value: string;
   label: string;
@@ -16,11 +12,10 @@ interface Props {
   founded: string;
 }
 const { tagline, stats, founded } = Astro.props;
-import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-about">
-  <div class="ukbt-about__image-side">
+  <div class="ukbt-about__image">
     <img
       src="/media/club-feature.webp"
       width="1400"
@@ -28,13 +23,9 @@ import SubHeading from './SubHeading.astro';
       alt="A UK Bangla Tigers player on the field"
       loading="lazy"
     />
-    <div class="ukbt-about__detail-card">
-      <p class="ukbt-about__detail-caption">A cricket franchise built on international competition and community.</p>
-    </div>
   </div>
-  <div class="ukbt-about__content-side">
-    <SubHeading label="About Us" />
-    <h2>We're not just a team.</h2>
+  <div class="ukbt-about__content">
+    <h2 class="ukbt-about__headline">We're not just<br />a team.</h2>
     <p class="ukbt-about__lede">{tagline}</p>
     <p class="ukbt-about__founded">Founded in {founded}.</p>
     <div class="ukbt-about__stats">
@@ -51,73 +42,51 @@ import SubHeading from './SubHeading.astro';
 </div>
 
 <style>
-  /* .about-wrapper: flex row, gap 100px, align-items center */
   .ukbt-about {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     gap: var(--ukbt-space-gap-100);
   }
-  /* Reference `.about-image-container`: the media panel the detail card
-     overlays. Now holds a photograph (CLIENT_REQ_010), which is what this
-     slot was designed for. */
-  .ukbt-about__image-side {
-    position: relative;
-    flex: 0 0 40%;
-    max-width: 40%;
+  .ukbt-about__image {
+    width: 100%;
   }
-  .ukbt-about__image-side img {
+  .ukbt-about__image img {
     display: block;
     width: 100%;
-    height: 100%;
-    max-height: 26rem;
+    height: auto;
+    max-height: 36rem;
     object-fit: cover;
     border-radius: var(--ukbt-radius-ref-card);
   }
-  /* Reference `.card-about-detail`: a card overlaying the bottom-left of
-     the media panel, with the reference's asymmetric corner treatment.
-     This is now a true overlay again — it was temporarily stacked below
-     while the slot held the crest, where an overlay landed on the
-     "UK BANGLA TIGERS" wordmark. With a photograph in the slot, covering
-     part of the frame is exactly what the reference intends. */
-  .ukbt-about__detail-card {
-    position: absolute;
-    left: var(--ukbt-space-gap-2);
-    right: var(--ukbt-space-gap-2);
-    bottom: var(--ukbt-space-gap-2);
-    background: var(--ukbt-color-surface-inverse);
-    color: var(--ukbt-color-surface-inverse-foreground);
-    border-radius: var(--ukbt-radius-ref-card-asymmetric);
-    padding: var(--ukbt-space-gap-2);
-    box-shadow: var(--ukbt-shadow-md);
+  .ukbt-about__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
+    max-width: 48rem;
   }
-  .ukbt-about__detail-caption {
+  .ukbt-about__headline {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
     margin: 0;
-    font-size: var(--ukbt-font-size-0);
-    text-align: center;
-  }
-  .ukbt-about__content-side {
-    flex: 1 1 auto;
-  }
-  .ukbt-about__content-side h2 {
-    margin: 0 0 var(--ukbt-space-2) 0;
+    letter-spacing: -0.02em;
   }
   .ukbt-about__lede {
-    max-width: 42rem;
+    font-size: var(--ukbt-font-size-2);
     color: var(--ukbt-color-neutral-700);
-    font-size: var(--ukbt-font-size-1);
+    max-width: 40rem;
+    margin: 0;
   }
   .ukbt-about__founded {
-    margin: var(--ukbt-space-2) 0 0 0;
-    color: var(--ukbt-color-neutral-700);
     font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-neutral-700);
+    margin: 0;
   }
-  /* .about-highlight-box row: 3-column, border-top accent, big number + label */
   .ukbt-about__stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--ukbt-space-4);
-    margin-top: var(--ukbt-space-6);
+    display: flex;
+    gap: var(--ukbt-space-gap-5);
+    margin-top: var(--ukbt-space-4);
   }
   .ukbt-about__stat {
     display: flex;
@@ -125,6 +94,7 @@ import SubHeading from './SubHeading.astro';
     gap: var(--ukbt-space-1);
     border-top: 2px solid var(--ukbt-color-brand-accent);
     padding-top: var(--ukbt-space-2);
+    min-width: 6rem;
   }
   .ukbt-about__stat-value {
     font-family: var(--ukbt-font-family-heading);
@@ -137,21 +107,10 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-neutral-700);
   }
 
-  /* Reference `.about-wrapper` at <=1025px: column-reverse, 50px gap. */
-  @media screen and (max-width: 1025px) {
-    .ukbt-about {
-      flex-direction: column-reverse;
-      align-items: stretch;
-      gap: var(--ukbt-space-gap-5);
-    }
-    .ukbt-about__image-side {
-      flex: 1 1 auto;
-      max-width: 100%;
-    }
-  }
   @media screen and (max-width: 767px) {
     .ukbt-about__stats {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      gap: var(--ukbt-space-4);
     }
   }
 </style>
