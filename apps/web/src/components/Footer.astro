@@ -139,7 +139,7 @@ const year = new Date().getFullYear();
   .ukbt-footer__col p {
     margin: 0;
     font-size: var(--ukbt-font-heading-h6-size);
-    opacity: 0.85;
+    color: var(--ukbt-color-neutral-300);
   }
   .ukbt-footer__logo {
     height: 72px;
@@ -162,10 +162,9 @@ const year = new Date().getFullYear();
   }
   .ukbt-footer__links a,
   .ukbt-footer__inline-link {
-    color: inherit;
+    color: var(--ukbt-color-neutral-300);
     text-decoration: none;
     font-size: var(--ukbt-font-heading-h6-size);
-    opacity: 0.9;
     /* Measured at 320-430px these resolved to a bare 19px line box —
        below WCAG 2.5.8 Target Size (Minimum)'s 24px floor, in the one
        place on the page that is nothing but a stack of tap targets.
@@ -178,7 +177,6 @@ const year = new Date().getFullYear();
   .ukbt-footer__links a:hover,
   .ukbt-footer__inline-link:hover {
     color: var(--ukbt-color-brand-accent);
-    opacity: 1;
   }
   .ukbt-footer__inline-link {
     color: var(--ukbt-color-brand-accent);
@@ -233,7 +231,7 @@ const year = new Date().getFullYear();
   .ukbt-footer__copyright p {
     margin: 0;
     font-size: var(--ukbt-font-heading-h6-size);
-    opacity: 0.7;
+    color: var(--ukbt-color-neutral-400);
   }
 
   .ukbt-footer a:focus-visible {
