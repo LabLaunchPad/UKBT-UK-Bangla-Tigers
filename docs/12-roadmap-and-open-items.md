@@ -511,3 +511,10 @@ all 17 pages, zero img alt/dim defects in dist.
 - Verified: full `deploy:verify` green incl. `MOTION_STATUS = PASS`;
   screenshots read (hero final, drawer open, reduced-motion desktop,
   banner at 320/390).
+- **Reduced-motion sweet spot (2026-09-06):** the blanket kill left
+  staged entrances either blanked (fixed via delay-kill) or frozen.
+  New two-tier model — state changes instant, entrances resolve as one
+  200ms opacity fade (`ukbt-soft-fade`, no rise/scale/stagger); page
+  swaps stay instant. Measured in-render (opacity 1, transform none,
+  soft-fade active) and read on screenshot; enforced by gate rule 6
+  and the strengthened `motion.spec.ts`.

@@ -40,14 +40,22 @@ scroll-jacking.
 
 | Component | Hover | Focus | Press | Enter | Leave | Reduced motion |
 |---|---|---|---|---|---|---|
-| Button | surface + arrow shift | ring | scale(.98) | n/a | settle | instant |
+| Button | surface + arrow shift | ring | scale(.98) | n/a | settle | instant (no eased movement) |
 | Card (linked) | lift −4px + shadow | ring | — | n/a | settle | instant |
-| Drawer | n/a | contained | n/a | slide + capped stagger | slide out | instant |
+| Drawer | n/a | contained | n/a | slide + capped stagger | slide out | instant open/close |
 | Dropdown | reveal (entry-only) | ring | n/a | fade+rise | instant | instant |
 | Nav link | gold underline-reveal | ring | n/a | navigate | settle | instant |
 | Breadcrumb | underline | ring | n/a | navigate | settle | instant |
-| Hero | n/a | ring | n/a | staggered choreography | n/a | instant |
-| Section header | n/a | n/a | n/a | grouped reveal | n/a | instant |
+| Hero | n/a | ring | n/a | staggered choreography | n/a | soft fade only |
+| Banner | n/a | n/a | n/a | single fade-up | n/a | soft fade only |
+| Section header/footer | n/a | n/a | n/a | grouped reveal | n/a | soft fade only |
+| Page swap | n/a | n/a | n/a | VT fade+rise | VT settle | instant swap |
+
+Reduced-motion model is two-tier: STATE changes (drawer, dropdowns,
+hovers, presses, page swaps) resolve instantly — positional easing is
+the vestibular trigger. Content ENTRANCES (hero, banner, reveals)
+resolve as one short opacity fade (`ukbt-soft-fade`, no rise/scale/
+stagger). Calm and finished, never frozen, never moving.
 
 ## Enforcement
 

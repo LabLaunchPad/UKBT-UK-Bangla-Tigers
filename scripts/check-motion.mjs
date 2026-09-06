@@ -104,6 +104,25 @@ for (const f of globSync('components/*.astro', { cwd: srcDir })) {
   }
 }
 
+// 6. Sweet-spot reduced motion: entrances degrade to the opacity-only
+// soft fade (never the full choreography), state changes stay instant.
+{
+  const base = readFileSync(join(srcDir, 'styles/base.css'), 'utf8');
+  if (!/@keyframes ukbt-soft-fade/.test(base)) {
+    fail('soft-fade-missing', 'no ukbt-soft-fade keyframes in base.css');
+  }
+  for (const sel of [
+    '.ukbt-hero__headline',
+    '.ukbt-page-banner__inner',
+    "html.ukbt-motion-js [data-motion='reveal']",
+  ]) {
+    const idx = base.indexOf(sel, base.indexOf('ukbt-soft-fade'));
+    if (idx === -1) {
+      fail('soft-fade-coverage', `${sel} not in the soft-fade layer`);
+    }
+  }
+}
+
 const result = {
   MOTION_STATUS: failures.length === 0 ? 'PASS' : 'FAIL',
   failures,
