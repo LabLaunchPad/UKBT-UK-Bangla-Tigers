@@ -278,6 +278,36 @@ locally.
   the padding fix. Documented, not chased further (would require a logo
   decision, out of scope for that task).
 
+### 2.7 External audit triage (2026-09-06)
+
+An outside audit (no local execution — DNS-blocked, public tree only)
+returned **SHIP_BLOCKED** with 5 P0 + 6 P1 findings. Every code claim
+was re-verified locally this session before accepting it:
+
+| Claim | Verdict |
+|---|---|
+| SEO contract violated: hand-built JSON-LD, no canonical/sitemap pipeline (`grep canonical\|sitemap = 0` hits in `src/`) | **CONFIRMED** — same finding as § 2.5 P1; still open |
+| Canonical domain unknown | **CONFIRMED** — still `PENDING`, owner decision (§ 3) |
+| Content ships as `pending_review` (8 hits across content modules) | **CONFIRMED** — needs a machine-enforced publish gate, still open |
+| `main` branch protection | **UNVERIFIED this session** (no API access) — recorded open in § 2.3; admin action |
+| No contact/form backend (0 `<form` in pages) | **CONFIRMED, deliberate** — shells by design until a backend exists (FORM-CONTRACT) |
+| Actions tag-pinned, not SHA-pinned (all `uses:` are `@v4`/`@v2` tags) | **CONFIRMED** — still open |
+| No `permissions:` block in `ci.yml` (0 hits) | **CONFIRMED** — still open |
+| No `_headers` in `apps/web/public/` | **CONFIRMED** — still open |
+| Spotlight unconditional / Sentry env-gated | **CONFIRMED** (`astro.config.mjs:11-14`) — needs production review |
+| No perf budget, no live-site verification, no staleness enforcement | **CONFIRMED** (0 hits for budget tooling) — still open |
+| "16 routes / 531 links" counts | **STALE** — now 18 pages, 695 internal links checked |
+
+**Reconciliation with `RELEASE_STATUS = PASS`:** no contradiction. The
+release gate passes for what it measures (code gates); the external
+P0s are governance/operational (domain, approval, branch protection,
+backend) plus real but ungated code gaps (SEO pipeline, headers, CI
+hardening). Honest state: **release gate PASS, production SHIP_BLOCKED**
+until the § 4 sequence below closes them. The auditor's phased ship
+sequence (domain → metadata pipeline → security → journeys →
+performance → live verification → release controls) is adopted as the
+plan of record — see § 4.
+
 ---
 
 ## 3. Client-blocked content items (owner: UK Bangla Tigers club)
@@ -335,7 +365,12 @@ Stage 11 (adaptive learning + replay) can start now that Stage 10 passes
 clean — see `prompts/07-replay-stress.md` (or the `replay-stress` skill)
 for what that stage actually does.
 
-10. Work through the September audit's P1/P2 items (§ 2.5) —
-`focus-visible` gaps, ProfileHeader overflow, `Link` primitive, dead
-tokens, breakpoint seam, `/design-system` contract entry. None blocks
-the release gate; each is a small, independently committable fix.
+10. Work through the September audit's remaining P1/P2 items (§ 2.5) —
+`Link` primitive, dead tokens, breakpoint seam, `/design-system`
+contract entry. None blocks the release gate; each is a small,
+independently committable fix (`focus-visible` gaps and ProfileHeader
+overflow merged as `cadb7b4`).
+11. External-audit ship sequence (§ 2.7): Phase 1 production SEO
+(domain → canonical → sitemap/robots → gated JSON-LD) needs owner
+decisions first; Phase 2 CI/security hardening (`permissions`,
+SHA-pinning, `_headers`/CSP) is code-only and can start anytime.
