@@ -77,8 +77,35 @@ const { taglineShort, social } = Astro.props;
     z-index: 1;
     display: flex;
     align-items: center;
-    min-height: clamp(20rem, 60vh, 34rem);
+    /* First-viewport fill: header heights are deterministic from this
+       system's own bar geometry (logo + padding-block) — 88px at <=430px
+       (48px logo + 2x20px pad), 100px below 768px (60px logo + 2x20px
+       pad), 140px at >=768px (60px logo + 2x40px pad). vh first as the
+       fallback, svh for browsers with dynamic chrome. min-height, never
+       height, so short viewports still grow to fit the content. */
+    min-height: calc(100vh - 100px);
+    min-height: calc(100svh - 100px);
     padding-block: var(--ukbt-space-section-padding);
+  }
+  @media screen and (max-width: 430px) {
+    .ukbt-hero__inner {
+      min-height: calc(100vh - 88px);
+      min-height: calc(100svh - 88px);
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .ukbt-hero__inner {
+      min-height: calc(100vh - 140px);
+      min-height: calc(100svh - 140px);
+    }
+  }
+  /* At >=1280px the header CTA pill (~62px) is 2px taller than the 60px
+     logo, stretching the bar from 140px to 142px (measured). */
+  @media screen and (min-width: 1280px) {
+    .ukbt-hero__inner {
+      min-height: calc(100vh - 142px);
+      min-height: calc(100svh - 142px);
+    }
   }
   .ukbt-hero__content {
     display: flex;
@@ -122,6 +149,11 @@ const { taglineShort, social } = Astro.props;
   @media (max-width: 767px) {
     .ukbt-hero__headline {
       font-size: clamp(2rem, 1.2rem + 4vw, 3rem);
+    }
+    /* Match the Section component's mobile step-down (120px -> 80px) so
+       padding doesn't consume the small-viewport hero. */
+    .ukbt-hero__inner {
+      padding-block: 80px;
     }
     /* Portrait crop: bias toward the players (right of frame) and deepen
        the scrim so type stays legible over a narrower photo slice. */
