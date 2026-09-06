@@ -1,7 +1,7 @@
 # Roadmap & Open Items
 
 **Status:** LIVING DOCUMENT — update in place as stages/items close, don't
-fork a second copy. Last updated 2026-08-27.
+fork a second copy. Last updated 2026-09-06.
 
 **Purpose:** one place that answers "what's done, what's next, what's
 blocked, and on whom" without re-deriving it from receipts scattered across
@@ -215,7 +215,52 @@ Workers deploy after the four stacked fixes above.
   `knowledge/11-VISUAL-TRUTH-POLICY.yaml`, and the new `visual_never`
   block in `knowledge/10-ANTI-DRIFT-RULES.yaml`.
 
-### 2.4 Minor, informational, not blocking anything
+### 2.5 September 2026 work: captain profile links, full-codebase audit, P0 batch
+
+**Captain profile links (2026-09-06, commit `96ea42a`).** Mohammad
+Chowdhury's six stats-provider URLs (ESPN Cricinfo, Play-Cricket,
+CricHeroes, LMS, NCL, CREX — supplied directly, not transcribed from the
+ingestion PDF) wired as external links on `/club-captain`
+(`captain-data.ts:186-211`, `club-captain.astro:109`). London Blaze and
+Roma Ovest Titans moved Previous → Current per client confirmation.
+The new gold-on-cream links failed axe color-contrast (2.12:1, needs
+4.5:1) — fixed by switching link color to navy `#001E3A` (~15:1).
+Verified: lint clean, typecheck 0 errors, build 17 pages,
+`pages.spec.ts` 90/90.
+
+**Full-codebase audit (2026-09-06).** Token system (143 tokens, generated
+CSS matches source 1:1, ~30 dead tokens), 29-component visual QA, and
+content/link integrity audited in one pass. Findings, impact-ordered:
+
+- **P0 (all closed in `cba671d`, see below):** double-`h1` on
+  `/club-captain`; NCL `http://` URL; stale anti-fabrication comments;
+  uncommitted `playwright.config.ts` drift; stale crest-only portrait
+  test.
+- **P1 (open):** missing `:focus-visible` on SocialLinks links,
+  PageBanner breadcrumbs, FranchiseTeaser link, StatsTable scroll
+  wrapper; `ProfileHeader` flex overflow risk at 320–767px; franchise
+  comment-vs-array contradiction risk (comment fixed, array is source of
+  truth); `/design-system` missing from ROUTE-CONTRACT; hand-authored
+  JSON-LD vs SEO-CONTRACT rule.
+- **P2 (open):** five 24px touch floors (meet WCAG 2.2 AA, below 44px
+  best practice); no shared `Link` primitive (five link treatments);
+  ~21% dead tokens; 767/768 breakpoint seam; `Button` has no `external`
+  prop; `check:links` was internal-only (now also gates `http://`).
+
+**P0 batch (2026-09-06, commit `cba671d`).** ProfileHeader name `h1`→`h2`
+(`/club-captain` now exactly one `h1`, verified in built HTML); NCL
+`https://`; fabrication comments rewritten to cite the client-supplied
+source; `playwright.config.ts` restored to the pinned `127.0.0.1` +
+preview-`dist` version; `check-internal-links.mjs` now FAILs on any
+`http://` href; portrait test updated to assert the client-confirmed
+portrait (EV-20260831-008). Verified: lint clean, typecheck 0 errors,
+build 17 pages, `check:links` PASS (695 internal, 0 insecure), built
+HTML holds 1× `h1`, 1× portrait, 0× `http://`. Full Playwright e2e runs
+on CI (ubuntu) — this Windows box cannot execute the Linux-pinned
+browser path, so browser-dependent checks are CI-verified, not claimed
+locally.
+
+### 2.6 Minor, informational, not blocking anything
 
 - **`crest-512.png` is supplied at 512px into 44-106px mobile slots**
   (4.8x-11.6x oversupply, measured 2026-08-27). Real mobile transfer-size
@@ -289,3 +334,8 @@ In priority order, next real work is:
 Stage 11 (adaptive learning + replay) can start now that Stage 10 passes
 clean — see `prompts/07-replay-stress.md` (or the `replay-stress` skill)
 for what that stage actually does.
+
+10. Work through the September audit's P1/P2 items (§ 2.5) —
+`focus-visible` gaps, ProfileHeader overflow, `Link` primitive, dead
+tokens, breakpoint seam, `/design-system` contract entry. None blocks
+the release gate; each is a small, independently committable fix.
