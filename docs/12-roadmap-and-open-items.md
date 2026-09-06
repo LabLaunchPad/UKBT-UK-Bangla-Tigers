@@ -428,4 +428,29 @@ all 17 pages, zero img alt/dim defects in dist.
   empty states.
 - **Open, owner-gated:** "Join the Club" CTA → `/join` shell
   truthfulness (2× on homepage); Sept 2026 event confirmation;
-  200%-zoom verification; dead-token deletion; motion/rhythm tiers.
+  dead-token deletion; motion/rhythm tiers.
+
+### 2.10 P2 leftovers closed (2026-09-06)
+
+- **Dead tokens — keep, don't delete.** Re-verified all ~30
+  candidates: all live only in generated output, but nearly all are
+  scale members (type ramp, neutral ramp, gap ramp, z-stack, state
+  pairs, border scale). Deleting scale steps would punch holes in the
+  system; geometry values (72px header token vs 60px built) differ from
+  shipped CSS, so adoption would be a redesign, not hygiene. One real
+  fix: `button.contract.md` falsely listed `radius-md` as a dependency
+  (only the design-system demo uses it) — corrected.
+- **Media idiom normalized** (zero-visual-change): last six bare
+  `@media (max-width:` → `screen and` (Hero, MissionWelcome,
+  TournamentGrid, contact, tournaments ×2). The 479px MissionWelcome
+  breakpoint is non-token but intentional — recorded, not "fixed" into
+  a different layout.
+- **200% zoom verified** (640 CSS px on home/tournaments/captain):
+  zero overflow, h1 + links intact, screenshots read — drawer, hero,
+  banner all usable.
+- **Crest weight — no change, honest reason:** header/footer
+  `crest-256.webp` is 28KB; smaller PNG variants save ≤13KB, and the
+  real weight (`uppsala` 335KB, `crest-512` 183KB) needs binary
+  tooling this session lacks. Lazy-loading already mitigates
+  below-fold weight. Asset recompression is queued as tooling work,
+  not attempted by hand.
