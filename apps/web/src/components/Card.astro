@@ -36,11 +36,14 @@ const { heading, body, href } = Astro.props;
   }
 
   .ukbt-card--linked {
-    transition: box-shadow var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard);
+    transition:
+      box-shadow var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard),
+      transform var(--ukbt-motion-duration-base) var(--ukbt-motion-easing-standard);
   }
 
   .ukbt-card--linked:hover {
     box-shadow: var(--ukbt-shadow-md);
+    transform: translateY(-4px);
   }
 
   /* :focus-visible base rule lives globally in styles/base.css; this only

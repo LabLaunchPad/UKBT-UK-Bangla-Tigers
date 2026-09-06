@@ -58,6 +58,43 @@ const { taglineShort, social } = Astro.props;
     height: 100%;
     object-fit: cover;
     object-position: 65% 35%;
+    /* Cinematic settle, finite: scale rests at 1 and never loops. */
+    animation: ukbt-hero-settle var(--ukbt-motion-duration-signature)
+      var(--ukbt-motion-easing-emphasized) backwards;
+  }
+  @keyframes ukbt-hero-settle {
+    from {
+      transform: scale(1.04);
+    }
+  }
+  /* Signature entrance: image → headline → tagline → CTA → social,
+     overlapping, transform/opacity only. `backwards` fill stages each
+     element off-screen-state during its delay — content is never hidden
+     without the animation (no-JS renders it statically). */
+  .ukbt-hero__headline,
+  .ukbt-hero__tagline,
+  .ukbt-hero__actions,
+  .ukbt-hero__social {
+    animation: ukbt-hero-rise var(--ukbt-motion-duration-slow)
+      var(--ukbt-motion-easing-emphasized) backwards;
+  }
+  .ukbt-hero__headline {
+    animation-delay: 250ms;
+  }
+  .ukbt-hero__tagline {
+    animation-delay: 350ms;
+  }
+  .ukbt-hero__actions {
+    animation-delay: 500ms;
+  }
+  .ukbt-hero__social {
+    animation-delay: 650ms;
+  }
+  @keyframes ukbt-hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(var(--ukbt-motion-distance-md));
+    }
   }
   /* Legibility scrim, darkest where the type sits (left). Mixed from the
      surface-inverse token — no literal colour values (color-mix has

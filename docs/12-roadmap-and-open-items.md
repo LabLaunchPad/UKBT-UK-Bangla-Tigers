@@ -454,3 +454,31 @@ all 17 pages, zero img alt/dim defects in dist.
   tooling this session lacks. Lazy-loading already mitigates
   below-fold weight. Asset recompression is queued as tooling work,
   not attempted by hand.
+
+### 2.11 Motion programme shipped (2026-09-06, M1–M4, ClientRouter)
+
+- **Tokens:** `duration-slow`, `easing enter/exit/emphasized`,
+  `distance sm/md`, plus `duration-signature` for the hero settle;
+  4 literal transitions retokenized (timings preserved); dead
+  `duration-fast` adopted.
+- **Navigation:** ClientRouter in `BaseLayout` (normal document
+  navigation preserved, incl. no-JS — tested); 350–550ms VT
+  fade+rise; drawer stagger (capped 150ms), dropdown entry via
+  `@starting-style` (exit instant, documented); gold underline-reveal
+  on desktop nav + persistent current-page underline.
+- **Micro-interactions:** Button arrow-shift + press scale(.98);
+  linked-card lift; all transform/opacity, token-driven.
+- **Hero/banner/reveals:** finite load choreography (image settle →
+  headline → tagline → CTA → social); single IO controller with
+  controller-gated initial states (no-JS renders static); SectionHeader
+  + footer + banner reveals.
+- **Reduced-motion catch:** probe found staged `backwards` entrances
+  blanking content through their delays — delays now killed alongside
+  durations; re-verified instant final state in-render.
+- **Governance:** `contracts/MOTION-CONTRACT.md` (+ micro-interaction
+  matrix), `check-motion.mjs` (`MOTION_STATUS`), `motion.spec.ts`,
+  `motion-gate` CI job. Restraint list holds: no parallax/ambient/
+  counters/letter-type/scroll-jacking (deferred, not drifted past).
+- Verified: full `deploy:verify` green incl. `MOTION_STATUS = PASS`;
+  screenshots read (hero final, drawer open, reduced-motion desktop,
+  banner at 320/390).

@@ -110,6 +110,19 @@ const Tag = href ? 'a' : 'button';
   .ukbt-button--primary:hover {
     background: var(--ukbt-color-brand-accent-hover);
   }
+  /* Arrow micro-interaction grammar: the glyph shifts toward the action
+     on hover, settles on leave. Press compresses the pill briefly —
+     premium restraint, never bounce. */
+  .ukbt-button__icon svg {
+    transition: transform var(--ukbt-motion-duration-fast)
+      var(--ukbt-motion-easing-standard);
+  }
+  .ukbt-button:hover .ukbt-button__icon svg {
+    transform: translateX(3px);
+  }
+  .ukbt-button:active {
+    transform: scale(0.98);
+  }
 
   .ukbt-button--secondary {
     background: transparent;
