@@ -428,6 +428,33 @@ done (§ 2.8); Phase 2 CI/security hardening is done (§ 2.12).
   dedicated upgrade batch with migration verification, not
   drive-by-bumped here.
 
+### 2.13 Performance budgets shipped (2026-09-06)
+
+First re-audit since the motion/logo work confirmed every prior P0/P1
+as closed-or-owner-gated (notably: no hand-authored JSON-LD remains —
+the two grep hits are emitter comments; homepage IA matches the
+amended contract; `SITE` set). The one bounded code-only gap was
+performance: measured baselines are lean (CSS 43KB, JS 16KB, HTML
+≤47KB) except images (homepage 589KB, players 878KB, Uppsala roster
+page 1.39MB; worst single file `uppsala-tigers-crest.jpg` 327KB).
+`scripts/check-perf.mjs` (`PERF_STATUS`) enforces: HTML ≤64KB/page,
+CSS ≤56KB, JS ≤32KB, single raster ≤350KB (WARN >300KB), page images
+≤1600KB (WARN >1200KB), hero keeps `fetchpriority="high"`. Budgets
+carry ~25% headroom — they catch regressions, not today's content.
+Current WARNs (honest): uppsala crest recompression candidate,
+Uppsala roster page weight. Wired as `perf-gate` CI job +
+`deploy:verify`.
+
+**New pre-existing finding (not caused by, and not fixed in, this
+batch):** axe `target-size` fails on desktop header nav links
+(e.g. `/franchises`, 138×16px — measured; the gold underline
+`::after` is collapsed `scaleX(0)` and is not the obscurer).
+Reproduced on unmodified `main`, so CI is affected with or without
+this change. The repo's target-size tests only cover mobile groups at
+390px; desktop nav was never measured. Fixing means raising desktop
+nav links to 24px+ (header geometry change) — queued as its own
+visual-QA batch, not bundled here.
+
 ### 2.9 UI/UX production program (2026-09-06, all phases approved)
 
 Render-verified with local screenshots (home/captain/tournaments at

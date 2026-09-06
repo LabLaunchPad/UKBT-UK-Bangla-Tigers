@@ -188,6 +188,21 @@ jobs:
       - run: pnpm run build
       - run: pnpm run check:security
 
+  perf-gate:
+    name: Performance budgets (dist transfer weights)
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4 (SHA-pinned 2026-09-06)
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4 (SHA-pinned 2026-09-06)
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4 (SHA-pinned 2026-09-06)
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run check:perf
+
   motion-gate:
     name: Motion gate (tokens, reduced motion, reveal gating)
     runs-on: ubuntu-24.04
@@ -243,7 +258,7 @@ jobs:
   workers-deploy:
     name: 'Workers deploy (GitHub Actions)'
     runs-on: ubuntu-24.04
-    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, seo-gate, ui-gate, motion-gate, security-gate, visual-and-accessibility, secret-scan]
+    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, seo-gate, ui-gate, motion-gate, security-gate, perf-gate, visual-and-accessibility, secret-scan]
     # Deploys only on push to main. Without this, the workflow-level
     # `on: pull_request` trigger would run a production `wrangler deploy`
     # on every PR, publishing unreviewed branch content to the live site.
