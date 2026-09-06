@@ -308,6 +308,31 @@ sequence (domain → metadata pipeline → security → journeys →
 performance → live verification → release controls) is adopted as the
 plan of record — see § 4.
 
+### 2.8 SEO production pipeline shipped (2026-09-06)
+
+Owner supplied the production domain (`https://ukbanglatigers.co.uk`);
+Slices A+B of the approved SEO plan are implemented and merged:
+
+- `src/lib/seo.ts`: SITE, canonical normalization (root `/` keeps
+  slash, all other routes strip it), OG defaults (absolute 1200×630
+  social card + alt), gated emitters (`homepageGraph`, `aboutGraph`
+  with org-by-`@id`, `captainGraph` with Person + BreadcrumbList),
+  `SEO_ROUTES` registry (12 indexable, 4 noindex).
+- `BaseLayout.astro`: auto-canonical from `Astro.url` (indexable only,
+  never on noindex/404), `index, follow, max-image-preview:large`
+  robots, full OG/Twitter set, JSON-LD graph arrays.
+- 3 hand-built JSON-LD blocks migrated to emitters; `design-system`
+  page noindexed + described; `tournaments`/`faq` titles aligned to
+  banners; `coaching` description rewritten after the new gate caught a
+  real `about`/`coaching` description duplicate (same gated tagline).
+- `public/robots.txt`, dist-derived `sitemap.xml` (12 URLs, no manual
+  list), `scripts/check-seo.mjs` (`SEO_STATUS`), `tests/visual/seo.spec.ts`,
+  `seo-gate` CI job, `deploy:verify` extended.
+- `SEO-CONTRACT.md` Amendment 01 records the implementation.
+- Verified fresh: `deploy:verify` fully green incl. `SEO_STATUS = PASS`
+  (lint, typecheck 0 errors, unit 21/21, build 17 pages, links 695/0,
+  seo 0 failures). Playwright suites (incl. `seo.spec.ts`) execute on CI.
+
 ---
 
 ## 3. Client-blocked content items (owner: UK Bangla Tigers club)

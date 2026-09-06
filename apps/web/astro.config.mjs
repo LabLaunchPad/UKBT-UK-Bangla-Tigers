@@ -15,8 +15,8 @@ if (process.env.SENTRY_DSN) {
 
 export default defineConfig({
   output: 'static',
-  // `site` (canonical production domain) is set once confirmed — never
-  // invented. Omitted, not guessed, per contracts/SEO-CONTRACT.md.
+  // Canonical production domain, supplied by the owner 2026-09-06.
+  site: 'https://ukbanglatigers.co.uk',
 
   // Pinned to the literal IPv4 loopback, not the default `localhost`.
   // Real CI failure (PR #1, check_run 98063976034): `astro preview`'s

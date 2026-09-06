@@ -25,6 +25,7 @@ import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { about } from '../content/about-data';
 import { ourSponsors } from '../content/sponsors-data';
+import { aboutGraph } from '../lib/seo';
 
 // Restates facts already on record; no new claim about the club.
 const reasons = [
@@ -52,16 +53,13 @@ const storyStats = [
   { value: about.stats.tournaments, label: 'International Tournaments' },
 ];
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'AboutPage',
-  about: {
-    '@type': 'SportsOrganization',
-    name: 'UK Bangla Tigers',
-    sport: 'Cricket',
-    foundingDate: about.founded,
-  },
-};
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
+// AboutPage graph via the central SEO emitter — org referenced by @id,
+// never repeated (see src/lib/seo.ts).
+const structuredData = aboutGraph({
+  description: about.tagline,
+  crumbs,
+});
 ---
 
 <BaseLayout
@@ -72,7 +70,7 @@ const structuredData = {
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <PageBanner title="About Us" crumbs={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
+    <PageBanner title="About Us" crumbs={crumbs} />
 
     <Section>
       <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />

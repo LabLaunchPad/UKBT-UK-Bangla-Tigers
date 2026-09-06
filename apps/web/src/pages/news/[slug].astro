@@ -30,7 +30,7 @@ interface Props {
 const { title, date, body } = Astro.props;
 ---
 
-<BaseLayout title={`${title} — UK Bangla Tigers`} description={title}>
+<BaseLayout title={`${title} — UK Bangla Tigers`} description={`Club news from UK Bangla Tigers: ${title}.`}>
   <Header nav={homepage.nav} />
   <main id="main-content" tabindex="-1">
     <PageBanner

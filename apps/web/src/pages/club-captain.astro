@@ -16,6 +16,7 @@ import StatsTable from '../components/StatsTable.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
+import { captainGraph } from '../lib/seo';
 
 const profileFacts = [
   { label: 'Date of Birth', value: captain.dob },
@@ -47,15 +48,15 @@ const bowlingRows = captain.bowlingStats.map((s) => [
   s.best,
 ]);
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  mainEntity: {
-    '@type': 'Person',
-    name: captain.name,
-    jobTitle: captain.role,
-  },
-};
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'Club Captain' }];
+// ProfilePage+Person graph via the central SEO emitter — gated name/role
+// only (see src/lib/seo.ts).
+const structuredData = captainGraph({
+  name: captain.name,
+  role: captain.role,
+  photo: captainPhoto,
+  crumbs,
+});
 ---
 
 <BaseLayout
@@ -66,10 +67,7 @@ const structuredData = {
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <PageBanner
-      title="Club Captain"
-      crumbs={[{ label: 'Home', href: '/' }, { label: 'Club Captain' }]}
-    />
+    <PageBanner title="Club Captain" crumbs={crumbs} />
 
     <Section>
       <ProfileHeader name={captain.name} role={captain.role} facts={profileFacts} photo={captainPhoto} />
