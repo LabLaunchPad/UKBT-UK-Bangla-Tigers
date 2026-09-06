@@ -41,6 +41,10 @@ const { title, crumbs } = Astro.props;
     border-radius: var(--ukbt-radius-ref-banner);
     margin-inline: var(--ukbt-space-section-wrapper);
     margin-block-start: var(--ukbt-space-section-wrapper);
+    /* Dark navy surface: the global :focus-visible fallback
+       (CanvasText, ~1.25:1 on navy — F3) would be invisible here, so
+       repaint the ring gold for all focusable descendants. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-page-banner__inner {
     display: flex;
