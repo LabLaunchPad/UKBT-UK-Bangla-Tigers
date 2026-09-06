@@ -148,9 +148,15 @@ pnpm test:e2e                   # playwright test, apps/web only
 pnpm tokens:build               # style-dictionary build, packages/truth
 pnpm check:deps                 # scripts/check-dependency-allowlist.mjs
 pnpm check:links                # scripts/check-internal-links.mjs
+pnpm check:seo                  # scripts/check-seo.mjs (SEO_STATUS)
+pnpm check:ui                   # scripts/check-ui.mjs (UI_STATUS)
+pnpm check:motion               # scripts/check-motion.mjs (MOTION_STATUS)
+pnpm check:security             # scripts/check-security.mjs (SECURITY_STATUS)
+pnpm check:perf                 # scripts/check-perf.mjs (PERF_STATUS)
 pnpm check:governance-scaffold  # scripts/scaffold-self-test.mjs
 pnpm deploy:verify               # the full release gate: governance-scaffold, deps, lint,
-                                  # tokens:build, typecheck, test:unit, build, check:links
+                                  # tokens:build, typecheck, test:unit, build, check:links,
+                                  # check:seo, check:ui, check:motion, check:security, check:perf
 ```
 
 For a single test file, a single e2e spec, or any other package-scoped

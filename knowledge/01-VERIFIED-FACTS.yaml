@@ -3,7 +3,7 @@
 # Adding an unevidenced entry here is a defect, not a shortcut.
 
 meta:
-  last_updated: 2026-08-31
+  last_updated: 2026-09-06  # meta refresh only (git HEAD 6f2f1b6); fact entries below unchanged, still evidence-bound
   established_at_sha: 0cd3129
   last_audited_sha: d08841d   # zoom-out state audit, 2026-08-26 — see architecture.stage_detail below
   rule: "If it is not evidenced, it does not belong in this file as true."

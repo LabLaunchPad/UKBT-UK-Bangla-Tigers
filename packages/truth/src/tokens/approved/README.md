@@ -17,7 +17,7 @@ files into one tree — fixed by moving this rationale here instead).
 | `color.json` | Color | **PROPOSED** (neutral ramp, feedback hues) / uses CSS system-color keywords for surface roles |
 | `radius.json` | Border radius | DERIVED |
 | `shadow.json` | Elevation | DERIVED |
-| `motion.json` | Duration/easing | DERIVED |
+| `motion.json` | Duration/easing/distance | DERIVED |
 | `breakpoint.json` | Viewport widths | **EVIDENCE_BACKED** — restates `contracts/VISUAL-REGRESSION-CONTRACT.md`'s frozen 6-viewport matrix verbatim |
 | `layout.json` | Container/gutter | DERIVED |
 

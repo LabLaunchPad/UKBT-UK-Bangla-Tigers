@@ -44,6 +44,15 @@ decision, and branch protection on `main` is a repo-admin action outside
 any code gate (§ 2.3). Client-content items are tracked separately in
 § 3 and don't block the release gate itself.
 
+**September 2026 update:** since that re-run, `deploy:verify` has grown
+five gates — `check:seo`, `check:ui`, `check:motion`, `check:security`,
+`check:perf` — and the production domain is decided
+(`https://ukbanglatigers.co.uk`, canonical/sitemap/robots live). Full
+`deploy:verify` is green on `main` including all five (§ 2.8, § 2.12,
+§ 2.13, § 2.9, § 2.11). The August receipt above is therefore a
+historical record, not the current gate state; a fresh Stage-10-style
+receipt (including the CI-only browser suites) has not been cut.
+
 ---
 
 ## 2. Open engineering to-dos (owner: this repo / whoever drives it next)
@@ -396,7 +405,11 @@ contract entry. None blocks the release gate; each is a small,
 independently committable fix (`focus-visible` gaps and ProfileHeader
 overflow merged as `cadb7b4`).
 11. External-audit ship sequence (§ 2.7): Phase 1 production SEO is
-done (§ 2.8); Phase 2 CI/security hardening is done (§ 2.12).
+done (§ 2.8); Phase 2 CI/security hardening is done (§ 2.12);
+performance budgets are done (§ 2.13). Remaining ship work is
+owner-gated (domain live/DNS, publication approvals, contact backend,
+local facts, branch protection) plus the desktop target-size batch and
+the vitest/style-dictionary major upgrades.
 
 ### 2.12 Security hardening shipped (2026-09-06)
 

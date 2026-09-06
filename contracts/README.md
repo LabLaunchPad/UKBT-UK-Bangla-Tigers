@@ -44,6 +44,13 @@ authority, evidence required, and a reversibility classification.
 `knowledge/06-TEMPLATE-BOUNDARY.yaml` was not reopened or edited to
 produce these; `RIGHTS-CONTRACT.md` restates and cross-references it.
 
+## Added after Stage 3
+
+| File | Status | Notes |
+|---|---|---|
+| `MOTION-CONTRACT.md` | ACTIVE (2026-09-06) | Token-first motion language, restraint list, micro-interaction matrix |
+| `SEO-CONTRACT.md` Amendment 01 | ACTIVE (2026-09-06) | Track C pipeline implemented; production domain set |
+
 ## Rules
 
 1. One source of truth per subject. A contract supersedes any prose restating it.
