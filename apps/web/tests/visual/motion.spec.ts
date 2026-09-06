@@ -81,10 +81,13 @@ test('no-JS: hero content visible, navigation performs document loads', async ({
   await page.goto('/');
   const headline = page.locator('.ukbt-hero__headline');
   await expect(headline, 'headline visible without JS').toBeVisible();
+  // The hero load choreography is pure CSS, so it runs without JS too —
+  // wait past its final keyframe (650ms delay + 400ms fade) before
+  // asserting the settled state. What this test proves: nothing stays
+  // hidden when the JS controller never runs.
+  await page.waitForTimeout(1500);
   const opacity = await headline.evaluate((el) => getComputedStyle(el).opacity);
-  expect(opaque(opacity), 'no hidden pre-animation state without JS').toBe(
-    true,
-  );
+  expect(opaque(opacity), 'hero settles visible without JS').toBe(true);
   // Reveal utility must not hide content when the controller never runs.
   const motionClass = await page.evaluate(() =>
     document.documentElement.classList.contains('ukbt-motion-js'),
