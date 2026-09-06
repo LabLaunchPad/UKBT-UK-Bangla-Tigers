@@ -8,12 +8,42 @@
       "base": {
         "$value": "200ms",
         "$type": "duration"
+      },
+      "slow": {
+        "$value": "400ms",
+        "$type": "duration"
+      },
+      "signature": {
+        "$value": "1600ms",
+        "$type": "duration"
       }
     },
     "easing": {
       "standard": {
         "$value": "cubic-bezier(0.2, 0, 0, 1)",
         "$type": "cubicBezier"
+      },
+      "enter": {
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$type": "cubicBezier"
+      },
+      "exit": {
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$type": "cubicBezier"
+      },
+      "emphasized": {
+        "$value": "cubic-bezier(0.3, 0, 0.15, 1)",
+        "$type": "cubicBezier"
+      }
+    },
+    "distance": {
+      "sm": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "20px",
+        "$type": "dimension"
       }
     }
   }

@@ -164,6 +164,21 @@ jobs:
       - run: pnpm run build
       - run: node scripts/check-ui.mjs
 
+  motion-gate:
+    name: Motion gate (tokens, reduced motion, reveal gating)
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run check:motion
+
   visual-and-accessibility:
     name: Playwright (structural / responsive / accessibility)
     runs-on: ubuntu-24.04
@@ -201,7 +216,7 @@ jobs:
   workers-deploy:
     name: 'Workers deploy (GitHub Actions)'
     runs-on: ubuntu-24.04
-    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, seo-gate, ui-gate, visual-and-accessibility, secret-scan]
+    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, seo-gate, ui-gate, motion-gate, visual-and-accessibility, secret-scan]
     # Deploys only on push to main. Without this, the workflow-level
     # `on: pull_request` trigger would run a production `wrangler deploy`
     # on every PR, publishing unreviewed branch content to the live site.

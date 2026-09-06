@@ -48,6 +48,18 @@ const { title, crumbs } = Astro.props;
     padding-block: var(--ukbt-space-banner-padding-top)
       var(--ukbt-space-banner-padding-bottom);
   }
+  .ukbt-page-banner__inner {
+    /* Above-fold load entrance: single fade-up, no stagger — inner pages
+       open settled, not staged. Finite, once. */
+    animation: ukbt-banner-in var(--ukbt-motion-duration-slow)
+      var(--ukbt-motion-easing-emphasized) backwards;
+  }
+  @keyframes ukbt-banner-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--ukbt-motion-distance-sm));
+    }
+  }
   .ukbt-page-banner h1 {
     font-family: var(--ukbt-font-family-heading);
     color: var(--ukbt-color-brand-accent);

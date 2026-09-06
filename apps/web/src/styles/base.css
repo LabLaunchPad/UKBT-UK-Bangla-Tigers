@@ -147,7 +147,63 @@ p {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    /* Delays killed too: a `backwards` fill holds the from-state
+       (opacity 0) through the delay, so duration-zero alone still
+       blanks staged entrances for hundreds of milliseconds. */
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
+  }
+  /* The universal selector above never matches view-transition
+     pseudo-elements — kill them explicitly so ClientRouter swaps are
+     instant under reduced motion. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Scroll-reveal utility: content renders fully visible by default and
+   only hides when the motion controller has explicitly armed the page
+   (`html.ukbt-motion-js`, set by the same script that observes). No-JS
+   and controller-failure both render static content — motion is
+   enhancement, never a dependency. One-shot: the controller unobserves
+   after reveal, so scrolling back never re-hides. */
+html.ukbt-motion-js [data-motion='reveal'] {
+  opacity: 0;
+  translate: 0 var(--ukbt-motion-distance-md);
+  transition:
+    opacity var(--ukbt-motion-duration-slow) var(--ukbt-motion-easing-enter),
+    translate var(--ukbt-motion-duration-slow) var(--ukbt-motion-easing-enter);
+}
+html.ukbt-motion-js [data-motion='reveal'].is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Cross-document page transitions (ClientRouter): old page settles back
+   while the new page rises in — 350–550ms, controlled easing, no
+   springs. Browsers without support ignore this entirely and navigate
+   normally. */
+::view-transition-old(root) {
+  animation: ukbt-page-out var(--ukbt-motion-duration-slow)
+    var(--ukbt-motion-easing-standard) both;
+}
+::view-transition-new(root) {
+  animation: ukbt-page-in var(--ukbt-motion-duration-slow)
+    var(--ukbt-motion-easing-emphasized) both;
+}
+@keyframes ukbt-page-out {
+  to {
+    opacity: 0;
+    transform: scale(0.995);
+  }
+}
+@keyframes ukbt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ukbt-motion-distance-sm));
   }
 }

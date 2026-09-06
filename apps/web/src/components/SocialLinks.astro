@@ -115,7 +115,8 @@ const cls = [
   .ukbt-social-links--on-dark a {
     color: var(--ukbt-color-neutral-100);
     opacity: 0.85;
-    transition: opacity 0.2s ease;
+    transition: opacity var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
   }
   .ukbt-social-links--on-dark a:hover {
     opacity: 1;

@@ -103,8 +103,11 @@ const isActive = (href: string) =>
     </div>
     <ul class="ukbt-header__drawer-menu">
       {
-        nav.map((item) => (
-          <li class:list={[item.children && 'ukbt-header__drawer-item--has-children']}>
+        nav.map((item, i) => (
+          <li
+            class:list={[item.children && 'ukbt-header__drawer-item--has-children']}
+            style={`--ukbt-motion-index: ${i}`}
+          >
             {item.children ? (
               <div class="ukbt-header__drawer-group">
                 <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
@@ -458,6 +461,32 @@ const isActive = (href: string) =>
   .ukbt-header__nav a:hover {
     color: var(--ukbt-color-brand-accent);
   }
+  /* Gold underline-reveal motif: the brand accent grows left-to-right
+     under top-level labels on hover — interactive, not decorative. */
+  .ukbt-header__nav > ul > li > a,
+  .ukbt-header__nav > ul > li > div > a {
+    position: relative;
+  }
+  .ukbt-header__nav > ul > li > a::after,
+  .ukbt-header__nav > ul > li > div > a::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: -4px;
+    height: 2px;
+    background: var(--ukbt-color-brand-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
+  }
+  .ukbt-header__nav > ul > li > a:hover::after,
+  .ukbt-header__nav > ul > li > div > a:hover::after,
+  .ukbt-header__nav > ul > li > a[aria-current='page']::after,
+  .ukbt-header__nav > ul > li > div > a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
 
   /* Each dropdown owns its positioning context: the item is a flex row
      (label + chevron side by side, never stacked) and the menu anchors
@@ -484,7 +513,8 @@ const isActive = (href: string) =>
     min-height: 24px;
   }
   .ukbt-header__dropdown-toggle svg {
-    transition: transform 0.2s ease;
+    transition: transform var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
   }
   .ukbt-header__dropdown-toggle[aria-expanded='true'] svg {
     transform: rotate(180deg);
@@ -514,6 +544,18 @@ const isActive = (href: string) =>
     border-radius: var(--ukbt-radius-ref-sm);
     box-shadow: var(--ukbt-shadow-md);
     z-index: var(--ukbt-z-dropdown);
+    transition:
+      opacity var(--ukbt-motion-duration-fast) var(--ukbt-motion-easing-enter),
+      translate var(--ukbt-motion-duration-fast) var(--ukbt-motion-easing-enter);
+  }
+  /* Entry-only dropdown motion: @starting-style animates the open frame
+     where supported; elsewhere the menu appears instantly (documented
+     progressive enhancement — exit is instant everywhere). */
+  @starting-style {
+    .ukbt-header__nav .ukbt-header__dropdown[aria-expanded='true'] {
+      opacity: 0;
+      translate: 0 -4px;
+    }
   }
   /* Invisible hover bridge across the 8px offset: pointer travel from
      trigger to menu never leaves the item's subtree, so the menu cannot
@@ -616,7 +658,8 @@ const isActive = (href: string) =>
       background: var(--ukbt-color-overlay-scrim);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease-in-out;
+      transition: opacity var(--ukbt-motion-duration-slow)
+        var(--ukbt-motion-easing-exit);
       z-index: var(--ukbt-z-overlay);
     }
     /* Reference `.sidebar`: fixed, 300px, slides in from the left. */
@@ -634,15 +677,32 @@ const isActive = (href: string) =>
       background: var(--ukbt-color-surface-background);
       color: var(--ukbt-color-surface-foreground);
       transform: translateX(-100%);
-      transition: transform 0.4s ease-in-out;
+      transition: transform var(--ukbt-motion-duration-slow)
+        var(--ukbt-motion-easing-exit);
       z-index: var(--ukbt-z-drawer);
     }
     .ukbt-header--open .ukbt-header__overlay {
       opacity: 1;
       pointer-events: auto;
+      transition-timing-function: var(--ukbt-motion-easing-enter);
     }
     .ukbt-header--open .ukbt-header__drawer {
       transform: translateX(0);
+      transition-timing-function: var(--ukbt-motion-easing-enter);
+    }
+    /* Drawer item stagger: capped at 150ms so the last item never lags
+       the menu. Animation (not transition) so it plays once on open and
+       never traps state on close. */
+    .ukbt-header--open .ukbt-header__drawer-menu > li {
+      animation: ukbt-drawer-item-in var(--ukbt-motion-duration-base)
+        var(--ukbt-motion-easing-enter) backwards;
+      animation-delay: min(calc(var(--ukbt-motion-index, 0) * 25ms), 150ms);
+    }
+    @keyframes ukbt-drawer-item-in {
+      from {
+        opacity: 0;
+        translate: var(--ukbt-motion-distance-sm) 0;
+      }
     }
   }
 
@@ -709,7 +769,8 @@ const isActive = (href: string) =>
     line-height: 1;
   }
   .ukbt-header__drawer-accordion svg {
-    transition: transform 0.2s ease;
+    transition: transform var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard);
   }
   .ukbt-header__drawer-accordion[aria-expanded='true'] svg {
     transform: rotate(180deg);
