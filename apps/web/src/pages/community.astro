@@ -13,7 +13,6 @@ import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import AcademySection from '../components/AcademySection.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
-import TestimonialSection from '../components/TestimonialSection.astro';
 import AboutCTA from '../components/AboutCTA.astro';
 import TournamentCard from '../components/TournamentCard.astro';
 import Footer from '../components/Footer.astro';
@@ -55,9 +54,7 @@ const academyCounters = [
       <FranchiseTeaser name={homepage.sisterFranchise} />
     </Section>
 
-    <Section surface="alt">
-      <TestimonialSection />
-    </Section>
+    <!-- TestimonialSection omitted: no real testimonials exist yet -->
 
     <Section paddingBottom="normal">
       <AboutCTA social={homepage.social} />

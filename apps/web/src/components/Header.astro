@@ -23,9 +23,9 @@ const isActive = (href: string) =>
   <div class="ukbt-container ukbt-header__bar">
     <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
       <img
-        src="/brand/crest-120.png"
-        width="60"
-        height="82"
+        src="/brand/crest-256.webp"
+        width="44"
+        height="60"
         alt=""
         class="ukbt-header__logo"
       />
@@ -34,9 +34,13 @@ const isActive = (href: string) =>
     <nav class="ukbt-header__nav" aria-label="Primary">
       <ul>
         {
-          nav.map((item) => (
+          nav.map((item, i) => (
             <li class:list={[item.children && 'ukbt-header__nav-item--has-dropdown']}>
-              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              <a
+                href={item.href}
+                aria-label={item.ariaLabel}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
                 {item.label}
               </a>
               {item.children && (
@@ -44,8 +48,9 @@ const isActive = (href: string) =>
                   type="button"
                   class="ukbt-header__dropdown-toggle"
                   aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-label={`${item.label} submenu`}
+                  aria-haspopup="menu"
+                  aria-controls={`ukbt-dropdown-menu-${i}`}
+                  aria-label={`${item.ariaLabel ?? item.label} submenu`}
                 >
                   <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor" aria-hidden="true">
                     <path d="M2 4l4 4 4-4" />
@@ -53,7 +58,7 @@ const isActive = (href: string) =>
                 </button>
               )}
               {item.children && (
-                <ul class="ukbt-header__dropdown" role="menu">
+                <ul class="ukbt-header__dropdown" role="menu" id={`ukbt-dropdown-menu-${i}`}>
                   {item.children.map((child) => (
                     <li role="none">
                       <a href={child.href} role="menuitem" aria-current={isActive(child.href) ? 'page' : undefined}>
@@ -89,7 +94,7 @@ const isActive = (href: string) =>
   <div class="ukbt-header__overlay" id="ukbt-nav-overlay"></div>
   <div class="ukbt-header__drawer" id="ukbt-nav-drawer" role="dialog" aria-label="Site menu" aria-modal="true" inert>
     <div class="ukbt-header__drawer-head">
-      <img src="/brand/crest-88.png" width="44" height="60" alt="" />
+      <img src="/brand/crest-256.webp" width="44" height="60" alt="" />
       <button type="button" class="ukbt-header__close" id="ukbt-nav-close" aria-label="Close menu">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" />
@@ -204,49 +209,125 @@ const isActive = (href: string) =>
       first.focus();
     }
   });
-  // Desktop dropdown toggles — click opens/closes submenu
-  document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((btn) => {
-    const menu = btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown');
-    if (!menu) return;
+  // Desktop dropdowns — single-open state machine. Visibility is driven
+  // ONLY by aria-expanded (no CSS :hover display rule), so two menus can
+  // never show at once. Hover is an enhancement on hover-capable devices;
+  // touch uses tap-to-toggle exclusively (a tap fires mouseenter before
+  // click, which would otherwise open-then-immediately-close).
+  const supportsHover = window.matchMedia('(hover: hover)').matches;
+  const dropdownItems = Array.from(
+    document.querySelectorAll<HTMLElement>('.ukbt-header__nav-item--has-dropdown'),
+  );
 
+  function setDropdown(
+    item: HTMLElement,
+    open: boolean,
+    opts: { refocus?: boolean } = {},
+  ) {
+    const btn = item.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
+    const menu = item.querySelector<HTMLElement>('.ukbt-header__dropdown');
+    if (!btn || !menu) return;
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) menu.setAttribute('aria-expanded', 'true');
+    else menu.removeAttribute('aria-expanded');
+    if (!open && opts.refocus) btn.focus();
+  }
+
+  function closeAllDropdowns(except?: HTMLElement) {
+    dropdownItems.forEach((item) => {
+      if (item !== except) {
+        setDropdown(item, false);
+        item.removeAttribute('data-opened-by');
+      }
+    });
+  }
+
+  function isDropdownOpen(item: HTMLElement) {
+    return (
+      item.querySelector('.ukbt-header__dropdown-toggle')?.getAttribute('aria-expanded') ===
+      'true'
+    );
+  }
+
+  dropdownItems.forEach((item) => {
+    const btn = item.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
+    const menu = item.querySelector<HTMLElement>('.ukbt-header__dropdown');
+    if (!btn || !menu) return;
+
+    // Click / tap toggles. A real mouse click (e.detail > 0) that follows
+    // a hover-open is a no-op keep-open: without this, moving the mouse
+    // onto the chevron (mouseenter opens) then clicking would instantly
+    // close the menu the user just opened. Keyboard-synthesised clicks
+    // (e.detail === 0) and touch taps always toggle.
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      // Close all other dropdowns first
-      document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((other) => {
-        if (other !== btn) {
-          other.setAttribute('aria-expanded', 'false');
-          other.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown')
-            ?.removeAttribute('aria-expanded');
+      if (
+        e.detail > 0 &&
+        isDropdownOpen(item) &&
+        item.getAttribute('data-opened-by') === 'hover'
+      ) {
+        return;
+      }
+      const willOpen = !isDropdownOpen(item);
+      closeAllDropdowns(item);
+      setDropdown(item, willOpen);
+      item.setAttribute('data-opened-by', 'toggle');
+    });
+
+    // Pointer hover opens (and closes any other) on hover-capable devices.
+    if (supportsHover) {
+      item.addEventListener('mouseenter', () => {
+        closeAllDropdowns(item);
+        if (!isDropdownOpen(item)) {
+          setDropdown(item, true);
+          item.setAttribute('data-opened-by', 'hover');
         }
       });
-      btn.setAttribute('aria-expanded', String(!expanded));
-      menu.setAttribute('aria-expanded', String(!expanded));
+      item.addEventListener('mouseleave', () => {
+        setDropdown(item, false);
+        item.removeAttribute('data-opened-by');
+      });
+    }
+
+    // ArrowDown/ArrowUp on the trigger opens and moves focus into the menu.
+    // Escape on the trigger closes.
+    btn.addEventListener('keydown', (e) => {
+      const links = menu.querySelectorAll<HTMLElement>('a[href]');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        closeAllDropdowns(item);
+        setDropdown(item, true);
+        item.setAttribute('data-opened-by', 'toggle');
+        (e.key === 'ArrowDown' ? links[0] : links[links.length - 1])?.focus();
+      } else if (e.key === 'Escape' && isDropdownOpen(item)) {
+        e.preventDefault();
+        setDropdown(item, false);
+      }
+    });
+
+    // Tabbing out of the item closes it; focus never lingers invisibly
+    // inside a closed menu.
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node)) setDropdown(item, false);
     });
   });
 
-  // Close desktop dropdowns when clicking outside
+  // Close desktop dropdowns when clicking outside.
   document.addEventListener('click', () => {
-    document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown-toggle').forEach((btn) => {
-      btn.setAttribute('aria-expanded', 'false');
-      btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown')
-        ?.removeAttribute('aria-expanded');
-    });
+    closeAllDropdowns();
   });
 
-  // Desktop dropdown keyboard navigation
+  // Desktop dropdown keyboard navigation inside an open menu.
   document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown').forEach((menu) => {
     menu.addEventListener('keydown', (e) => {
       const items = menu.querySelectorAll<HTMLElement>('a[href]');
       const first = items[0];
       const last = items[items.length - 1];
       const active = document.activeElement;
+      const item = menu.closest<HTMLElement>('.ukbt-header__nav-item--has-dropdown');
 
       if (e.key === 'Escape') {
-        const btn = menu.closest('li')?.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
-        btn?.setAttribute('aria-expanded', 'false');
-        menu.removeAttribute('aria-expanded');
-        btn?.focus();
+        if (item) setDropdown(item, false, { refocus: true });
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (active === last) first?.focus();
@@ -283,13 +364,16 @@ const isActive = (href: string) =>
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
     position: relative;
-    z-index: 20;
+    z-index: var(--ukbt-z-header);
   }
-  /* Reference `.navbar-nav-container`: flex row, space-between, 20px pad. */
+  /* Three explicit layout regions — brand | navigation | CTA — so the
+     nav never competes with the CTA for the same flex space. The middle
+     region is shrinkable (minmax 0) while brand and CTA keep intrinsic
+     widths; the CTA is never squeezed. */
   .ukbt-header__bar {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
     gap: var(--ukbt-space-gap-2);
     padding-block: var(--ukbt-space-gap-2);
     width: 100%;
@@ -307,11 +391,6 @@ const isActive = (href: string) =>
       padding-block: var(--ukbt-space-gap-4);
     }
   }
-  @media screen and (min-width: 1280px) {
-    .ukbt-header__bar {
-      padding-block: 60px;
-    }
-  }
   .ukbt-header__brand {
     display: flex;
     align-items: center;
@@ -319,11 +398,24 @@ const isActive = (href: string) =>
     color: inherit;
     text-decoration: none;
     flex: none;
+    grid-column: 1;
+    justify-self: start;
   }
+  /* Full-artwork crest file (256x349): the square derivatives crop the
+     shield's crown and base point. Displayed at 60px tall the width
+     follows the true ratio (44px), matching the width/height attributes
+     so there is no layout shift. */
   .ukbt-header__logo {
     height: 60px;
     width: auto;
     flex: none;
+  }
+  /* Compact brand at the smallest widths: the 60px crest plus bar
+     padding consumes a disproportionate share of a 320px viewport. */
+  @media screen and (max-width: 430px) {
+    .ukbt-header__logo {
+      height: 48px;
+    }
   }
   /* The reference's own brand slot is a bare logo image with no text
      wordmark. Reproducing that is also what makes the bar fit: with a
@@ -331,7 +423,16 @@ const isActive = (href: string) =>
      container (brand 246 + nav 1044 + CTA 211). The accessible name is
      carried by the link's aria-label. */
 
-  .ukbt-header__nav ul {
+  .ukbt-header__nav {
+    grid-column: 2;
+    justify-self: center;
+    min-width: 0;
+  }
+  /* Child combinator is load-bearing: a descendant selector here would
+     also match the dropdown menus and force them into a horizontal flex
+     row — items side-by-side, spilling past the menu box, both menus
+     reading as one merged surface. The top-level row ONLY. */
+  .ukbt-header__nav > ul {
     display: flex;
     align-items: center;
     list-style: none;
@@ -358,20 +459,29 @@ const isActive = (href: string) =>
     color: var(--ukbt-color-brand-accent);
   }
 
-  /* Dropdown toggle button — arrow next to nav items with children */
+  /* Each dropdown owns its positioning context: the item is a flex row
+     (label + chevron side by side, never stacked) and the menu anchors
+     to it — never to the nav row, never to the viewport. */
   .ukbt-header__nav-item--has-dropdown {
     position: relative;
+    display: flex;
+    align-items: center;
   }
   .ukbt-header__dropdown-toggle {
     appearance: none;
     border: none;
     background: none;
     color: inherit;
-    padding: 0;
+    padding: var(--ukbt-space-1);
     margin-inline-start: -4px;
     cursor: pointer;
     vertical-align: middle;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
   }
   .ukbt-header__dropdown-toggle svg {
     transition: transform 0.2s ease;
@@ -380,37 +490,59 @@ const isActive = (href: string) =>
     transform: rotate(180deg);
   }
 
-  /* Desktop dropdown menu */
-  .ukbt-header__dropdown {
+  /* Desktop dropdown menu. Width is content-aware (max-content within
+     viewport-safe bounds) so the single-child Franchises menu stays
+     compact while the three-child Events menu takes only the room it
+     needs — a menu never stretches into a neighbour's trigger zone, so
+     two menus can never read as one merged surface.
+     Visibility is driven ONLY by JS-managed aria-expanded (single-open
+     invariant). There is deliberately no :hover display rule. */
+  .ukbt-header__nav .ukbt-header__dropdown {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + var(--ukbt-space-2));
     left: 0;
-    min-width: 200px;
+    width: max-content;
+    min-width: 0;
+    max-width: min(20rem, calc(100vw - var(--ukbt-space-gap-4)));
     margin: 0;
     padding: var(--ukbt-space-2) 0;
     list-style: none;
     background: var(--ukbt-color-surface-background);
     color: var(--ukbt-color-surface-foreground);
+    border: 1px solid var(--ukbt-color-border-subtle);
     border-radius: var(--ukbt-radius-ref-sm);
     box-shadow: var(--ukbt-shadow-md);
-    z-index: 30;
+    z-index: var(--ukbt-z-dropdown);
   }
-  .ukbt-header__dropdown[aria-expanded='true'],
-  .ukbt-header__nav-item--has-dropdown:hover .ukbt-header__dropdown {
+  /* Invisible hover bridge across the 8px offset: pointer travel from
+     trigger to menu never leaves the item's subtree, so the menu cannot
+     flicker closed mid-travel. */
+  .ukbt-header__nav .ukbt-header__dropdown::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--ukbt-space-2));
+    left: 0;
+    right: 0;
+    height: var(--ukbt-space-2);
+  }
+  .ukbt-header__nav .ukbt-header__dropdown[aria-expanded='true'] {
     display: block;
   }
-  .ukbt-header__dropdown a {
-    padding: var(--ukbt-space-2) var(--ukbt-space-4);
+  .ukbt-header__nav .ukbt-header__dropdown a {
+    padding: var(--ukbt-space-3) var(--ukbt-space-4);
     border-bottom: none;
     font-size: var(--ukbt-font-size-1);
+    white-space: nowrap;
   }
-  .ukbt-header__dropdown a[aria-current='page'] {
+  .ukbt-header__nav .ukbt-header__dropdown a[aria-current='page'] {
     background: var(--ukbt-color-surface-alt);
     border-radius: 0;
   }
 
   .ukbt-header__cta {
+    grid-column: 3;
+    justify-self: end;
     flex: none;
   }
 
@@ -445,6 +577,8 @@ const isActive = (href: string) =>
     }
     .ukbt-header__toggle {
       display: flex;
+      grid-column: 3;
+      justify-self: end;
       flex-direction: column;
       justify-content: center;
       gap: 5px;
@@ -479,7 +613,7 @@ const isActive = (href: string) =>
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-in-out;
-      z-index: 30;
+      z-index: var(--ukbt-z-overlay);
     }
     /* Reference `.sidebar`: fixed, 300px, slides in from the left. */
     .ukbt-header__drawer {
@@ -497,7 +631,7 @@ const isActive = (href: string) =>
       color: var(--ukbt-color-surface-foreground);
       transform: translateX(-100%);
       transition: transform 0.4s ease-in-out;
-      z-index: 40;
+      z-index: var(--ukbt-z-drawer);
     }
     .ukbt-header--open .ukbt-header__overlay {
       opacity: 1;
@@ -597,7 +731,7 @@ const isActive = (href: string) =>
     position: absolute;
     top: -9999px;
     left: var(--ukbt-space-gap-2);
-    z-index: 100;
+    z-index: var(--ukbt-z-skip-link);
     padding: var(--ukbt-space-gap-1) var(--ukbt-space-gap-2);
     background: var(--ukbt-color-brand-accent);
     color: var(--ukbt-color-brand-accent-contrast);

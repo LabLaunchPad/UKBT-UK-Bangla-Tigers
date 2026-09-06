@@ -39,12 +39,6 @@ import AboutCTA from '../components/AboutCTA.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 
-const stats = [
-  { value: homepage.stats.players, label: 'Players' },
-  { value: homepage.stats.countries, label: 'Countries Internationals' },
-  { value: homepage.stats.tournaments, label: 'International Tournaments' },
-];
-
 const [mainEvent, ...otherEvents] = homepage.upcomingTournaments;
 
 // Each restates a fact already established elsewhere in this repository.
@@ -95,7 +89,7 @@ const structuredData = {
     <Hero taglineShort={homepage.taglineShort} social={homepage.social} />
 
     <Section>
-      <ClubIntro tagline={homepage.tagline} stats={stats} founded={homepage.founded} />
+      <ClubIntro lede="A registered cricket club, competing across international tournaments since 2020." founded={homepage.founded} />
     </Section>
 
     <Section surface="alt" wrapper={true}>
@@ -117,7 +111,7 @@ const structuredData = {
     </Section>
 
     <Section surface="alt">
-      <CaptainSpotlight name={homepage.captain.name} role={homepage.captain.role} />
+      <CaptainSpotlight name={homepage.captain.name} role={homepage.captain.role} photo={homepage.captain.photo} />
     </Section>
 
     <Section>

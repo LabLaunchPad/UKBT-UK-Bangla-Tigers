@@ -7,6 +7,7 @@
 // and artifacts/pages/HOMEPAGE-CONTRACT.md for the decisions this data reflects.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
+import { captainPhoto } from './captain-data';
 import { primaryCta, primaryNav, secondaryNav } from './navigation-data';
 
 const registry = createRegistry([
@@ -177,6 +178,7 @@ export const homepage = {
   captain: {
     name: facts.captainName.value,
     role: facts.captainRole.value,
+    photo: captainPhoto,
   },
   sisterFranchise: facts.franchiseName.value,
   upcomingTournaments: tournamentUpcoming,

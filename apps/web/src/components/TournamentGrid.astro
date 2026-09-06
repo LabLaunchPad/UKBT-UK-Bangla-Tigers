@@ -15,14 +15,12 @@ const { mainEvent, otherEvents } = Astro.props;
 
 <div class="ukbt-tournaments">
   <div class="ukbt-tournaments__main">
-    <span class="ukbt-tournaments__eyebrow">Next Tournament</span>
     <h2 class="ukbt-tournaments__title">{mainEvent.name}</h2>
     <div class="ukbt-tournaments__meta">
       <span>{mainEvent.when}</span>
       <span class="ukbt-tournaments__sep" aria-hidden="true">&middot;</span>
       <span>{mainEvent.where}</span>
     </div>
-    <a href="/tournaments" class="ukbt-tournaments__link">See all tournaments &rarr;</a>
   </div>
   {
     otherEvents.length > 0 && (
@@ -62,7 +60,7 @@ const { mainEvent, otherEvents } = Astro.props;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-primary);
   }
   .ukbt-tournaments__title {
     font-family: var(--ukbt-font-family-heading);
@@ -81,21 +79,8 @@ const { mainEvent, otherEvents } = Astro.props;
     color: var(--ukbt-color-neutral-700);
   }
   .ukbt-tournaments__sep {
-    color: var(--ukbt-color-brand-accent);
-  }
-  .ukbt-tournaments__link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
     color: var(--ukbt-color-brand-primary);
-    font-weight: var(--ukbt-font-weight-bold);
-    text-decoration: none;
-    margin-top: var(--ukbt-space-2);
   }
-  .ukbt-tournaments__link:hover {
-    text-decoration: underline;
-  }
-
   .ukbt-tournaments__others {
     display: flex;
     flex-direction: column;

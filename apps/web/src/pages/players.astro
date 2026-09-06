@@ -14,7 +14,7 @@ import CaptainSpotlight from '../components/CaptainSpotlight.astro';
 import RosterGrid from '../components/RosterGrid.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
-import { captain } from '../content/captain-data';
+import { captain, captainPhoto } from '../content/captain-data';
 import { fullRoster } from '../content/players-data';
 ---
 
@@ -35,7 +35,7 @@ import { fullRoster } from '../content/players-data';
         <span class="ukbt-players-stat__value">{homepage.stats.players}</span>
         <span class="ukbt-players-stat__label">Players across the squad</span>
       </div>
-      <CaptainSpotlight name={captain.name} role={captain.role} />
+      <CaptainSpotlight name={captain.name} role={captain.role} photo={captainPhoto} />
     </Section>
 
     <Section surface="alt">

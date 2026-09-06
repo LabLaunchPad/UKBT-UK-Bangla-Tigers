@@ -102,4 +102,11 @@ export interface NavItem {
   label: string;
   href: string;
   children?: NavItem[];
+  /**
+   * Full accessible name when the visual label is an intentional
+   * shortening (e.g. "Events" for "International Tournaments and
+   * Events"). Rendered as aria-label on the link; omit when the
+   * visual label is already the full name.
+   */
+  ariaLabel?: string;
 }

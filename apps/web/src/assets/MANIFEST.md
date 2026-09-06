@@ -7,10 +7,17 @@ recorded here with its provenance class before use. Source stage: 7
 | Path | Source | Identity | Usage | Rights status | UKBT-required | Alternative |
 |---|---|---|---|---|---|---|
 | `public/brand/crest-512.png` | `artifacts/brand/raw/brand/crest-512.png` | UK Bangla Tigers crest logo (original, 512×512) | Homepage hero, fallback | UKBT-owned (client-supplied) | Yes | None — canonical source for responsive variants below |
-| `public/brand/crest-144.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 144×144 (84% smaller, 29KB) | Footer logo (72×99 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
-| `public/brand/crest-120.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 120×120 (87% smaller, 23KB) | Header desktop logo (60×82 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
-| `public/brand/crest-88.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 88×88 (92% smaller, 15KB) | Header drawer logo (44×60 @2x) | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
-| `public/brand/crest-256.webp` | `artifacts/brand/raw/brand/crest-256.webp` | Same crest, WebP, smaller size | Smaller-context logo instances (footer) | UKBT-owned (client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-144.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 144×144 (84% smaller, 29KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-120.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 120×120 (87% smaller, 23KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-88.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 88×88 (92% smaller, 15KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-256.webp` | `artifacts/brand/raw/brand/crest-256.webp` | Same crest, WebP, smaller size | Header logo (44×60), drawer logo (44×60), footer logo (53×72) | UKBT-owned (client-supplied) | Yes | `crest-512.png` |
+
+> **Correction (measured):** the square PNG derivatives above were produced
+> with a crop-to-fill resize, which cuts the shield's crown and base point
+> (visible at 3× zoom: the shield tip bleeds off the canvas edge). They are
+> superseded for logo placements by `crest-256.webp` (256×349, full
+> artwork, 28KB). Files retained on disk only so older builds/branches
+> keep resolving; no component references them.
 | `public/favicon.svg` | `artifacts/brand/raw/brand/favicon.svg` | Simplified "UBT" monogram favicon | `<link rel="icon">` | UKBT-owned (client-supplied) | Yes | `icon-32.png` |
 | `public/icon-32.png` | `artifacts/brand/raw/brand/icon-32.png` | Favicon PNG fallback | `<link rel="icon" sizes="32x32">` | UKBT-owned (client-supplied) | Yes | None |
 | `public/icon-180.png` | `artifacts/brand/raw/brand/icon-180.png` | Apple touch icon | `<link rel="apple-touch-icon">` | UKBT-owned (client-supplied) | Yes | None |
@@ -38,7 +45,7 @@ inside a raster image).
 | Path | Source | Usage | AUTHORISATION | INDEPENDENT_VERIFICATION |
 |---|---|---|---|---|
 | `public/media/club-feature.webp` | `artifacts/brand/raw/images/gallery/gallery-07.webp` | Feature media slot on the homepage club-intro and About story sections | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution. One player on a cricket ground, tiger-striped orange/black kit, mountain backdrop. **No photographer watermark, no sponsor bar, no baked-in names.** The kit is not UKBT navy/gold and carries no UKBT crest, so this is not independently confirmable as UKBT team photography — it is used on the client's authorisation, not on our verification. The individual is not identified and is not captioned. |
-| `public/media/team-huddle.webp` | `artifacts/brand/raw/images/gallery/gallery-19.webp` | Team/community media slot | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution. Team huddle in green/blue numbered kit, opposition batter in frame. No photographer watermark and no baked-in names; ground-perimeter banners in the background read "STRONGER TOGETHER" (a third-party event/ground mark, disclosed here per Amendment 01 rule 4, not scrubbed). Kit carries no UKBT crest — same caveat as above. |
+| `public/media/team-huddle.webp` | `artifacts/brand/raw/images/gallery/gallery-19.webp` | Homepage hero background (atmospheric, under navy scrim; no identity caption) and team/community media slot | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution. Team huddle in green/blue numbered kit, opposition batter in frame. No photographer watermark and no baked-in names; ground-perimeter banners in the background read "STRONGER TOGETHER" (a third-party event/ground mark, disclosed here per Amendment 01 rule 4, not scrubbed). Kit carries no UKBT crest — same caveat as above. |
 
 ### Reviewed and NOT staged, with reasons
 
@@ -87,6 +94,15 @@ that is stated plainly — the person's affiliation still rests on the
 client's own pairing of name to squad list (`EV-20260831-005`), not on
 this project's independent verification, same posture as the
 Client-authorised class above.
+
+> **Captain identity (confirmed):** `mohammad-chowdhury.jpg` in this set
+> is Mohammad Chowdhury, Club Captain — confirmed by the client directly
+> (chat, 2026-09-05). Used as his portrait on `/club-captain`
+> (`ProfileHeader`), the homepage and `/players` (`CaptainSpotlight`).
+> Shown in Uppsala Tigers kit, which matches his evidenced current
+> franchises (UKBT + Uppsala). Wired as `captainPhoto` in
+> `src/content/captain-data.ts` (presentation wiring, outside the gated
+> facts).
 
 | Path | Person | Kit sponsor marks visible | Affiliation independently confirmable? |
 |---|---|---|---|

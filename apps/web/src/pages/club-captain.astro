@@ -14,7 +14,7 @@ import ProfileHeader from '../components/ProfileHeader.astro';
 import StatsTable from '../components/StatsTable.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
-import { captain } from '../content/captain-data';
+import { captain, captainPhoto } from '../content/captain-data';
 
 const profileFacts = [
   { label: 'Date of Birth', value: captain.dob },
@@ -71,19 +71,19 @@ const structuredData = {
     />
 
     <Section>
-      <ProfileHeader name={captain.name} role={captain.role} facts={profileFacts} />
+      <ProfileHeader name={captain.name} role={captain.role} facts={profileFacts} photo={captainPhoto} />
     </Section>
 
     <Section surface="alt">
       <h2>Franchise History</h2>
       <div class="ukbt-franchise-history">
-        <div>
+        <div class="ukbt-franchise-history__col">
           <h3>Current</h3>
           <ul>
             {captain.currentFranchises.map((f) => <li>{f}</li>)}
           </ul>
         </div>
-        <div>
+        <div class="ukbt-franchise-history__col">
           <h3>Previous</h3>
           <ul>
             {captain.previousFranchises.map((f) => <li>{f}</li>)}
@@ -132,6 +132,10 @@ const structuredData = {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--ukbt-space-8);
+  }
+  .ukbt-franchise-history__col {
+    border-top: 2px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-4);
   }
   .ukbt-franchise-history ul {
     margin: 0;

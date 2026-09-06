@@ -12,13 +12,12 @@ import Section from '../components/Section.astro';
 import TournamentCard from '../components/TournamentCard.astro';
 import Footer from '../components/Footer.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
-import TestimonialSection from '../components/TestimonialSection.astro';
 import { homepage } from '../content/homepage-data';
 import { completedTournaments, upcomingTournaments } from '../content/tournaments-data';
 ---
 
 <BaseLayout
-  title="International Tournaments/Events â€” UK Bangla Tigers"
+  title="Events — UK Bangla Tigers"
   description="UK Bangla Tigers' international tournament calendar."
 >
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
@@ -26,7 +25,7 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
   <main id="main-content" tabindex="-1">
     <PageBanner
       title="International Tournaments/Events"
-      crumbs={[{ label: 'Home', href: '/' }, { label: 'International Tournaments/Events' }]}
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Events' }]}
     />
 
     <Section>
@@ -45,10 +44,6 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
 
     <Section>
       <FranchiseTeaser name={homepage.sisterFranchise} />
-    </Section>
-
-    <Section surface="alt" paddingBottom="normal">
-      <TestimonialSection />
     </Section>
   </main>
 

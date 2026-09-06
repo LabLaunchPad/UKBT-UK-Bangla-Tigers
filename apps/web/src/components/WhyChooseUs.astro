@@ -18,7 +18,7 @@ const { reasons } = Astro.props;
     <SectionHeader
       eyebrow="Why the Tigers"
       heading="A Club Built for the International Stage"
-      lede="What the club is, stated from what is on record — not a sales pitch."
+      lede="What the club is, stated from what is on record."
       rule="none"
     />
   </div>
@@ -63,7 +63,7 @@ const { reasons } = Astro.props;
     font-size: var(--ukbt-font-size-3);
     font-weight: var(--ukbt-font-weight-bold);
     line-height: 1;
-    color: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-primary);
     flex-shrink: 0;
     min-width: 3rem;
   }
@@ -87,6 +87,9 @@ const { reasons } = Astro.props;
     .ukbt-chooseus__item {
       flex-direction: column;
       gap: var(--ukbt-space-2);
+    }
+    .ukbt-chooseus__list {
+      gap: var(--ukbt-space-gap-3);
     }
   }
 </style>

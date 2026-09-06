@@ -1,21 +1,42 @@
 ---
-// CaptainSpotlight — re-art-directed. Editorial composition:
-// large statement + clean info below. Not a two-column layout.
+// CaptainSpotlight — editorial row: portrait beside the statement when a
+// photo is provided, text-only composition otherwise. Used on the
+// homepage and the players page for the Club Captain.
+import Button from './Button.astro';
+
 interface Props {
   name: string;
   role: string;
+  /** Portrait src. When omitted, the text-only composition is rendered. */
+  photo?: string;
 }
-const { name, role } = Astro.props;
+const { name, role, photo } = Astro.props;
 ---
 
-<div class="ukbt-captain">
-  <span class="ukbt-captain__eyebrow">Club Captain</span>
-  <h2 class="ukbt-captain__headline">Leading from the Front</h2>
-  <div class="ukbt-captain__info">
-    <span class="ukbt-captain__name">{name}</span>
-    <span class="ukbt-captain__role">{role}</span>
+<div class:list={['ukbt-captain', photo && 'ukbt-captain--with-photo']}>
+  {
+    photo && (
+      <img
+        src={photo}
+        width="168"
+        height="224"
+        alt={`${name}, ${role}`}
+        loading="lazy"
+        class="ukbt-captain__photo"
+      />
+    )
+  }
+  <div class="ukbt-captain__body">
+    <span class="ukbt-captain__eyebrow">Club Captain</span>
+    <h2 class="ukbt-captain__headline">Leading from the Front</h2>
+    <div class="ukbt-captain__info">
+      <span class="ukbt-captain__name">{name}</span>
+      <span class="ukbt-captain__role">{role}</span>
+    </div>
+    <div class="ukbt-captain__action">
+      <Button label="Full profile" href="/club-captain" variant="primary" />
+    </div>
   </div>
-  <a href="/club-captain" class="ukbt-captain__link">Full profile &rarr;</a>
 </div>
 
 <style>
@@ -26,13 +47,33 @@ const { name, role } = Astro.props;
     border-top: 3px solid var(--ukbt-color-brand-primary);
     padding-top: var(--ukbt-space-6);
   }
+  /* Portrait row: fixed 3:4 frame, face kept via object-position top. */
+  .ukbt-captain--with-photo {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-8);
+  }
+  .ukbt-captain__photo {
+    width: 10.5rem;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+    border-radius: var(--ukbt-radius-ref-card);
+    flex: none;
+  }
+  .ukbt-captain__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+    min-width: 0;
+  }
   .ukbt-captain__eyebrow {
     font-family: var(--ukbt-font-family-heading);
     font-size: var(--ukbt-font-size-0);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-primary);
   }
   .ukbt-captain__headline {
     font-family: var(--ukbt-font-family-heading);
@@ -56,16 +97,21 @@ const { name, role } = Astro.props;
     font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
   }
-  .ukbt-captain__link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    color: var(--ukbt-color-brand-primary);
-    font-weight: var(--ukbt-font-weight-bold);
-    text-decoration: none;
+  .ukbt-captain__action {
     margin-top: var(--ukbt-space-2);
+    align-self: flex-start;
   }
-  .ukbt-captain__link:hover {
-    text-decoration: underline;
+
+  @media screen and (max-width: 767px) {
+    .ukbt-captain--with-photo {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--ukbt-space-6);
+    }
+    .ukbt-captain__photo {
+      width: 100%;
+      max-width: 20rem;
+      height: 24rem;
+    }
   }
 </style>

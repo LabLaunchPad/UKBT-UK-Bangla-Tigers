@@ -1,7 +1,8 @@
 ---
 // UKBT-original — no Adelux equivalent exists (a padel-club template has
-// no player-profile grammar). Crest-based, not a photo: no confirmed
-// individual portrait of the Club Captain exists in evidence.
+// no player-profile grammar). Portrait-led: the captain's client-supplied
+// portrait beside the facts. Falls back to the crest only when no photo
+// is provided.
 interface Fact {
   label: string;
   value: string;
@@ -10,13 +11,34 @@ interface Props {
   name: string;
   role: string;
   facts: Fact[];
+  /** Portrait src. When omitted, the club crest is shown instead. */
+  photo?: string;
 }
-const { name, role, facts } = Astro.props;
+const { name, role, facts, photo } = Astro.props;
 import SubHeading from './SubHeading.astro';
 ---
 
 <div class="ukbt-profile-header">
-  <img src="/brand/crest-512.png" width="120" height="165" alt="UK Bangla Tigers crest" class="ukbt-profile-header__crest" />
+  {
+    photo ? (
+      <img
+        src={photo}
+        width="240"
+        height="320"
+        alt={`${name}, ${role}`}
+        class="ukbt-profile-header__photo"
+        fetchpriority="high"
+      />
+    ) : (
+      <img
+        src="/brand/crest-512.png"
+        width="120"
+        height="165"
+        alt="UK Bangla Tigers crest"
+        class="ukbt-profile-header__crest"
+      />
+    )
+  }
   <div class="ukbt-profile-header__content">
     <SubHeading label="Club Captain" />
     <h1>{name}</h1>
@@ -44,6 +66,16 @@ import SubHeading from './SubHeading.astro';
   .ukbt-profile-header__crest {
     height: 9rem;
     width: auto;
+    flex: none;
+  }
+  /* Portrait: fixed 3:4 frame, face kept via object-position top.
+     Same card radius as the site's editorial imagery (ClubIntro). */
+  .ukbt-profile-header__photo {
+    width: 15rem;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+    border-radius: var(--ukbt-radius-ref-card);
     flex: none;
   }
   .ukbt-profile-header h1 {
@@ -77,6 +109,11 @@ import SubHeading from './SubHeading.astro';
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
+    }
+    .ukbt-profile-header__photo {
+      width: 100%;
+      max-width: 20rem;
+      height: 24rem;
     }
     .ukbt-profile-header__facts {
       grid-template-columns: 1fr;

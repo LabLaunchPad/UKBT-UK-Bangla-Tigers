@@ -83,11 +83,14 @@ const cls = [
     }
   }
 
-  /* NOTE: section block padding deliberately does NOT step down on
-     mobile. An earlier revision halved it to 50px on the assumption that
-     120px "leaves almost no room" at 390px wide. Measuring the reference
-     directly (artifacts/ui/reference-geometry.json) disproved that: it
-     holds 120px/120px at every viewport in the frozen matrix, 1920 down
-     to 390. The assumption was wrong and the reference's own value
-     stands. */
+  /* NOTE: section block padding steps down on mobile for proportion.
+     The reference holds 120px at all viewports, but UKBT's longer copy
+     means the vertical space consumed by padding on small screens
+     outweighs the proportion benefit. 80px preserves breathing room
+     while recovering usable content space. */
+  @media screen and (max-width: 767px) {
+    .ukbt-section {
+      padding-block: 80px;
+    }
+  }
 </style>

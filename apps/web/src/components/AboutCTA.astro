@@ -2,6 +2,7 @@
 // AboutCTA — re-art-directed. Clean editorial CTA, not two-column card.
 // Statement + CTA + social links as a typographic row.
 import Button from './Button.astro';
+import SocialLinks, { socialDisplayName } from './SocialLinks.astro';
 
 interface Social {
   platform: string;
@@ -12,7 +13,6 @@ interface Props {
 }
 const { social } = Astro.props;
 const primarySocial = social[0];
-const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <div class="ukbt-about-cta">
@@ -21,7 +21,7 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     <p class="ukbt-about-cta__body">Every tournament, every result — straight from the club.</p>
     {primarySocial && (
       <Button
-        label={`Follow on ${capitalize(primarySocial.platform)}`}
+        label={`Follow on ${socialDisplayName(primarySocial.platform)}`}
         href={primarySocial.url}
         variant="primary"
       />
@@ -29,15 +29,7 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   </div>
   <div class="ukbt-about-cta__social">
     <span class="ukbt-about-cta__social-label">Also on</span>
-    <ul class="ukbt-about-cta__social-list">
-      {
-        social.map((s) => (
-          <li>
-            <a href={s.url} rel="me noopener">{capitalize(s.platform)}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <SocialLinks links={social} tone="on-light" label="UK Bangla Tigers on other platforms" />
   </div>
 </div>
 
@@ -86,25 +78,5 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   .ukbt-about-cta__social-label {
     font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-700);
-  }
-  .ukbt-about-cta__social-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ukbt-space-4);
-  }
-  .ukbt-about-cta__social-list a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    color: var(--ukbt-color-brand-primary);
-    text-decoration: none;
-    font-weight: var(--ukbt-font-weight-bold);
-    font-size: var(--ukbt-font-size-0);
-  }
-  .ukbt-about-cta__social-list a:hover {
-    text-decoration: underline;
   }
 </style>

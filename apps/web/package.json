@@ -12,8 +12,10 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "astro": "^7.2.8",
-    "@ukbt/truth": "workspace:*"
+    "@sentry/astro": "^10.73.0",
+    "@spotlightjs/astro": "^3.2.6",
+    "@ukbt/truth": "workspace:*",
+    "astro": "^7.2.8"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

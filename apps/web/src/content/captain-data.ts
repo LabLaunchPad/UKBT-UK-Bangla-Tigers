@@ -193,3 +193,10 @@ export const captain = {
   ],
   personalSocialPlatforms: ['Facebook', 'Instagram', 'YouTube', 'LinkedIn'],
 };
+
+/**
+ * Captain portrait — presentation wiring, not a gated fact. File is
+ * client-supplied (Uppsala squad set, EV-20260831-008); identity
+ * confirmed by the client directly. 480x640 portrait.
+ */
+export const captainPhoto = '/media/uppsala-squad/mohammad-chowdhury.jpg';

@@ -19,8 +19,9 @@ export const primaryNav: NavItem[] = [
     children: [{ label: 'Uppsala Tigers', href: '/franchises/uppsala-tigers' }],
   },
   {
-    label: 'International Tournaments/Events',
+    label: 'Events',
     href: '/tournaments',
+    ariaLabel: 'International Tournaments and Events',
     children: [
       { label: 'Previous Events', href: '/tournaments/previous' },
       { label: 'Current Events', href: '/tournaments/current' },
