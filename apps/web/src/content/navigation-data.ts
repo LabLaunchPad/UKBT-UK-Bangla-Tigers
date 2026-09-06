@@ -22,10 +22,15 @@ export const primaryNav: NavItem[] = [
     label: 'Events',
     href: '/tournaments',
     ariaLabel: 'International Tournaments and Events',
+    // No /tournaments/previous|current|future routes exist (ROUTE-CONTRACT
+    // authorises /tournaments only; statuses in evidence are Upcoming /
+    // Completed, no separately-evidenced current feed). Children anchor to
+    // the page's own sections: previous = completed, current/future =
+    // upcoming fixtures. A dedicated route needs a contract amendment.
     children: [
-      { label: 'Previous Events', href: '/tournaments/previous' },
-      { label: 'Current Events', href: '/tournaments/current' },
-      { label: 'Future Events', href: '/tournaments/future' },
+      { label: 'Previous Events', href: '/tournaments#completed' },
+      { label: 'Current Events', href: '/tournaments#upcoming' },
+      { label: 'Future Events', href: '/tournaments#upcoming' },
     ],
   },
   { label: 'Contact Us', href: '/contact' },

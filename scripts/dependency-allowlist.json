@@ -130,6 +130,26 @@
       "license": "Apache-2.0",
       "contractStatus": "REQUIRED",
       "validation": "npm view style-dictionary license (verified 2026-08-26)"
+    },
+    {
+      "name": "@sentry/astro",
+      "scope": "apps/web",
+      "type": "dependency",
+      "source": "npm",
+      "purpose": "Error tracking for the Astro site; activates only when SENTRY_DSN is set (astro.config.mjs), otherwise a no-op.",
+      "license": "MIT",
+      "contractStatus": "REQUIRED",
+      "validation": "installed package.json license field (verified 2026-09-05)"
+    },
+    {
+      "name": "@spotlightjs/astro",
+      "scope": "apps/web",
+      "type": "dependency",
+      "source": "npm",
+      "purpose": "Local dev error-overlay (Spotlight sidecar) for Astro debugging; dev-time aid only.",
+      "license": "Apache-2.0",
+      "contractStatus": "REQUIRED",
+      "validation": "installed package.json license field (verified 2026-09-05)"
     }
   ],
   "permanently_blocked": [
