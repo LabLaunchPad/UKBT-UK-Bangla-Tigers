@@ -511,6 +511,17 @@ all 17 pages, zero img alt/dim defects in dist.
 - Verified: full `deploy:verify` green incl. `MOTION_STATUS = PASS`;
   screenshots read (hero final, drawer open, reduced-motion desktop,
   banner at 320/390).
+- **First-visit logo intro (2026-09-06):** three-state machine
+  (INTRO / NORMAL / CLIENT_NAV) — pre-paint head script arms
+  `html.ukbt-logo-intro` + persists `ukbt-logo-intro-seen`
+  (`duration-intro` 700ms token, −12px/1.03 desktop, −8px mobile,
+  ≤1px settle, end state identical geometry); `astro:before-swap`
+  removes the class pre-paint with `after-swap` re-assertion, so
+  replay is impossible regardless of head-script re-execution;
+  reduced-motion renders the final logo with `animation: none`.
+  Render-verified: fresh armed + flag, absent across About/Players/
+  Back/Forward/reload, returning-visitor final, reduced-motion
+  static; bar height unchanged (88 mobile / 142 desktop).
 - **Reduced-motion sweet spot (2026-09-06):** the blanket kill left
   staged entrances either blanked (fixed via delay-kill) or frozen.
   New two-tier model — state changes instant, entrances resolve as one
