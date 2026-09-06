@@ -29,6 +29,7 @@ const htmlFiles = globSync('**/*.html', { cwd: distDir }).map((f) =>
 
 const hrefPattern = /href=["']([^"'#][^"']*)["']/g;
 const brokenLinks = [];
+const insecureLinks = [];
 let checkedLinks = 0;
 
 function resolvesToRealFile(internalPath) {
@@ -53,6 +54,12 @@ for (const file of htmlFiles) {
   const relFile = file.slice(distDir.length + 1);
   for (const match of html.matchAll(hrefPattern)) {
     const href = match[1];
+    // Insecure plain-http links fail the gate even when external —
+    // every outbound URL must be https (2026-09-06: NCL http fix).
+    if (href.startsWith('http://')) {
+      insecureLinks.push({ file: relFile, href });
+      continue;
+    }
     // Only internal, site-relative links are this check's job — external
     // URLs (social links, etc.) are out of scope and not our build output.
     if (!href.startsWith('/')) continue;
@@ -63,11 +70,13 @@ for (const file of htmlFiles) {
   }
 }
 
+const failed = brokenLinks.length > 0 || insecureLinks.length > 0;
 const result = {
-  status: brokenLinks.length === 0 ? 'PASS' : 'FAIL',
+  status: failed ? 'FAIL' : 'PASS',
   html_files_scanned: htmlFiles.length,
   internal_links_checked: checkedLinks,
   broken_links: brokenLinks,
+  insecure_http_links: insecureLinks,
 };
 console.log(JSON.stringify(result, null, 2));
-process.exit(brokenLinks.length === 0 ? 0 : 1);
+process.exit(failed ? 1 : 0);

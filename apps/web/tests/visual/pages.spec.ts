@@ -156,17 +156,23 @@ test('Uppsala Tigers roster photos are exactly the evidenced set (EV-20260831-00
   await expect(royCard.locator('img')).toHaveCount(0);
 });
 
-test('no captain portrait is rendered on the Club Captain page', async ({
+test('client-confirmed captain portrait is rendered on the Club Captain page', async ({
   page,
 }) => {
+  // Portrait is client-supplied (Uppsala squad set, EV-20260831-008),
+  // identity confirmed by the client directly — see captain-data.ts.
+  // The old crest-only assertion predates that confirmation.
   await page.goto('/club-captain');
-  const portrait = await page
-    .locator('.ukbt-profile-header__content img')
-    .count();
-  expect(
-    portrait,
-    'profile header must stay crest-only, no unconfirmed portrait',
-  ).toBe(0);
+  const portrait = page.locator(
+    '.ukbt-profile-header img[src="/media/uppsala-squad/mohammad-chowdhury.jpg"]',
+  );
+  await expect(portrait, 'confirmed captain portrait must render').toHaveCount(
+    1,
+  );
+  await expect(portrait, 'portrait alt names captain and role').toHaveAttribute(
+    'alt',
+    'Mohammad Chowdhury, Club Captain',
+  );
 });
 
 test('Contact Us page renders no submission form (no live backend exists)', async ({

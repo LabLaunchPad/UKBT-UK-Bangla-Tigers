@@ -1,21 +1,22 @@
-// Club Captain page content bound to @ukbt/truth's gate. All values are
-// the structured facts actually captured in
+// Club Captain page content bound to @ukbt/truth's gate. Gated facts
+// (name, role, dob, nationality, batting/bowling style) are the
+// structured facts actually captured in
 // artifacts/content/UKBT-CONTENT-INVENTORY.md (C-003, C-005, C-006, C-007,
 // C-008) — no biography prose is invented where only structured facts,
 // not verbatim source text, were captured during ingestion. External
-// stats-provider and personal-social PLATFORM NAMES are evidenced (the
-// source PDF names them); their literal URL strings were not transcribed
-// during ingestion and are not retrievable in this session, so they are
-// rendered as plain text, never as a fabricated href.
+// stats-provider PLATFORM NAMES are evidenced (the source PDF names
+// them); their literal profile URL strings below are client-supplied
+// (provided directly 2026-09-06) and rendered as external links with
+// target="_blank" rel="noopener noreferrer" — never guessed.
+// Personal-social platform names remain plain text (no URLs supplied).
 //
 // Role and Franchise History were corrected per a client corrections
 // document (EV-20260831-001) and the clarifying decisions it required
 // (EV-20260831-002): role drops "Founder & CEO" on THIS page only (he
 // still holds that title org-wide — see about-data.ts, unaffected by
-// this change); Franchise History's Previous Teams now matches the
-// correction document's 8 entries plus London Blaze and Roma Ovest
-// Titans (moved from Current, per the client's confirmation he is
-// currently only playing for UK Bangla Tigers and Uppsala Tigers).
+// this change); per the client's later confirmation London Blaze and
+// Roma Ovest Titans play in the CURRENT franchise team alongside UK
+// Bangla Tigers and Uppsala Tigers (4 current, 8 previous).
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
@@ -102,10 +103,10 @@ export const captain = {
   nationality: facts.nationality.value,
   battingStyle: facts.battingStyle.value,
   bowlingStyle: facts.bowlingStyle.value,
-  // Current/Previous per EV-0831-01 + EV-0831-02: he is currently playing
-  // for UK Bangla Tigers and Uppsala Tigers only; London Blaze and Roma
-  // Ovest Titans moved to Previous; Previous Teams otherwise matches the
-  // correction document's 8 entries exactly.
+  // Current/Previous per EV-0831-01 + EV-0831-02 plus the client's later
+  // confirmation: London Blaze and Roma Ovest Titans are CURRENT teams
+  // alongside UK Bangla Tigers and Uppsala Tigers; the remaining 8
+  // correction-document entries are Previous.
   currentFranchises: [
     'UK Bangla Tigers (UAE, Safari International T20 Cup)',
     'Uppsala Tigers (Sweden, Nordic Smash T20)',
@@ -202,7 +203,7 @@ export const captain = {
     },
     {
       name: 'National Cricket League London',
-      url: 'http://www.nationalcricketleague.co.uk/player/view/2116',
+      url: 'https://www.nationalcricketleague.co.uk/player/view/2116',
     },
     {
       name: 'European Cricket / CREX',

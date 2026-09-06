@@ -3,9 +3,10 @@
 // (artifacts/content/UKBT-CONTENT-INVENTORY.md C-003/C-005/C-006/C-007/
 // C-008). No Adelux template page maps to a player-stats profile, so
 // ProfileHeader/StatsTable are UKBT-original (see their own comments).
-// Stats-provider and personal-social PLATFORM NAMES are evidenced; their
-// literal URLs were not transcribed during ingestion and are rendered as
-// plain text, never a fabricated href.
+// Stats-provider platform names are evidenced; their profile URLs are
+// client-supplied (see captain-data.ts) and rendered as external links.
+// Personal-social platform names remain plain text (no URLs supplied).
+// PageBanner carries the page h1; ProfileHeader's name renders as h2.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';

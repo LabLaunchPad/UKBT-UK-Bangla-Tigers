@@ -41,7 +41,7 @@ import SubHeading from './SubHeading.astro';
   }
   <div class="ukbt-profile-header__content">
     <SubHeading label="Club Captain" />
-    <h1>{name}</h1>
+    <h2 class="ukbt-profile-header__name">{name}</h2>
     <p class="ukbt-profile-header__role">{role}</p>
     <dl class="ukbt-profile-header__facts">
       {
@@ -78,7 +78,7 @@ import SubHeading from './SubHeading.astro';
     border-radius: var(--ukbt-radius-ref-card);
     flex: none;
   }
-  .ukbt-profile-header h1 {
+  .ukbt-profile-header__name {
     margin: var(--ukbt-space-2) 0 0 0;
   }
   .ukbt-profile-header__role {
