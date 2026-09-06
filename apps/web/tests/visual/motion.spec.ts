@@ -22,11 +22,26 @@ test('reduced motion: hero resolves to its final visible state', async ({
   await page.goto('/');
   const headline = page.locator('.ukbt-hero__headline');
   await expect(headline, 'headline visible under reduced motion').toBeVisible();
-  // Opacity, not just visibility: staged `backwards` entrances must not
-  // blank content — delays are killed alongside durations.
-  const opacity = await headline.evaluate((el) => getComputedStyle(el).opacity);
-  expect(opaque(opacity), 'instant final opacity under reduced motion').toBe(
+  // Sweet-spot assertions: entrances resolve (opacity 1 after the short
+  // fade), but nothing positional ever eases — the choreography degrades
+  // to the soft fade, never the full rise.
+  await page.waitForTimeout(800);
+  const style = await headline.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return {
+      opacity: cs.opacity,
+      transform: cs.transform,
+      animationName: cs.animationName,
+    };
+  });
+  expect(opaque(style.opacity), 'fade resolves under reduced motion').toBe(
     true,
+  );
+  expect(style.transform, 'no positional easing under reduced motion').toBe(
+    'none',
+  );
+  expect(style.animationName, 'soft fade, not choreography').toContain(
+    'ukbt-soft-fade',
   );
   await context.close();
 });

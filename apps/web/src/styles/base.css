@@ -165,6 +165,33 @@ p {
   }
 }
 
+/* Sweet-spot reduced motion: the kill above keeps every STATE change
+   instant (drawer, dropdowns, hovers, page swaps — positional movement
+   is the vestibular trigger, so none of it eases). This layer restores
+   exactly one restrained effect for content ENTRANCES — a single short
+   opacity fade, no rise, no stagger, no scale — so reduced-motion pages
+   feel calm and finished rather than frozen. The `!important` shorthand
+   outranks the kill's longhands by source order + specificity. */
+@keyframes ukbt-soft-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ukbt-hero__headline,
+  .ukbt-hero__tagline,
+  .ukbt-hero__actions,
+  .ukbt-hero__social,
+  .ukbt-page-banner__inner {
+    animation: ukbt-soft-fade var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard) backwards !important;
+  }
+  html.ukbt-motion-js [data-motion='reveal'] {
+    transition: opacity var(--ukbt-motion-duration-base)
+      var(--ukbt-motion-easing-standard) !important;
+  }
+}
+
 /* Scroll-reveal utility: content renders fully visible by default and
    only hides when the motion controller has explicitly armed the page
    (`html.ukbt-motion-js`, set by the same script that observes). No-JS
