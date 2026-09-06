@@ -109,10 +109,10 @@ export const captain = {
   currentFranchises: [
     'UK Bangla Tigers (UAE, Safari International T20 Cup)',
     'Uppsala Tigers (Sweden, Nordic Smash T20)',
-  ],
-  previousFranchises: [
     'London Blaze (England, Gateway T20)',
     'Roma Ovest Titans (Italy, RPL T10)',
+  ],
+  previousFranchises: [
     'Yankee Royals (USA, US Open)',
     'Bangladesh Tigers of USA (USA, Atlanta Open)',
     'US All Stars (West Indies, Caribbean T10)',
@@ -184,12 +184,30 @@ export const captain = {
     },
   ],
   statsProviders: [
-    'ESPN Cricinfo',
-    'Play-Cricket (England)',
-    'CricHeroes',
-    'Last Man Stands',
-    'National Cricket League London',
-    'European Cricket / CREX',
+    {
+      name: 'ESPN Cricinfo',
+      url: 'https://www.cricinfo.com/cricketers/mohammad-chowdhury-1540826',
+    },
+    {
+      name: 'Play-Cricket (England)',
+      url: 'https://www.play-cricket.com/website/player_stats_widget/batting_stats/4086463?rule_type_id=179',
+    },
+    {
+      name: 'CricHeroes',
+      url: 'https://cricheroes.com/player-profile/5015565/Mohammad-Chowdhury/matches',
+    },
+    {
+      name: 'Last Man Stands',
+      url: 'https://www.lastmanstands.com/lms-cricket-player/144056',
+    },
+    {
+      name: 'National Cricket League London',
+      url: 'http://www.nationalcricketleague.co.uk/player/view/2116',
+    },
+    {
+      name: 'European Cricket / CREX',
+      url: 'https://crex.com/player/mohammad-chowdhury-JUN',
+    },
   ],
   personalSocialPlatforms: ['Facebook', 'Instagram', 'YouTube', 'LinkedIn'],
 };
