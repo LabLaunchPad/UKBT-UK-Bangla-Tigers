@@ -396,8 +396,37 @@ contract entry. None blocks the release gate; each is a small,
 independently committable fix (`focus-visible` gaps and ProfileHeader
 overflow merged as `cadb7b4`).
 11. External-audit ship sequence (§ 2.7): Phase 1 production SEO is
-done (§ 2.8); Phase 2 CI/security hardening (`permissions`,
-SHA-pinning, `_headers`/CSP) is code-only and can start anytime.
+done (§ 2.8); Phase 2 CI/security hardening is done (§ 2.12).
+
+### 2.12 Security hardening shipped (2026-09-06)
+
+- **Least privilege:** top-level `permissions: contents: read`;
+  `actions: write` only on the two artifact-upload jobs,
+  `actions: read` on `workers-deploy`.
+- **SHA-pinned actions:** all 7 `uses:` resolved via the GitHub API to
+  commits (checkout, pnpm-setup, setup-node, upload/download-artifact,
+  wrangler, gitleaks) with `# vN` trailers. Note: the gitleaks v2 tag
+  itself is unsigned upstream — pin still fixes the consume-side risk.
+- **`public/_headers`:** HSTS (no `includeSubDomains` — subdomain TLS
+  posture unknown, honestly omitted), nosniff, DENY framing (+
+  `frame-ancestors 'none'`), strict referrer, minimal
+  permissions-policy, self-based CSP. `unsafe-inline` is required, not
+  laziness: Astro bundles component scripts and scoped styles inline
+  with per-build hashes (zero external `<script src>` in dist), so
+  hashes/nonces cannot pin them. Sentry ingest host pre-allowed but
+  inert until `SENTRY_DSN` is set.
+- **`check-security.mjs`** (`SECURITY_STATUS`) + `security-gate` CI
+  job + `deploy:verify` wiring: headers presence/content, CSP sanity
+  (no eval/http/wildcards), no sourcemaps/env files, no
+  plaintext-http subresources.
+- **`pnpm audit` (first run): 9 findings (1 critical, 2 high,
+  6 moderate) — all in dev/build tooling (vitest/vite/esbuild,
+  style-dictionary, spotlight transitive), none reachable from the
+  static production output. The critical (vitest UI file read) needs
+  `vitest --ui` listening; the repo runs `vitest run`. Fixes need
+  MAJOR bumps (vitest 2→3, style-dictionary 4→5) — queued as a
+  dedicated upgrade batch with migration verification, not
+  drive-by-bumped here.
 
 ### 2.9 UI/UX production program (2026-09-06, all phases approved)
 

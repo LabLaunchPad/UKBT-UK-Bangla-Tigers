@@ -24,8 +24,9 @@
     "check:seo": "node scripts/check-seo.mjs",
     "check:ui": "node scripts/check-ui.mjs",
     "check:motion": "node scripts/check-motion.mjs",
+    "check:security": "node scripts/check-security.mjs",
     "check:governance-scaffold": "node scripts/scaffold-self-test.mjs",
-    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo && pnpm run check:ui && pnpm run check:motion"
+    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo && pnpm run check:ui && pnpm run check:motion && pnpm run check:security"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
