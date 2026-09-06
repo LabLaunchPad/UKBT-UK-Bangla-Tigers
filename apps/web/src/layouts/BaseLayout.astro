@@ -65,6 +65,24 @@ const graphs = structuredData
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {/*
+      First-visit logo intro state: synchronous pre-paint check (is:inline
+      keeps it unbundled and render-blocking by intent — ~5 statements).
+      Flag absent → arm the intro class and persist the flag immediately
+      (a failed animation can never loop). Flag present, storage blocked,
+      or no JS → no class → final logo state. ClientRouter navigations
+      are handled by the lifecycle listeners below, never by this script.
+    */}
+    <script is:inline>
+      try {
+        if (!localStorage.getItem('ukbt-logo-intro-seen')) {
+          document.documentElement.classList.add('ukbt-logo-intro');
+          localStorage.setItem('ukbt-logo-intro-seen', '1');
+        }
+      } catch {
+        /* Storage unavailable: fall through to the final logo state. */
+      }
+    </script>
     {/* Enhanced MPA navigation: cross-document View Transitions where
       supported, normal document navigation everywhere else (including
       no-JS). Never a functional dependency. */}
@@ -115,6 +133,23 @@ const graphs = structuredData
       content. Re-executes on ClientRouter swaps for new content.
     */}
     <script>
+      // First-visit logo-intro lifecycle: ClientRouter swaps the body
+      // without a document load, so a surviving `ukbt-logo-intro` class
+      // plus fresh header DOM would replay the intro. Removal happens
+      // here — before the swap paints (before-swap) and asserted after
+      // (after-swap) — never depending on head-script re-execution order.
+      // `window` persists across swaps: the guard registers exactly once
+      // per document lifetime no matter how many pages swap through it.
+      const w = window as unknown as Record<string, boolean | undefined>;
+      if (!w['__ukbtLogoIntroWired']) {
+        w['__ukbtLogoIntroWired'] = true;
+        document.addEventListener('astro:before-swap', () => {
+          document.documentElement.classList.remove('ukbt-logo-intro');
+        });
+        document.addEventListener('astro:after-swap', () => {
+          document.documentElement.classList.remove('ukbt-logo-intro');
+        });
+      }
       document.documentElement.classList.add('ukbt-motion-js');
       const revealEls = document.querySelectorAll('[data-motion="reveal"]');
       const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -404,6 +404,59 @@ const isActive = (href: string) =>
     grid-column: 1;
     justify-self: start;
   }
+  /* One-time logo intro (first true document visit only — see
+     BaseLayout's head script + swap lifecycle listeners). The brand
+     settles from slightly above into its permanent place: transform +
+     opacity only, end state identical to the static header. `backwards`
+     holds the from-state for the first frame so the final logo never
+     flashes before the animation starts. */
+  html.ukbt-logo-intro .ukbt-header__brand {
+    animation: ukbt-logo-intro var(--ukbt-motion-duration-intro)
+      var(--ukbt-motion-easing-emphasized) backwards;
+  }
+  @keyframes ukbt-logo-intro {
+    0% {
+      opacity: 0.9;
+      transform: translateY(-12px) scale(1.03);
+    }
+    70% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    85% {
+      opacity: 1;
+      transform: translateY(1px) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media screen and (max-width: 430px) {
+    @keyframes ukbt-logo-intro {
+      0% {
+        opacity: 0.9;
+        transform: translateY(-8px) scale(1.02);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      85% {
+        opacity: 1;
+        transform: translateY(1px) scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.ukbt-logo-intro .ukbt-header__brand {
+      animation: none;
+    }
+  }
   /* Full-artwork crest file (256x349): the square derivatives crop the
      shield's crown and base point. Displayed at 60px tall the width
      follows the true ratio (44px), matching the width/height attributes

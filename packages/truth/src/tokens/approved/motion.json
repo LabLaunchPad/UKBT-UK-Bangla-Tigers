@@ -16,6 +16,10 @@
       "signature": {
         "$value": "1600ms",
         "$type": "duration"
+      },
+      "intro": {
+        "$value": "700ms",
+        "$type": "duration"
       }
     },
     "easing": {

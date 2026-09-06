@@ -57,6 +57,27 @@ the vestibular trigger. Content ENTRANCES (hero, banner, reveals)
 resolve as one short opacity fade (`ukbt-soft-fade`, no rise/scale/
 stagger). Calm and finished, never frozen, never moving.
 
+## First-visit logo intro (three-state system)
+
+The crest animates exactly once per browser/storage context — arrival,
+alignment, confidence; never showcase. States:
+
+```text
+FIRST_VISIT_INTRO: full document load + `ukbt-logo-intro-seen` absent
+  → pre-paint head script arms `html.ukbt-logo-intro`, persists the flag
+NORMAL_INITIAL_LOAD: full document load + flag present → nothing armed
+CLIENT_NAVIGATION: no document load → `astro:before-swap` removes the
+  class pre-paint, `astro:after-swap` re-asserts; never depends on
+  head-script re-execution order
+```
+
+Rules: existing `.ukbt-header__brand` only (no splash duplicate);
+transform/opacity only, `duration-intro` (700ms) + emphasized easing,
+desktop −12px/1.03/.9, ≤430px −8px/1.02, ≤1px settle, end state
+identical geometry; reduced motion = `animation: none` (final logo
+immediately); storage failure and no-JS both land on the final logo;
+listeners register once per document behind a `window` guard.
+
 ## Enforcement
 
 `scripts/check-motion.mjs` (`MOTION_STATUS`) + `tests/visual/motion.spec.ts`,
