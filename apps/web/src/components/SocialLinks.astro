@@ -94,6 +94,12 @@ const cls = [
     flex-direction: column;
     gap: var(--ukbt-space-1);
   }
+  /* Self-contained dark-surface ring: on-dark instances in Hero/Footer
+     were previously covered only by their parents' overrides. Setting the
+     token here keeps the ring gold wherever this tone renders. */
+  .ukbt-social-links--on-dark {
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
+  }
   .ukbt-social-links a {
     display: inline-flex;
     align-items: center;

@@ -78,6 +78,11 @@ import SubHeading from './SubHeading.astro';
     border-radius: var(--ukbt-radius-ref-card);
     flex: none;
   }
+  /* Flex-row overflow guard: without min-width:0 the content column
+     refuses to shrink and long fact values blow out 320–767px. */
+  .ukbt-profile-header__content {
+    min-width: 0;
+  }
   .ukbt-profile-header__name {
     margin: var(--ukbt-space-2) 0 0 0;
   }
@@ -91,7 +96,9 @@ import SubHeading from './SubHeading.astro';
   }
   .ukbt-profile-header__facts {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    /* minmax(0,1fr), not auto: auto columns don't shrink, so long values
+       overflow narrow viewports before the 767px single-column collapse. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--ukbt-space-2) var(--ukbt-space-6);
     margin: 0;
   }
@@ -104,7 +111,7 @@ import SubHeading from './SubHeading.astro';
     font-weight: var(--ukbt-font-weight-bold);
   }
 
-  @media (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     .ukbt-profile-header {
       flex-direction: column;
       align-items: flex-start;
