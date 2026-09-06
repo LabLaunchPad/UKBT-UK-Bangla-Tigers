@@ -11,11 +11,19 @@
 import '../styles/generated/tokens.css';
 import '../styles/fonts.css';
 import '../styles/base.css';
+import {
+  DEFAULT_OG_IMAGE,
+  LOCALE,
+  SITE_NAME,
+  canonicalFor,
+  type OgImage,
+} from '../lib/seo';
 
 interface Props {
   title: string;
   description?: string;
-  structuredData?: Record<string, unknown>;
+  /** One or more JSON-LD graphs — only from `src/lib/seo.ts` emitters fed by gated content, never hand-built. */
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
   /**
    * Keep the page out of search results. Required by
    * `contracts/ROUTE-CONTRACT.md` Amendment 01 condition 2 for the
@@ -24,8 +32,31 @@ interface Props {
    * and an indexed page is a public claim that it does.
    */
   noindex?: boolean;
+  /** Suppress the canonical tag (error pages). Never use on indexable routes. */
+  noCanonical?: boolean;
+  ogType?: 'website' | 'article' | 'profile';
+  ogImage?: OgImage;
 }
-const { title, description, structuredData, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  structuredData,
+  noindex = false,
+  noCanonical = false,
+  ogType = 'website',
+  ogImage = DEFAULT_OG_IMAGE,
+} = Astro.props;
+
+// Canonical is automatic: production origin + normalized route path.
+// Emitted only for indexable routes — never pointing at a noindex URL.
+const indexable = !noindex;
+const canonical =
+  indexable && !noCanonical ? canonicalFor(Astro.url.pathname) : null;
+const graphs = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 ---
 
 <!doctype html>
@@ -35,25 +66,37 @@ const { title, description, structuredData, noindex = false } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {indexable ? (
+      <meta name="robots" content="index, follow, max-image-preview:large" />
+    ) : (
+      <meta name="robots" content="noindex, follow" />
+    )}
+    {canonical && <link rel="canonical" href={canonical} />}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content={LOCALE} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:image" content="/social-card.jpg" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImage.url} />
+    <meta property="og:image:alt" content={ogImage.alt} />
+    <meta property="og:image:width" content={String(ogImage.width)} />
+    <meta property="og:image:height" content={String(ogImage.height)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
-    <meta name="twitter:image" content="/social-card.jpg" />
+    <meta name="twitter:image" content={ogImage.url} />
+    <meta name="twitter:image:alt" content={ogImage.alt} />
 
     {
-      structuredData && (
-        <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
-      )
+      graphs.map((g) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(g)} />
+      ))
     }
   </head>
   <body>

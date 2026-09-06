@@ -9,7 +9,7 @@
   },
   "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "build": "pnpm --filter @ukbt/truth tokens:build && pnpm --filter @ukbt/web build",
+    "build": "pnpm --filter @ukbt/truth tokens:build && pnpm --filter @ukbt/web build && node scripts/generate-sitemap.mjs",
     "dev": "pnpm --filter ./apps/web dev",
     "typecheck": "pnpm -r typecheck",
     "lint": "biome check .",
@@ -20,8 +20,10 @@
     "tokens:build": "pnpm --filter ./packages/truth tokens:build",
     "check:deps": "node scripts/check-dependency-allowlist.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
     "check:governance-scaffold": "node scripts/scaffold-self-test.mjs",
-    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links"
+    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -38,6 +38,7 @@ import FranchiseTeaser from '../components/FranchiseTeaser.astro';
 import AboutCTA from '../components/AboutCTA.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
+import { homepageGraph } from '../lib/seo';
 
 const [mainEvent, ...otherEvents] = homepage.upcomingTournaments;
 
@@ -68,14 +69,13 @@ const academyCounters = [
   { value: homepage.stats.tournaments, label: 'International tournaments' },
 ];
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'SportsOrganization',
-  name: 'UK Bangla Tigers',
-  sport: 'Cricket',
-  foundingDate: homepage.founded,
+// Organization graph via the central SEO emitter — same gated vars,
+// single graph shape (see src/lib/seo.ts).
+const structuredData = homepageGraph({
+  founded: homepage.founded,
+  description: homepage.taglineShort,
   sameAs: homepage.social.map((s) => s.url),
-};
+});
 ---
 
 <BaseLayout

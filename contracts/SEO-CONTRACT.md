@@ -80,3 +80,19 @@ the source.
 
 REVERSIBLE. No metadata pipeline exists yet; this contract fixes the rule
 the pipeline must implement.
+
+## AMENDMENT 01 (2026-09-06) — pipeline implemented, domain set
+
+Track C is now built: `apps/web/src/lib/seo.ts` is the single SEO
+engine (SITE, canonical normalization, OG defaults, gated JSON-LD
+emitters, route registry); `BaseLayout.astro` owns all `<head>`
+emission with auto-canonical from `Astro.url` (indexable routes only);
+`scripts/generate-sitemap.mjs` derives the sitemap from built output;
+`scripts/check-seo.mjs` (`SEO_STATUS`) and `tests/visual/seo.spec.ts`
+enforce it; `public/robots.txt` references the sitemap. Production
+domain supplied by the owner: `https://ukbanglatigers.co.uk`
+(`astro.config.mjs` `site`). "Never hand-author JSON-LD" now means:
+page templates call `seo.ts` emitters with gated vars — the three
+legacy hand-built blocks (index/about/club-captain) were migrated, and
+`check-seo.mjs` validates every emitted block parses with a schema.org
+context. Reversibility unchanged.
