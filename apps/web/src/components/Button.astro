@@ -19,6 +19,8 @@ interface Props {
   href?: string;
   /** Trailing circular arrow affordance (reference `.icon-circle`). */
   icon?: boolean;
+  /** External URL: opens in a new tab with opener protection. */
+  external?: boolean;
 }
 
 const {
@@ -27,6 +29,7 @@ const {
   disabled = false,
   href,
   icon = true,
+  external = false,
 } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
@@ -34,6 +37,8 @@ const Tag = href ? 'a' : 'button';
 <Tag
   class={`ukbt-button ukbt-button--${variant}${icon ? ' ukbt-button--has-icon' : ''}`}
   href={href}
+  target={href && external ? '_blank' : undefined}
+  rel={href && external ? 'noopener noreferrer' : undefined}
   disabled={!href && disabled ? true : undefined}
   aria-disabled={href && disabled ? 'true' : undefined}
 >

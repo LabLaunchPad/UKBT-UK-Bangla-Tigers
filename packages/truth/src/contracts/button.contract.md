@@ -15,7 +15,7 @@ without any Track B dependency.
 | Accessibility behavior | Native `<button>`/`<a>` semantics; `disabled` uses the native attribute, never an ARIA-only simulation; visible focus ring at every viewport. |
 | Token dependencies | `--ukbt-space-*`, `--ukbt-radius-md`, `--ukbt-font-weight-medium`, `--ukbt-motion-duration-base`/`--ukbt-motion-easing-standard`, `--ukbt-color-surface-*`, `--ukbt-color-neutral-*`, `--ukbt-color-feedback-danger` (all `APPROVED`, `packages/truth/src/tokens/approved/`). Color tokens are `PROPOSED` classification (`tokens/approved/README.md`) — no real UKBT brand evidence exists (`U-05`) — but are still real, compiled custom properties, not a scaffolding-only placeholder; a future brand-evidence update changes the token file, not this component. |
 | Asset dependencies | None. |
-| Content dependencies | `label: string` (UI string — exempt from the truth gate per `contracts/CONTENT-CONTRACT.md`'s `not_organization_claims`), `variant`, `disabled`, `href?`. |
+| Content dependencies | `label: string` (UI string — exempt from the truth gate per `contracts/CONTENT-CONTRACT.md`'s `not_organization_claims`), `variant`, `disabled`, `href?`, `external?` (new-tab + opener protection for off-site URLs, e.g. social profiles). |
 | Interaction requirements | None — no JS required; a native `<button>`/`<a>` is fully operable without it, consistent with Astro's zero-JS-by-default model. |
 
 Implemented at `apps/web/src/components/Button.astro` (layer 7 adapter).

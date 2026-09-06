@@ -2,6 +2,7 @@
 // Footer — final brand statement. Uses shared NavItem type.
 // Editorial composition: brand identity, quick links, contact, follow.
 import type { NavItem } from '@ukbt/truth';
+import Link from './Link.astro';
 import SocialLinks from './SocialLinks.astro';
 
 interface SocialLink {
@@ -41,7 +42,7 @@ const year = new Date().getFullYear();
         <p class="ukbt-footer__note">
           Questions about the club, fixtures or joining.
         </p>
-        <a href="/contact" class="ukbt-footer__inline-link">Contact us &rarr;</a>
+        <span class="ukbt-footer__contact-link"><Link href="/contact" tone="on-dark" emphasis="strong">Contact us &rarr;</Link></span>
       </div>
 
       <div class="ukbt-footer__col">
@@ -113,8 +114,7 @@ const year = new Date().getFullYear();
     flex-direction: column;
     gap: var(--ukbt-space-gap-1);
   }
-  .ukbt-footer__links a,
-  .ukbt-footer__inline-link {
+  .ukbt-footer__links a {
     color: var(--ukbt-color-neutral-300);
     text-decoration: none;
     font-size: var(--ukbt-font-size-0);
@@ -122,13 +122,10 @@ const year = new Date().getFullYear();
     align-items: center;
     min-height: 24px;
   }
-  .ukbt-footer__links a:hover,
-  .ukbt-footer__inline-link:hover {
+  .ukbt-footer__links a:hover {
     color: var(--ukbt-color-brand-accent);
   }
-  .ukbt-footer__inline-link {
-    color: var(--ukbt-color-brand-accent);
-    font-weight: var(--ukbt-font-weight-bold);
+  .ukbt-footer__contact-link {
     align-self: flex-start;
   }
   .ukbt-footer__note {

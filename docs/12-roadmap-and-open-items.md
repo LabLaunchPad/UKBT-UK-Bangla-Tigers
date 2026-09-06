@@ -395,7 +395,37 @@ for what that stage actually does.
 contract entry. None blocks the release gate; each is a small,
 independently committable fix (`focus-visible` gaps and ProfileHeader
 overflow merged as `cadb7b4`).
-11. External-audit ship sequence (§ 2.7): Phase 1 production SEO
-(domain → canonical → sitemap/robots → gated JSON-LD) needs owner
-decisions first; Phase 2 CI/security hardening (`permissions`,
+11. External-audit ship sequence (§ 2.7): Phase 1 production SEO is
+done (§ 2.8); Phase 2 CI/security hardening (`permissions`,
 SHA-pinning, `_headers`/CSP) is code-only and can start anytime.
+
+### 2.9 UI/UX production program (2026-09-06, all phases approved)
+
+Render-verified with local screenshots (home/captain/tournaments at
+390+1280, banner at 320) plus keyboard-modality probes — no visual
+claim without pixels. Static audit: zero heading skips, single h1 on
+all 17 pages, zero img alt/dim defects in dist.
+
+- **P0 fixed:** gold focus ring on the gold drawer toggle measured
+  ~1:1 → white ring + 3px offset (`Header.astro`); same class fixed for
+  the cream close button (navy ring) and `Section--inverse` subtree +
+  `NewsTeaser` dark cards (accent token); `PageBanner h1` mid-word wrap
+  at 390px → `text-wrap: balance` + fluid display size + banner title
+  shortened to "Events" (matches nav/breadcrumb/route; SEO title
+  unchanged) after two render-verified CSS-only attempts failed.
+- **P1 fixed:** `check-ui.mjs` gate (`UI_STATUS`, CI job, wired into
+  `deploy:verify`): heading order, single-h1, img alt/dims,
+  stale-`Upcoming` FAIL (past month) / WARN (current month — Sept 2026
+  Nordic Lights is WARN today, day unknown, needs club confirmation),
+  dark-surface focus coverage, CTA-duplication WARN.
+- **P1/P2 primitives:** `Link.astro` + `Breadcrumb.astro` with
+  framework-neutral contracts; adopted by FranchiseTeaser,
+  club-captain, Footer contact link, PageBanner (keeps `crumbs` API and
+  `ukbt-breadcrumb` hooks for target-size tests); `Button.external`
+  prop (AboutCTA social opens new tab).
+- **Verified working, no change:** drawer keyboard (Tab/Enter/Escape,
+  focus return, aria-expanded), StatsTable scroll region, PendingContent
+  empty states.
+- **Open, owner-gated:** "Join the Club" CTA → `/join` shell
+  truthfulness (2× on homepage); Sept 2026 event confirmation;
+  200%-zoom verification; dead-token deletion; motion/rhythm tiers.

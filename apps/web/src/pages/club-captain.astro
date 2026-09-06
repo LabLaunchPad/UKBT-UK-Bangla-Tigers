@@ -17,6 +17,7 @@ import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
 import { captainGraph } from '../lib/seo';
+import Link from '../components/Link.astro';
 
 const profileFacts = [
   { label: 'Date of Birth', value: captain.dob },
@@ -105,7 +106,7 @@ const structuredData = captainGraph({
           <h3>Stats Also Tracked On</h3>
           <ul class="ukbt-plain-list">
             {captain.statsProviders.map((p) => (
-              <li><a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a></li>
+              <li><Link href={p.url} external underline="always">{p.name}</Link></li>
             ))}
           </ul>
         </div>
@@ -163,21 +164,7 @@ const structuredData = captainGraph({
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
   }
-  .ukbt-plain-list a {
-    color: var(--ukbt-color-brand-primary);
-    text-decoration: underline;
-    text-decoration-color: var(--ukbt-color-neutral-300);
-    transition: text-decoration-color 0.2s;
-  }
-  .ukbt-plain-list a:hover {
-    text-decoration-color: var(--ukbt-color-brand-primary);
-  }
-  .ukbt-plain-list a:focus-visible {
-    outline: 2px solid var(--ukbt-color-brand-accent);
-    outline-offset: 2px;
-  }
-
-  @media (max-width: 767px) {
+  @media screen and (max-width: 767px) {
     .ukbt-franchise-history,
     .ukbt-links-grid {
       grid-template-columns: 1fr;
