@@ -1,0 +1,70 @@
+---
+ // Link — the single text-link primitive (see
+ // packages/truth/src/contracts/link.contract.md). Tone-aware: navy on
+ // light surfaces, surface-inheriting on dark. Replaces the five
+ // divergent treatments in FranchiseTeaser, club-captain, Footer,
+ // PageBanner and SocialLinks text rows (SocialLinks keeps its own
+ // icon+label layout and composes the same focus mechanism).
+interface Props {
+  href: string;
+  /** Colour treatment for the surface this renders on. */
+  tone?: 'on-light' | 'on-dark';
+  /** Underline behaviour. `always` for body links where color alone must not carry meaning. */
+  underline?: 'hover' | 'always' | 'none';
+  /** External URL: opens in a new tab with opener protection. */
+  external?: boolean;
+  /** `strong` keeps the accent treatment on dark surfaces (e.g. footer contact link). */
+  emphasis?: 'normal' | 'strong';
+}
+const {
+  href,
+  tone = 'on-light',
+  underline = 'hover',
+  external = false,
+  emphasis = 'normal',
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class={`ukbt-link ukbt-link--${tone} ukbt-link--underline-${underline} ukbt-link--emphasis-${emphasis}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+><slot /></a
+>
+
+<style>
+  .ukbt-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    font-size: var(--ukbt-font-size-0);
+    text-decoration: none;
+  }
+  .ukbt-link--on-light {
+    color: var(--ukbt-color-brand-primary);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-link--on-dark {
+    color: inherit;
+    /* Self-contained dark-surface ring (same mechanism as SocialLinks):
+       gold reads against navy, independent of parent overrides. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-link--on-dark.ukbt-link--emphasis-strong {
+    color: var(--ukbt-color-brand-accent);
+    font-weight: var(--ukbt-font-weight-bold);
+  }
+  .ukbt-link--underline-always {
+    text-decoration: underline;
+    text-decoration-color: var(--ukbt-color-neutral-300);
+  }
+  .ukbt-link--on-light.ukbt-link--underline-hover:hover,
+  .ukbt-link--on-dark.ukbt-link--underline-hover:hover,
+  .ukbt-link--underline-always:hover {
+    text-decoration: underline;
+  }
+  .ukbt-link--on-light.ukbt-link--underline-always:hover {
+    text-decoration-color: var(--ukbt-color-brand-primary);
+  }
+</style>

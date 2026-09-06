@@ -753,6 +753,16 @@ const isActive = (href: string) =>
     outline: 2px solid var(--ukbt-color-brand-accent);
     outline-offset: 2px;
   }
+  /* Per-surface corrections (measured): a gold ring is invisible on the
+     gold drawer toggle (~1:1) and on the cream close button (~2.1:1).
+     Higher specificity than the generic rule above, by intent. */
+  .ukbt-header .ukbt-header__toggle:focus-visible {
+    outline-color: var(--ukbt-color-neutral-0);
+    outline-offset: 3px;
+  }
+  .ukbt-header .ukbt-header__close:focus-visible {
+    outline-color: var(--ukbt-color-brand-primary);
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .ukbt-header__drawer,

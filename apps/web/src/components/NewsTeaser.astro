@@ -78,6 +78,9 @@ const { posts = [] } = Astro.props;
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
     text-decoration: none;
+    /* Linked dark card: repaint the inherited CanvasText ring gold for
+       keyboard users once real posts render here. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
   .ukbt-news__card-body {
     display: flex;

@@ -1,0 +1,63 @@
+---
+ // Breadcrumb — one trail model for visible navigation, BreadcrumbList
+ // JSON-LD (same Crumb shape as src/lib/seo.ts) and internal linking
+ // (see packages/truth/src/contracts/breadcrumb.contract.md). Root keeps
+ // the legacy `ukbt-breadcrumb` class: mobile-ux target-size tests and
+ // PageBanner styling hook onto it.
+import Link from './Link.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  crumbs: Crumb[];
+  /** Colour treatment for the surface the trail renders on. */
+  tone?: 'on-light' | 'on-dark';
+}
+const { crumbs, tone = 'on-light' } = Astro.props;
+---
+
+<nav class="ukbt-breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {
+      crumbs.map((c, i) => (
+        <li>
+          {i > 0 && (
+            <span class="ukbt-breadcrumb__sep" aria-hidden="true">
+              /
+            </span>
+          )}
+          {c.href ? (
+            <Link href={c.href} tone={tone} underline="none">
+              {c.label}
+            </Link>
+          ) : (
+            <span aria-current="page">{c.label}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .ukbt-breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ukbt-space-2);
+  }
+  .ukbt-breadcrumb__sep {
+    opacity: 0.6;
+  }
+</style>

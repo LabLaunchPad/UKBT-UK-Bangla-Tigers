@@ -63,6 +63,10 @@ const cls = [
   .ukbt-section--surface-inverse {
     background: var(--ukbt-color-surface-inverse);
     color: var(--ukbt-color-surface-inverse-foreground);
+    /* Descendants (buttons, links, scroll regions) inherit the global
+       CanvasText focus ring — invisible on navy (~1.25:1). Repaint it
+       gold for the whole subtree, same mechanism as Hero/PageBanner. */
+    --ukbt-color-focus-ring: var(--ukbt-color-brand-accent);
   }
 
   /* Reference `.section-wrapper`: inset the panel and round its corners. */

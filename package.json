@@ -22,8 +22,9 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "check:seo": "node scripts/check-seo.mjs",
+    "check:ui": "node scripts/check-ui.mjs",
     "check:governance-scaffold": "node scripts/scaffold-self-test.mjs",
-    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo"
+    "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo && pnpm run check:ui"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

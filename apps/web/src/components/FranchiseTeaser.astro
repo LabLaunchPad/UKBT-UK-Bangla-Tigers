@@ -6,6 +6,7 @@ interface Props {
 }
 const { name } = Astro.props;
 
+import Link from './Link.astro';
 import { uppsalaOverseasSignings } from '../content/franchises-data';
 
 const overseasCountries = [
@@ -27,7 +28,7 @@ const countryList =
       UK Bangla Tigers' sister franchise, <strong>{name}</strong>, based in Sweden, competing in the Nordic Smash T20.
       Fields international players from {countryList}.
     </p>
-    <a href="/franchises" class="ukbt-franchise__link">See the franchise &rarr;</a>
+    <span class="ukbt-franchise__link-wrap"><Link href="/franchises">See the franchise &rarr;</Link></span>
   </div>
 </div>
 
@@ -65,17 +66,8 @@ const countryList =
     max-width: 40rem;
     margin: 0;
   }
-  .ukbt-franchise__link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    color: var(--ukbt-color-brand-primary);
-    font-weight: var(--ukbt-font-weight-bold);
-    text-decoration: none;
+  .ukbt-franchise__link-wrap {
     margin-top: var(--ukbt-space-1);
-  }
-  .ukbt-franchise__link:hover {
-    text-decoration: underline;
   }
 
   @media screen and (max-width: 767px) {
