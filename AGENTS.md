@@ -39,7 +39,7 @@ pnpm monorepo. Node ≥22, pnpm ≥10.
 ## Verification order
 
 ```
-lint → tokens:build → typecheck → test:unit → build → check:links → check:seo → check:ui → check:motion → check:security → check:perf
+scaffold-self-test → check:deps → lint → tokens:build → typecheck → test:unit → build → check:links → check:seo → check:ui → check:motion → check:security → check:perf
 ```
 
 For e2e: `pnpm test:e2e` (requires `playwright install chromium` first in CI; some envs pre-install at `/opt/pw-browsers/chromium`).
