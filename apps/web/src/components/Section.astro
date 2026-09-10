@@ -14,6 +14,8 @@ interface Props {
   surface?: 'default' | 'alt' | 'inverse';
   /** Inset the section as a rounded panel (reference `.section-wrapper`). */
   wrapper?: boolean;
+  /** Compact density for long editorial pages (measured 160/240px voids). */
+  density?: 'normal' | 'compact';
   as?: 'section' | 'div';
 }
 const {
@@ -21,6 +23,7 @@ const {
   paddingBottom = 'normal',
   surface = 'default',
   wrapper = false,
+  density = 'normal',
   as: Tag = 'section',
 } = Astro.props;
 
@@ -30,6 +33,7 @@ const cls = [
   `ukbt-section--pb-${paddingBottom}`,
   `ukbt-section--surface-${surface}`,
   wrapper ? 'ukbt-section--wrapper' : '',
+  density === 'compact' ? 'ukbt-section--density-compact' : '',
 ]
   .filter(Boolean)
   .join(' ');
@@ -45,6 +49,12 @@ const cls = [
   /* Reference `.section`: padding 120px 20px */
   .ukbt-section {
     padding-block: var(--ukbt-space-section-padding);
+  }
+  /* Compact density (D1 audit): long editorial pages stack many
+     120px-padded sections into 240px voids. Halved via the space
+     scale — opt-in per section, global rhythm untouched. */
+  .ukbt-section--density-compact {
+    padding-block: calc(var(--ukbt-space-8) * 2);
   }
   .ukbt-section--pt-none {
     padding-top: 0;
@@ -95,6 +105,9 @@ const cls = [
   @media screen and (max-width: 767px) {
     .ukbt-section {
       padding-block: 80px;
+    }
+    .ukbt-section--density-compact {
+      padding-block: calc(var(--ukbt-space-8) * 1.5);
     }
   }
 </style>

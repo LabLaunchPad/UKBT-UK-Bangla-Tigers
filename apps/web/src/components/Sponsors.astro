@@ -79,12 +79,15 @@ import SubHeading from './SubHeading.astro';
     gap: var(--ukbt-space-2);
   }
   /* Reference `.partner-img`: max-width 75% (of its slide). Fixed here
-     since each logo is its own flex item, not a shared-width slide. */
+     since each logo is its own flex item, not a shared-width slide.
+     contain, never fill: a square mark in this square box must keep its
+     aspect (D2 audit: fill stretched WOLFFIT 25%). */
   .ukbt-sponsors__item img {
     display: block;
     height: 8rem;
     width: 8rem;
-    max-width: 75%;
+    max-width: none;
+    object-fit: contain;
     border-radius: var(--ukbt-radius-lg);
   }
   .ukbt-sponsors__name {

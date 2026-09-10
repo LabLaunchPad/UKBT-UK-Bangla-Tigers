@@ -100,6 +100,11 @@ const primarySocial = social[0];
     font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-700);
   }
+  /* D4 audit: at desktop widths the full-bleed slot crops the 3:2
+     source to a thin band. Cap the frame so the team stays in view. */
+  .ukbt-about-cta__photo {
+    max-width: 48rem;
+  }
   .ukbt-about-cta__photo img {
     display: block;
     width: 100%;
