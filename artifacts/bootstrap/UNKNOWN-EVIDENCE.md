@@ -20,7 +20,7 @@ this entire scaffold exists to prevent.
 | U-05 | Brand assets: logo, crest, colours, typefaces, usage rules | design system (Stage 5) | **SUBSTANTIALLY NARROWED** — `EV-20260826-029`: real logo (crest, multiple sizes/formats) and colour palette (Navy `#001E3A`, Gold `#CCA44F`) independently verified by direct pixel sampling, not merely asserted. Typography (Lato/Montserrat) remains `PROPOSED`, not verified — explicitly an assumption in the supplied material, not club-confirmed. Full record: `artifacts/brand/BRAND-DECISION.md` |
 | U-06 | Fixtures, results, statistics, standings; and their upstream feed | fixtures/results pages | **NARROWED, not closed** — `EV-20260826-026`: 5 named tournaments with status/date/country, and one player's full career statistics. Match-by-match fixtures/results/standings remain open |
 | U-07 | Sponsors, partners, funders and their permitted usage | sponsor page, logo display | UKBT + each sponsor's own approval |
-| U-16 | Home ground / venue / addresses / contact details | contact page, `LocalBusiness` JSON-LD | UKBT (T1) |
+| U-16 | Home ground / venue / addresses / contact details | contact page, `LocalBusiness` JSON-LD | UKBT (T1) | **NARROWED 2026-09-09** — phone (+44 7827 627997) and email (info@ukbanglatigers.co.uk) supplied directly by the client, now live on `/contact` + footer (`apps/web/src/content/homepage-data.ts` `contact` export). Venue/addresses/opening-hours remain open |
 | U-17 | Photography: what exists, who owns it, who is depicted, what consent exists | every page carrying imagery | UKBT + per-image licence and consent |
 
 **Nothing in categories A may be drafted "for now" as plausible text.** Not in a

@@ -5,7 +5,8 @@
 // ProfileHeader/StatsTable are UKBT-original (see their own comments).
 // Stats-provider platform names are evidenced; their profile URLs are
 // client-supplied (see captain-data.ts) and rendered as external links.
-// Personal-social platform names remain plain text (no URLs supplied).
+// Personal-social profile URLs are client-supplied (see captain-data.ts)
+// and rendered as external links the same way.
 // PageBanner carries the page h1; ProfileHeader's name renders as h2.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
@@ -113,7 +114,9 @@ const structuredData = captainGraph({
         <div>
           <h3>Follow {captain.name}</h3>
           <ul class="ukbt-plain-list">
-            {captain.personalSocialPlatforms.map((p) => <li>{p}</li>)}
+            {captain.personalSocialPlatforms.map((p) => (
+              <li><Link href={p.url} external underline="always">{p.name}</Link></li>
+            ))}
           </ul>
         </div>
       </div>

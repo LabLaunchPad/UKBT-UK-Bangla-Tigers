@@ -20,6 +20,11 @@
       "intro": {
         "$value": "700ms",
         "$type": "duration"
+      },
+      "slideshow": {
+        "$value": "16000ms",
+        "$type": "duration",
+        "$description": "Homepage hero background crossfade cycle (two cleared team photos, opacity only). Long by design: each slide rests ~6s so the hero reads as calm editorial, not a carousel."
       }
     },
     "easing": {

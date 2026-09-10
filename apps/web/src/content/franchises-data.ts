@@ -81,7 +81,8 @@ const squad: { field: string; value: SquadMember; sources: string[] }[] = [
       name: 'Mohammad Chowdhury',
       country: 'England',
       tags: ['Captain', 'Overseas Signing'],
-      photo: '/media/uppsala-squad/mohammad-chowdhury.jpg',
+      // Current portrait (client-supplied 2026-09-09; see MANIFEST).
+      photo: '/media/uppsala-squad/mohammad-chowdhury-captain.jpg',
     },
     sources: ['EV-030', 'EV-0831-01', 'EV-0831-05', 'EV-0831-08'],
   },

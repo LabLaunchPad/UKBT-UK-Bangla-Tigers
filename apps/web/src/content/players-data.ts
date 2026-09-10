@@ -80,7 +80,7 @@ const rawRoster: RawPlayer[] = [
     name: 'Mohammad Chowdhury',
     country: 'England',
     alsoUppsala: true,
-    photoSlug: 'mohammad-chowdhury',
+    photoSlug: 'mohammad-chowdhury-captain',
   },
   {
     name: 'Shakib Al Hasan',

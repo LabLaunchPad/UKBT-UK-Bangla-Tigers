@@ -10,6 +10,11 @@ const registry = createRegistry([
   { id: 'EV-026', tier: 'T1', url: 'artifacts/evidence/EV-20260826-026.yaml' },
   { id: 'EV-028', tier: 'T2', url: 'artifacts/evidence/EV-20260826-028.yaml' },
   { id: 'EV-029', tier: 'T1', url: 'artifacts/evidence/EV-20260826-029.yaml' },
+  {
+    id: 'EV-0909-01',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260909-001.yaml',
+  },
 ]);
 
 const exemptFields = new Set<string>();
@@ -49,7 +54,11 @@ const facts = {
     value: 'UK Bangla Tigers Cricket Club CIC',
     sources: ['EV-028'],
   },
-  statPlayers: { field: 'org.stat_players', value: '30+', sources: ['EV-026'] },
+  statPlayers: {
+    field: 'org.stat_players',
+    value: '40+',
+    sources: ['EV-026', 'EV-0909-01'],
+  },
   statTournaments: {
     field: 'org.stat_tournaments',
     value: '7+',

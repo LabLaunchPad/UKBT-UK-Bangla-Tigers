@@ -1,7 +1,7 @@
 # Roadmap & Open Items
 
 **Status:** LIVING DOCUMENT — update in place as stages/items close, don't
-fork a second copy. Last updated 2026-09-06.
+fork a second copy. Last updated 2026-09-09.
 
 **Purpose:** one place that answers "what's done, what's next, what's
 blocked, and on whom" without re-deriving it from receipts scattered across
@@ -569,3 +569,55 @@ all 17 pages, zero img alt/dim defects in dist.
   swaps stay instant. Measured in-render (opacity 1, transform none,
   soft-fade active) and read on screenshot; enforced by gate rule 6
   and the strengthened `motion.spec.ts`.
+
+### 2.14 E2E visual backlog (2026-09-09 — full local browser run, CI=true)
+
+`deploy:verify` (13 gates) is green; the CI-only browser suites
+additionally report 10 failures (318 passed / 10 failed,
+`pages/mobile-axe/seo` 126/126 green after the in-session fixes below).
+Each item names the failing test, the measured evidence, and the
+suspected cause. Fixed in-session (not backlog): desktop nav
+dropdown-toggle target-size on all 13 pages (exact 24×24 box,
+`Header.astro`), captain-portrait test updated to the new
+`mohammad-chowdhury-captain.jpg` asset.
+
+- **BL-01–BL-03 — `homepage-delivery` image-decode waits time out
+  (mobile/tablet/desktop).** `page.evaluate` waiting for
+  `document.images` to decode exceeds 30s on all three viewports.
+  Cause undetermined: slow local box vs. a genuinely stalled image
+  (the two new 54–57KB images are small, so size alone does not
+  explain it). Action: reproduce on CI ubuntu runner; if green
+  there, treat as local-env flake and optionally raise the wait
+  budget with a comment.
+- **BL-04 / BL-08 — hero "Join the Club" button contrast 4.11:1
+  (needs 4.5), desktop (`homepage.spec.ts:9`) + mobile
+  (`mobile-axe.spec.ts` `/`).** Steady-state measurement (a 1.16
+  first-run reading looks like a mid-entrance capture): navy text on
+  the gold pill. Pre-existing button colors — no session change
+  touched them. Action: darken the pill or adjust the label color to
+  clear 4.5 without breaking the brand pair, then re-run both specs.
+- **BL-05 — homepage focus-outline check fails on element 5
+  (`homepage.spec.ts:39`, `outline-style: none`).** Pre-existing;
+  the failing element index is not yet identified. Action: enumerate
+  the locator set, identify element 5, restore a contrast-safe ring.
+- **BL-06 — gold "Uppsala Tigers" link 2.12:1 on
+  `/franchises/uppsala-tigers` (`homepage.spec.ts:228`).**
+  Same gold-on-cream class as the earlier gold→navy fix, missed
+  spot. Action: switch that link to the navy treatment and re-run.
+- **BL-07 — Surface test finds no `.ukbt-franchise__cta a`
+  (`homepage.spec.ts:324`).** Selector matches nothing in current
+  components — test-vs-component drift, pre-existing. Action: align
+  the test with the real `FranchiseTeaser` markup (or restore the
+  class), keeping its original intent (scoped descendant styling
+  must apply).
+- **BL-09 — hero social icons 16px wide at 390px
+  (`mobile-ux.spec.ts:118`).** Icons-only mobile row shrinks links
+  below the 24px floor. Pre-existing `SocialLinks` sizing. Action:
+  24px minimum hit area on the icon-only variant, no visual change
+  to the icons themselves.
+- **BL-10 — `motion.spec.ts:103` asserts zero running animations;
+  the approved hero slideshow loops by design.**
+  `MOTION-CONTRACT.md` Amendment 02 already covers the exception.
+  Action: exempt the documented `.ukbt-hero__bg--alt` layer in the
+  test (assert nothing ELSE runs) — a scoped test update, not a
+  revert and not a gate weakening.

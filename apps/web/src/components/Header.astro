@@ -495,13 +495,22 @@ const isActive = (href: string) =>
     margin: 0;
     padding: 0;
   }
-  /* Reference `.nav-link`: Montserrat 16px/600, padding 0 15px. */
+  /* Reference `.nav-link`: Montserrat 16px/600, padding 0 15px —
+     block padding enlarged to 8px to meet WCAG 2.5.8 24px target-size
+     (axe target-size: block with line-height 1 was only ~16px tall,
+     20x24 measured, so links were partially obscured by their hit
+     rect). Inline padding stays 15px: wider values push the 7-item
+     row past its grid column at >1439px, sliding Home under the
+     crest and Contact Us under the CTA (measured on localhost). */
   .ukbt-header__nav a {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     font-family: var(--ukbt-font-family-heading);
     font-size: var(--ukbt-font-heading-h6-size);
     font-weight: var(--ukbt-font-weight-medium);
     line-height: 1;
+    padding-block: 8px;
     padding-inline: 15px;
     color: inherit;
     text-decoration: none;
@@ -549,19 +558,27 @@ const isActive = (href: string) =>
     display: flex;
     align-items: center;
   }
+  /* Dropdown chevron: an exact 24x24 box, never padding-derived.
+     axe target-size measured 20x24 here (10px glyph + space-1 padding
+     came to 20px wide, and margin-inline-start:-4px pulled the box 4px
+     under the label so the remainder read as "partially obscured").
+     No negative margin: the label's own inline padding already sets
+     the visual rhythm, and encroaching on it stole hit area. */
   .ukbt-header__dropdown-toggle {
     appearance: none;
     border: none;
     background: none;
     color: inherit;
-    padding: var(--ukbt-space-1);
-    margin-inline-start: -4px;
+    padding: 0;
     cursor: pointer;
     vertical-align: middle;
     line-height: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
     min-width: 24px;
     min-height: 24px;
   }
@@ -662,6 +679,13 @@ const isActive = (href: string) =>
   @media screen and (max-width: 1439px) {
     .ukbt-header__nav a {
       padding-inline: 8px;
+    }
+    /* Underline tracks the tightened padding so it never overhangs
+       the label at these widths. */
+    .ukbt-header__nav > ul > li > a::after,
+    .ukbt-header__nav > ul > li > div > a::after {
+      left: 8px;
+      right: 8px;
     }
   }
 

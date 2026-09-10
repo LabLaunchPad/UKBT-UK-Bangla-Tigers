@@ -46,6 +46,7 @@ inside a raster image).
 |---|---|---|---|---|
 | `public/media/club-feature.webp` | `artifacts/brand/raw/images/gallery/gallery-07.webp` | Feature media slot on the homepage club-intro and About story sections | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution. One player on a cricket ground, tiger-striped orange/black kit, mountain backdrop. **No photographer watermark, no sponsor bar, no baked-in names.** The kit is not UKBT navy/gold and carries no UKBT crest, so this is not independently confirmable as UKBT team photography — it is used on the client's authorisation, not on our verification. The individual is not identified and is not captioned. |
 | `public/media/team-huddle.webp` | `artifacts/brand/raw/images/gallery/gallery-19.webp` | Homepage hero background (atmospheric, under navy scrim; no identity caption) and team/community media slot | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution. Team huddle in green/blue numbered kit, opposition batter in frame. No photographer watermark and no baked-in names; ground-perimeter banners in the background read "STRONGER TOGETHER" (a third-party event/ground mark, disclosed here per Amendment 01 rule 4, not scrubbed). Kit carries no UKBT crest — same caveat as above. |
+| `public/media/team-night-action.webp` | `artifacts/brand/raw/images/gallery/gallery-18.webp` | Homepage hero background second slide (atmospheric, under navy scrim; no identity caption) | `CLIENT_REQ_010` / `EV-20260826-032` | Viewed at full resolution 2026-09-09. Night match action: bowler mid-delivery (teal/black kit, number 5), batter and fielder in frame — a genuine multi-player team shot, not a portrait. No photographer watermark and no baked-in names; partial ground sponsor boards in the background read "…PERIA" / "….co.uk" (third-party ground marks, disclosed here per Amendment 01 rule 4, not scrubbed; illegible under the hero scrim). Kit carries no UKBT crest — same caveat as above. Selected over gallery-09/-11 (baked-in "Photography by TOP-KNOCK STUDIOS" credit = third-party rights-holder, plus full Safari T20 Cup sponsor bars) and gallery-20 ("MARIGOT TIGERS" shirts = a different named club). |
 
 ### Reviewed and NOT staged, with reasons
 
@@ -95,18 +96,23 @@ client's own pairing of name to squad list (`EV-20260831-005`), not on
 this project's independent verification, same posture as the
 Client-authorised class above.
 
-> **Captain identity (confirmed):** `mohammad-chowdhury.jpg` in this set
+> **Captain identity (confirmed):** `mohammad-chowdhury-captain.jpg`
 > is Mohammad Chowdhury, Club Captain — confirmed by the client directly
-> (chat, 2026-09-05). Used as his portrait on `/club-captain`
-> (`ProfileHeader`), the homepage and `/players` (`CaptainSpotlight`).
-> Shown in Uppsala Tigers kit, which matches his evidenced current
-> franchises (UKBT + Uppsala). Wired as `captainPhoto` in
-> `src/content/captain-data.ts` (presentation wiring, outside the gated
-> facts).
+> (chat, 2026-09-09; source `artifacts/brand/raw/captain-photo-new.jpg`,
+> downscaled 860x960 → 640x714 via sharp-cli). Used as his portrait on
+> `/club-captain` (`ProfileHeader`), the homepage and `/players`
+> (`CaptainSpotlight`), the `/players` roster card and the Uppsala
+> squad list. "UPPSALA TIGERS" wordmark and tiger crest readable on the
+> shirt itself, matching his evidenced current franchises (UKBT +
+> Uppsala). Wired as `captainPhoto` in `src/content/captain-data.ts`
+> (presentation wiring, outside the gated facts). Supersedes
+> `mohammad-chowdhury.jpg` (same set, retained on disk) as the wired
+> portrait.
 
 | Path | Person | Kit sponsor marks visible | Affiliation independently confirmable? |
 |---|---|---|---|
-| `public/media/uppsala-squad/mohammad-chowdhury.jpg` | Mohammad Chowdhury | STEP, NEX Education | Yes — Uppsala Tigers kit |
+| `public/media/uppsala-squad/mohammad-chowdhury.jpg` | Mohammad Chowdhury | STEP, NEX Education | Yes — Uppsala Tigers kit. Retained on disk; superseded as the wired portrait by `mohammad-chowdhury-captain.jpg` below. |
+| `public/media/uppsala-squad/mohammad-chowdhury-captain.jpg` | Mohammad Chowdhury | RS Sports, excel, SMA (kit sponsor marks) | Yes — "UPPSALA TIGERS" wordmark + tiger crest readable on the shirt itself |
 | `public/media/uppsala-squad/shakib-al-hasan.jpg` | Shakib Al Hasan | STEP, NEX Education | Yes — Uppsala Tigers kit |
 | `public/media/uppsala-squad/karanbir-singh.jpg` | Karanbir Singh | (none clearly visible) | Yes — Uppsala Tigers kit |
 | `public/media/uppsala-squad/owen-palmer.jpg` | Owen Palmer | STEP | Yes — Uppsala Tigers kit |

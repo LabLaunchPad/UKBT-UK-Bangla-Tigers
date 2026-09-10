@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-08-31",
+  "capturedAt": "2026-09-10",
   "viewports": [
     "desktop-xl-1920x1080",
     "desktop-1440x900",
@@ -17,17 +17,17 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": null,
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -35,7 +35,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -107,17 +107,17 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": null,
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -125,7 +125,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -197,17 +197,17 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": null,
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -215,7 +215,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -291,7 +291,7 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": null,
@@ -305,7 +305,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -381,7 +381,7 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": null,
@@ -395,7 +395,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -468,16 +468,16 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": null,
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -485,7 +485,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -493,28 +493,28 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -558,16 +558,16 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": null,
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -575,7 +575,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -583,28 +583,28 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -651,24 +651,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -676,7 +676,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -741,31 +741,31 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "desktop-1440x900": {
           "docScrollWidth": 1440,
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -773,7 +773,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -838,18 +838,18 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "desktop-1280x800": {
           "docScrollWidth": 1280,
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -857,12 +857,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -870,7 +870,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -935,7 +935,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "tablet-landscape-1024x768": {
           "docScrollWidth": 1024,
@@ -946,15 +946,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -967,7 +967,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1032,7 +1032,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "tablet-portrait-768x1024": {
           "docScrollWidth": 768,
@@ -1043,15 +1043,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -1064,7 +1064,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1129,7 +1129,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "mobile-large-430x932": {
           "docScrollWidth": 430,
@@ -1137,23 +1137,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 449,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1161,7 +1161,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1169,28 +1169,28 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -1226,7 +1226,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         },
         "mobile-standard-390x844": {
           "docScrollWidth": 390,
@@ -1234,23 +1234,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 449,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1258,7 +1258,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1266,28 +1266,28 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -1323,7 +1323,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 7
+          "sectionCount": 6
         }
       }
     },
@@ -1334,24 +1334,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
-            "h": 592,
+            "w": 1240,
+            "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1359,17 +1359,13 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
             "radius": "0px"
           },
           "sections": [
-            {
-              "padTop": 120,
-              "padBottom": 120
-            },
             {
               "padTop": 120,
               "padBottom": 120
@@ -1416,31 +1412,31 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "desktop-1440x900": {
           "docScrollWidth": 1440,
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
-            "h": 592,
+            "w": 1240,
+            "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1448,17 +1444,13 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
             "radius": "0px"
           },
           "sections": [
-            {
-              "padTop": 120,
-              "padBottom": 120
-            },
             {
               "padTop": 120,
               "padBottom": 120
@@ -1505,31 +1497,31 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "desktop-1280x800": {
           "docScrollWidth": 1280,
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
             "w": 1220,
-            "h": 592,
+            "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1537,17 +1529,13 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
             "radius": "0px"
           },
           "sections": [
-            {
-              "padTop": 120,
-              "padBottom": 120
-            },
             {
               "padTop": 120,
               "padBottom": 120
@@ -1594,7 +1582,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "tablet-landscape-1024x768": {
           "docScrollWidth": 1024,
@@ -1605,15 +1593,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 548,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -1626,17 +1614,13 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
             "radius": "0px"
           },
           "sections": [
-            {
-              "padTop": 120,
-              "padBottom": 120
-            },
             {
               "padTop": 120,
               "padBottom": 120
@@ -1683,7 +1667,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "tablet-portrait-768x1024": {
           "docScrollWidth": 768,
@@ -1694,15 +1678,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 625,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -1715,17 +1699,13 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
             "radius": "0px"
           },
           "sections": [
-            {
-              "padTop": 120,
-              "padBottom": 120
-            },
             {
               "padTop": 120,
               "padBottom": 120
@@ -1772,7 +1752,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "mobile-large-430x932": {
           "docScrollWidth": 430,
@@ -1780,23 +1760,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 559,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1804,7 +1784,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1812,20 +1792,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
-            },
-            {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -1861,7 +1837,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         },
         "mobile-standard-390x844": {
           "docScrollWidth": 390,
@@ -1869,23 +1845,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 614,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1893,7 +1869,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1901,20 +1877,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
-            },
-            {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -1950,7 +1922,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 3
         }
       }
     },
@@ -1961,24 +1933,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -1986,7 +1958,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2042,24 +2014,24 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2067,7 +2039,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2123,11 +2095,11 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -2135,12 +2107,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2148,7 +2120,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2208,15 +2180,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -2229,7 +2201,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2289,15 +2261,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -2310,7 +2282,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2367,23 +2339,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 449,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2391,7 +2363,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2399,12 +2371,12 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -2448,23 +2420,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 449,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2472,7 +2444,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2480,12 +2452,12 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -2532,24 +2504,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2557,7 +2529,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2621,24 +2593,24 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2646,7 +2618,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2710,11 +2682,11 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -2722,12 +2694,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2735,7 +2707,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2803,15 +2775,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -2824,7 +2796,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2892,15 +2864,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -2913,7 +2885,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -2978,23 +2950,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 449,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3002,7 +2974,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3010,20 +2982,20 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3067,23 +3039,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3091,7 +3063,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3099,20 +3071,20 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3159,24 +3131,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3184,7 +3156,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3244,24 +3216,24 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3269,7 +3241,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3329,11 +3301,11 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -3341,12 +3313,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3354,7 +3326,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3418,15 +3390,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -3439,7 +3411,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3503,15 +3475,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -3524,7 +3496,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3585,23 +3557,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3609,7 +3581,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3617,16 +3589,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3670,23 +3642,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3694,7 +3666,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3702,16 +3674,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3758,24 +3730,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3783,7 +3755,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3835,24 +3807,24 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3860,7 +3832,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3912,11 +3884,11 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -3924,12 +3896,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3937,7 +3909,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -3993,15 +3965,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -4014,7 +3986,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4070,15 +4042,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -4091,7 +4063,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4144,23 +4116,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4168,7 +4140,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4176,8 +4148,8 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -4221,23 +4193,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4245,7 +4217,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4253,8 +4225,8 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -4301,24 +4273,24 @@
           "clientWidth": 1920,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1920,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4326,7 +4298,7 @@
           },
           "footer": {
             "w": 1920,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4386,24 +4358,24 @@
           "clientWidth": 1440,
           "horizontalOverflow": false,
           "container": {
-            "w": 1340,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
-            "w": 1340,
+            "w": 1240,
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1440,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4411,7 +4383,7 @@
           },
           "footer": {
             "w": 1440,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4471,11 +4443,11 @@
           "clientWidth": 1280,
           "horizontalOverflow": false,
           "container": {
-            "w": 1280,
-            "h": 182,
-            "padTop": 60,
-            "padBottom": 60,
-            "padLeft": 20,
+            "w": 1240,
+            "h": 142,
+            "padTop": 40,
+            "padBottom": 40,
+            "padLeft": 48,
             "radius": "0px"
           },
           "banner": {
@@ -4483,12 +4455,12 @@
             "h": 493,
             "padTop": 230,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 48,
             "radius": "0px"
           },
           "navbar": {
             "w": 1280,
-            "h": 182,
+            "h": 142,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4496,7 +4468,7 @@
           },
           "footer": {
             "w": 1280,
-            "h": 691,
+            "h": 673,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4560,15 +4532,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 984,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -4581,7 +4553,7 @@
           },
           "footer": {
             "w": 1024,
-            "h": 905,
+            "h": 919,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4645,15 +4617,15 @@
             "h": 140,
             "padTop": 40,
             "padBottom": 40,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 728,
-            "h": 471,
-            "padTop": 230,
+            "h": 381,
+            "padTop": 140,
             "padBottom": 120,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
@@ -4666,7 +4638,7 @@
           },
           "footer": {
             "w": 768,
-            "h": 905,
+            "h": 938,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4727,23 +4699,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 410,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 265,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 430,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4751,7 +4723,7 @@
           },
           "footer": {
             "w": 430,
-            "h": 1425,
+            "h": 1327,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4759,16 +4731,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -4812,23 +4784,23 @@
           "horizontalOverflow": false,
           "container": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 20,
             "padBottom": 20,
-            "padLeft": 20,
+            "padLeft": 32,
             "radius": "0px"
           },
           "banner": {
             "w": 370,
-            "h": 504,
-            "padTop": 230,
-            "padBottom": 120,
-            "padLeft": 20,
+            "h": 264,
+            "padTop": 100,
+            "padBottom": 80,
+            "padLeft": 32,
             "radius": "0px"
           },
           "navbar": {
             "w": 390,
-            "h": 100,
+            "h": 88,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4836,7 +4808,7 @@
           },
           "footer": {
             "w": 390,
-            "h": 1425,
+            "h": 1386,
             "padTop": 0,
             "padBottom": 0,
             "padLeft": 0,
@@ -4844,16 +4816,16 @@
           },
           "sections": [
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             },
             {
-              "padTop": 120,
-              "padBottom": 120
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {

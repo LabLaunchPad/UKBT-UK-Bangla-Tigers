@@ -4,6 +4,9 @@
 import type { NavItem } from '@ukbt/truth';
 import Link from './Link.astro';
 import SocialLinks from './SocialLinks.astro';
+// Site-wide club contact channels (client-supplied) — imported directly
+// so all 17 page call sites need no prop change.
+import { contact } from '../content/homepage-data';
 
 interface SocialLink {
   platform: string;
@@ -42,6 +45,25 @@ const year = new Date().getFullYear();
         <p class="ukbt-footer__note">
           Questions about the club, fixtures or joining.
         </p>
+        <ul class="ukbt-footer__contact">
+          <li>
+            <a href={`mailto:${contact.email}`}>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-10 6L2 7" />
+              </svg>
+              <span>{contact.email}</span>
+            </a>
+          </li>
+          <li>
+            <a href={contact.phoneHref}>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <span>{contact.phoneDisplay}</span>
+            </a>
+          </li>
+        </ul>
         <span class="ukbt-footer__contact-link"><Link href="/contact" tone="on-dark" emphasis="strong">Contact us &rarr;</Link></span>
       </div>
 
@@ -127,6 +149,33 @@ const year = new Date().getFullYear();
   }
   .ukbt-footer__contact-link {
     align-self: flex-start;
+  }
+  /* Direct channels: compact symbol + text rows in the Get in Touch
+     column. Same tone treatment as the footer quick links
+     (neutral-300, gold on hover), 24px minimum hit area. */
+  .ukbt-footer__contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-gap-1);
+  }
+  .ukbt-footer__contact a {
+    color: var(--ukbt-color-neutral-300);
+    text-decoration: none;
+    font-size: var(--ukbt-font-size-0);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ukbt-space-gap-1);
+    min-height: 24px;
+    overflow-wrap: anywhere;
+  }
+  .ukbt-footer__contact a:hover {
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-footer__contact svg {
+    flex: none;
   }
   .ukbt-footer__note {
     max-width: 24rem;
