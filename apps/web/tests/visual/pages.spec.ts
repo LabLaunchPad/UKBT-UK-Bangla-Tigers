@@ -159,12 +159,13 @@ test('Uppsala Tigers roster photos are exactly the evidenced set (EV-20260831-00
 test('client-confirmed captain portrait is rendered on the Club Captain page', async ({
   page,
 }) => {
-  // Portrait is client-supplied (Uppsala squad set, EV-20260831-008),
-  // identity confirmed by the client directly — see captain-data.ts.
-  // The old crest-only assertion predates that confirmation.
+  // Portrait is client-supplied directly (chat 2026-09-09),
+  // identity confirmed by the client directly — see captain-data.ts
+  // (captainPhoto) and MANIFEST.md. Supersedes the Uppsala-squad-set
+  // portrait (mohammad-chowdhury.jpg) previously asserted here.
   await page.goto('/club-captain');
   const portrait = page.locator(
-    '.ukbt-profile-header img[src="/media/uppsala-squad/mohammad-chowdhury.jpg"]',
+    '.ukbt-profile-header img[src="/media/uppsala-squad/mohammad-chowdhury-captain.jpg"]',
   );
   await expect(portrait, 'confirmed captain portrait must render').toHaveCount(
     1,

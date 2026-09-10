@@ -8,7 +8,8 @@
 // them); their literal profile URL strings below are client-supplied
 // (provided directly 2026-09-06) and rendered as external links with
 // target="_blank" rel="noopener noreferrer" — never guessed.
-// Personal-social platform names remain plain text (no URLs supplied).
+// Personal-social profile URLs below are client-supplied (provided
+// directly 2026-09-09) and rendered the same way — never guessed.
 //
 // Role and Franchise History were corrected per a client corrections
 // document (EV-20260831-001) and the clarifying decisions it required
@@ -106,12 +107,13 @@ export const captain = {
   // Current/Previous per EV-0831-01 + EV-0831-02 plus the client's later
   // confirmation: London Blaze and Roma Ovest Titans are CURRENT teams
   // alongside UK Bangla Tigers and Uppsala Tigers; the remaining 8
-  // correction-document entries are Previous.
+  // correction-document entries are Previous. Display order set directly
+  // by the client (chat 2026-09-10): Blaze, Roma, UKBT, Uppsala.
   currentFranchises: [
-    'UK Bangla Tigers (UAE, Safari International T20 Cup)',
-    'Uppsala Tigers (Sweden, Nordic Smash T20)',
     'London Blaze (England, Gateway T20)',
     'Roma Ovest Titans (Italy, RPL T10)',
+    'UK Bangla Tigers (UAE, Safari International T20 Cup)',
+    'Uppsala Tigers (Sweden, Nordic Smash T20)',
   ],
   previousFranchises: [
     'Yankee Royals (USA, US Open)',
@@ -119,7 +121,7 @@ export const captain = {
     'US All Stars (West Indies, Caribbean T10)',
     'Dynamite Ducks (South Africa, LMS World Championship)',
     'Bangladesh Tigers (USA, Diversity Cup)',
-    'BAS Vampire (England, T20 Pro-Am)',
+    'BAS Vampire (England, T20 Pro:Am)',
     'Bangladesh Tigers of USA (USA, Motor City Championship)',
     'Faisalabad Falcons (USA, US Open)',
   ],
@@ -210,12 +212,33 @@ export const captain = {
       url: 'https://crex.com/player/mohammad-chowdhury-JUN',
     },
   ],
-  personalSocialPlatforms: ['Facebook', 'Instagram', 'YouTube', 'LinkedIn'],
+  personalSocialPlatforms: [
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/MBAChowdhuryBappy/',
+    },
+    {
+      name: 'Instagram',
+      url: 'https://www.instagram.com/mbachowdhury/',
+    },
+    {
+      name: 'YouTube',
+      url: 'https://www.youtube.com/@mohammadchowdhury01/videos',
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/mohammad-chowdhury-6b1128125/',
+    },
+  ],
 };
 
 /**
  * Captain portrait — presentation wiring, not a gated fact. File is
- * client-supplied (Uppsala squad set, EV-20260831-008); identity
- * confirmed by the client directly. 480x640 portrait.
+ * client-supplied directly (chat 2026-09-09); identity confirmed by
+ * the client directly. 640x714 portrait, downscaled from the supplied
+ * 860x960 via sharp-cli. This one export wires his face everywhere it
+ * appears: /club-captain ProfileHeader, /players roster card +
+ * CaptainSpotlight, homepage CaptainSpotlight, Uppsala squad list.
  */
-export const captainPhoto = '/media/uppsala-squad/mohammad-chowdhury.jpg';
+export const captainPhoto =
+  '/media/uppsala-squad/mohammad-chowdhury-captain.jpg';
