@@ -160,10 +160,14 @@ import SubHeading from './SubHeading.astro';
     height: auto;
     border-radius: var(--ukbt-radius-ref-card);
   }
-  /* Vice-chairman spotlight: portrait + name/role + distilled bio. */
+  /* Vice-chairman spotlight: portrait + name/role + distilled bio.
+     wrap: at extreme text scaling (200% root) the fixed photo + gaps
+     consume the row, so the text must wrap below instead of pushing
+     past the viewport (N2 audit). No-op at normal sizes. */
   .ukbt-leadership__spotlight {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: var(--ukbt-space-4);
     margin-top: var(--ukbt-space-6);

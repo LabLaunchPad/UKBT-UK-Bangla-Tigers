@@ -336,3 +336,32 @@ Notes since the 2026-08-27 receipt:
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-10 — N2/N3 round-2 fix (branch `fix/about-n2n3-round2`)
+
+```
+task_id:      STAGE-10-RELEASE-GATE (N2/N3 round-2)
+sha:          42c6201 (fix(about): N2 spotlight wrap at 200pct text; N3 founder-cap edge continuity)
+branch:       fix/about-n2n3-round2
+environment:  node v22.23.2, pnpm 10.33.0, win32 x64
+git_status:   9 files (2 components + 7 refreshed about captures); opencode.json untracked tool config, untouched
+```
+
+Fresh runs at this SHA (not copied from prior receipts):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — scaffold/allowlist/lint/tokens/typecheck (0 errors, 2 pre-existing hints)/unit (21/21)/build (17 pages, sitemap 12 URLs)/links (704, 0 broken)/seo/ui (PASS, 5 pre-existing advisories)/motion/security/perf (PASS, 2 pre-existing advisories) |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`, requires `UKBT_REFERENCE_DIR`) |
+| 15 | N2 verification | transient zoom-200% spec (since deleted) | 0 | PASS — `text200-over: 0` after `flex-wrap: wrap` on `.ukbt-leadership__spotlight`; founder cap verified 448px at 700/766/768/1024 after lower-bound removal |
+
+Change scope: `LeadershipGrid.astro` spotlight wraps below the portrait at
+extreme text scaling (no-op at normal sizes); `FounderSpotlight.astro`
+tablet cap lost its `min-width: 768px` lower bound, removing the 766/768
+breakpoint-edge discontinuity. No content, route, token, or contract change.
+
+## Verdict (N2/N3 round-2)
+
+```
+RELEASE_STATUS = PASS
+```

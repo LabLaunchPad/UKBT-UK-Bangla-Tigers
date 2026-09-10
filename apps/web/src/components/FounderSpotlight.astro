@@ -150,10 +150,12 @@ import SubHeading from './SubHeading.astro';
       max-width: 100%;
     }
   }
-  /* D3 audit: the portrait source (1000x1252) under cover + the 30rem
-     cap becomes a 704x480 band at tablet width — face and trophy cut.
-     Constrain the slot so the frame stays near the natural aspect. */
-  @media screen and (min-width: 768px) and (max-width: 1025px) {
+  /* D3/N3 audit: the portrait source (1000x1252) under cover + the
+     30rem cap becomes a band at tablet widths — face and trophy cut.
+     Constrain the slot so the frame stays near the natural aspect.
+     No lower bound: below ~448px widths the cap is a no-op, which also
+     removes the 766/768 breakpoint-edge discontinuity. */
+  @media screen and (max-width: 1025px) {
     .ukbt-founder__image-side {
       width: 100%;
       max-width: 28rem;
