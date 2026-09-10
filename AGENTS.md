@@ -34,7 +34,7 @@ pnpm monorepo. Node ≥22, pnpm ≥10.
 - **Single quotes, semicolons, 2-space indent** — Biome enforces this.
 - **`@astrojs/cloudflare`** is a devDependency but NOT active — activates only when a real form needs Cloudflare Pages Functions. Don't wire it up speculatively.
 - **`server: { host: '127.0.0.1' }`** in astro.config.mjs — pinned by a CI failure. Don't change.
-- **Route set is governed** by `contracts/ROUTES-CONTRACT.md`. Adding/removing a route needs that contract updated.
+- **Route set is governed** by `contracts/ROUTE-CONTRACT.md`. Adding/removing a route needs that contract updated.
 
 ## Verification order
 

@@ -7,17 +7,17 @@ recorded here with its provenance class before use. Source stage: 7
 | Path | Source | Identity | Usage | Rights status | UKBT-required | Alternative |
 |---|---|---|---|---|---|---|
 | `public/brand/crest-512.png` | `artifacts/brand/raw/brand/crest-512.png` | UK Bangla Tigers crest logo (original, 512×512) | Homepage hero, fallback | UKBT-owned (client-supplied) | Yes | None — canonical source for responsive variants below |
-| `public/brand/crest-144.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 144×144 (84% smaller, 29KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
-| `public/brand/crest-120.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 120×120 (87% smaller, 23KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
-| `public/brand/crest-88.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 88×88 (92% smaller, 15KB) | SUPERSEDED — see correction note below; do not use for new placements | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-144.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 144×144 (84% smaller, 29KB) | REMOVED 2026-09-10 — superseded crop-to-fill derivative, zero references | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-120.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 120×120 (87% smaller, 23KB) | REMOVED 2026-09-10 — superseded crop-to-fill derivative, zero references | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
+| `public/brand/crest-88.png` | Generated from `crest-512.png` via sharp-cli | Crest resized to 88×88 (92% smaller, 15KB) | REMOVED 2026-09-10 — superseded crop-to-fill derivative, zero references | UKBT-owned (derived from client-supplied) | Yes | `crest-512.png` |
 | `public/brand/crest-256.webp` | `artifacts/brand/raw/brand/crest-256.webp` | Same crest, WebP, smaller size | Header logo (44×60), drawer logo (44×60), footer logo (53×72) | UKBT-owned (client-supplied) | Yes | `crest-512.png` |
 
 > **Correction (measured):** the square PNG derivatives above were produced
 > with a crop-to-fill resize, which cuts the shield's crown and base point
 > (visible at 3× zoom: the shield tip bleeds off the canvas edge). They are
 > superseded for logo placements by `crest-256.webp` (256×349, full
-> artwork, 28KB). Files retained on disk only so older builds/branches
-> keep resolving; no component references them.
+> artwork, 28KB). Files removed 2026-09-10 (all branches merged,
+> nothing referenced them).
 | `public/favicon.svg` | `artifacts/brand/raw/brand/favicon.svg` | Simplified "UBT" monogram favicon | `<link rel="icon">` | UKBT-owned (client-supplied) | Yes | `icon-32.png` |
 | `public/icon-32.png` | `artifacts/brand/raw/brand/icon-32.png` | Favicon PNG fallback | `<link rel="icon" sizes="32x32">` | UKBT-owned (client-supplied) | Yes | None |
 | `public/icon-180.png` | `artifacts/brand/raw/brand/icon-180.png` | Apple touch icon | `<link rel="apple-touch-icon">` | UKBT-owned (client-supplied) | Yes | None |
@@ -106,12 +106,12 @@ Client-authorised class above.
 > shirt itself, matching his evidenced current franchises (UKBT +
 > Uppsala). Wired as `captainPhoto` in `src/content/captain-data.ts`
 > (presentation wiring, outside the gated facts). Supersedes
-> `mohammad-chowdhury.jpg` (same set, retained on disk) as the wired
+> `mohammad-chowdhury.jpg` (same set, removed 2026-09-10) as the wired
 > portrait.
 
 | Path | Person | Kit sponsor marks visible | Affiliation independently confirmable? |
 |---|---|---|---|
-| `public/media/uppsala-squad/mohammad-chowdhury.jpg` | Mohammad Chowdhury | STEP, NEX Education | Yes — Uppsala Tigers kit. Retained on disk; superseded as the wired portrait by `mohammad-chowdhury-captain.jpg` below. |
+| `public/media/uppsala-squad/mohammad-chowdhury.jpg` | Mohammad Chowdhury | STEP, NEX Education | Yes — Uppsala Tigers kit. REMOVED 2026-09-10; had been retained on disk, superseded as the wired portrait by `mohammad-chowdhury-captain.jpg` below. |
 | `public/media/uppsala-squad/mohammad-chowdhury-captain.jpg` | Mohammad Chowdhury | RS Sports, excel, SMA (kit sponsor marks) | Yes — "UPPSALA TIGERS" wordmark + tiger crest readable on the shirt itself |
 | `public/media/uppsala-squad/shakib-al-hasan.jpg` | Shakib Al Hasan | STEP, NEX Education | Yes — Uppsala Tigers kit |
 | `public/media/uppsala-squad/karanbir-singh.jpg` | Karanbir Singh | (none clearly visible) | Yes — Uppsala Tigers kit |
