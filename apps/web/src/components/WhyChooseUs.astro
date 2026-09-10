@@ -9,11 +9,14 @@ interface Reason {
 }
 interface Props {
   reasons: Reason[];
+  /** editorial: display-scale numerals with a gold tick + larger titles
+     (homepage identity narrative). default preserves current rendering. */
+  variant?: 'default' | 'editorial';
 }
-const { reasons } = Astro.props;
+const { reasons, variant = 'default' } = Astro.props;
 ---
 
-<div class="ukbt-chooseus">
+<div class:list={['ukbt-chooseus', variant === 'editorial' && 'ukbt-chooseus--editorial']}>
   <div class="ukbt-chooseus__header">
     <SectionHeader
       eyebrow="Why the Tigers"
@@ -93,6 +96,18 @@ const { reasons } = Astro.props;
     font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
     max-width: 48rem;
+  }
+  /* Editorial variant: numerals at display scale with a decorative gold
+     tick (non-text, so the gold-contrast rule is untouched), titles one
+     step larger. Numeral colour stays navy — gold text fails on light. */
+  .ukbt-chooseus--editorial .ukbt-chooseus__index {
+    font-size: var(--ukbt-font-size-5);
+    min-width: 4.5rem;
+    border-left: 3px solid var(--ukbt-color-brand-accent);
+    padding-left: var(--ukbt-space-3);
+  }
+  .ukbt-chooseus--editorial .ukbt-chooseus__text h3 {
+    font-size: var(--ukbt-font-size-3);
   }
 
   @media screen and (max-width: 767px) {

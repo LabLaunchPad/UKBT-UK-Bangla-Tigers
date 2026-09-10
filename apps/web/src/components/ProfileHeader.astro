@@ -13,12 +13,18 @@ interface Props {
   facts: Fact[];
   /** Portrait src. When omitted, the club crest is shown instead. */
   photo?: string;
+  /** standard: profile row. athlete: larger portrait for the captain-page
+     hero (capped well under the 640px source width — never upscaled). */
+  layout?: 'standard' | 'athlete';
+  /** One concise identity line under the role (page-composed from gated
+     values). Rendered only when provided. */
+  identityLine?: string;
 }
-const { name, role, facts, photo } = Astro.props;
+const { name, role, facts, photo, layout = 'standard', identityLine } = Astro.props;
 import SubHeading from './SubHeading.astro';
 ---
 
-<div class="ukbt-profile-header">
+<div class:list={['ukbt-profile-header', layout === 'athlete' && 'ukbt-profile-header--athlete']}>
   {
     photo ? (
       <img
@@ -43,6 +49,7 @@ import SubHeading from './SubHeading.astro';
     <SubHeading label="Club Captain" />
     <h2 class="ukbt-profile-header__name">{name}</h2>
     <p class="ukbt-profile-header__role">{role}</p>
+    {identityLine && <p class="ukbt-profile-header__identity">{identityLine}</p>}
     <dl class="ukbt-profile-header__facts">
       {
         facts.map((f) => (
@@ -93,6 +100,22 @@ import SubHeading from './SubHeading.astro';
     font-family: var(--ukbt-font-family-heading);
     font-weight: var(--ukbt-font-weight-bold);
     margin: 0 0 var(--ukbt-space-4) 0;
+  }
+  .ukbt-profile-header__identity {
+    font-size: var(--ukbt-font-size-1);
+    color: var(--ukbt-color-neutral-700);
+    margin: calc(-1 * var(--ukbt-space-2)) 0 var(--ukbt-space-4) 0;
+    max-width: 40rem;
+  }
+  /* Athlete hero: portrait-led at a larger frame + larger name. The
+     20rem frame (320px) stays well under the 640px source — no upscale.
+     DOM order (image → identity → metadata) already gives the mobile
+     stacking the brief requires, so no order overrides here. */
+  .ukbt-profile-header--athlete .ukbt-profile-header__photo {
+    width: 20rem;
+  }
+  .ukbt-profile-header--athlete .ukbt-profile-header__name {
+    font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3rem);
   }
   .ukbt-profile-header__facts {
     display: grid;
