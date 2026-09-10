@@ -56,9 +56,7 @@ for (const route of ALL_ROUTES) {
           ),
         )
           .flatMap((el) => el.getAnimations())
-          .every(
-            (a) => a.playState === 'finished' || a.playState === 'idle',
-          ),
+          .every((a) => a.playState === 'finished' || a.playState === 'idle'),
       null,
       { timeout: 10000 },
     );
