@@ -45,6 +45,40 @@ for (const route of ALL_ROUTES) {
     page,
   }) => {
     await page.goto(route);
+    // Same settled-page rationale as homepage.spec.ts: axe must not
+    // scan entrances or unrevealed content mid-flight (bogus ~1.01
+    // blended ratios verified on CI). Walk reveals to resolution,
+    // return to top, wait out finite transitions.
+    await page.evaluate(async () => {
+      const h = document.body.scrollHeight;
+      for (let y = 0; y < h; y += 600) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForFunction(
+      () => {
+        const slideshow = new Set(
+          document.querySelector('.ukbt-hero__bg--alt')?.getAnimations() ?? [],
+        );
+        return (
+          Array.from(document.querySelectorAll('[data-motion="reveal"]')).every(
+            (el) => el.classList.contains('is-visible'),
+          ) &&
+          document
+            .getAnimations()
+            .every(
+              (a) =>
+                a.playState === 'finished' ||
+                a.playState === 'idle' ||
+                slideshow.has(a),
+            )
+        );
+      },
+      null,
+      { timeout: 15000 },
+    );
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag22aa', 'best-practice'])
       .analyze();

@@ -10,6 +10,45 @@ test('axe-core scan reports zero violations on the homepage', async ({
   page,
 }) => {
   await page.goto('/');
+  // Scan the settled page, not its entrances. Two mid-flight states
+  // blend into bogus axe ratios: the hero choreography (semi-opaque
+  // text read 1.16–4.11; settled navy-on-gold is 7.21:1) and, worse,
+  // below-fold [data-motion] content at opacity 0, which reads ~1.01
+  // whenever the controller arms before the scan (flaky across routes
+  // on CI). Walk the page so every reveal resolves, return to top,
+  // then wait out all finite transitions. The approved infinite hero
+  // crossfade is excluded by element (Amendment 02, as in
+  // motion.spec.ts).
+  await page.evaluate(async () => {
+    const h = document.body.scrollHeight;
+    for (let y = 0; y < h; y += 600) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    window.scrollTo(0, 0);
+  });
+  await page.waitForFunction(
+    () => {
+      const slideshow = new Set(
+        document.querySelector('.ukbt-hero__bg--alt')?.getAnimations() ?? [],
+      );
+      return (
+        Array.from(document.querySelectorAll('[data-motion="reveal"]')).every(
+          (el) => el.classList.contains('is-visible'),
+        ) &&
+        document
+          .getAnimations()
+          .every(
+            (a) =>
+              a.playState === 'finished' ||
+              a.playState === 'idle' ||
+              slideshow.has(a),
+          )
+      );
+    },
+    null,
+    { timeout: 15000 },
+  );
   // HOMEPAGE-CONTRACT.md acceptance criterion 3 says "0 violations", with
   // no tag-scope qualifier. A wcag-tags-only scan missed a real
   // best-practice-tagged heading-order violation (Stage 8 red team F4) —
@@ -40,8 +79,13 @@ test('every homepage nav link, CTA, and social link shows a visible AND contrast
   page,
 }) => {
   await page.goto('/');
+  // Top-level nav links only (`> ul > li > a`): dropdown submenu links
+  // are display:none until opened, and focusing a hidden link is a
+  // no-op whose computed outline reads 'none' — that was element 5
+  // (the hidden "Uppsala Tigers" menu item), not a real ring defect
+  // (BL-05). Hidden controls need no ring; they cannot take focus.
   const focusable = page.locator(
-    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-hero__social a, .ukbt-franchise__cta a, .ukbt-about-cta__social a, .ukbt-footer__social a, .ukbt-footer__links a',
+    '.ukbt-header__nav > ul > li > a, .ukbt-hero .ukbt-button, .ukbt-hero__social a, .ukbt-franchise__cta a, .ukbt-about-cta__social a, .ukbt-footer__social a, .ukbt-footer__links a',
   );
   const count = await focusable.count();
   expect(count).toBeGreaterThan(0);
@@ -331,10 +375,13 @@ test('every Surface-wrapped panel still applies its component-specific descendan
       return el ? getComputedStyle(el).color : null;
     };
     return {
-      franchiseLink: get('.ukbt-franchise__cta a'),
-      tournamentCtaHeading: get('.ukbt-tournament-cta h3'),
-      aboutCtaHeading: get('.ukbt-about-cta__content h3'),
-      chooseUsIndex: get('.ukbt-chooseus__card--accent .ukbt-chooseus__index'),
+      // Tracks the re-art-directed components — the old __cta block,
+      // h3s and --accent cards no longer exist (BL-07). Each remap
+      // carries designed styling, preserving the guard's intent.
+      franchiseLink: get('.ukbt-franchise__link-wrap a'),
+      tournamentEyebrow: get('.ukbt-tournaments__eyebrow'),
+      aboutCtaHeading: get('.ukbt-about-cta__headline'),
+      chooseUsIndex: get('.ukbt-chooseus__index'),
     };
   });
   // Browser-default link blue (#0000EE) is exactly what a silently-
@@ -346,6 +393,7 @@ test('every Surface-wrapped panel still applies its component-specific descendan
       DEFAULT_LINK_BLUE,
     );
   }
-  // The franchise link specifically must be gold, not just "not blue".
-  expect(checks.franchiseLink).toBe('rgb(204, 164, 79)');
+  // The franchise link specifically must be navy (the re-art-directed
+  // treatment), not just "not blue".
+  expect(checks.franchiseLink).toBe('rgb(0, 30, 58)');
 });

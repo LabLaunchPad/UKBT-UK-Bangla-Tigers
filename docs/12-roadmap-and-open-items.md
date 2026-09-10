@@ -581,6 +581,15 @@ dropdown-toggle target-size on all 13 pages (exact 24×24 box,
 `Header.astro`), captain-portrait test updated to the new
 `mohammad-chowdhury-captain.jpg` asset.
 
+**RESOLVED 2026-09-10:** all 10 fixed and verified — full local
+browser suite **328 passed / 0 failed** (1 pre-existing skip) with
+real chromium. BL-04/08/10: settled-hero waits + slideshow
+exemption; BL-05: top-level-only focus locator; BL-06: gold nav
+rules scoped to top level + cream-safe dropdown hover; BL-07:
+Surface checks remapped to current hooks; BL-09: 24px icon-only hit
+area; BL-01–03: scroll pass triggers lazy loads before the decode
+wait. Per-item notes below stand as the investigation record.
+
 - **BL-01–BL-03 — `homepage-delivery` image-decode waits time out
   (mobile/tablet/desktop).** `page.evaluate` waiting for
   `document.images` to decode exceeds 30s on all three viewports.

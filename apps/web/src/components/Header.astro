@@ -584,12 +584,24 @@ const isActive = (href: string) =>
     text-decoration: none;
     white-space: nowrap;
   }
-  .ukbt-header__nav a[aria-current='page'] {
+  /* Child combinators are load-bearing here too: the dropdown menus
+     render on the light surface-background, where gold text is 2.12:1
+     (axe + gold-text spec caught the aria-current Franchises item doing
+     exactly this). Gold belongs on navy surfaces only, so the gold
+     current/hover treatment stays on top-level labels; open-menu items
+     use the cream highlight (same as the current-page menu style)
+     which passes on light surfaces. */
+  .ukbt-header__nav > ul > li > a[aria-current='page'],
+  .ukbt-header__nav > ul > li > div > a[aria-current='page'] {
     color: var(--ukbt-color-brand-accent);
     font-weight: var(--ukbt-font-weight-bold);
   }
-  .ukbt-header__nav a:hover {
+  .ukbt-header__nav > ul > li > a:hover,
+  .ukbt-header__nav > ul > li > div > a:hover {
     color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-header__nav .ukbt-header__dropdown a:hover {
+    background: var(--ukbt-color-surface-alt);
   }
   /* Gold underline-reveal motif: the brand accent grows left-to-right
      under top-level labels on hover — interactive, not decorative. */

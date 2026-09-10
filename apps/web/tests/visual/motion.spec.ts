@@ -103,10 +103,17 @@ test('no-JS: hero content visible, navigation performs document loads', async ({
 test('hero choreography settles: no infinite animation', async ({ page }) => {
   await page.goto('/');
   await page.waitForTimeout(2500);
-  const running = await page.evaluate(
-    () =>
-      document.getAnimations().filter((a) => a.playState === 'running').length,
-  );
+  const running = await page.evaluate(() => {
+    const slideshow = new Set(
+      document.querySelector('.ukbt-hero__bg--alt')?.getAnimations() ?? [],
+    );
+    return document
+      .getAnimations()
+      .filter((a) => a.playState === 'running' && !slideshow.has(a)).length;
+  });
+  // MOTION-CONTRACT.md Amendment 02 authorizes exactly one ambient
+  // loop (the hero background crossfade); this asserts everything
+  // ELSE settles. A scoped exemption, not a weakened gate (BL-10).
   expect(running, 'no looping animations after settle').toBe(0);
 });
 
