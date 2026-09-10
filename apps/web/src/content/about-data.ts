@@ -15,10 +15,26 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260909-001.yaml',
   },
+  {
+    id: 'EV-20260910-001',
+    tier: 'T2',
+    url: 'artifacts/evidence/EV-20260910-001.yaml',
+  },
+  {
+    id: 'EV-20260910-002',
+    tier: 'T2',
+    url: 'artifacts/review/LEGACY-ABOUT-INVENTORY.md',
+  },
 ]);
 
 const exemptFields = new Set<string>();
-const twoSourceFields = new Set(['org.tagline']);
+const twoSourceFields = new Set([
+  'org.tagline',
+  'org.stat_career_matches',
+  'org.stat_active_players',
+  'org.management_story',
+  'org.founder_story',
+]);
 const gateOptions = { registry, exemptFields, twoSourceFields };
 
 interface Fact<T> {
@@ -79,6 +95,47 @@ const facts = {
     value: { name: 'Sayem Rahman', role: 'Vice-Chairman' },
     sources: ['EV-029'],
   },
+  founderStory: {
+    field: 'org.founder_story',
+    value: [
+      'Mohammad Chowdhury founded UK Bangla Tigers in 2020 after nearly 20 years of competitive cricket and five years of coaching, starting with players from England, Bangladesh, India, West Indies, Afghanistan and the USA at the Asian Challengers Trophy in Nepal.',
+      'After Covid-19 cut short that first outing, he built franchises across countries — including the Safari International T20 Cup in Dubai — to give hardworking players who missed out through lack of support a stage at the highest level.',
+    ],
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
+  statCareerMatches: {
+    field: 'org.stat_career_matches',
+    value: '450+',
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
+  statActivePlayers: {
+    field: 'org.stat_active_players',
+    value: '30+',
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
+  heroSubline: {
+    field: 'org.about_subline',
+    value: 'Building a legacy of cricket excellence in the United Kingdom',
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
+  managementStory: {
+    field: 'org.management_story',
+    value: [
+      'The leadership of UK Bangla Tigers Cricket Club is driven by CEO Mohammad Chowdhury, whose extensive playing and coaching experience inspired the club’s founding in 2020. His vision has created opportunities for players to compete on international stages despite significant challenges.',
+      'Acting Chairman Shahidul Alam Ratan brings over 25 years of global cricket development experience, contributing through elite coaching, administration and impactful grassroots programmes that have shaped players worldwide.',
+      'Vice-Chairman Sayem Rahman, a British-Bangladeshi entrepreneur and community leader, strengthens the club’s growth through his expertise in business, media and sports development. Together, the management team is committed to nurturing talent and building pathways for players to succeed internationally.',
+    ],
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
+  viceChairmanBio: {
+    field: 'org.leader.vice_chairman_bio',
+    value: [
+      'Sayem Rahman is a British-Bangladeshi entrepreneur, media presenter and community leader, and CEO of SR Global Corp — spanning SR Printing, SR Creative Hub and Joshan of Wye — and a TV presenter on Islam Channel Bangla and TV ONE UK.',
+      'He serves as President of Royal Tigers Sports Club and Founder of Kent Elite Sporting Society, Joint Treasurer at Ashford Muslim Association and International Secretary at Organisation Bismillah UK Charity.',
+      'He is Chief Advisor at Cricket with Sami, a Director at S Brothers International Ltd, and an Independent Advisor to Kent Police.',
+    ],
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
 } satisfies Record<string, Fact<unknown>>;
 
 const allRecords: ContentRecord[] = Object.values(facts).map((f) => record(f));
@@ -127,4 +184,36 @@ export const about = {
     facts.actingChairman.value,
     facts.viceChairman.value,
   ],
+  leadershipGraphic: {
+    src: '/media/management-team.webp',
+    alt: 'Club graphic introducing the management team: Mohammad Chowdhury (Founder and CEO), MD Shahidul Alam Ratan (Acting Chairman) and Sayem Rahman (Vice-Chairman)',
+    width: 1000,
+    height: 1333,
+  },
+  founder: {
+    story: facts.founderStory.value,
+    stats: {
+      careerMatches: facts.statCareerMatches.value,
+      activePlayers: facts.statActivePlayers.value,
+    },
+    image: {
+      src: '/media/founder-trophy.webp',
+      alt: 'Mohammad Chowdhury holding the Safari T20 Cup trophy',
+      width: 1000,
+      height: 1252,
+    },
+  },
+  sayem: {
+    name: facts.viceChairman.value.name,
+    role: facts.viceChairman.value.role,
+    bio: facts.viceChairmanBio.value,
+    photo: {
+      src: '/media/sayem-rahman.jpg',
+      alt: 'Sayem Rahman, Vice-Chairman of UK Bangla Tigers',
+      width: 1200,
+      height: 1200,
+    },
+  },
+  heroSubline: facts.heroSubline.value,
+  managementStory: facts.managementStory.value,
 };

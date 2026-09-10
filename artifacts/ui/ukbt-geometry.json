@@ -660,7 +660,7 @@
           },
           "banner": {
             "w": 1240,
-            "h": 493,
+            "h": 537,
             "padTop": 230,
             "padBottom": 120,
             "padLeft": 48,
@@ -741,7 +741,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "desktop-1440x900": {
           "docScrollWidth": 1440,
@@ -757,7 +757,7 @@
           },
           "banner": {
             "w": 1240,
-            "h": 493,
+            "h": 537,
             "padTop": 230,
             "padBottom": 120,
             "padLeft": 48,
@@ -838,7 +838,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "desktop-1280x800": {
           "docScrollWidth": 1280,
@@ -854,7 +854,7 @@
           },
           "banner": {
             "w": 1220,
-            "h": 493,
+            "h": 537,
             "padTop": 230,
             "padBottom": 120,
             "padLeft": 48,
@@ -935,7 +935,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "tablet-landscape-1024x768": {
           "docScrollWidth": 1024,
@@ -951,7 +951,7 @@
           },
           "banner": {
             "w": 984,
-            "h": 381,
+            "h": 425,
             "padTop": 140,
             "padBottom": 120,
             "padLeft": 32,
@@ -1032,7 +1032,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "tablet-portrait-768x1024": {
           "docScrollWidth": 768,
@@ -1048,7 +1048,7 @@
           },
           "banner": {
             "w": 728,
-            "h": 381,
+            "h": 425,
             "padTop": 140,
             "padBottom": 120,
             "padLeft": 32,
@@ -1129,7 +1129,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "mobile-large-430x932": {
           "docScrollWidth": 430,
@@ -1145,7 +1145,7 @@
           },
           "banner": {
             "w": 410,
-            "h": 265,
+            "h": 333,
             "padTop": 100,
             "padBottom": 80,
             "padLeft": 32,
@@ -1226,7 +1226,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         },
         "mobile-standard-390x844": {
           "docScrollWidth": 390,
@@ -1242,7 +1242,7 @@
           },
           "banner": {
             "w": 370,
-            "h": 264,
+            "h": 332,
             "padTop": 100,
             "padBottom": 80,
             "padLeft": 32,
@@ -1323,7 +1323,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 6
+          "sectionCount": 7
         }
       }
     },

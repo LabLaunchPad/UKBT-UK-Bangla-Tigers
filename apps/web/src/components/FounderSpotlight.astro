@@ -1,0 +1,158 @@
+---
+// FounderSpotlight — About Phase 1 (legacy S2 port). Mirrors AboutStory's
+// visual grammar (flex row, gap-100, align-items center; image side +
+// content side with narrative + accent-ruled stat row; column-reverse at
+// <=1025px) for a named-person spotlight with a stat pair. Separate
+// component because AboutStory is the club story and LeadershipGrid is
+// name+role cards — neither fits. Copy + stats are gated facts from
+// about-data.ts (org.founder_story, org.stat_career_matches,
+// org.stat_active_players); image is the owner-authorised trophy photo
+// (MANIFEST "Leadership photography").
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  image: { src: string; alt: string; width: number; height: number };
+  cardTitle: string;
+  eyebrow: string;
+  heading: string;
+  paragraphs: string[];
+  stats: Stat[];
+}
+// NOTE: `Astro.props` inference does not pick up `Props` in this file
+// (verified: identical frontmatter shape works in AboutStory and
+// LeadershipGrid), so the association is stated explicitly. Runtime
+// shape is covered by the About page render + e2e.
+const props = Astro.props as Props;
+const { image, cardTitle, eyebrow, heading, paragraphs, stats } = props;
+import SubHeading from './SubHeading.astro';
+---
+
+<div class="ukbt-founder">
+  <div class="ukbt-founder__image-side">
+    <img
+      src={image.src}
+      width={image.width}
+      height={image.height}
+      alt={image.alt}
+      loading="lazy"
+    />
+    <div class="ukbt-founder__detail-card">
+      <p>{cardTitle}</p>
+    </div>
+  </div>
+  <div class="ukbt-founder__content-side">
+    <SubHeading label={eyebrow} />
+    <h2>{heading}</h2>
+    <div class="ukbt-founder__paragraphs">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="ukbt-founder__stats">
+      {
+        stats.map((s) => (
+          <div class="ukbt-founder__stat">
+            <span class="ukbt-founder__stat-value">{s.value}</span>
+            <span class="ukbt-founder__stat-label">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .ukbt-founder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ukbt-space-gap-100);
+  }
+  .ukbt-founder__image-side {
+    position: relative;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .ukbt-founder__image-side img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 30rem;
+    object-fit: cover;
+    border-radius: var(--ukbt-radius-ref-card);
+  }
+  .ukbt-founder__detail-card {
+    position: absolute;
+    left: var(--ukbt-space-gap-2);
+    right: var(--ukbt-space-gap-2);
+    bottom: var(--ukbt-space-gap-2);
+    background: var(--ukbt-color-surface-inverse);
+    color: var(--ukbt-color-surface-inverse-foreground);
+    border-radius: var(--ukbt-radius-ref-card-asymmetric);
+    padding: var(--ukbt-space-gap-2);
+    box-shadow: var(--ukbt-shadow-md);
+  }
+  .ukbt-founder__detail-card p {
+    margin: 0;
+    font-size: var(--ukbt-font-size-0);
+    text-align: center;
+  }
+  .ukbt-founder__content-side {
+    flex: 1 1 auto;
+  }
+  .ukbt-founder__content-side h2 {
+    margin: var(--ukbt-space-2) 0 var(--ukbt-space-4) 0;
+  }
+  .ukbt-founder__paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+    max-width: 42rem;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-1);
+  }
+  .ukbt-founder__paragraphs p {
+    margin: 0;
+  }
+  .ukbt-founder__stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--ukbt-space-4);
+    margin-top: var(--ukbt-space-6);
+    max-width: 32rem;
+  }
+  .ukbt-founder__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+    border-top: 2px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-2);
+  }
+  .ukbt-founder__stat-value {
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-4);
+    font-weight: var(--ukbt-font-weight-bold);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-founder__stat-label {
+    font-size: var(--ukbt-font-size-0);
+    color: var(--ukbt-color-neutral-700);
+  }
+
+  @media screen and (max-width: 1025px) {
+    .ukbt-founder {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: var(--ukbt-space-gap-5);
+    }
+    .ukbt-founder__image-side {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .ukbt-founder__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

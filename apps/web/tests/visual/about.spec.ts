@@ -108,17 +108,24 @@ test('excluded images are never referenced by the built About Us page', async ({
   }
 });
 
-test('no leadership photo is rendered on the About Us page', async ({
+test('leadership imagery is limited to the two owner-authorised photographs', async ({
   page,
 }) => {
   await page.goto('/about');
-  const leadershipImgs = await page
-    .locator('.ukbt-leadership__card img')
-    .count();
+  // Cards stay text-only — the authorised photographs render outside
+  // the cards (About Phase 1, EV-20260910-001).
+  const cardImgs = await page.locator('.ukbt-leadership__card img').count();
   expect(
-    leadershipImgs,
+    cardImgs,
     'leadership cards must stay text-only, no unconfirmed photos',
   ).toBe(0);
+  // Exactly the authorised set renders, nothing else.
+  const graphic = page.locator('.ukbt-leadership__graphic img');
+  await expect(graphic).toHaveCount(1);
+  await expect(graphic).toHaveAttribute('src', /management-team\.webp$/);
+  const spotlight = page.locator('.ukbt-leadership__spotlight img');
+  await expect(spotlight).toHaveCount(1);
+  await expect(spotlight).toHaveAttribute('src', /sayem-rahman\.jpg$/);
 });
 
 test('no horizontal overflow on the About Us page at any frozen viewport', async ({

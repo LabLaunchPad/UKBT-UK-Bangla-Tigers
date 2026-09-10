@@ -12,13 +12,15 @@ import Breadcrumb from './Breadcrumb.astro';
 interface Props {
   title: string;
   crumbs: Crumb[];
+  lede?: string;
 }
-const { title, crumbs } = Astro.props;
+const { title, crumbs, lede } = Astro.props;
 ---
 
 <div class="ukbt-page-banner">
   <div class="ukbt-container ukbt-page-banner__inner">
     <h1>{title}</h1>
+    {lede && <p class="ukbt-page-banner__lede">{lede}</p>}
     <Breadcrumb crumbs={crumbs} tone="on-dark" />
   </div>
 </div>
@@ -73,6 +75,13 @@ const { title, crumbs } = Astro.props;
        "International Tournaments/Events" measured 546px against a 430px
        viewport without this. */
     max-width: 100%;
+  }
+  .ukbt-page-banner__lede {
+    margin: 0;
+    max-width: 44rem;
+    color: var(--ukbt-color-surface-inverse-foreground);
+    font-size: var(--ukbt-font-size-1);
+    text-wrap: balance;
   }
   /* Reference parity holds at desktop/tablet. On mobile the 230px top
      padding delays content by nearly half a viewport — step down to
