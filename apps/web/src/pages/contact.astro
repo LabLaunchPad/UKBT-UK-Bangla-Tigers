@@ -1,7 +1,9 @@
 ---
-// Contact Us page. knowledge/01-VERIFIED-FACTS.yaml's unknowns register
-// (U-16) records venue/phone/email/opening-hours as UNKNOWN â€” no such
-// fact has ever been supplied. Per contracts/FORM-CONTRACT.md, a real
+// Contact Us page. U-16 (artifacts/bootstrap/UNKNOWN-EVIDENCE.md)
+// recorded venue/phone/email/opening-hours as UNKNOWN; phone and email
+// were supplied directly by the client (chat 2026-09-09) and render
+// below as mailto:/tel: links — never guessed. Venue/opening-hours
+// remain UNKNOWN and are not shown. Per contracts/FORM-CONTRACT.md, a real
 // submission form requires the submitForm adapter boundary and a backend
 // implementation, neither of which exist yet (no Cloudflare Functions
 // deployment). Shipping a "Send us a message" form with no working
@@ -15,13 +17,13 @@ import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import Footer from '../components/Footer.astro';
 import AboutCTA from '../components/AboutCTA.astro';
-import { homepage } from '../content/homepage-data';
+import { contact, homepage } from '../content/homepage-data';
 import SubHeading from '../components/SubHeading.astro';
 ---
 
 <BaseLayout
   title="Contact Us â€” UK Bangla Tigers"
-  description="Get in touch with UK Bangla Tigers via social media."
+  description="Contact UK Bangla Tigers by email or phone, or follow the club on social media."
 >
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
@@ -35,12 +37,40 @@ import SubHeading from '../components/SubHeading.astro';
       <div class="ukbt-contact">
         <div>
           <SubHeading label="Get in Touch" />
-          <h2>Reach the Tigers on Social Media</h2>
+          <h2>Email, Call, or Follow the Tigers</h2>
           <p class="ukbt-contact__lede">
-            A direct phone line, email address, and venue are still being
-            confirmed with the club. In the meantime, every official
-            channel below is live and monitored.
+            Email or call the club directly — or follow every official
+            channel alongside. All of them are live and monitored.
           </p>
+          <ul class="ukbt-contact__direct">
+            <li>
+              <a class="ukbt-contact__channel" href={`mailto:${contact.email}`}>
+                <span class="ukbt-contact__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-10 6L2 7" />
+                  </svg>
+                </span>
+                <span class="ukbt-contact__text">
+                  <span class="ukbt-contact__label">Email</span>
+                  <span class="ukbt-contact__value">{contact.email}</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="ukbt-contact__channel" href={contact.phoneHref}>
+                <span class="ukbt-contact__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <span class="ukbt-contact__text">
+                  <span class="ukbt-contact__label">Phone</span>
+                  <span class="ukbt-contact__value">{contact.phoneDisplay}</span>
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
         <ul class="ukbt-contact__social">
           {
@@ -75,6 +105,58 @@ import SubHeading from '../components/SubHeading.astro';
   .ukbt-contact__lede {
     color: var(--ukbt-color-neutral-700);
     max-width: 32rem;
+  }
+  /* Direct channels: icon-circle rows (same navy-circle/gold-glyph
+     affordance as the Button icon-circle) with label-over-value text.
+     48px rows clear both the 24px axe floor and touch expectations. */
+  .ukbt-contact__direct {
+    list-style: none;
+    margin: var(--ukbt-space-6) 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-3);
+  }
+  .ukbt-contact__channel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ukbt-space-3);
+    min-height: 48px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .ukbt-contact__icon {
+    width: 44px;
+    height: 44px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ukbt-radius-ref-circle);
+    background: var(--ukbt-color-brand-primary);
+    border: 1px solid var(--ukbt-color-brand-accent);
+    color: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-contact__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ukbt-contact__label {
+    font-size: var(--ukbt-font-size-0);
+    font-weight: var(--ukbt-font-weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ukbt-color-neutral-500);
+  }
+  .ukbt-contact__value {
+    font-weight: var(--ukbt-font-weight-bold);
+    font-size: var(--ukbt-font-size-1);
+    color: var(--ukbt-color-brand-primary);
+    overflow-wrap: anywhere;
+  }
+  .ukbt-contact__channel:hover .ukbt-contact__value {
+    text-decoration: underline;
   }
   .ukbt-contact__social {
     list-style: none;

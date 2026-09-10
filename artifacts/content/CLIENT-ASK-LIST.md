@@ -9,9 +9,9 @@ citations are in `knowledge/01-VERIFIED-FACTS.yaml`'s unknowns register
 `artifacts/content/CLIENT-REQUIREMENTS-INVENTORY.md`.
 
 ## 1. Contact details
-- Phone number, email address, physical venue/ground, opening hours.
-  Currently the Contact page states these are "still being confirmed" and
-  offers only social-media links.
+- **Phone + email — RESOLVED 2026-09-09.** Your supplied phone (+44 7827 627997)
+  and email (info@ukbanglatigers.co.uk) now render on `/contact` and in the
+  footer. Still open: physical venue/ground, opening hours.
 
 ## 2. People
 - **Full player roster — RESOLVED 2026-08-31.** Your "Players Profile" and

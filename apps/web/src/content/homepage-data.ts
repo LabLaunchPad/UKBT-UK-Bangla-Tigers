@@ -15,6 +15,11 @@ const registry = createRegistry([
   { id: 'EV-028', tier: 'T2', url: 'artifacts/evidence/EV-20260826-028.yaml' },
   { id: 'EV-029', tier: 'T1', url: 'artifacts/evidence/EV-20260826-029.yaml' },
   { id: 'EV-030', tier: 'T1', url: 'artifacts/evidence/EV-20260826-030.yaml' },
+  {
+    id: 'EV-0909-01',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260909-001.yaml',
+  },
 ]);
 
 const exemptFields = new Set([
@@ -65,7 +70,11 @@ const facts = {
     value: 'United by Passion. Driven by Cricket.',
     sources: ['EV-030'],
   },
-  statPlayers: { field: 'org.stat_players', value: '30+', sources: ['EV-026'] },
+  statPlayers: {
+    field: 'org.stat_players',
+    value: '40+',
+    sources: ['EV-026', 'EV-0909-01'],
+  },
   statCountries: {
     field: 'org.stat_countries',
     value: '15+',
@@ -186,4 +195,14 @@ export const homepage = {
   primaryCta,
   secondaryNav,
   nav: primaryNav,
+};
+
+// Club contact channels — client-supplied directly (chat 2026-09-09),
+// rendered as mailto:/tel: links. Plain export, not truth-gated:
+// contact strings are client-provided literals like the captain
+// profile URLs (captain-data.ts), not org facts requiring evidence.
+export const contact = {
+  email: 'info@ukbanglatigers.co.uk',
+  phoneDisplay: '+44 7827 627997',
+  phoneHref: 'tel:+447827627997',
 };
