@@ -33,7 +33,7 @@ gate changes state, not the paragraph prose elsewhere.
 | 8 | Independent homepage red team | DONE, all 8 findings remediated (F8 has one deliberate, documented partial exception) | `artifacts/review/HOMEPAGE-REDTEAM.md` — see § 2.1 below |
 | 9 | Scale to remaining pages | DONE for route count (16 routes exist under `apps/web/src/pages/`) — content completeness is a separate, **partially blocked** item, see § 3 | route list: `about, club-captain, coaching, community, contact, design-system, faq, franchises, index, join, membership, news(+[slug]), players, services, tournaments, 404` |
 | 10 | Full-site verification & release | **PASS** (2026-08-27 re-run) | `artifacts/receipts/RELEASE.md` — `RELEASE_STATUS = PASS`; see § 2.2 |
-| 11 | Adaptive learning + replay | NOT STARTED | Stage 10 now passes; this can start |
+| 11 | Adaptive learning + replay | STARTED 2026-09-09 | `artifacts/adaptive-learning/` (catalog + checklist + protocol + index, prompt-07 schema); wired into `AGENTS.md`; adversarial replay (prompt 08) still open |
 
 **Net position:** the site is built, deployable, and the release gate
 passes cleanly as of the 2026-08-27 re-run (all three prior gaps closed:

@@ -47,6 +47,15 @@ For e2e: `pnpm test:e2e` (requires `playwright install chromium` first in CI; so
 Single test: `pnpm --filter @ukbt/truth exec vitest run src/gate/rules.test.ts`
 Single e2e: `pnpm --filter @ukbt/web exec playwright test tests/visual/<file>.spec.ts`
 
+## Adaptive learning (applies to any agent, human or AI)
+
+Past errors are recorded in `artifacts/adaptive-learning/` (prompt-07
+schema): `ERROR-CATALOG.md` (20 entries: symptom → cause → fix),
+`PREVENTION-CHECKLIST.md` (gates to run before acting),
+`RECURRENCE-PROTOCOL.md` (what to do when an error returns),
+`INDEX.yaml` (keyword lookup). Scan the index before non-trivial work;
+on recurrence, quote the catalog ID and apply the recorded fix first.
+
 ## Hard invariants
 
 These are non-negotiable. See `CLAUDE.md` for the full contract.
