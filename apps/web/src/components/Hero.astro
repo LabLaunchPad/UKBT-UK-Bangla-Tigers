@@ -1,9 +1,12 @@
 ---
-// Hero — photographic team backdrop (client-authorised gallery asset
-// team-huddle.webp; see src/assets/MANIFEST.md for the provenance
-// caveat) under a navy scrim, with the editorial type composition on
-// top. No crest here: brand identity already anchors the header, and a
-// repeated mark would compete with the headline.
+// Hero — photographic team backdrop under a navy scrim, with the
+// editorial type composition on top. Two-slide auto-crossfade between
+// the two cleared landscape TEAM photos (team-huddle.webp +
+// team-night-action.webp, both client-authorised — see
+// src/assets/MANIFEST.md for the provenance caveat; single-player
+// shots, squad portraits and reviewed-and-rejected gallery frames are
+// never used here). No crest here: brand identity already anchors the
+// header, and a repeated mark would compete with the headline.
 import Button from './Button.astro';
 import SocialLinks from './SocialLinks.astro';
 
@@ -22,6 +25,14 @@ const { taglineShort, social } = Astro.props;
     alt=""
     fetchpriority="high"
     class="ukbt-hero__bg"
+  />
+  <img
+    src="/media/team-night-action.webp"
+    width="1132"
+    height="720"
+    alt=""
+    fetchpriority="low"
+    class="ukbt-hero__bg ukbt-hero__bg--alt"
   />
   <div class="ukbt-hero__scrim" aria-hidden="true"></div>
   <div class="ukbt-container ukbt-hero__inner">
@@ -67,6 +78,38 @@ const { taglineShort, social } = Astro.props;
       transform: scale(1.04);
     }
   }
+  /* Second slide of the background crossfade (team-night-action.webp,
+     the only other cleared landscape team photo — MANIFEST.md). Slide
+     1 stays static underneath; this layer fades in, rests ~6s, fades
+     out on the slideshow token cycle — opacity only (never transform:
+     the settle scale above already owns transform on its own layer).
+     First frame and every animations-disabled screenshot show slide 1,
+     so visual baselines stay deterministic. */
+  .ukbt-hero__bg--alt {
+    object-position: 50% 35%;
+    animation: ukbt-hero-crossfade var(--ukbt-motion-duration-slideshow)
+      var(--ukbt-motion-easing-standard) infinite;
+  }
+  @keyframes ukbt-hero-crossfade {
+    0%,
+    37.5% {
+      opacity: 0;
+    }
+    50%,
+    87.5% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ukbt-hero__bg--alt {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
   /* Signature entrance: image → headline → tagline → CTA → social,
      overlapping, transform/opacity only. `backwards` fill stages each
      element off-screen-state during its delay — content is never hidden

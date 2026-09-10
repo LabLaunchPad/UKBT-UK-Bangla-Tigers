@@ -31,10 +31,13 @@ scroll-jacking.
    { navigation: auto }` semantics with CSS old/new states
    (350–550ms). Unsupported browsers navigate normally; JS-disabled
    navigates normally. Motion is never a functional dependency.
-7. **Restraint list (non-goals):** no parallax, no ambient loops, no
-   count-up stats, no letter-by-letter headlines, no scroll-jacking, no
-   LIVE pulse (no live events exist), no shared-element continuity
-   without genuine same-element pairs, no springs/bounce/overshoot.
+7. **Restraint list (non-goals):** no parallax, no ambient loops
+   (sole exception: the hero background crossfade, Amendment 02 —
+   opacity-only, 16s `duration-slideshow` token cycle, deterministic
+   first frame, static under reduced motion), no count-up stats, no
+   letter-by-letter headlines, no scroll-jacking, no LIVE pulse (no
+   live events exist), no shared-element continuity without genuine
+   same-element pairs, no springs/bounce/overshoot.
 
 ## Micro-interaction matrix (authoritative)
 
@@ -47,6 +50,7 @@ scroll-jacking.
 | Nav link | gold underline-reveal | ring | n/a | navigate | settle | instant |
 | Breadcrumb | underline | ring | n/a | navigate | settle | instant |
 | Hero | n/a | ring | n/a | staggered choreography | n/a | soft fade only |
+| Hero BG | crossfade (Amendment 02 only) | n/a | n/a | slide 1 static | n/a | static slide 1 |
 | Banner | n/a | n/a | n/a | single fade-up | n/a | soft fade only |
 | Section header/footer | n/a | n/a | n/a | grouped reveal | n/a | soft fade only |
 | Page swap | n/a | n/a | n/a | VT fade+rise | VT settle | instant swap |
