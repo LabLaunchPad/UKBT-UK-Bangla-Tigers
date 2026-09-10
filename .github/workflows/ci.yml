@@ -26,7 +26,7 @@ env:
 
 # Least privilege: every job gets read-only contents by default; jobs
 # that upload/download artifacts elevate just the `actions` scope they
-# need (see build, visual-and-accessibility, workers-deploy).
+# need (see build, visual-and-accessibility).
 permissions:
   contents: read
 
@@ -122,11 +122,6 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 (SHA-pinned 2026-09-06)
-        with:
-          name: web-build-output
-          path: apps/web/dist
-          retention-days: 7
 
   link-integrity:
     name: Internal link integrity
@@ -255,35 +250,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  workers-deploy:
-    name: 'Workers deploy (GitHub Actions)'
-    runs-on: ubuntu-24.04
-    needs: [install, governance-scaffold, dependency-allowlist, lint, typecheck, unit-tests, build, link-integrity, seo-gate, ui-gate, motion-gate, security-gate, perf-gate, visual-and-accessibility, secret-scan]
-    # Deploys only on push to main. Without this, the workflow-level
-    # `on: pull_request` trigger would run a production `wrangler deploy`
-    # on every PR, publishing unreviewed branch content to the live site.
-    permissions:
-      contents: read
-      actions: read
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4 (SHA-pinned 2026-09-06)
-      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4 (SHA-pinned 2026-09-06)
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4 (SHA-pinned 2026-09-06)
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4 (SHA-pinned 2026-09-06)
-        with:
-          name: web-build-output
-          path: apps/web/dist
-      - name: Deploy Workers
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4 (SHA-pinned 2026-09-06)
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+  # NOTE 2026-09-10: the GitHub Actions `wrangler deploy` job
+  # (workers-deploy) was removed as redundant — production deploys via
+  # git-connected Workers Builds, which publishes on every main merge
+  # independently of CI. The Action path only ever failed on an expired
+  # CLOUDFLARE_API_TOKEN and kept main-branch runs red, so it was
+  # deleted rather than re-credentialed. To restore, recover the job
+  # from git history with a fresh token.
 
 # ---------------------------------------------------------------------------
 # CI-CONTRACT.md gates NOT wired yet, and why (ABSENT != PASS,
