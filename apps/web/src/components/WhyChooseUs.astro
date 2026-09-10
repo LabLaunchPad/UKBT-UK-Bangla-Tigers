@@ -41,10 +41,22 @@ const { reasons } = Astro.props;
   .ukbt-chooseus {
     display: flex;
     flex-direction: column;
-    gap: var(--ukbt-space-gap-100);
+    gap: var(--ukbt-space-gap-5);
   }
   .ukbt-chooseus__header {
     max-width: 36rem;
+  }
+  /* The shared SectionHeader carries trailing for its CTA/rule
+     variants (margin 50 + padding 30); this header is rule-none with
+     no CTA, so that trailing is pure void above the list. The
+     descendant MUST be :global — SectionHeader renders in its own
+     Astro scope, so a plain descendant selector silently never
+     matches (same scoping rule as homepage.spec.ts's Surface guard).
+     The ancestor half keeps this component's scope, so other pages'
+     headers are untouched. */
+  .ukbt-chooseus__header :global(.ukbt-section-header) {
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
   .ukbt-chooseus__list {
     display: flex;

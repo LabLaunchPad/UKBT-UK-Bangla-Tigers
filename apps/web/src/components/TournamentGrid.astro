@@ -45,13 +45,16 @@ const { mainEvent, otherEvents } = Astro.props;
   .ukbt-tournaments {
     display: flex;
     flex-direction: column;
-    gap: var(--ukbt-space-gap-100);
+    gap: var(--ukbt-space-gap-5);
   }
   .ukbt-tournaments__main {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-3);
-    border-top: 3px solid var(--ukbt-color-brand-accent);
+    /* No top rule: on the homepage this grid sits directly under the
+       SectionHeader's own accent rule — a second rule here rendered as
+       a duplicated divider. This component is homepage-only, so no
+       other page loses a divider. */
     padding-top: var(--ukbt-space-6);
   }
   .ukbt-tournaments__eyebrow {
