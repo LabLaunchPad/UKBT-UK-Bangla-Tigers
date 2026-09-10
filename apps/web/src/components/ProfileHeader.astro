@@ -145,6 +145,14 @@ import SubHeading from './SubHeading.astro';
       max-width: 20rem;
       height: 24rem;
     }
+    /* Athlete frame must collapse like the standard one: the desktop
+       20rem rule is higher-specificity and would otherwise hold 320px
+       wide inside a 320px viewport (mobile-ux overflow). */
+    .ukbt-profile-header--athlete .ukbt-profile-header__photo {
+      width: 100%;
+      max-width: 20rem;
+      height: 24rem;
+    }
     .ukbt-profile-header__facts {
       grid-template-columns: 1fr;
     }

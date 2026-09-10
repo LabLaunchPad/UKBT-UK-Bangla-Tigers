@@ -2551,6 +2551,10 @@
             {
               "padTop": 120,
               "padBottom": 120
+            },
+            {
+              "padTop": 120,
+              "padBottom": 120
             }
           ],
           "type": {
@@ -2586,7 +2590,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "desktop-1440x900": {
           "docScrollWidth": 1440,
@@ -2640,6 +2644,10 @@
             {
               "padTop": 120,
               "padBottom": 120
+            },
+            {
+              "padTop": 120,
+              "padBottom": 120
             }
           ],
           "type": {
@@ -2675,7 +2683,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "desktop-1280x800": {
           "docScrollWidth": 1280,
@@ -2729,6 +2737,10 @@
             {
               "padTop": 120,
               "padBottom": 120
+            },
+            {
+              "padTop": 120,
+              "padBottom": 120
             }
           ],
           "type": {
@@ -2764,7 +2776,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "tablet-landscape-1024x768": {
           "docScrollWidth": 1024,
@@ -2818,6 +2830,10 @@
             {
               "padTop": 120,
               "padBottom": 120
+            },
+            {
+              "padTop": 120,
+              "padBottom": 120
             }
           ],
           "type": {
@@ -2853,7 +2869,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "tablet-portrait-768x1024": {
           "docScrollWidth": 768,
@@ -2907,6 +2923,10 @@
             {
               "padTop": 120,
               "padBottom": 120
+            },
+            {
+              "padTop": 120,
+              "padBottom": 120
             }
           ],
           "type": {
@@ -2942,7 +2962,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "mobile-large-430x932": {
           "docScrollWidth": 430,
@@ -2996,6 +3016,10 @@
             {
               "padTop": 80,
               "padBottom": 80
+            },
+            {
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3031,7 +3055,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         },
         "mobile-standard-390x844": {
           "docScrollWidth": 390,
@@ -3085,6 +3109,10 @@
             {
               "padTop": 80,
               "padBottom": 80
+            },
+            {
+              "padTop": 80,
+              "padBottom": 80
             }
           ],
           "type": {
@@ -3120,7 +3148,7 @@
             }
           },
           "_probeCleanup": true,
-          "sectionCount": 4
+          "sectionCount": 5
         }
       }
     },

@@ -13,6 +13,8 @@ import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import ProfileHeader from '../components/ProfileHeader.astro';
+import FranchiseTimeline from '../components/FranchiseTimeline.astro';
+import Button from '../components/Button.astro';
 import StatsTable from '../components/StatsTable.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
@@ -51,6 +53,9 @@ const bowlingRows = captain.bowlingStats.map((s) => [
 ]);
 
 const crumbs = [{ label: 'Home', href: '/' }, { label: 'Club Captain' }];
+// Athlete-hero identity line: verbatim gated values only (nationality +
+// batting style), no new claim composed.
+const identityLine = `${captain.nationality} · ${captain.battingStyle}`;
 // ProfilePage+Person graph via the central SEO emitter — gated name/role
 // only (see src/lib/seo.ts).
 const structuredData = captainGraph({
@@ -72,25 +77,19 @@ const structuredData = captainGraph({
     <PageBanner title="Club Captain" crumbs={crumbs} />
 
     <Section>
-      <ProfileHeader name={captain.name} role={captain.role} facts={profileFacts} photo={captainPhoto} />
+      <ProfileHeader
+        name={captain.name}
+        role={captain.role}
+        facts={profileFacts}
+        photo={captainPhoto}
+        layout="athlete"
+        identityLine={identityLine}
+      />
     </Section>
 
     <Section surface="alt">
       <h2>Franchise History</h2>
-      <div class="ukbt-franchise-history">
-        <div class="ukbt-franchise-history__col">
-          <h3>Current</h3>
-          <ul>
-            {captain.currentFranchises.map((f) => <li>{f}</li>)}
-          </ul>
-        </div>
-        <div class="ukbt-franchise-history__col">
-          <h3>Previous</h3>
-          <ul>
-            {captain.previousFranchises.map((f) => <li>{f}</li>)}
-          </ul>
-        </div>
-      </div>
+      <FranchiseTimeline current={captain.currentFranchises} previous={captain.previousFranchises} />
     </Section>
 
     <Section>
@@ -101,7 +100,7 @@ const structuredData = captainGraph({
       </div>
     </Section>
 
-    <Section surface="alt" paddingBottom="normal">
+    <Section surface="alt">
       <div class="ukbt-links-grid">
         <div>
           <h3>Stats Also Tracked On</h3>
@@ -121,6 +120,12 @@ const structuredData = captainGraph({
         </div>
       </div>
     </Section>
+
+    <Section>
+      <div class="ukbt-captain-close">
+        <Button label="Back to Players" href="/players" variant="secondary" />
+      </div>
+    </Section>
   </main>
 
   <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
@@ -133,24 +138,14 @@ const structuredData = captainGraph({
   h3 {
     margin: 0 0 var(--ukbt-space-gap-2) 0;
   }
-  .ukbt-franchise-history {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ukbt-space-8);
-  }
-  .ukbt-franchise-history__col {
-    border-top: 2px solid var(--ukbt-color-brand-accent);
-    padding-top: var(--ukbt-space-4);
-  }
-  .ukbt-franchise-history ul {
-    margin: 0;
-    padding-left: var(--ukbt-space-4);
-    color: var(--ukbt-color-neutral-700);
-  }
   .ukbt-stats-stack {
     display: flex;
     flex-direction: column;
     gap: var(--ukbt-space-8);
+  }
+  .ukbt-captain-close {
+    display: flex;
+    justify-content: flex-start;
   }
   .ukbt-links-grid {
     display: grid;
@@ -168,7 +163,6 @@ const structuredData = captainGraph({
     font-size: var(--ukbt-font-size-0);
   }
   @media screen and (max-width: 767px) {
-    .ukbt-franchise-history,
     .ukbt-links-grid {
       grid-template-columns: 1fr;
     }

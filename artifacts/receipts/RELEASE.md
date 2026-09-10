@@ -365,3 +365,27 @@ breakpoint-edge discontinuity. No content, route, token, or contract change.
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-10 — 3-page enhancement Phases 1–5 (branch `feature/3page-phase5-captain`)
+
+Fresh runs on this branch (not copied from prior receipts):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — scaffold/allowlist/lint/tokens/typecheck (0 errors, 2 pre-existing hints)/unit (21/21)/build (17 pages)/links (704, 0 broken)/seo/ui (PASS, standing advisories)/motion/security/perf (PASS, standing advisories) |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`); one in-branch failure fixed before this run: athlete hero frame overflowed 320px (specificity), fixed with an explicit mobile collapse rule, mobile-ux 48/48 + full suite re-run green |
+| 15 | Visual comparison (§17) | full-page captures, transient specs (deleted after review) | — | PASS — homepage first viewport/Why/captain (desktop + mobile), about full-page 1440 (banner/identity/story/stats/values/leadership/CTA), captain full-page 1440 + 390 (hero/meta/timeline/stats/links/close); no overflow, no clipped text, hierarchy verified |
+
+Scope: main `5aeda9d` → this branch adds Phase 1 (EV-20260910-003,
+40+ active, CIC wording), Phase 2 (6 additive component variants +
+FranchiseTimeline), Phase 3 (`index.astro`), Phase 4 (`about.astro` +
+LeadershipGrid CSS), Phase 5 (`club-captain.astro` + ProfileHeader
+mobile-collapse fix). No route, token, or contract change. Geometry
+record honestly updated (captain `sectionCount` 4→5, rhythm 120/120
+throughout).
+
+## Verdict (3-page enhancement)
+
+```
+RELEASE_STATUS = PASS
+```
