@@ -18,6 +18,7 @@ import Section from '../components/Section.astro';
 import MissionWelcome from '../components/MissionWelcome.astro';
 import Sponsors from '../components/Sponsors.astro';
 import AboutStory from '../components/AboutStory.astro';
+import FounderSpotlight from '../components/FounderSpotlight.astro';
 import LeadershipGrid from '../components/LeadershipGrid.astro';
 import AboutCTA from '../components/AboutCTA.astro';
 import WhyChooseUs from '../components/WhyChooseUs.astro';
@@ -53,6 +54,14 @@ const storyStats = [
   { value: about.stats.tournaments, label: 'International Tournaments' },
 ];
 
+// About Phase 1 (legacy S2 port): founder career aggregates. Distinct
+// fields from the club aggregates above (career matches, active subset
+// of the registered squad) — no T8 conflict by construction.
+const founderStats = [
+  { value: about.founder.stats.careerMatches, label: 'Career Matches' },
+  { value: about.founder.stats.activePlayers, label: 'Active Players' },
+];
+
 const crumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
 // AboutPage graph via the central SEO emitter — org referenced by @id,
 // never repeated (see src/lib/seo.ts).
@@ -70,7 +79,7 @@ const structuredData = aboutGraph({
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <PageBanner title="About Us" crumbs={crumbs} />
+    <PageBanner title="About Us" crumbs={crumbs} lede={about.heroSubline} />
 
     <Section>
       <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />
@@ -84,12 +93,28 @@ const structuredData = aboutGraph({
       <AboutStory paragraphs={about.storyParagraphs} stats={storyStats} />
     </Section>
 
+    <Section>
+      <FounderSpotlight
+        image={about.founder.image}
+        cardTitle="Founder of UK Bangla Tigers, competing at the Safari International T20 Cup."
+        eyebrow="Founder Spotlight"
+        heading="Mohammad Chowdhury, Founder and CEO."
+        paragraphs={about.founder.story}
+        stats={founderStats}
+      />
+    </Section>
+
     <Section surface="alt" wrapper={true}>
       <WhyChooseUs reasons={reasons} />
     </Section>
 
     <Section>
-      <LeadershipGrid leaders={about.leaders} />
+      <LeadershipGrid
+        leaders={about.leaders}
+        narrative={about.managementStory}
+        graphic={about.leadershipGraphic}
+        spotlight={about.sayem}
+      />
     </Section>
 
     <!-- TestimonialSection omitted: no real testimonials exist yet -->

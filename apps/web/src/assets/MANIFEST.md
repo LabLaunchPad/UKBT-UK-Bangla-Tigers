@@ -140,6 +140,20 @@ Client-authorised class above.
 text-only on both roster pages, same discipline as everyone else before
 a photo existed.
 
+## Leadership photography (About Phase 1, owner-authorised)
+
+Authorisation is `EV-20260910-001` (owner confirmation, chat 2026-09-10):
+identity of every depicted leader confirmed, no other people,
+watermarks, or baked-in names in frame (viewed at full resolution).
+Renders on `/about` only, under the ABOUT-CONTRACT authorised exception;
+the photo-test pins exactly these files.
+
+| Path | Source | Usage | AUTHORISATION | INDEPENDENT_VERIFICATION |
+|---|---|---|---|---|
+| `public/media/management-team.webp` | `artifacts/brand/raw/images/leadership/management-team.webp` | Leadership section graphic on `/about` | `EV-20260910-001` | Viewed at full resolution. "INTRODUCING OUR MANAGEMENT TEAM": Mohammad Chowdhury (Founder & CEO), MD Shahidul Alam Ratan (Chairman in graphic; rendered title stays gated "Acting Chairman"), Sayem Rahman (Vice-Chairman). UKBT crest + Nordic Smash T20 event mark baked into the creative (third-party event mark, disclosed not scrubbed). |
+| `public/media/founder-trophy.webp` | `artifacts/brand/raw/images/leadership/management-portrait.webp` | FounderSpotlight side image on `/about` | `EV-20260910-001` | Viewed at full resolution. Mohammad Chowdhury holding the Safari T20 Cup trophy (airport terminal backdrop). Partial terminal signage in the background ("Metro", "Departures" — generic wayfinding, not a rights-holder mark). |
+| `public/media/sayem-rahman.jpg` | `artifacts/brand/raw/images/leadership/sayem-rahman.jpg` (owner-supplied 2026-09-10) | Vice-chairman spotlight mini-card on `/about` | `EV-20260910-001` | Viewed at full resolution. Matches the Sayem Rahman depicted in management-team.webp (same person). Studio-style gradient backdrop, no watermark, no baked-in names. |
+
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
 - `home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event

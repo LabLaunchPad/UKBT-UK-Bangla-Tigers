@@ -1,0 +1,52 @@
+id: EV-20260910-001
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Direct owner confirmation (chat, 2026-09-10) for the About Phase 1 port:
+  (1) founder bio condensed to two paragraphs (nearly 20 years competitive
+  cricket, five years coaching, 2020 start with six-nation squad at the
+  Asian Challengers Trophy in Nepal, Covid-19 cutting short the first
+  outing, franchises across countries including the Safari International
+  T20 Cup in Dubai, mission to give unsupported hardworking players a
+  big stage); (2) founder career aggregate "450+ Matches Played";
+  (3) current active playing subset "30+ Active Players" — a subset of
+  the 40+ registered squad (EV-20260909-001), not a conflicting total;
+  (4) authorisation to render management-team.webp (all three depicted
+  leaders identified: Mohammad Chowdhury, MD Shahidul Alam Ratan,
+  Sayem Rahman) and founder-trophy.webp (Chowdhury with Safari T20 Cup
+  trophy), plus reuse of team-huddle.webp in the About CTA;
+  (5) "Acting Chairman" retained as Ratan's rendered title;
+  (6) hero subline "Building a legacy of cricket excellence in the
+  United Kingdom"; (7) three-paragraph management narrative (CEO
+  founding vision, Acting Chairman 25+ years, Vice-Chairman
+  entrepreneur/community role, joint commitment closing line);
+  (8) Sayem Rahman vice-chairman bio distilled to three sentences
+  (SR Global Corp group + TV presenting; sport/community offices;
+  advisory roles) — full 13-item detail carried, none omitted.
+source: "Direct chat confirmation from the club owner, 2026-09-10."
+source_type: first_party_client_supplied
+retrieved_at: 2026-09-10
+verified_at: 2026-09-10
+valid_until: null
+justification_for_null: >
+  Records owner-stated history and aggregates as stated. Aggregates go
+  stale as reality changes; a newer owner instruction supersedes these
+  figures the same way EV-20260909-001 superseded the August squad count.
+scope: "About page Phase 1 (founder spotlight, leadership graphic, CTA)."
+method: Owner confirmed each item directly against the legacy page transcription (artifacts/review/LEGACY-ABOUT-INVENTORY.md); recorded verbatim, no inference.
+result: |
+  New gated facts org.founder_story, org.stat_career_matches,
+  org.stat_active_players, org.about_subline, org.management_story,
+  org.leader.vice_chairman_bio render on /about; management-team.webp,
+  founder-trophy.webp and sayem-rahman.jpg render with MANIFEST entries.
+related_files:
+  - apps/web/src/content/about-data.ts
+  - apps/web/src/components/FounderSpotlight.astro
+  - apps/web/src/components/LeadershipGrid.astro
+relates_to: [EV-20260826-026, EV-20260826-029, EV-20260909-001]
+notes: >
+  Sayem Rahman portrait photo supplied by the owner during the session
+  (artifacts/brand/raw/images/leadership/sayem-rahman.jpg, 1200x1200):
+  identity confirmed against management-team.webp (same person), no
+  other people, watermarks, or baked-in names in frame. Hero subline,
+  full long-form bios, and the 13-item business CV remain unconfirmed
+  for page use.

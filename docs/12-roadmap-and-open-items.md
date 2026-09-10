@@ -653,3 +653,19 @@ wait. Per-item notes below stand as the investigation record.
   main-branch CI run `34474337388` success, zero Node 20
   deprecation annotations. Verdict `PASS`; standing caveats
   (canonical URL `PENDING`, no branch protection) unchanged.
+
+### 2.16 About Phase 1 — legacy port (2026-09-10)
+
+Owner-supplied legacy About transcription
+(`artifacts/review/LEGACY-ABOUT-INVENTORY.md`) ported into the built
+`/about` behind the truth gate (`EV-20260910-001` owner confirmation
++ `EV-20260910-002` transcription, T7 two-source on new stats):
+management-team graphic + Sayem portrait (owner-authorised exception,
+photo-test pins exactly these files), FounderSpotlight (trophy photo,
+450+ career matches, 30+ active players as distinct fields —
+40+/7+ untouched), 3-paragraph management narrative, distilled
+3-sentence vice-chair bio, hero subline, Contact Us pill +
+team-huddle in AboutCTA. "Acting Chairman" retained. Hero subline
+slot added to shared PageBanner (optional, other pages unaffected).
+Still out: full long-form bios, 13-item CV detail beyond the
+distillation (each needs its own evidence if ever rendered).

@@ -1,6 +1,8 @@
 ---
 // AboutCTA — re-art-directed. Clean editorial CTA, not two-column card.
-// Statement + CTA + social links as a typographic row.
+// Statement + CTA + social links as a typographic row. About Phase 1
+// (legacy S4 port): gold Contact Us pill beside Follow (routes to the
+// already-authorised /contact route) + cleared team-huddle photo below.
 import Button from './Button.astro';
 import SocialLinks, { socialDisplayName } from './SocialLinks.astro';
 
@@ -19,18 +21,30 @@ const primarySocial = social[0];
   <div class="ukbt-about-cta__content">
     <h2 class="ukbt-about-cta__headline">Follow the Tigers</h2>
     <p class="ukbt-about-cta__body">Every tournament, every result — straight from the club.</p>
-    {primarySocial && (
-      <Button
-        label={`Follow on ${socialDisplayName(primarySocial.platform)}`}
-        href={primarySocial.url}
-        variant="primary"
-        external
-      />
-    )}
+    <div class="ukbt-about-cta__actions">
+      {primarySocial && (
+        <Button
+          label={`Follow on ${socialDisplayName(primarySocial.platform)}`}
+          href={primarySocial.url}
+          variant="primary"
+          external
+        />
+      )}
+      <Button label="Contact Us" href="/contact" variant="primary" />
+    </div>
   </div>
   <div class="ukbt-about-cta__social">
     <span class="ukbt-about-cta__social-label">Also on</span>
     <SocialLinks links={social} tone="on-light" label="UK Bangla Tigers on other platforms" />
+  </div>
+  <div class="ukbt-about-cta__photo">
+    <img
+      src="/media/team-huddle.webp"
+      width="1080"
+      height="720"
+      alt="UK Bangla Tigers players in a team huddle"
+      loading="lazy"
+    />
   </div>
 </div>
 
@@ -62,6 +76,12 @@ const primarySocial = social[0];
     font-size: var(--ukbt-font-size-2);
     color: var(--ukbt-color-neutral-700);
   }
+  .ukbt-about-cta__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-3);
+  }
   .ukbt-about-cta :global(.ukbt-button--primary) {
     background: var(--ukbt-color-brand-primary);
     border-color: var(--ukbt-color-brand-primary);
@@ -79,5 +99,13 @@ const primarySocial = social[0];
   .ukbt-about-cta__social-label {
     font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-about-cta__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 28rem;
+    object-fit: cover;
+    border-radius: var(--ukbt-radius-ref-card);
   }
 </style>
