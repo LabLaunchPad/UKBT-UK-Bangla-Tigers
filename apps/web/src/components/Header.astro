@@ -148,218 +148,286 @@ const isActive = (href: string) =>
 </header>
 
 <script>
-  // Real focusable toggle + inert-driven drawer — see the top-of-file
-  // comment for why this replaced a checkbox+label CSS-only version.
-  const header = document.getElementById('ukbt-header');
-  const toggle = document.getElementById('ukbt-nav-toggle');
-  const close = document.getElementById('ukbt-nav-close');
-  const overlay = document.getElementById('ukbt-nav-overlay');
-  const drawer = document.getElementById('ukbt-nav-drawer');
+  // Header controls, ClientRouter-proofed. A client navigation swaps the
+  // header DOM out from under this script while `document` (and
+  // `window`) persist — so NOTHING here may cache element references at
+  // load: every handler re-queries fresh nodes per event, and every
+  // listener is document-delegated behind a once-per-document window
+  // guard (same pattern as BaseLayout's logo-intro wiring). The previous
+  // version bound each control directly to its element at load, so the
+  // hamburger worked exactly once per document load and went dead after
+  // the first client-side navigation (reproduced at 390x844: toggle
+  // inert post-nav, zero page errors).
+  const w = window as unknown as Record<string, boolean | undefined>;
+  if (!w['__ukbtHeaderWired']) {
+    w['__ukbtHeaderWired'] = true;
 
-  function setOpen(open: boolean) {
-    header?.classList.toggle('ukbt-header--open', open);
-    toggle?.setAttribute('aria-expanded', String(open));
-    if (open) {
-      drawer?.removeAttribute('inert');
-    } else {
-      drawer?.setAttribute('inert', '');
-    }
-    // Lock the page behind the drawer. Measured at 390x844: with the
-    // drawer open, a scroll gesture moved the background from scrollY 0
-    // to 700 while the menu stayed pinned — the page silently moved
-    // under the overlay, so closing the menu returned the reader
-    // somewhere they never navigated to.
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
+    const headerEl = () => document.getElementById('ukbt-header');
+    const toggleEl = () => document.getElementById('ukbt-nav-toggle');
+    const drawerEl = () => document.getElementById('ukbt-nav-drawer');
+    const isDrawerOpen = () =>
+      toggleEl()?.getAttribute('aria-expanded') === 'true';
 
-  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-  close?.addEventListener('click', () => {
-    setOpen(false);
-    toggle?.focus();
-  });
-  overlay?.addEventListener('click', () => {
-    setOpen(false);
-    toggle?.focus();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
-      setOpen(false);
-      toggle.focus();
-    }
-  });
-
-  // The drawer declares aria-modal="true", which tells assistive tech the
-  // rest of the page is hidden — but it does NOT contain Tab. Measured at
-  // 390x844: tabbing past the last drawer link moved focus to a <main>
-  // social link (insideDrawer: false) sitting behind the dimmed overlay,
-  // so a keyboard user silently operated controls a screen reader had
-  // just declared non-existent. Contain focus to match the ARIA promise.
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    if (toggle?.getAttribute('aria-expanded') !== 'true' || !drawer) return;
-    const focusables = drawer.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    if (!focusables.length) return;
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    const active = document.activeElement;
-    if (e.shiftKey && (active === first || !drawer.contains(active))) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && active === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  });
-  // Desktop dropdowns — single-open state machine. Visibility is driven
-  // ONLY by aria-expanded (no CSS :hover display rule), so two menus can
-  // never show at once. Hover is an enhancement on hover-capable devices;
-  // touch uses tap-to-toggle exclusively (a tap fires mouseenter before
-  // click, which would otherwise open-then-immediately-close).
-  const supportsHover = window.matchMedia('(hover: hover)').matches;
-  const dropdownItems = Array.from(
-    document.querySelectorAll<HTMLElement>('.ukbt-header__nav-item--has-dropdown'),
-  );
-
-  function setDropdown(
-    item: HTMLElement,
-    open: boolean,
-    opts: { refocus?: boolean } = {},
-  ) {
-    const btn = item.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
-    const menu = item.querySelector<HTMLElement>('.ukbt-header__dropdown');
-    if (!btn || !menu) return;
-    btn.setAttribute('aria-expanded', String(open));
-    if (open) menu.setAttribute('aria-expanded', 'true');
-    else menu.removeAttribute('aria-expanded');
-    if (!open && opts.refocus) btn.focus();
-  }
-
-  function closeAllDropdowns(except?: HTMLElement) {
-    dropdownItems.forEach((item) => {
-      if (item !== except) {
-        setDropdown(item, false);
-        item.removeAttribute('data-opened-by');
+    function setOpen(open: boolean) {
+      headerEl()?.classList.toggle('ukbt-header--open', open);
+      toggleEl()?.setAttribute('aria-expanded', String(open));
+      if (open) {
+        drawerEl()?.removeAttribute('inert');
+      } else {
+        drawerEl()?.setAttribute('inert', '');
       }
-    });
-  }
+      // Lock the page behind the drawer. Measured at 390x844: with the
+      // drawer open, a scroll gesture moved the background from scrollY 0
+      // to 700 while the menu stayed pinned — the page silently moved
+      // under the overlay, so closing the menu returned the reader
+      // somewhere they never navigated to.
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
 
-  function isDropdownOpen(item: HTMLElement) {
-    return (
-      item.querySelector('.ukbt-header__dropdown-toggle')?.getAttribute('aria-expanded') ===
-      'true'
-    );
-  }
+    function setDropdown(
+      item: HTMLElement,
+      open: boolean,
+      opts: { refocus?: boolean } = {},
+    ) {
+      const btn = item.querySelector<HTMLElement>(
+        '.ukbt-header__dropdown-toggle',
+      );
+      const menu = item.querySelector<HTMLElement>('.ukbt-header__dropdown');
+      if (!btn || !menu) return;
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) menu.setAttribute('aria-expanded', 'true');
+      else menu.removeAttribute('aria-expanded');
+      if (!open && opts.refocus) btn.focus();
+    }
 
-  dropdownItems.forEach((item) => {
-    const btn = item.querySelector<HTMLElement>('.ukbt-header__dropdown-toggle');
-    const menu = item.querySelector<HTMLElement>('.ukbt-header__dropdown');
-    if (!btn || !menu) return;
+    function closeAllDropdowns(except?: HTMLElement) {
+      document
+        .querySelectorAll<HTMLElement>(
+          '.ukbt-header__nav-item--has-dropdown',
+        )
+        .forEach((item) => {
+          if (item !== except) {
+            setDropdown(item, false);
+            item.removeAttribute('data-opened-by');
+          }
+        });
+    }
 
-    // Click / tap toggles. A real mouse click (e.detail > 0) that follows
-    // a hover-open is a no-op keep-open: without this, moving the mouse
-    // onto the chevron (mouseenter opens) then clicking would instantly
-    // close the menu the user just opened. Keyboard-synthesised clicks
-    // (e.detail === 0) and touch taps always toggle.
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (
-        e.detail > 0 &&
-        isDropdownOpen(item) &&
-        item.getAttribute('data-opened-by') === 'hover'
-      ) {
+    function isDropdownOpen(item: HTMLElement) {
+      return (
+        item
+          .querySelector('.ukbt-header__dropdown-toggle')
+          ?.getAttribute('aria-expanded') === 'true'
+      );
+    }
+
+    // ONE delegated click handler, ordered most-specific first. The old
+    // code bound per element and relied on stopPropagation against a
+    // separate document closer; ordering inside a single listener is the
+    // same guarantee without the fragility.
+    document.addEventListener('click', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      if (!el) return;
+      const toggle = el.closest('#ukbt-nav-toggle');
+      if (toggle) {
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
         return;
       }
-      const willOpen = !isDropdownOpen(item);
-      closeAllDropdowns(item);
-      setDropdown(item, willOpen);
-      item.setAttribute('data-opened-by', 'toggle');
+      if (el.closest('#ukbt-nav-close') || el.closest('#ukbt-nav-overlay')) {
+        closeAllDropdowns();
+        setOpen(false);
+        toggleEl()?.focus();
+        return;
+      }
+      const ddToggle = el.closest('.ukbt-header__dropdown-toggle');
+      if (ddToggle) {
+        const item =
+          ddToggle.closest<HTMLElement>(
+            '.ukbt-header__nav-item--has-dropdown',
+          );
+        if (item) {
+          // A real mouse click (e.detail > 0) that follows a hover-open
+          // is a no-op keep-open: without this, moving the mouse onto
+          // the chevron (mouseover opens) then clicking would instantly
+          // close the menu just opened. Keyboard-synthesised clicks
+          // (e.detail === 0) and touch taps always toggle.
+          if (
+            !(
+              e.detail > 0 &&
+              isDropdownOpen(item) &&
+              item.getAttribute('data-opened-by') === 'hover'
+            )
+          ) {
+            const willOpen = !isDropdownOpen(item);
+            closeAllDropdowns(item);
+            setDropdown(item, willOpen);
+            item.setAttribute('data-opened-by', 'toggle');
+          }
+          return;
+        }
+      }
+      const accordion = el.closest('.ukbt-header__drawer-accordion');
+      if (accordion) {
+        const submenu = accordion
+          .closest('li')
+          ?.querySelector('.ukbt-header__drawer-submenu');
+        if (submenu) {
+          const expanded = accordion.getAttribute('aria-expanded') === 'true';
+          accordion.setAttribute('aria-expanded', String(!expanded));
+          submenu.setAttribute('aria-expanded', String(!expanded));
+        }
+        return;
+      }
+      // Click anywhere else closes desktop dropdowns (the old standalone
+      // document closer, folded in).
+      closeAllDropdowns();
     });
 
-    // Pointer hover opens (and closes any other) on hover-capable devices.
-    if (supportsHover) {
-      item.addEventListener('mouseenter', () => {
+    // Hover open/close on hover-capable devices only (touch uses tap).
+    // mouseenter/leave don't bubble, so this uses mouseover/mouseout
+    // with enter/leave-from-outside checks.
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.addEventListener('mouseover', (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        const item = el?.closest<HTMLElement>(
+          '.ukbt-header__nav-item--has-dropdown',
+        );
+        if (!item) return;
+        const from =
+          e.relatedTarget instanceof Element ? e.relatedTarget : null;
+        if (from && item.contains(from)) return;
         closeAllDropdowns(item);
         if (!isDropdownOpen(item)) {
           setDropdown(item, true);
           item.setAttribute('data-opened-by', 'hover');
         }
       });
-      item.addEventListener('mouseleave', () => {
+      document.addEventListener('mouseout', (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        const item = el?.closest<HTMLElement>(
+          '.ukbt-header__nav-item--has-dropdown',
+        );
+        if (!item) return;
+        const to = e.relatedTarget instanceof Element ? e.relatedTarget : null;
+        if (to && item.contains(to)) return;
         setDropdown(item, false);
         item.removeAttribute('data-opened-by');
       });
     }
 
-    // ArrowDown/ArrowUp on the trigger opens and moves focus into the menu.
-    // Escape on the trigger closes.
-    btn.addEventListener('keydown', (e) => {
-      const links = menu.querySelectorAll<HTMLElement>('a[href]');
+    // ONE delegated keydown handler: drawer Escape + focus trap (the
+    // drawer declares aria-modal but Tab is not contained by ARIA
+    // alone — measured at 390x844, focus escaped to main content),
+    // plus dropdown trigger/menu keys. All nodes fresh per event.
+    document.addEventListener('keydown', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      if (e.key === 'Escape') {
+        if (isDrawerOpen()) {
+          setOpen(false);
+          toggleEl()?.focus();
+          return;
+        }
+        const menu =
+          el?.closest<HTMLElement>('.ukbt-header__dropdown');
+        if (menu) {
+          const item = menu.closest<HTMLElement>(
+            '.ukbt-header__nav-item--has-dropdown',
+          );
+          if (item) setDropdown(item, false, { refocus: true });
+          return;
+        }
+        const openItem = el?.closest<HTMLElement>(
+          '.ukbt-header__nav-item--has-dropdown',
+        );
+        if (openItem && isDropdownOpen(openItem)) {
+          e.preventDefault();
+          setDropdown(openItem, false);
+        }
+        return;
+      }
+      if (e.key === 'Tab') {
+        if (!isDrawerOpen()) return;
+        const drawer = drawerEl();
+        if (!drawer) return;
+        const focusables = drawer.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !drawer.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+        return;
+      }
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        closeAllDropdowns(item);
-        setDropdown(item, true);
-        item.setAttribute('data-opened-by', 'toggle');
-        (e.key === 'ArrowDown' ? links[0] : links[links.length - 1])?.focus();
-      } else if (e.key === 'Escape' && isDropdownOpen(item)) {
-        e.preventDefault();
+        const trigger = el?.closest('.ukbt-header__dropdown-toggle');
+        if (trigger) {
+          const item = trigger.closest<HTMLElement>(
+            '.ukbt-header__nav-item--has-dropdown',
+          );
+          if (item) {
+            e.preventDefault();
+            closeAllDropdowns(item);
+            setDropdown(item, true);
+            item.setAttribute('data-opened-by', 'toggle');
+            const links = item.querySelectorAll<HTMLElement>(
+              '.ukbt-header__dropdown a[href]',
+            );
+            (e.key === 'ArrowDown' ? links[0] : links[links.length - 1])?.focus();
+          }
+          return;
+        }
+        const menu = el?.closest<HTMLElement>('.ukbt-header__dropdown');
+        if (menu) {
+          const items = menu.querySelectorAll<HTMLElement>('a[href]');
+          const first = items[0];
+          const last = items[items.length - 1];
+          const active = document.activeElement;
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (active === last) first?.focus();
+            else {
+              const idx = Array.from(items).indexOf(active as HTMLElement);
+              items[idx + 1]?.focus();
+            }
+          } else {
+            e.preventDefault();
+            if (active === first) last?.focus();
+            else {
+              const idx = Array.from(items).indexOf(active as HTMLElement);
+              items[idx - 1]?.focus();
+            }
+          }
+        }
+      }
+    });
+
+    // Tabbing out of a dropdown item closes it (focusout bubbles, so
+    // this delegates cleanly); focus never lingers invisibly inside a
+    // closed menu.
+    document.addEventListener('focusout', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      const item = el?.closest<HTMLElement>(
+        '.ukbt-header__nav-item--has-dropdown',
+      );
+      if (item && !item.contains(e.relatedTarget as Node)) {
         setDropdown(item, false);
       }
     });
 
-    // Tabbing out of the item closes it; focus never lingers invisibly
-    // inside a closed menu.
-    item.addEventListener('focusout', (e) => {
-      if (!item.contains(e.relatedTarget as Node)) setDropdown(item, false);
+    // A swap must never land with a stuck-open drawer, a scroll-locked
+    // body, or a lingering open menu from the previous page.
+    document.addEventListener('astro:after-swap', () => {
+      setOpen(false);
+      closeAllDropdowns();
     });
-  });
-
-  // Close desktop dropdowns when clicking outside.
-  document.addEventListener('click', () => {
-    closeAllDropdowns();
-  });
-
-  // Desktop dropdown keyboard navigation inside an open menu.
-  document.querySelectorAll<HTMLElement>('.ukbt-header__dropdown').forEach((menu) => {
-    menu.addEventListener('keydown', (e) => {
-      const items = menu.querySelectorAll<HTMLElement>('a[href]');
-      const first = items[0];
-      const last = items[items.length - 1];
-      const active = document.activeElement;
-      const item = menu.closest<HTMLElement>('.ukbt-header__nav-item--has-dropdown');
-
-      if (e.key === 'Escape') {
-        if (item) setDropdown(item, false, { refocus: true });
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (active === last) first?.focus();
-        else {
-          const idx = Array.from(items).indexOf(active as HTMLElement);
-          items[idx + 1]?.focus();
-        }
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (active === first) last?.focus();
-        else {
-          const idx = Array.from(items).indexOf(active as HTMLElement);
-          items[idx - 1]?.focus();
-        }
-      }
-    });
-  });
-
-  // Drawer accordion toggles
-  document.querySelectorAll<HTMLElement>('.ukbt-header__drawer-accordion').forEach((btn) => {
-    const submenu = btn.closest('li')?.querySelector<HTMLElement>('.ukbt-header__drawer-submenu');
-    if (!submenu) return;
-
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-      submenu.setAttribute('aria-expanded', String(!expanded));
-    });
-  });
+  }
 </script>
 
 <style>
