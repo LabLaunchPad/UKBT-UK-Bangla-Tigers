@@ -45,6 +45,23 @@ for (const route of ALL_ROUTES) {
     page,
   }) => {
     await page.goto(route);
+    // Same settled-hero rationale as homepage.spec.ts: axe must not
+    // scan the entrance mid-flight (bogus blended ratios). Vacuous on
+    // routes without hero choreography.
+    await page.waitForFunction(
+      () =>
+        Array.from(
+          document.querySelectorAll(
+            '.ukbt-hero__headline, .ukbt-hero__tagline, .ukbt-hero__actions, .ukbt-hero__social',
+          ),
+        )
+          .flatMap((el) => el.getAnimations())
+          .every(
+            (a) => a.playState === 'finished' || a.playState === 'idle',
+          ),
+      null,
+      { timeout: 10000 },
+    );
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag22aa', 'best-practice'])
       .analyze();

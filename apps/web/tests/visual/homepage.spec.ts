@@ -10,6 +10,23 @@ test('axe-core scan reports zero violations on the homepage', async ({
   page,
 }) => {
   await page.goto('/');
+  // Scan the settled hero, not its entrance: the load choreography
+  // (delays to 650ms + 400ms fade) leaves text semi-transparent
+  // mid-flight, which axe blends into bogus ratios (observed 1.16 and
+  // 4.11 across runs for the Join button; settled navy-on-gold is
+  // 7.21:1). Vacuous on routes without a hero.
+  await page.waitForFunction(
+    () =>
+      Array.from(
+        document.querySelectorAll(
+          '.ukbt-hero__headline, .ukbt-hero__tagline, .ukbt-hero__actions, .ukbt-hero__social',
+        ),
+      )
+        .flatMap((el) => el.getAnimations())
+        .every((a) => a.playState === 'finished' || a.playState === 'idle'),
+    null,
+    { timeout: 10000 },
+  );
   // HOMEPAGE-CONTRACT.md acceptance criterion 3 says "0 violations", with
   // no tag-scope qualifier. A wcag-tags-only scan missed a real
   // best-practice-tagged heading-order violation (Stage 8 red team F4) —
