@@ -21,3 +21,5 @@ index:
   AL-018: [blank capture, reveal, scroll settle, screenshots]
   AL-019: [dev toolbar, capture artifact, viewport-fixed]
   AL-020: [infinite animation test, contract amendment, test exemption]
+  AL-021: [setup-node major bump, pnpm not found, Unable to locate executable file, step order]
+  AL-022: [axe race in other specs, AxeBuilder grep, fix all harness users]

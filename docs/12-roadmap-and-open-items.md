@@ -630,3 +630,26 @@ wait. Per-item notes below stand as the investigation record.
   Action: exempt the documented `.ukbt-hero__bg--alt` layer in the
   test (assert nothing ELSE runs) — a scoped test update, not a
   revert and not a gate weakening.
+
+### 2.15 CI/deploy maintenance + axe-settle completion (2026-09-10)
+
+- **Redundant Actions deploy job removed (PR #29, `a768c17`).**
+  Production deploys via git-connected Workers Builds on every main
+  merge (verified live: slideshow, spacing, captain links all
+  present); the `wrangler deploy` Action failed solely on the expired
+  `CLOUDFLARE_API_TOKEN` and was deleted, not re-credentialed.
+  Branch protection confirmed absent, so no required check
+  referenced it. Restoration note left in `ci.yml`.
+- **Pinned actions bumped to node24-runtime majors (PR #30,
+  `bd8ce26`).** checkout/setup-node/pnpm-action v4→v5,
+  upload-artifact v4→v6, gitleaks v2→v3 — same-major tags had no
+  newer release. Two fallout fixes, both catalog'd (AL-021, AL-022):
+  `setup-node@v5` needs pnpm on PATH even in script-only jobs;
+  the axe settle covered only 3 of 6 `AxeBuilder` specs, and the
+  untouched two failed with the identical footer signature.
+- **Release re-certified:** `artifacts/receipts/RELEASE.md`
+  2026-09-10 update at this HEAD — full `deploy:verify` (13 gates)
+  + full e2e (328 passed / 1 env-gated skip) fresh locally,
+  main-branch CI run `34474337388` success, zero Node 20
+  deprecation annotations. Verdict `PASS`; standing caveats
+  (canonical URL `PENDING`, no branch protection) unchanged.

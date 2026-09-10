@@ -270,3 +270,69 @@ This session, 2026-08-27, following the mobile UI/UX audit rounds
 re-verification. Gates 1–8 re-run directly in this session; gate 13
 (secret scan) verified via the current SHA's own CI job conclusion, the
 same cross-check method the original receipt used.
+
+## Update, 2026-09-10 — full re-certification at current `main` HEAD
+
+```
+task_id:      STAGE-10-RELEASE-GATE (re-certification)
+sha:          bd8ce2643d041012eb0f586b451f7350ddf5f34d
+branch:       main
+environment:  node v22.23.2, pnpm 10.33.0, win32 x64
+git_status:   tracked tree clean; 5 pre-existing untracked scratch files
+              (apps/web/audit-capture.mjs, apps/web/audit-homepage/,
+              apps/web/audit-screenshots/, audit-capture.mjs,
+              opencode.json) — present before this session, untouched by it
+```
+
+Every gate re-run fresh, locally, at this SHA (not copied from CI):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Install / lockfile integrity | `pnpm install --frozen-lockfile` | 0 | PASS — lockfile up to date |
+| 2 | Governance scaffold self-test | `pnpm deploy:verify` gate 1 (`node scripts/scaffold-self-test.mjs`) | 0 | PASS — 23 required files |
+| 3 | Dependency allowlist | `deploy:verify` gate 2 | 0 | PASS — 15 allowed entries, 3 manifests |
+| 4 | Lint | `deploy:verify` gate 3 (`biome check .`) | 0 | PASS — 51 files |
+| 5 | Tokens build | `deploy:verify` gate 4 | 0 | PASS — tokens.css regenerated |
+| 6 | Type check | `deploy:verify` gate 5 (`pnpm -r typecheck`) | 0 | PASS — 63 files, 0 errors, 2 pre-existing hints (`RosterGrid.astro`, `Section.astro` unused `Props`) |
+| 7 | Unit tests | `deploy:verify` gate 6 (`pnpm test:unit`) | 0 | PASS — 2 files, 21/21 |
+| 8 | Build | `deploy:verify` gate 7 | 0 | PASS — 17 pages, sitemap 12 URLs |
+| 9 | Route / internal-link integrity | `deploy:verify` gate 8 | 0 | PASS — 17 HTML files, 694 links, 0 broken |
+| 10 | SEO | `deploy:verify` gate 9 | 0 | PASS, no failures |
+| 11 | UI | `deploy:verify` gate 10 | 0 | PASS — 5 pre-existing advisory warnings (Sept-2026 upcoming-month note, 3 focus-leaf notes, header+hero CTA duplication), none blocking |
+| 12 | Motion | `deploy:verify` gate 11 | 0 | PASS, no failures |
+| 13 | Security | `deploy:verify` gate 12 | 0 | PASS, no failures |
+| 14 | Perf | `deploy:verify` gate 13 | 0 | PASS — 2 pre-existing advisories (uppsala crest 327KB over 300KB budget, franchise page images over budget), none blocking |
+| 15 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`, real chromium) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`, requires `UKBT_REFERENCE_DIR`) |
+| 16 | Secret scan | `gitleaks/gitleaks-action@v3` (CI job, exact-SHA main run `34474337388`) | — | PASS — verified via the CI job's own `success` conclusion on this SHA, same cross-check method as prior receipts |
+| 17 | CI cross-check | main-branch CI run `34474337388` | — | `success` — all 15 jobs green including Playwright (328 passed); zero Node.js 20 deprecation annotations (verified via check-run annotations API: 1 annotation total, the intentional Playwright summary notice) |
+| 18 | Production deploy | git-connected Workers Builds + live fetch | — | PASS — `https://ukbanglatigers.co.uk/` and `/club-captain` fetched live: hero slideshow, WhyChooseUs spacing, hero `icons-mobile` socials, all 6 cricket profiles + 4 social links for the captain present |
+
+Notes since the 2026-08-27 receipt:
+
+- **Redundant Actions deploy job removed** (PR #29). Production deploys
+  via git-connected Workers Builds only; the `wrangler deploy` Action
+  failed solely on an expired `CLOUDFLARE_API_TOKEN` and is deleted
+  (restoration note left in `ci.yml`), not re-credentialed.
+- **Pinned actions bumped to node24-runtime majors** (PR #30):
+  checkout v4→v5, setup-node v4→v5, pnpm/action-setup v4→v5,
+  upload-artifact v4→v6, gitleaks-action v2→v3. Same-major tags had no
+  newer release, so majors were required; each SHA verified `node24`
+  in upstream `action.yml` at the exact commit. Runner image unchanged
+  (`ubuntu-24.04`).
+- **Axe settle coverage completed.** The reveal-settle fix now covers
+  all 6 `AxeBuilder` specs (`pages`, `mobile-axe`, `homepage`, `axe`,
+  `about`, `design-system`) after the catalog'd mid-flight footer
+  signature (~1.06–1.12 blended ratios) failed 2 tests on CI in the
+  previously unsettled specs.
+- Standing caveats from the prior receipt carry over unchanged:
+  canonical URL still `PENDING` (client decision), branch protection
+  still `protected: false` (verified via API 2026-09-10 this session
+  while removing the deploy job — no required checks, so nothing
+  referenced the deleted job), draft-placeholder facts remain
+  contract-compliant.
+
+## Verdict (2026-09-10 re-certification)
+
+```
+RELEASE_STATUS = PASS
+```
