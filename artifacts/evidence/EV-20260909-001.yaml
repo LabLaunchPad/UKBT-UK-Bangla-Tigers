@@ -1,0 +1,28 @@
+id: EV-20260909-001
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Direct client instruction (chat, 2026-09-09): the squad now numbers
+  40+ players. Supersedes the "30+ Players" aggregate recorded in
+  EV-20260826-026 — squad growth, not a conflict: the August figure
+  described the squad then; the September figure describes it now.
+source: "Direct chat instruction from the club, 2026-09-09."
+source_type: first_party_client_supplied
+retrieved_at: 2026-09-09
+verified_at: 2026-09-09
+valid_until: null
+justification_for_null: >
+  Records a point-in-time squad size as stated. Like all aggregates,
+  it goes stale as the squad changes; a newer client instruction
+  supersedes it the same way this record supersedes EV-20260826-026's
+  figure.
+scope: "Site-wide aggregate stat (homepage stat strip, About stats)."
+method: Client stated the updated figure directly; recorded verbatim, no inference.
+result: |
+  org.stat_players renders "40+" on the homepage and About page.
+related_files:
+  - apps/web/src/content/homepage-data.ts
+  - apps/web/src/content/about-data.ts
+relates_to: [EV-20260826-026]
+notes: >
+  Countries (15+) and tournaments (7+) aggregates are untouched — only
+  the player count was updated.

@@ -28,8 +28,8 @@ project:
   sport_or_activity: cricket         # U-02 CLOSED — EV-20260826-026, franchise T20/T10/50-over formats
   formats_played: [T10, T20, "50-Over"]  # EV-20260826-026, from the Club Captain's career statistics tables
   sister_franchises: ["Uppsala Tigers (Sweden)"]  # EV-20260826-026 — "Our Franchises" nav section
-  aggregate_stats:                   # EV-20260826-026, site-wide banner copy — not individually itemized
-    players: "30+"
+  aggregate_stats:                   # site-wide banner copy — not individually itemized
+    players: "40+"                    # EV-20260909-001 (client direct 2026-09-09), supersedes EV-20260826-026's "30+"
     countries_internationals: "15+"
     international_tournaments: "7+"
   official_social_media:             # EV-20260826-026
