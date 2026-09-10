@@ -86,14 +86,19 @@ const structuredData = homepageGraph({
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <Hero taglineShort={homepage.taglineShort} social={homepage.social} />
+    <Hero
+      taglineShort={homepage.taglineShort}
+      social={homepage.social}
+      eyebrow="UK Bangla Tigers Cricket Club"
+      secondaryCta={{ label: 'View Tournaments', href: '/tournaments' }}
+    />
 
     <Section>
       <ClubIntro lede="A registered cricket club, competing across international tournaments since 2020." founded={homepage.founded} />
     </Section>
 
     <Section surface="alt" wrapper={true}>
-      <WhyChooseUs reasons={reasons} />
+      <WhyChooseUs reasons={reasons} variant="editorial" />
     </Section>
 
     <Section surface="inverse" wrapper={true}>
@@ -111,7 +116,13 @@ const structuredData = homepageGraph({
     </Section>
 
     <Section surface="alt">
-      <CaptainSpotlight name={homepage.captain.name} role={homepage.captain.role} photo={homepage.captain.photo} />
+      <CaptainSpotlight
+        name={homepage.captain.name}
+        role={homepage.captain.role}
+        photo={homepage.captain.photo}
+        density="editorial"
+        ctaLabel="View full profile"
+      />
     </Section>
 
     <Section>
