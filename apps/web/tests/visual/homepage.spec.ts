@@ -57,8 +57,13 @@ test('every homepage nav link, CTA, and social link shows a visible AND contrast
   page,
 }) => {
   await page.goto('/');
+  // Top-level nav links only (`> ul > li > a`): dropdown submenu links
+  // are display:none until opened, and focusing a hidden link is a
+  // no-op whose computed outline reads 'none' — that was element 5
+  // (the hidden "Uppsala Tigers" menu item), not a real ring defect
+  // (BL-05). Hidden controls need no ring; they cannot take focus.
   const focusable = page.locator(
-    '.ukbt-header__nav a, .ukbt-hero .ukbt-button, .ukbt-hero__social a, .ukbt-franchise__cta a, .ukbt-about-cta__social a, .ukbt-footer__social a, .ukbt-footer__links a',
+    '.ukbt-header__nav > ul > li > a, .ukbt-hero .ukbt-button, .ukbt-hero__social a, .ukbt-franchise__cta a, .ukbt-about-cta__social a, .ukbt-footer__social a, .ukbt-footer__links a',
   );
   const count = await focusable.count();
   expect(count).toBeGreaterThan(0);
@@ -348,10 +353,13 @@ test('every Surface-wrapped panel still applies its component-specific descendan
       return el ? getComputedStyle(el).color : null;
     };
     return {
-      franchiseLink: get('.ukbt-franchise__cta a'),
-      tournamentCtaHeading: get('.ukbt-tournament-cta h3'),
-      aboutCtaHeading: get('.ukbt-about-cta__content h3'),
-      chooseUsIndex: get('.ukbt-chooseus__card--accent .ukbt-chooseus__index'),
+      // Tracks the re-art-directed components — the old __cta block,
+      // h3s and --accent cards no longer exist (BL-07). Each remap
+      // carries designed styling, preserving the guard's intent.
+      franchiseLink: get('.ukbt-franchise__link-wrap a'),
+      tournamentEyebrow: get('.ukbt-tournaments__eyebrow'),
+      aboutCtaHeading: get('.ukbt-about-cta__headline'),
+      chooseUsIndex: get('.ukbt-chooseus__index'),
     };
   });
   // Browser-default link blue (#0000EE) is exactly what a silently-
@@ -363,6 +371,7 @@ test('every Surface-wrapped panel still applies its component-specific descendan
       DEFAULT_LINK_BLUE,
     );
   }
-  // The franchise link specifically must be gold, not just "not blue".
-  expect(checks.franchiseLink).toBe('rgb(204, 164, 79)');
+  // The franchise link specifically must be navy (the re-art-directed
+  // treatment), not just "not blue".
+  expect(checks.franchiseLink).toBe('rgb(0, 30, 58)');
 });

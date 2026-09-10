@@ -59,6 +59,19 @@ for (const t of TARGETS) {
     // Let the freeze take effect and any in-flight work settle.
     await page.waitForTimeout(300);
 
+    // Lazy below-fold images never even start fetching at scroll 0,
+    // so the decode wait below would hang forever (BL-01–BL-03). Walk
+    // the page first to trigger every lazy load, then return to top
+    // for the capture. Motion stays frozen throughout (FREEZE_CSS).
+    await page.evaluate(async () => {
+      const h = document.body.scrollHeight;
+      for (let y = 0; y < h; y += 600) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      window.scrollTo(0, 0);
+    });
+
     // Positively verify nothing is animating at capture time.
     const moving = await page.evaluate(() => {
       const running = document
