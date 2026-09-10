@@ -25,6 +25,11 @@ const registry = createRegistry([
     tier: 'T2',
     url: 'artifacts/review/LEGACY-ABOUT-INVENTORY.md',
   },
+  {
+    id: 'EV-20260910-003',
+    tier: 'T2',
+    url: 'artifacts/evidence/EV-20260910-003.yaml',
+  },
 ]);
 
 const exemptFields = new Set<string>();
@@ -110,8 +115,8 @@ const facts = {
   },
   statActivePlayers: {
     field: 'org.stat_active_players',
-    value: '30+',
-    sources: ['EV-20260910-001', 'EV-20260910-002'],
+    value: '40+',
+    sources: ['EV-20260910-001', 'EV-20260910-003'],
   },
   heroSubline: {
     field: 'org.about_subline',
@@ -172,12 +177,12 @@ export const about = {
     },
     {
       title: 'Registered Organisation',
-      body: `Founded ${facts.founded.value} as ${facts.legalEntity.value}.`,
+      body: `Founded in ${facts.founded.value} · registered as ${facts.legalEntity.value}.`,
     },
   ],
   storyParagraphs: [
     facts.tagline.value,
-    `${facts.legalEntity.value}, founded in ${facts.founded.value}, competes as a cricket franchise on the international stage while building a sister-franchise network with Uppsala Tigers in Sweden.`,
+    `Founded in ${facts.founded.value} · registered as ${facts.legalEntity.value}, competing as a cricket franchise on the international stage while building a sister-franchise network with Uppsala Tigers in Sweden.`,
   ],
   leaders: [
     facts.founderCeo.value,

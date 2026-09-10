@@ -1,0 +1,41 @@
+id: EV-20260910-003
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Direct owner instruction (chat, 2026-09-10), 3-page enhancement Phase 1:
+  (1) the active playing subset is now "40+ Active Players", not 30+ —
+  supersedes the "30+ Active Players" aggregate recorded in
+  EV-20260910-001 the same way EV-20260909-001 superseded the August squad
+  count: squad growth, not a conflict. The active subset now equals the
+  40+ registered squad (EV-20260909-001); both 40+ figures coexist on
+  /about with distinct labels and sections ("Players" club aggregate vs
+  "Active Players" founder-card aggregate), not conflicting totals.
+  (2) Owner-approved legal-identity wording: "Founded in 2020 ·
+  registered as UK Bangla Tigers Cricket Club CIC" — renders identically
+  on / and /about wherever the registered-club fact appears. No year is
+  attached to the CIC registration: the owner expressly instructed not to
+  publish 2025, so the legal-entity date stays internal-only.
+source: "Direct chat instruction from the club owner, 2026-09-10."
+source_type: first_party_client_supplied
+retrieved_at: 2026-09-10
+verified_at: 2026-09-10
+valid_until: null
+justification_for_null: >
+  Records a point-in-time aggregate and an approved wording as stated.
+  Aggregates go stale as reality changes; a newer owner instruction
+  supersedes these figures the same way this record supersedes
+  EV-20260910-001's 30+ figure.
+scope: "3-page enhancement Phase 1 (canonical data + legal distinction)."
+method: Owner stated the updated figure and approved the exact wording directly; recorded verbatim, no inference.
+result: |
+  org.stat_active_players renders "40+" on /about; the registered-club
+  lines render the approved "Founded in 2020 · registered as UK Bangla
+  Tigers Cricket Club CIC" wording on / and /about.
+related_files:
+  - apps/web/src/content/about-data.ts
+  - apps/web/src/pages/about.astro
+  - apps/web/src/pages/index.astro
+relates_to: [EV-20260910-001, EV-20260909-001, EV-20260826-028, EV-20260826-029]
+notes: >
+  Countries (15+) and tournaments (7+) aggregates untouched. Career
+  matches (450+) untouched. The Companies House number and the 2025
+  entity date remain internal-only per owner instruction.

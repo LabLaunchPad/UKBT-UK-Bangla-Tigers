@@ -44,7 +44,7 @@ const reasons = [
   },
   {
     title: 'A Registered Club',
-    body: `Founded in ${about.founded} and registered as ${about.legalEntity}.`,
+    body: `Founded in ${about.founded} · registered as ${about.legalEntity}.`,
   },
 ];
 
@@ -56,7 +56,9 @@ const storyStats = [
 
 // About Phase 1 (legacy S2 port): founder career aggregates. Distinct
 // fields from the club aggregates above (career matches, active subset
-// of the registered squad) — no T8 conflict by construction.
+// of the registered squad) — no T8 conflict by construction. Per
+// EV-20260910-003 both the club aggregate and the active subset read 40+
+// (growth, not a conflict); labels and sections stay distinct.
 const founderStats = [
   { value: about.founder.stats.careerMatches, label: 'Career Matches' },
   { value: about.founder.stats.activePlayers, label: 'Active Players' },
