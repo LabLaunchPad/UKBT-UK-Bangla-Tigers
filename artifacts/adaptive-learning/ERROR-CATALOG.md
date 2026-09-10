@@ -331,5 +331,43 @@ observation; apply with judgment, do not generalize further.
 - **Rule:** When a contract amendment authorizes behavior a test
   forbids, update the test's scope to the amendment in the same
   change — never ship amendment and stale assertion together.
-- **Verified-by:** Not yet executed (backlog BL-10).
-- **Status:** PROVISIONAL.
+- **Verified-by:** BL-10 fix executed and green across full local
+  suite (328 passed) and multiple CI runs since.
+- **Status:** VERIFIED.
+
+## AL-021 — setup-node major bump hard-fails without pnpm on PATH
+
+- **Observation:** `actions/setup-node` v4→v5; `governance-scaffold`
+  and `dependency-allowlist` jobs failed in ~10s with "Unable to
+  locate executable file: pnpm" — neither job sets a `cache` input
+  or runs pnpm at all.
+- **Outcome:** Added `pnpm/action-setup` before `setup-node` in both
+  jobs, matching every other job's step order; both green on retry.
+- **Cause:** v5 probes pnpm cache handling regardless of inputs; v4
+  tolerated the missing binary.
+- **Counterexample:** Jobs that already installed pnpm first were
+  unaffected — the breakage was order-dependent, not version-broken.
+- **Rule:** After any `setup-node` major bump, check EVERY job's step
+  order — `pnpm/action-setup` must precede `setup-node` everywhere,
+  including script-only jobs that never run `pnpm install`.
+- **Verified-by:** CI run 34473040202, both gates PASS after the fix.
+- **Status:** VERIFIED.
+
+## AL-022 — Harness race fixed in some specs, left live in others
+
+- **Observation:** Reveal-settle fix applied to `pages`/`mobile-axe`/
+  `homepage` specs; CI then failed `about.spec` + `axe.spec` with
+  the identical footer ~1.06–1.12 blended-ratio signature — specs
+  never touched by the fix.
+- **Outcome:** Same settle block applied to `axe`/`about` (failing)
+  and `design-system` (preventive); all 6 `AxeBuilder` specs now
+  settle before scanning.
+- **Cause:** Fixed only the specs failing that day instead of
+  grepping all users of the harness first.
+- **Counterexample:** A spec passing today while holding the same
+  race is luck (CI timing), not coverage.
+- **Rule:** When fixing a systemic test-harness race, grep ALL
+  specs using the harness and fix them together in the same change.
+- **Verified-by:** PR #30 CI green (Playwright 4m7s) + main run
+  `34474337388` success after the fix.
+- **Status:** VERIFIED.
