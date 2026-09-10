@@ -10,22 +10,44 @@ test('axe-core scan reports zero violations on the homepage', async ({
   page,
 }) => {
   await page.goto('/');
-  // Scan the settled hero, not its entrance: the load choreography
-  // (delays to 650ms + 400ms fade) leaves text semi-transparent
-  // mid-flight, which axe blends into bogus ratios (observed 1.16 and
-  // 4.11 across runs for the Join button; settled navy-on-gold is
-  // 7.21:1). Vacuous on routes without a hero.
+  // Scan the settled page, not its entrances. Two mid-flight states
+  // blend into bogus axe ratios: the hero choreography (semi-opaque
+  // text read 1.16–4.11; settled navy-on-gold is 7.21:1) and, worse,
+  // below-fold [data-motion] content at opacity 0, which reads ~1.01
+  // whenever the controller arms before the scan (flaky across routes
+  // on CI). Walk the page so every reveal resolves, return to top,
+  // then wait out all finite transitions. The approved infinite hero
+  // crossfade is excluded by element (Amendment 02, as in
+  // motion.spec.ts).
+  await page.evaluate(async () => {
+    const h = document.body.scrollHeight;
+    for (let y = 0; y < h; y += 600) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    window.scrollTo(0, 0);
+  });
   await page.waitForFunction(
-    () =>
-      Array.from(
-        document.querySelectorAll(
-          '.ukbt-hero__headline, .ukbt-hero__tagline, .ukbt-hero__actions, .ukbt-hero__social',
-        ),
-      )
-        .flatMap((el) => el.getAnimations())
-        .every((a) => a.playState === 'finished' || a.playState === 'idle'),
+    () => {
+      const slideshow = new Set(
+        document.querySelector('.ukbt-hero__bg--alt')?.getAnimations() ?? [],
+      );
+      return (
+        Array.from(document.querySelectorAll('[data-motion="reveal"]')).every(
+          (el) => el.classList.contains('is-visible'),
+        ) &&
+        document
+          .getAnimations()
+          .every(
+            (a) =>
+              a.playState === 'finished' ||
+              a.playState === 'idle' ||
+              slideshow.has(a),
+          )
+      );
+    },
     null,
-    { timeout: 10000 },
+    { timeout: 15000 },
   );
   // HOMEPAGE-CONTRACT.md acceptance criterion 3 says "0 violations", with
   // no tag-scope qualifier. A wcag-tags-only scan missed a real
