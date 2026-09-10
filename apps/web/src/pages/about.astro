@@ -81,19 +81,19 @@ const structuredData = aboutGraph({
   <main id="main-content" tabindex="-1">
     <PageBanner title="About Us" crumbs={crumbs} lede={about.heroSubline} />
 
-    <Section>
+    <Section density="compact">
       <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />
     </Section>
 
-    <Section surface="alt" wrapper={true}>
+    <Section surface="alt" wrapper={true} density="compact">
       <Sponsors sponsors={ourSponsors} />
     </Section>
 
-    <Section>
+    <Section density="compact">
       <AboutStory paragraphs={about.storyParagraphs} stats={storyStats} />
     </Section>
 
-    <Section>
+    <Section density="compact">
       <FounderSpotlight
         image={about.founder.image}
         cardTitle="Founder of UK Bangla Tigers, competing at the Safari International T20 Cup."
@@ -104,11 +104,11 @@ const structuredData = aboutGraph({
       />
     </Section>
 
-    <Section surface="alt" wrapper={true}>
+    <Section surface="alt" wrapper={true} density="compact">
       <WhyChooseUs reasons={reasons} />
     </Section>
 
-    <Section>
+    <Section density="compact">
       <LeadershipGrid
         leaders={about.leaders}
         narrative={about.managementStory}
@@ -119,7 +119,7 @@ const structuredData = aboutGraph({
 
     <!-- TestimonialSection omitted: no real testimonials exist yet -->
 
-    <Section surface="alt" paddingBottom="normal">
+    <Section surface="alt" paddingBottom="normal" density="compact">
       <AboutCTA social={homepage.social} />
     </Section>
   </main>

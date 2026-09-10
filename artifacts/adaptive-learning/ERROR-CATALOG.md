@@ -371,3 +371,67 @@ observation; apply with judgment, do not generalize further.
 - **Verified-by:** PR #30 CI green (Playwright 4m7s) + main run
   `34474337388` success after the fix.
 - **Status:** VERIFIED.
+
+## AL-023 — Sticky/fixed layers smear in stitched full-page captures
+
+- **Observation:** User-supplied ~768px full-page capture showed three
+  thick black bars (story heading, founder heading, after leadership
+  narrative). Controlled Playwright `fullPage` reproductions at
+  390/768/1024/1440 were all clean; code + compositor inventory found
+  no element capable of painting them (zero `100vw`, zero blend/filter
+  tricks, only 2 reveal nodes in footer).
+- **Outcome:** Ruled CAPTURE ARTIFACT, not a defect — no code changed.
+- **Cause:** Scroll-stitched captures (DevTools full-size, extensions)
+  repaint `position:sticky/fixed` layers per band; our header is
+  sticky ≤1279px plus fixed drawer/overlay layers, all near-black
+  navy. Playwright `fullPage` instead resizes the viewport to content
+  height (no scrolling), so it never smears.
+- **Counterexample:** A bar that reproduces in Playwright `fullPage`
+  mode IS real (no stitching involved) — investigate as a defect.
+- **Rule:** Never file a visual defect from a third-party stitched
+  capture alone — reproduce in Playwright `fullPage` first. For manual
+  captures, neutralise sticky/fixed first (`position:absolute` via
+  `addStyleTag` or the screenshot `style` option).
+- **Verified-by:** 4/4 clean reproductions + compositor inventory +
+  industry documentation (screenshotrun/Geonode 2026 guides describe
+  this exact stripe signature and cause).
+- **Status:** VERIFIED.
+
+## AL-024 — object-fit:fill silently distorts brand marks
+
+- **Observation:** WOLFFIT logo (square 1254×1254) rendered into a
+  96×128 box with `object-fit: fill` → 25% stretch at every viewport.
+- **Outcome (planned):** `contain` + explicit box, recorded for fix.
+- **Cause:** `fill` ignores aspect ratio; nobody compared rendered vs
+  natural aspect.
+- **Counterexample:** `cover` crops (see AL-025) — right for photos,
+  wrong for logos where every pixel matters.
+- **Rule:** Logos and marks always `object-fit: contain` (or exact-AR
+  boxes). Assert by measurement: rendered w/h vs natural w/h per
+  viewport, not by eyeballing.
+- **Verified-by:** Measured rects at 390/768/1440 + fix executed
+  (contain + exact-AR box); logo renders 128x128 undistorted at all
+  viewports, full e2e green.
+- **Status:** VERIFIED.
+
+## AL-025 — cover-crop severity is viewport-dependent; check the tablet band
+
+- **Observation:** Portrait trophy photo (1000×1252) under `cover` +
+  `max-height` cap: 0% crop at 390, 19% at 1440, 84% crop (704×480
+  band) at 768. CTA team-huddle: 70% vertical crop at 1440 via the
+  28rem cap, 0% at 390.
+- **Outcome (planned):** Responsive image-slot rules, recorded for fix.
+- **Cause:** Fixed caps + `cover` interact with column widths that
+  change per breakpoint; the damage peaks mid-range (tablet), not at
+  the extremes anyone screenshots first.
+- **Counterexample:** 390 and 1440 both looked acceptable here — the
+  extremes pass while the middle fails.
+- **Rule:** Always inspect photographic `cover` slots at a mid-range
+  viewport (768–1024) in addition to 390/1440; assert the focal
+  content (face/trophy/team) stays in frame via element clips, not
+  full-page thumbnails.
+- **Verified-by:** Measured AR divergence per viewport + fixes
+  executed (founder slot capped 28rem at 768-1025 band: 84%→~14%
+  crop; CTA frame capped 48rem: 70%→~12% crop); captures inspected
+  at 390/768/1440, full e2e green.
+- **Status:** VERIFIED.
