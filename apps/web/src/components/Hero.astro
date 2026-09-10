@@ -87,6 +87,10 @@ const { taglineShort, social } = Astro.props;
      so visual baselines stay deterministic. */
   .ukbt-hero__bg--alt {
     object-position: 50% 35%;
+    /* Base state is slide 1: without animation (no-JS, old browsers,
+       animations-disabled screenshots) this layer stays hidden rather
+       than covering slide 1 at full opacity. */
+    opacity: 0;
     animation: ukbt-hero-crossfade var(--ukbt-motion-duration-slideshow)
       var(--ukbt-motion-easing-standard) infinite;
   }
