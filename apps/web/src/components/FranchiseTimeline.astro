@@ -1,0 +1,91 @@
+---
+// FranchiseTimeline — captain-page franchise history as a timeline spine:
+// CURRENT group emphasized, PREVIOUS subordinate. Items render verbatim
+// from captain-data (no name/event parsing — splitting the strings would
+// be inference). Page owns the h2; groups carry h3s, preserving the
+// established heading hierarchy. Static CSS, no motion.
+interface Props {
+  current: string[];
+  previous: string[];
+  currentLabel?: string;
+  previousLabel?: string;
+}
+const { current, previous, currentLabel = 'Current', previousLabel = 'Previous' } = Astro.props;
+---
+
+<div class="ukbt-timeline">
+  <div class="ukbt-timeline__group ukbt-timeline__group--current">
+    <h3 class="ukbt-timeline__label">{currentLabel}</h3>
+    <ul class="ukbt-timeline__list">
+      {current.map((item) => (
+        <li class="ukbt-timeline__item">{item}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="ukbt-timeline__group ukbt-timeline__group--previous">
+    <h3 class="ukbt-timeline__label">{previousLabel}</h3>
+    <ul class="ukbt-timeline__list">
+      {previous.map((item) => (
+        <li class="ukbt-timeline__item">{item}</li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .ukbt-timeline {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ukbt-space-6) var(--ukbt-space-8);
+  }
+  .ukbt-timeline__label {
+    margin: 0 0 var(--ukbt-space-3) 0;
+    font-size: var(--ukbt-font-size-1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ukbt-timeline__group--previous .ukbt-timeline__label {
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-timeline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--ukbt-space-4);
+    /* Timeline spine: decorative border, never a text-contrast carrier. */
+    border-left: 2px solid var(--ukbt-color-border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+  }
+  .ukbt-timeline__item {
+    position: relative;
+    font-size: var(--ukbt-font-size-1);
+  }
+  /* Node dots: gold markers are decorative, not text. */
+  .ukbt-timeline__item::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--ukbt-space-4) - 5px);
+    top: 0.45em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ukbt-color-brand-accent);
+  }
+  .ukbt-timeline__group--previous .ukbt-timeline__item {
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-timeline__group--previous .ukbt-timeline__item::before {
+    background: transparent;
+    border: 2px solid var(--ukbt-color-neutral-500);
+    width: 6px;
+    height: 6px;
+    left: calc(-1 * var(--ukbt-space-4) - 6px);
+  }
+
+  @media screen and (max-width: 767px) {
+    .ukbt-timeline {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

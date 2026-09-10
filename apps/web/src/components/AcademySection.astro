@@ -10,17 +10,29 @@ interface Counter {
 interface Props {
   tagline: string;
   counters: Counter[];
+  /** Section header copy. Defaults preserve the homepage Development band. */
+  eyebrow?: string;
+  heading?: string;
+  /** inverse: navy band (homepage). default: light surface, navy numerals
+     (gold text fails contrast on light — gold stays decorative only). */
+  tone?: 'inverse' | 'default';
 }
-const { tagline, counters } = Astro.props;
+const {
+  tagline,
+  counters,
+  eyebrow = 'Development',
+  heading = 'Not Only a Team — an Institute for Learning',
+  tone = 'inverse',
+} = Astro.props;
 ---
 
-<div class="ukbt-academy">
+<div class:list={['ukbt-academy', tone === 'default' && 'ukbt-academy--default']}>
   <SectionHeader
-    eyebrow="Development"
-    heading="Not Only a Team — an Institute for Learning"
+    eyebrow={eyebrow}
+    heading={heading}
     lede={tagline}
     rule="primary"
-    inverse={true}
+    inverse={tone === 'inverse'}
   />
   <div class="ukbt-academy__counters">
     {
@@ -62,6 +74,15 @@ const { tagline, counters } = Astro.props;
   .ukbt-academy__label {
     font-size: var(--ukbt-font-size-0);
     color: var(--ukbt-color-neutral-100);
+  }
+  /* Light-surface stats band (About/Captain reuse): same grammar, navy
+     numerals + body-tone labels. The gold top-border stays — decorative,
+     never text, so the brand contrast rule is untouched. */
+  .ukbt-academy--default .ukbt-academy__value {
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-academy--default .ukbt-academy__label {
+    color: var(--ukbt-color-neutral-700);
   }
 
   @media screen and (max-width: 767px) {
