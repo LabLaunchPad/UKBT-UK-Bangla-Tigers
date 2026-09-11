@@ -1,0 +1,50 @@
+id: EV-20260912-001
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Direct owner supply (chat, 2026-09-12) of the UKBT player photo set:
+  59 portraits in "artifacts/brand/raw/images/UKBT Players Pictures"
+  plus "Players & Managements List.pdf" (Uppsala Tigers Players &
+  Managements List: 20 players with Captain/Wk/U-19/country roles, 4
+  team officials with roles). Owner direction: use all pictures as UK
+  Bangla Tigers players with picture and name; roles from the PDF;
+  new filename spellings win over the older 42-roster
+  (Juan Henry, Kennar Lewis, Peter Robert, Mark James). 10 files are
+  HEIF (iPhone 3024x4032) converted via heic-convert to JPEG
+  intermediates, then all staged as uniform 320x320 cover-top q70
+  WebP thumbnails in public/media/players/ (54 files, ~485KB total,
+  faces verified in crops). One file ("D4652AE2-....png") carries no
+  name and is excluded — never render an unnamed face.
+  "Mohammad Chowdhury.jpg" is not separately rendered (the captain is
+  already pictured: athlete portrait + new roster thumb). The PDF's
+  printed CIC registration number is observed but stays internal-only
+  (never rendered) per standing policy.
+source: "Direct file supply from the club owner, 2026-09-12."
+source_type: first_party_client_supplied
+retrieved_at: 2026-09-12
+verified_at: 2026-09-12
+valid_until: null
+justification_for_null: >
+  Records an owner-supplied photo set as supplied. A newer owner
+  instruction (replacement photos, role changes) supersedes
+  accordingly.
+scope: "Players page roster grid (photos) + Team Officials section."
+method: All 59 files metadata-scanned; 6 thumbnails viewed (HEIF,
+  landscape, small-source, square, official, new-face crops — faces
+  intact, no decapitation); Forhad Reza source is 215x290 (mild
+  upscale to 320 thumb, acceptable at 160px render).
+result: |
+  50 players + 4 officials pictured on /players from
+  public/media/players/<slug>.webp with MANIFEST entries;
+  players-data.ts exposes paths as ungated literals; 8 roster names
+  without photos stay text-only per the no-placeholder discipline.
+related_files:
+  - apps/web/src/content/players-data.ts
+  - apps/web/src/components/RosterGrid.astro
+  - apps/web/src/pages/players.astro
+  - apps/web/src/assets/MANIFEST.md
+relates_to: [EV-20260831-005, EV-20260831-006, EV-20260831-008]
+notes: >
+  Filename countries corroborate existing roster countries throughout;
+  Roushan Singh (Portugal).jpg corroborates the EV-20260831-008
+  Portugal resolution. No biography, statistics, or quotation was
+  supplied — bios/stats remain UNKNOWN, quotes NOT VERIFIED.

@@ -214,6 +214,84 @@ pixel text must not enter the DOM). Background boards/branding are
 dimmed by each banner's navy shade behind its title. Each file renders
 on its page only.
 
+## Player roster portraits (owner-authorised 2026-09-12)
+
+Source: `artifacts/brand/raw/images/UKBT Players Pictures/` (59 portraits
++ `Players & Managements List.pdf`), `EV-20260912-001`. Owner direction:
+use all pictures as UK Bangla Tigers players with picture and name;
+roles from the PDF; new filename spellings win over the older roster.
+Staged as uniform 320x320 cover-top q70 WebP thumbnails in
+`public/media/players/<slug>.webp` (54 files, ~485KB total). 10 HEIF
+sources (iPhone 3024x4032) decoded via heic-convert to JPEG
+intermediates (Temp only, never staged), then the same thumbnail
+pipeline. Faces verified in crops (HEIF, landscape, small-source,
+square, official, new-face samples — no decapitation). Forhad Reza
+source is 215x290 (mild upscale, acceptable at 160px render).
+Excluded: `D4652AE2-….png` (no name — never render an unnamed face);
+`Mohammad Chowdhury.jpg` not separately rendered (captain already
+pictured). The PDF's printed CIC number stays internal-only, never
+rendered. Kit/sponsor marks visible in several portraits (Uppsala
+Tigers, Wolf Nutrition UK, Safari) are documentary background,
+disclosed not scrubbed. No biographies, statistics, or quotations
+were supplied with the files.
+
+| Path | Source | Depicts |
+|---|---|---|
+| `public/media/players/shakib-al-hasan.webp` | `Shakib Al Hasan (Bangladesh).png` (1113x988) | Shakib Al Hasan |
+| `public/media/players/karanbir-singh.webp` | `Karanbir Singh (Austria).heif` (3024x4032) | Karanbir Singh |
+| `public/media/players/owen-palmer.webp` | `Owen Palmer (England).png` (1023x1537) | Owen Palmer |
+| `public/media/players/shaheryar-butt.webp` | `Shaheryar Butt (Belgium).heif` (3024x4032) | Shaheryar Butt |
+| `public/media/players/chad-potgieter.webp` | `Chad Potgieter (South Africa).heif` (3024x4032) | Chad Potgieter |
+| `public/media/players/roushan-singh.webp` | `Roushan Singh (Portugal).jpg` (960x960) | Roushan Singh |
+| `public/media/players/jaspreet-singh.webp` | `Jaspreet Singh (Italy).jpg` (1577x1600) | Jaspreet Singh |
+| `public/media/players/armaan-randhawa.webp` | `Armaan Randhawa (Austria).heif` (3024x4032) | Armaan Randhawa |
+| `public/media/players/jawid-stanigze.webp` | `Jawid Stanigze.heif` (3024x4032) | Jawid Stanigze |
+| `public/media/players/chinthaka-rajapaksha.webp` | `Chinthaka Rajapaksha.heif` (3024x4032) | Chinthaka Rajapaksha |
+| `public/media/players/tasaduq-hussain.webp` | `Tasaduq Hussain.heif` (3024x4032) | Tasaduq Hussain |
+| `public/media/players/lemar-momand.webp` | `Lemar Momand.heif` (3024x4032) | Lemar Momand |
+| `public/media/players/humayun-kabir-jyoti.webp` | `Humayun Kabir Jyoti.heif` (3024x4032) | Humayun Kabir Jyoti |
+| `public/media/players/prashant-shukla.webp` | `Prashant Shukla.png` (1086x1448) | Prashant Shukla |
+| `public/media/players/qudratullah-mir-afzal.webp` | `Qudratullah Mir Afzal.png` (1086x1448) | Qudratullah Mir Afzal |
+| `public/media/players/hamid-mahmood.webp` | `Hamid Mahmood.png` (1114x1412) | Hamid Mahmood |
+| `public/media/players/anas-zaheer.webp` | `Anas Zaheer (U-19).heif` (3024x4032) | Anas Zaheer |
+| `public/media/players/essa-farooq.webp` | `Essa Farooq (U-19).png` (1199x1312) | Essa Farooq |
+| `public/media/players/mohammad-chowdhury.webp` | `Mohammad Chowdhury.jpg` (1320x1475) | Mohammad Chowdhury (roster card; athlete portrait stays the spotlight image) |
+| `public/media/players/dhrubonil-roy.webp` | `Dhrubonil Roy.jpg` (1085x1450) | Dhrubonil Roy |
+| `public/media/players/musa-ahmad.webp` | `Musa Ahmad.jpg` (836x1254) | Musa Ahmad |
+| `public/media/players/jeremy-martins.webp` | `Jeremy Martins.jpg` (1066x1600) | Jeremy Martins |
+| `public/media/players/towker-khan.webp` | `Towker Khan.jpg` (1200x1600) | Towker Khan |
+| `public/media/players/forhad-reza.webp` | `Forhad Reza.JPG` (215x290) | Forhad Reza |
+| `public/media/players/elias-sunny.webp` | `Elias Sunny.jpg` (1170x813) | Elias Sunny |
+| `public/media/players/sufyan-mehmood.webp` | `Sufyan Mehmood.jpg` (1072x1600) | Sufyan Mehmood |
+| `public/media/players/arafat-bhuiyan.webp` | `Arafat Bhuiyan.jpg` (1016x1210) | Arafat Bhuiyan |
+| `public/media/players/shabbir-rahman.webp` | `Shabbir Rahman.jpg` (1077x1078) | Shabbir Rahman |
+| `public/media/players/junaid-siddique.webp` | `Junaid Siddique.jpg` (1032x1002) | Junaid Siddique |
+| `public/media/players/wayne-parnel.webp` | `Wayne Parnel.jpg` (923x731) | Wayne Parnel |
+| `public/media/players/juan-henry.webp` | `Juan Henry.jpg` (800x1200) | Juan Henry (new spelling wins over roster `Juan Henri`) |
+| `public/media/players/kennar-lewis.webp` | `Kennar Lewis.jpg` (894x960) | Kennar Lewis (new spelling wins over roster `Kenner Lewis`) |
+| `public/media/players/peter-robert.webp` | `Peter Robert.jpg` (856x1074) | Peter Robert (new spelling wins over roster `Pater Robert Harness`) |
+| `public/media/players/mark-james.webp` | `Mark James.PNG` (651x946) | Mark James (new spelling wins over roster `Mark James Nunn`) |
+| `public/media/players/abu-bakkar.webp` | `Abu Bakkar.png` (1169x1346) | Abu Bakkar (new name from owner supply; no country stated) |
+| `public/media/players/asif-taniwal.webp` | `Asif Taniwal.png` (941x1672) | Asif Taniwal (new name; no country stated) |
+| `public/media/players/ayyan-warraich.webp` | `Ayyan Warraich.png` (1086x1448) | Ayyan Warraich (new name; no country stated) |
+| `public/media/players/cp-rizwan.webp` | `CP Rizwan.png` (1120x1404) | CP Rizwan (new name; no country stated) |
+| `public/media/players/danish-sarhadi.webp` | `Danish Sarhadi.png` (1047x1501) | Danish Sarhadi (new name; no country stated) |
+| `public/media/players/ibrahim-maqsood.webp` | `Ibrahim Maqsood.png` (1024x1536) | Ibrahim Maqsood (new name; no country stated) |
+| `public/media/players/ibrar-ahmed.webp` | `Ibrar Ahmed.png` (1091x1442) | Ibrar Ahmed (new name; no country stated) |
+| `public/media/players/jack-jakir.webp` | `Jack Jakir.png` (1122x1402) | Jack Jakir (new name; no country stated) |
+| `public/media/players/junaid-shamsu.webp` | `Junaid Shamsu.png` (1022x1538) | Junaid Shamsu (new name; no country stated) |
+| `public/media/players/krish-anand.webp` | `Krish Anand.png` (941x1672) | Krish Anand (new name; no country stated) |
+| `public/media/players/muhsin-ali.webp` | `Muhsin Ali.png` (1086x1448) | Muhsin Ali (new name; no country stated) |
+| `public/media/players/saghir-ahmad.webp` | `Saghir Ahmad.png` (1254x1254) | Saghir Ahmad (new name; no country stated) |
+| `public/media/players/sibet-hussain.webp` | `Sibet Hussain.png` (1164x1351) | Sibet Hussain (new name; no country stated) |
+| `public/media/players/syed-aziz.webp` | `Syed Aziz.png` (1313x1198) | Syed Aziz (new name; no country stated) |
+| `public/media/players/taimoor-ali.webp` | `Taimoor Ali.png` (1254x1254) | Taimoor Ali (new name; no country stated) |
+| `public/media/players/zohair-iqbal.webp` | `Zohair Iqbal.png` (1254x1254) | Zohair Iqbal (new name; no country stated) |
+| `public/media/players/shaftab-khalid.webp` | `Shaftab Khalid (Coach).png` (1196x1315) | Shaftab Khalid, Coach (Team Officials) |
+| `public/media/players/agm-sabbir.webp` | `AGM Sabbir (Team Manager).jpeg` (1400x1600) | AGM Sabbir, Team Manager (Team Officials) |
+| `public/media/players/md-ashraful-alam.webp` | `MD Ashraful Alam (Logistics Manager).jpeg` (1479x1600) | MD Ashraful Alam, Logistics Manager (Team Officials) |
+| `public/media/players/javed-butt.webp` | `Javed Butt (Team Mentor).jpg` (3024x4032) | Javed Butt, Team Mentor (Team Officials) |
+
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
 - `home-hero.webp`, `join-us.webp` — team/event

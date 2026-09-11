@@ -1,29 +1,20 @@
-// Players Profile page content, bound to @ukbt/truth's gate. The full
-// 42-name UK Bangla Tigers roster is real evidence — the client's own
-// "Players Profile" / "List Of Players" document (EV-20260831-005),
-// explicitly described by the requester as being about the club's
-// players, not Uppsala Tigers. It contains all 20 names from the
-// separately-supplied Uppsala Tigers squad list, confirming
-// CLIENT_REQ_007 ("Uppsala Tigers players should also appear on the UK
-// Bangla Tigers Players list", EV-20260826-027) — those 20 are tagged
-// `alsoUppsala` here rather than duplicated with different data.
-// "Nipo Khadem" is absent from this list — CLIENT_REQ_008 unaffected.
+// Players Profile page content, bound to @ukbt/truth's gate. The roster
+// combines two owner supplies: the 42-name "Players Profile" / "List Of
+// Players" document (EV-20260831-005, explicitly about the club's
+// players) and the 2026-09-12 photo drop — 59 portraits plus the
+// "Players & Managements List" PDF (EV-20260912-001: 20 players with
+// Captain/Wk/U-19/country roles, 4 team officials). Owner direction:
+// use all pictures as UK Bangla Tigers players with picture and name,
+// roles from the PDF, new filename spellings win over the older roster
+// (Juan Henry, Kennar Lewis, Peter Robert, Mark James).
 //
-// One conflict, resolved not guessed: Roushan Singh's country had three
-// different values across three documents (Portugal, India,
-// Netherlands) — left UNSET per EV-20260831-006, then resolved to
-// Portugal per EV-20260831-008 (his own supplied photo, showing a
-// Portugal national jersey, corroborating both the filename and the
-// original corrections document — 3 sources agree, 1 each for the
-// other two).
-//
-// Photos: EV-20260831-008 supplied photos for the 20 Uppsala Tigers
-// squad members (19 of them — not Dhrubonil Roy), reused here for the
-// same 19 people rather than treated as separate evidence, since it's
-// the same person in both places. No photo exists for the other 22
-// UK Bangla Tigers-only names, so per CLIENT_REQ_006 those stay
-// text-only — the same RosterGrid component, a mixed photo/no-photo
-// grid, not a placeholder standing in for anyone.
+// Result: 58 players (42 existing, 4 renamed, 16 new from filenames)
+// + 4 officials. 50 players + 4 officials pictured (uniform 320px
+// WebP thumbnails, `public/media/players/`); 8 names without photos
+// stay text-only per CLIENT_REQ_006 — no placeholder silhouettes.
+// One supplied file carries no name and is never rendered.
+// Individual full profiles (bio, stats) remain UNKNOWN and are stated
+// as such rather than invented; no stats tables, no quotations.
 import { type ContentRecord, createRegistry, evaluate } from '@ukbt/truth/gate';
 import { ContentRecordSchema } from '@ukbt/truth/schema';
 
@@ -43,6 +34,11 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260831-008.yaml',
   },
+  {
+    id: 'EV-20260912-001',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260912-001.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
@@ -51,6 +47,7 @@ const gateOptions = { registry, exemptFields, twoSourceFields };
 export interface RosterPlayer {
   name: string;
   country?: string;
+  role?: string;
   tags?: string[];
   note?: string;
   photo?: string;
@@ -67,12 +64,20 @@ function slug(name: string): string {
 }
 
 const UPPSALA_TAG = 'Also plays for Uppsala Tigers';
+const WK_TAG = 'Wicket-keeper';
+const U19_TAG = 'U-19';
 
 interface RawPlayer {
   name: string;
   country?: string;
   alsoUppsala?: boolean;
-  photoSlug?: string; // matches apps/web/public/media/uppsala-squad/<slug>.jpg
+  wicketKeeper?: boolean;
+  under19?: boolean;
+  /** matches apps/web/public/media/players/<slug>.webp (EV-20260912-001 set) */
+  photoSlug?: string;
+  /** true for the 16 names known only from the 2026-09-12 photo drop
+     (absent from the 42-name document) — sourced to the new EV only */
+  newFromPhotos?: boolean;
 }
 
 const rawRoster: RawPlayer[] = [
@@ -80,7 +85,7 @@ const rawRoster: RawPlayer[] = [
     name: 'Mohammad Chowdhury',
     country: 'England',
     alsoUppsala: true,
-    photoSlug: 'mohammad-chowdhury-captain',
+    photoSlug: 'mohammad-chowdhury',
   },
   {
     name: 'Shakib Al Hasan',
@@ -88,19 +93,20 @@ const rawRoster: RawPlayer[] = [
     alsoUppsala: true,
     photoSlug: 'shakib-al-hasan',
   },
-  { name: 'Mark James Nunn', country: 'England' },
+  { name: 'Mark James', country: 'England', photoSlug: 'mark-james' },
   {
     name: 'Karanbir Singh',
     country: 'Austria',
     alsoUppsala: true,
     photoSlug: 'karanbir-singh',
   },
-  { name: 'Wayne Parnel', country: 'South Africa' },
-  { name: 'Junaid Siddique', country: 'Canada' },
+  { name: 'Wayne Parnel', country: 'South Africa', photoSlug: 'wayne-parnel' },
+  { name: 'Junaid Siddique', country: 'Canada', photoSlug: 'junaid-siddique' },
   {
     name: 'Owen Palmer',
     country: 'England',
     alsoUppsala: true,
+    wicketKeeper: true,
     photoSlug: 'owen-palmer',
   },
   {
@@ -119,18 +125,19 @@ const rawRoster: RawPlayer[] = [
     name: 'Roushan Singh',
     country: 'Portugal',
     alsoUppsala: true,
+    wicketKeeper: true,
     photoSlug: 'roushan-singh',
   },
-  { name: 'Juan Henri', country: 'Portugal' },
-  { name: 'Shabbir Rahman', country: 'Bangladesh' },
-  { name: 'Kenner Lewis', country: 'West Indies' },
+  { name: 'Juan Henry', country: 'Portugal', photoSlug: 'juan-henry' },
+  { name: 'Shabbir Rahman', country: 'Bangladesh', photoSlug: 'shabbir-rahman' },
+  { name: 'Kennar Lewis', country: 'West Indies', photoSlug: 'kennar-lewis' },
   {
     name: 'Jaspreet Singh',
     country: 'Italy',
     alsoUppsala: true,
     photoSlug: 'jaspreet-singh',
   },
-  { name: 'Pater Robert Harness', country: 'England' },
+  { name: 'Peter Robert', country: 'England', photoSlug: 'peter-robert' },
   { name: 'Amahl Nathaniel', country: 'West Indies' },
   {
     name: 'Armaan Randhawa',
@@ -138,8 +145,8 @@ const rawRoster: RawPlayer[] = [
     alsoUppsala: true,
     photoSlug: 'armaan-randhawa',
   },
-  { name: 'Sufyan Mehmood', country: 'Oman' },
-  { name: 'Arafat Bhuiyan', country: 'England' },
+  { name: 'Sufyan Mehmood', country: 'Oman', photoSlug: 'sufyan-mehmood' },
+  { name: 'Arafat Bhuiyan', country: 'England', photoSlug: 'arafat-bhuiyan' },
   {
     name: 'Jawid Stanigze',
     country: 'Afghanistan',
@@ -153,9 +160,9 @@ const rawRoster: RawPlayer[] = [
     alsoUppsala: true,
     photoSlug: 'chinthaka-rajapaksha',
   },
-  { name: 'Elias Sunny', country: 'Bangladesh' },
+  { name: 'Elias Sunny', country: 'Bangladesh', photoSlug: 'elias-sunny' },
   { name: 'Ruman Ahmed', country: 'Bangladesh' },
-  { name: 'Forhad Reza', country: 'Bangladesh' },
+  { name: 'Forhad Reza', country: 'Bangladesh', photoSlug: 'forhad-reza' },
   {
     name: 'Tasaduq Hussain',
     country: 'Sweden',
@@ -173,10 +180,11 @@ const rawRoster: RawPlayer[] = [
     name: 'Humayun Kabir Jyoti',
     country: 'USA',
     alsoUppsala: true,
+    wicketKeeper: true,
     photoSlug: 'humayun-kabir-jyoti',
   },
   { name: 'Raminda Wijesooriya', country: 'Sri Lanka' },
-  { name: 'Towker Khan', country: 'USA' },
+  { name: 'Towker Khan', country: 'USA', photoSlug: 'towker-khan' },
   {
     name: 'Prashant Shukla',
     country: 'India',
@@ -201,19 +209,92 @@ const rawRoster: RawPlayer[] = [
     name: 'Anas Zaheer',
     country: 'Sweden',
     alsoUppsala: true,
+    under19: true,
     photoSlug: 'anas-zaheer',
   },
   {
     name: 'Essa Farooq',
     country: 'Sweden',
     alsoUppsala: true,
+    under19: true,
     photoSlug: 'essa-farooq',
   },
-  { name: 'Dhrubonil Roy', country: 'Sweden', alsoUppsala: true }, // no photo supplied — EV-0831-08
+  {
+    name: 'Dhrubonil Roy',
+    country: 'Sweden',
+    alsoUppsala: true,
+    under19: true,
+    photoSlug: 'dhrubonil-roy',
+  },
   { name: 'Dhavalkumar Norotam', country: 'Portugal' },
-  { name: 'Musa Ahmad', country: 'Netherlands' },
-  { name: 'Jeremy Martins', country: 'Portugal' }, // NOT on Uppsala's own squad list — EV-0831-06
+  { name: 'Musa Ahmad', country: 'Netherlands', photoSlug: 'musa-ahmad' },
+  { name: 'Jeremy Martins', country: 'Portugal', photoSlug: 'jeremy-martins' }, // NOT on Uppsala's own squad list — EV-0831-06
+  { name: 'Abu Bakkar', newFromPhotos: true, photoSlug: 'abu-bakkar' },
+  { name: 'Asif Taniwal', newFromPhotos: true, photoSlug: 'asif-taniwal' },
+  { name: 'Ayyan Warraich', newFromPhotos: true, photoSlug: 'ayyan-warraich' },
+  { name: 'CP Rizwan', newFromPhotos: true, photoSlug: 'cp-rizwan' },
+  { name: 'Danish Sarhadi', newFromPhotos: true, photoSlug: 'danish-sarhadi' },
+  { name: 'Ibrahim Maqsood', newFromPhotos: true, photoSlug: 'ibrahim-maqsood' },
+  { name: 'Ibrar Ahmed', newFromPhotos: true, photoSlug: 'ibrar-ahmed' },
+  { name: 'Jack Jakir', newFromPhotos: true, photoSlug: 'jack-jakir' },
+  { name: 'Junaid Shamsu', newFromPhotos: true, photoSlug: 'junaid-shamsu' },
+  { name: 'Krish Anand', newFromPhotos: true, photoSlug: 'krish-anand' },
+  { name: 'Muhsin Ali', newFromPhotos: true, photoSlug: 'muhsin-ali' },
+  { name: 'Saghir Ahmad', newFromPhotos: true, photoSlug: 'saghir-ahmad' },
+  { name: 'Sibet Hussain', newFromPhotos: true, photoSlug: 'sibet-hussain' },
+  { name: 'Syed Aziz', newFromPhotos: true, photoSlug: 'syed-aziz' },
+  { name: 'Taimoor Ali', newFromPhotos: true, photoSlug: 'taimoor-ali' },
+  { name: 'Zohair Iqbal', newFromPhotos: true, photoSlug: 'zohair-iqbal' },
 ];
+
+interface RawOfficial {
+  name: string;
+  role: string;
+  photoSlug: string;
+}
+
+// Team Officials from the PDF list (EV-20260912-001) — rendered as a
+// separate block on /players, same card component, role line instead
+// of country (staff have no playing country).
+const rawOfficials: RawOfficial[] = [
+  { name: 'Shaftab Khalid', role: 'Coach', photoSlug: 'shaftab-khalid' },
+  { name: 'AGM Sabbir', role: 'Team Manager', photoSlug: 'agm-sabbir' },
+  {
+    name: 'MD Ashraful Alam',
+    role: 'Logistics Manager',
+    photoSlug: 'md-ashraful-alam',
+  },
+  { name: 'Javed Butt', role: 'Team Mentor', photoSlug: 'javed-butt' },
+];
+
+function tagsFor(p: RawPlayer): string[] | undefined {
+  const tags: string[] = [];
+  if (p.alsoUppsala) tags.push(UPPSALA_TAG);
+  if (p.wicketKeeper) tags.push(WK_TAG);
+  if (p.under19) tags.push(U19_TAG);
+  return tags.length > 0 ? tags : undefined;
+}
+
+function gateRecords(
+  entries: { field: string; value: RosterPlayer; sources: string[] }[],
+) {
+  for (const r of entries) {
+    // RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
+    // ContentRecordSchema doc comment.
+    const rec = ContentRecordSchema.parse({
+      field: r.field,
+      value: r.value,
+      status: 'pending_review',
+      sources: r.sources,
+    }) as ContentRecord;
+    const result = evaluate(rec, gateOptions);
+    if (!result.passed) {
+      throw new Error(
+        `Truth gate failed for '${rec.field}': ${result.reasons.map((r2) => `${r2.rule}: ${r2.detail}`).join('; ')}`,
+      );
+    }
+  }
+}
 
 const roster: { field: string; value: RosterPlayer; sources: string[] }[] =
   rawRoster.map((p) => ({
@@ -221,34 +302,36 @@ const roster: { field: string; value: RosterPlayer; sources: string[] }[] =
     value: {
       name: p.name,
       country: p.country,
-      tags: p.alsoUppsala ? [UPPSALA_TAG] : undefined,
+      tags: tagsFor(p),
       note:
         p.name === 'Roushan Singh'
           ? 'Country was unconfirmed across three conflicting documents; resolved to Portugal once his own supplied photo and its filename both corroborated it (EV-0831-08).'
           : undefined,
-      photo: p.photoSlug
-        ? `/media/uppsala-squad/${p.photoSlug}.jpg`
-        : undefined,
-      photoAlt: p.photoSlug ? `${p.name} — Uppsala Tigers` : undefined,
+      photo: p.photoSlug ? `/media/players/${p.photoSlug}.webp` : undefined,
+      photoAlt: p.photoSlug ? `${p.name} — UK Bangla Tigers` : undefined,
     },
-    sources: p.photoSlug ? ['EV-0831-05', 'EV-0831-08'] : ['EV-0831-05'],
+    sources: p.newFromPhotos
+      ? ['EV-20260912-001']
+      : p.photoSlug
+        ? ['EV-0831-05', 'EV-20260912-001']
+        : ['EV-0831-05'],
   }));
 
-for (const r of roster) {
-  // RM-5: Zod-validated, not just TS-shaped — see provenance.ts's
-  // ContentRecordSchema doc comment.
-  const rec = ContentRecordSchema.parse({
-    field: r.field,
-    value: r.value,
-    status: 'pending_review',
-    sources: r.sources,
-  }) as ContentRecord;
-  const result = evaluate(rec, gateOptions);
-  if (!result.passed) {
-    throw new Error(
-      `Truth gate failed for '${rec.field}': ${result.reasons.map((r2) => `${r2.rule}: ${r2.detail}`).join('; ')}`,
-    );
-  }
-}
+gateRecords(roster);
+
+const officials: { field: string; value: RosterPlayer; sources: string[] }[] =
+  rawOfficials.map((o) => ({
+    field: `players.officials.${slug(o.name)}`,
+    value: {
+      name: o.name,
+      role: o.role,
+      photo: `/media/players/${o.photoSlug}.webp`,
+      photoAlt: `${o.name} — UK Bangla Tigers ${o.role}`,
+    },
+    sources: ['EV-20260912-001'],
+  }));
+
+gateRecords(officials);
 
 export const fullRoster: RosterPlayer[] = roster.map((r) => r.value);
+export const teamOfficials: RosterPlayer[] = officials.map((o) => o.value);
