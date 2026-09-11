@@ -224,12 +224,18 @@ const visibleFilters = allFilters.filter((f) => f.key === 'a' || f.count > 0);
   }
   .ukbt-squad__grid {
     display: grid;
-    /* Base floor 7rem: two-up even at 320px — the container keeps
-       32px inline padding there, leaving ~256px, and 2×112px+gap fits.
-       2-up at 390, 4 at 768. ≥1100px steps up to five wider desktop
-       columns (see below). */
-    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    /* Mobile-first: exactly 2-up on all phones (320→120px cards,
+       430→~165px) — auto-fill alone can't cap the column count and
+       drifts to 3-up on large phones. Square media + stretched rows
+       keep every card's geometry systematic at any width. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--ukbt-space-4);
+  }
+  /* ≥700px: fluid columns resume — 4 at 768, 5 at 1024. */
+  @media screen and (min-width: 700px) {
+    .ukbt-squad__grid {
+      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    }
   }
   /* Desktop comfort: the base floor reads narrow with long card
      bodies on wide screens, so ≥1100px steps up to five wider
