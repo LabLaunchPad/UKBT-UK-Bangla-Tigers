@@ -719,6 +719,43 @@ prop, no component change.
 | 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g club-captain` | 0 | PASS — 7/7; 1440/390 reviewed — award presentation dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
 | 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-05 56KB trivial, no captain page-image failure; known FAIL stands per owner direction) |
 
+## Update, 2026-09-11 — Captain face-crop focal point + strict uniform banner heights + MissionWelcome intro stacking (same `feature/about-refinements` branch)
+
+Three owner-directed refinements, one commit:
+
+1. **Captain faces cropped (reported with screenshot).** Root cause:
+   `object-position: center` cover-crops gallery-05's face band
+   (y≈13–37%) out of ~2.4:1 desktop slots. Fix per component
+   protocol (a prop, not a component): new optional
+   `background.focus` on PageBanner (default `center` — other five
+   banners byte-identical), captain passes `50% 20%`. Geometry
+   verified by reasoning across slot aspects (wide slots crop
+   vertically around the focal band; narrow slots barely crop
+   horizontally) and confirmed in captures at 1440/768/390 — both
+   faces fully visible everywhere.
+2. **Strict uniform banner heights.** Measured first (production
+   Chromium): About+lede 537 vs 493 others at 1440, 425 vs 381 at
+   768, 332 vs 264 at 390. Enforced via `min-height` (not `height` —
+   clips nothing under cross-browser text-metrics variance) +
+   centred content + balanced padding: 544px/64px desktop,
+   432px/48px ≤1025px, 340px/40px ≤767px. Re-measured: 544/432/340
+   pixel-identical across all six banner pages at all three
+   viewports. border-box confirmed, so min-height covers padding +
+   content; fixed header still cleared by outer margin.
+3. **MissionWelcome intro organisation (reported with screenshot).**
+   Root cause: 0.42fr/0.52fr end-aligned grid stranded the
+   single-line tagline bottom-right of a 4-line H2. Fix: stacked
+   intro (eyebrow + H2, lede full-width at 48rem/size-1 — the same
+   grammar as every other section header). About-only component;
+   fact rows and breakpoints untouched.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | `CI=true playwright test tests/visual/about.spec.ts tests/visual/pages.spec.ts` | 0 | PASS — 96/96 |
+| 3 | Captures | `screenshots -g about` 7/7 + `-g club-captain` 7/7 | 0 | PASS — about 1440/390 reviewed (stacked intro: one-line H2 + lede beneath, cards below); captain 1440/768/390 reviewed (both faces visible) |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (net-zero: new rules replace old; no new failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow

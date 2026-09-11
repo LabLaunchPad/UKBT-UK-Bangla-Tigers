@@ -22,6 +22,13 @@ interface Props {
     alt: string;
     width: number;
     height: number;
+    /* Face-aware focal point for the cover crop (owner direction
+       2026-09-11: gallery-05's faces sit at y≈13–37%, decapitated by
+       centre-cropping at ~2.4:1 desktop slots). '50% 20%' keeps both
+       faces at every viewport — wide slots crop vertically around the
+       focal band, narrow slots barely crop horizontally — with no
+       per-breakpoint rules. Default preserves centre everywhere. */
+    focus?: string;
   };
 }
 const { title, crumbs, lede, background } = Astro.props;
@@ -37,6 +44,7 @@ const { title, crumbs, lede, background } = Astro.props;
       height={background.height}
       fetchpriority="high"
       decoding="async"
+      style={background.focus ? `--ukbt-banner-focus: ${background.focus}` : undefined}
     />
     <div class="ukbt-page-banner__shade" aria-hidden="true" />
   )}
@@ -80,7 +88,9 @@ const { title, crumbs, lede, background } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    /* Per-image focal point via --ukbt-banner-focus; plain centre
+       when no background (or no focus) is passed. */
+    object-position: var(--ukbt-banner-focus, center);
     z-index: 0;
   }
   .ukbt-page-banner__shade {
@@ -96,10 +106,21 @@ const { title, crumbs, lede, background } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Strict uniform height (owner direction 2026-09-11): every inner
+       page's banner renders the same height whether or not a lede is
+       passed — measured 2026-09-11 (production Chromium): About+lede
+       537 / others 493 at 1440, 425 / 381 at 768, 332 / 264 at 390.
+       min-height (not height) + centred content: +7–8px headroom
+       absorbs cross-browser text-metrics variance instead of
+       clipping it. border-box (base.css) means min-height covers
+       padding + content. Balanced padding replaces the old
+       top-heavy 230/120 split — the fixed header is still cleared
+       by margin-block-start on the outer band. */
+    justify-content: center;
+    min-height: 544px;
     gap: var(--ukbt-space-gap-2);
     text-align: center;
-    padding-block: var(--ukbt-space-banner-padding-top)
-      var(--ukbt-space-banner-padding-bottom);
+    padding-block: 64px;
     /* Above-fold load entrance: single fade-up, no stagger — inner pages
        open settled, not staged. Finite, once. */
     animation: ukbt-banner-in var(--ukbt-motion-duration-slow)
@@ -132,16 +153,18 @@ const { title, crumbs, lede, background } = Astro.props;
     font-size: var(--ukbt-font-size-1);
     text-wrap: balance;
   }
-  /* Reference parity holds at desktop/tablet. On mobile the 230px top
-     padding delays content by nearly half a viewport — step down to
-     a proportion that still clears the fixed header. */
+  /* Strict heights step down with the viewport (measured
+     About/others: 425/381 at 768, 332/264 at 390). Content stays
+     optically centred via justify-content — the fixed header is
+     still cleared by margin-block-start on the outer band. */
   @media screen and (max-width: 1025px) {
     .ukbt-page-banner {
       margin-inline: var(--ukbt-space-section-wrapper-md);
       margin-block-start: var(--ukbt-space-section-wrapper-md);
     }
     .ukbt-page-banner__inner {
-      padding-block: 140px var(--ukbt-space-banner-padding-bottom);
+      min-height: 432px;
+      padding-block: 48px;
     }
   }
   @media screen and (max-width: 767px) {
@@ -150,7 +173,8 @@ const { title, crumbs, lede, background } = Astro.props;
       margin-block-start: var(--ukbt-space-section-wrapper-sm);
     }
     .ukbt-page-banner__inner {
-      padding-block: 100px 80px;
+      min-height: 340px;
+      padding-block: 40px;
     }
     /* Fluid display size below tablet: at 767px it computes to ~49px
        (seamless with the desktop 50px), shrinking to ~36px at 390px so

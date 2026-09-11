@@ -907,3 +907,11 @@ no new branch — direct continuation):
     change. Evidence: astro check 0 errors, club-captain route 1/1,
     captures 7/7 reviewed at 1440/390. Perf: no new failure (56KB
     image trivial; CSS still 56.7KB known FAIL).
+14. **Captain focal point + uniform banner heights + MissionWelcome
+    stacking (same branch, committed on top).** `background.focus`
+    prop (`50% 20%` on captain — both faces visible at 1440/768/
+    390); strict min-heights 544/432/340 measured pixel-identical
+    on all six banner pages; MissionWelcome intro stacked
+    (About-only). Evidence: astro check 0 errors, 96/96 specs,
+    about + captain captures reviewed. Perf: net-zero, still
+    56.7KB known FAIL.
