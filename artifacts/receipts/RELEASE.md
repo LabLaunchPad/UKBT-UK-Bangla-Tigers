@@ -412,3 +412,28 @@ capture date (sectionCount still 7).
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — About enhancement A1–A5 (branch `feature/about-enhancement`)
+
+Fresh runs on this branch:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — all 13 gates; mid-work `css-weight` FAIL (56.3KB > 56KB, caused by the new rules) root-caused and fixed by removing provable-zero-change weight only (duplicate blocks/queries/rules) — no budget change, no gate weakening |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`) |
+| 15 | Capture specs | `homepage-delivery` + `screenshots` specs (`CI=true`) | 0 | PASS — 108 passed; only the 7 about PNGs changed, all other routes byte-identical (proves the Section + WhyChooseUs shared changes are zero-drift) |
+| 16 | Visual comparison | transient full-page spec, 9 viewports incl 320/375/900 (deleted after review) | — | PASS — mirror, lede, narrative hierarchy, 2×2 tablet fix, odd-count span (3 + injected-5) verified; no overflow/clipping at any viewport |
+
+Scope: A4/A5/A1/A3/A2 only (MissionWelcome, LeadershipGrid,
+FounderSpotlight + `composition="mirror"`, WhyChooseUs + optional
+`lede`, about.astro) plus zero-change CSS dedup (base.css,
+Section.astro, PageBanner.astro). No route, data, image, token-value,
+or gated-copy change — the single A2 lede line is presentational
+framing, recorded in roadmap §2.19. Geometry record unchanged
+(sectionCount still 7).
+
+## Verdict (About enhancement)
+
+```
+RELEASE_STATUS = PASS
+```

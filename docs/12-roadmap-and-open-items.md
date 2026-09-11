@@ -733,3 +733,37 @@ implementation on `feature/homepage-enhancement`:
   all intentional; about byte-identical. Geometry `sectionCount`
   unchanged (7). Transient review spec deleted after use.
 - Awaiting human lock approval before About inherits the grammar.
+
+### 2.19 About enhancement implementation (2026-09-11, PR #42)
+
+Approved A1–A5 executed on `feature/about-enhancement` (branched off
+the PR41 baseline, which stays untouched for its own lock review):
+
+- **A4 mission tablet (measured defect).** 4-up fact row squeezed to
+  micro-type at 768px (1024 fits, ≤767 stacked) → 2×2 ≤900px. The
+  old ≤767 2-up rule deleted as dead (subsumed). Verified at
+  768/900/1024.
+- **A5 odd-count cards.** Trailing odd card spans the full row
+  (`:last-child:nth-child(odd)`, count-agnostic, mobile no-op).
+  Proven with 3 (production Sayem card) and 5 (transient DOM-injected
+  clone test, no fixture route — a fixture page breaks the canonical
+  gate, diagnosed and reverted).
+- **A1 founder mirror.** `composition="mirror"` (default preserves)
+  puts trophy image right / content left on desktop only; DOM order
+  and ≤1025px stacking byte-identical, a11y order preserved.
+- **A3 narrative hierarchy.** First gated paragraph takes the lede
+  size-2 (exact ClubIntro/AboutCTA lede grammar); copy untouched.
+- **A2 Why lede.** `WhyChooseUs` gains optional `lede` (default =
+  homepage wording, homepage byte-identical); About passes "Why the
+  club exists, stated from what is on record." Presentational
+  framing, not a factual claim — items untouched.
+- **Budget incident (new defect, root-caused).** A-rules tipped
+  `css-weight` to 56.3KB > 56KB. Fixed WITHOUT gate change by
+  removing provable-zero-change weight: duplicate overflow-wrap
+  block, duplicate media queries (Section, FounderSpotlight N3),
+  dead 767 rule, and the `surface-default` rule (restates body
+  values verbatim — verified zero drift: all non-about captures
+  byte-identical). Net CSS smaller than before the change.
+- Evidence: `deploy:verify` exit 0, e2e 328/1, capture specs 108
+  passed, 9-viewport full-page review (320 measured), geometry
+  sectionCount still 7. Awaiting human lock approval; Captain next.

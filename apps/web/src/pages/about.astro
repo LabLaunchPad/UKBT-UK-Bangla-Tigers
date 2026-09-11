@@ -103,11 +103,16 @@ const structuredData = aboutGraph({
         heading="Mohammad Chowdhury, Founder and CEO."
         paragraphs={about.founder.story}
         stats={founderStats}
+        composition="mirror"
       />
     </Section>
 
     <Section surface="alt" wrapper={true} density="compact">
-      <WhyChooseUs reasons={reasons} variant="editorial" />
+      <WhyChooseUs
+        reasons={reasons}
+        variant="editorial"
+        lede="Why the club exists, stated from what is on record."
+      />
     </Section>
 
     <Section density="compact">
