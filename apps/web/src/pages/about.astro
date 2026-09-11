@@ -21,32 +21,11 @@ import AboutStory from '../components/AboutStory.astro';
 import FounderSpotlight from '../components/FounderSpotlight.astro';
 import LeadershipGrid from '../components/LeadershipGrid.astro';
 import AboutCTA from '../components/AboutCTA.astro';
-import WhyChooseUs from '../components/WhyChooseUs.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { about } from '../content/about-data';
 import { ourSponsors } from '../content/sponsors-data';
 import { aboutGraph } from '../lib/seo';
-
-// Restates facts already on record; no new claim about the club.
-const reasons = [
-  {
-    title: 'International Competition',
-    body: 'Competing across the Safari International T20 Cup, Nordic Smash T20 and the Asian Challengers Trophy.',
-  },
-  {
-    title: 'A Learning Institute',
-    body: 'The club describes itself as not only a team, but an institute for learning.',
-  },
-  {
-    title: 'A Franchise Network',
-    body: 'One family across two nations, alongside sister franchise Uppsala Tigers in Sweden.',
-  },
-  {
-    title: 'A Registered Club',
-    body: `Founded in ${about.founded} · registered as ${about.legalEntity}.`,
-  },
-];
 
 const storyStats = [
   { value: about.founded, label: 'Founded' },
@@ -109,13 +88,15 @@ const structuredData = aboutGraph({
       />
     </Section>
 
-    <Section surface="alt" wrapper={true} density="compact">
-      <WhyChooseUs
-        reasons={reasons}
-        variant="editorial"
-        lede="Why the club exists, stated from what is on record."
-      />
-    </Section>
+    {/*
+      WhyChooseUs removed (owner direction 2026-09-11): its 01-04 list
+      restated MissionWelcome's four fact cards byte-for-byte in two
+      slots, and carried the stale tournament list (Nordic Smash / Asian
+      Challengers as current). Mission cards own the pillar statement;
+      the Mission list (Nordic Lights + Global T20 upcoming) is the
+      current publishable record. Component untouched — still serves
+      the homepage via its default variant.
+    */}
 
     <Section density="compact">
       {/*

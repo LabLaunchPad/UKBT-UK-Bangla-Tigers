@@ -538,11 +538,51 @@ stops passing `managementStory` (no duplicate copy on the page —
 the SEO rationale; full passage retained unrendered in about-data).
 No route, image-asset, token, or stat change.
 
-Section-organisation audit (same pass): page reads banner(h1) →
-welcome → sponsors → story → founder → values 01–04 → leadership →
-follow CTA → footer; one h1 + section h2s, eyebrow dialect
-consistent, all-compact rhythm. One finding for owner direction,
-NOT changed: MissionWelcome's 4 fact cards and WhyChooseUs 01–04
-restate the same four pillars (International / Learning /
-Franchise / Registered) — merge, differentiate, or keep is an
-owner call.
+## Update, 2026-09-11 — WhyChooseUs removal + founder-stat restyle (same `feature/about-refinements` branch)
+
+Owner decisions from multi-agent joint review (agents: visual-forensics,
+UX+IA, design-system+frontend, content-truth+asset, responsive+a11y+perf+
+release, red-team+brand — all six passes converged, evidence ledger held):
+
+1. MissionWelcome cards own the four-pillar statement — WhyChooseUs
+   removed from About (import, section, `reasons` locals deleted; a record
+   comment remains in `about.astro`). Component untouched, still serves
+   the homepage. Kills the byte-identical duplication AND the stale
+   tournament list in one cut.
+2. Mission tournament list is the current publishable record (Nordic
+   Lights + Global T20 upcoming; Safari/Nordic Smash/Asian Challengers
+   completed) — no Mission copy change needed.
+3. 3-card leadership bento kept (founder double-use is distinct semantic
+   jobs: story vs roster membership).
+4. Dual 40+: values kept, presentation restyled — founder
+   (personal-scope) stats now use a navy top-rule, club-scope Story
+   stats keep gold. Gated numbers untouched. About-only component.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (no test pinned WhyChooseUs on About; axe clean without it) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; 1440/390 reviewed — page shorter, no duplication, stacks clean, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — `css-weight 56.7KB > 56KB`, deterministic across 3 clean builds |
+
+Perf note (root-caused, not waived): baseline at `8fce089` passes at
+55.9KB with only ~115B of margin (knife-edge, cf. the earlier 56.3KB
+zero-change incident). The mandated WhyChooseUs removal deterministically
+adds +797B net — attribution concentrates in `index.css` (+1796B) via
+Vite chunk reshuffle while `about.css` holds flat (+1B = the
+accent→primary token swap); comments compile away (verified absent from
+output). No zero-visual-impact saving exists. Owner direction 2026-09-11:
+"its ok for now, dont need to cut anything" — FAIL recorded as-is, no
+compensating cuts, no budget change. Budget revisit, if ever, is a
+separate explicit re-approval event, not a silent weakening. Pre-existing
+franchise-only warnings unchanged.
+
+```
+RELEASE_STATUS = FAIL (perf css-weight only; content/functional gates PASS)
+```
+
+Section-organisation audit (prior pass, still valid minus WhyChooseUs):
+page reads banner(h1) → welcome → sponsors → story → founder →
+leadership → follow CTA → footer; one h1 + section h2s, eyebrow
+dialect consistent, all-compact rhythm. The open pillar-duplication
+question is now closed by the removal above.

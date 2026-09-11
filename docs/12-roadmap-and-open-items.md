@@ -851,3 +851,14 @@ no new branch — direct continuation):
    Section audit: 1×h1 + section h2s, eyebrows/rhythm consistent;
    open owner question (not changed): MissionWelcome fact cards vs
    WhyChooseUs 01–04 restate the same four pillars.
+7. **WhyChooseUs removal + founder-stat restyle (same branch, committed
+   on top; owner decisions from six-agent joint review).** WhyChooseUs
+   removed from About (Mission cards own the pillars; kills the
+   byte-identical duplication + stale Nordic Smash/Asian Challengers
+   list — Mission list is the current record). 3-card bento kept.
+   Founder stats navy-ruled (personal) vs Story gold-ruled (club);
+   gated 40+ values untouched. Evidence: astro check 0 errors, about
+   spec 6/6, captures 7/7 reviewed. Perf: FAIL recorded as-is —
+   56.7KB vs 56KB ceiling (baseline margin was only ~115B; removal
+   reshuffles +797B into index.css). Owner: no cuts for now, no
+   budget change; revisit is a separate re-approval event.
