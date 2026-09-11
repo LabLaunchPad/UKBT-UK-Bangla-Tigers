@@ -858,7 +858,16 @@ no new branch — direct continuation):
    list — Mission list is the current record). 3-card bento kept.
    Founder stats navy-ruled (personal) vs Story gold-ruled (club);
    gated 40+ values untouched. Evidence: astro check 0 errors, about
-   spec 6/6, captures 7/7 reviewed. Perf: FAIL recorded as-is —
+   spec 6/6, captures 7/7 reviewed.    Perf: FAIL recorded as-is —
    56.7KB vs 56KB ceiling (baseline margin was only ~115B; removal
    reshuffles +797B into index.css). Owner: no cuts for now, no
    budget change; revisit is a separate re-approval event.
+8. **About banner backdrop gallery-06 (same branch, committed on top).**
+   Owner confirmed UKBT affiliation, explicitly overriding
+   EV-20260826-030 §4 for this file (amendment recorded; MANIFEST
+   section; spec allowlist updated with re-approval comment).
+   PageBanner gains optional `background` prop (default plain navy
+   elsewhere); token-navy shade preserves gold-on-dark contrast.
+   Evidence: astro check 0 errors, about+pages 96/96, captures 7/7
+   reviewed at 1440/390. Perf: no new failure (CSS still 56.7KB
+   known FAIL; 202KB image under thresholds).

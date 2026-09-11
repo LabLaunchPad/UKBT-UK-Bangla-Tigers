@@ -46,6 +46,16 @@ const founderStats: { value: string; label: string; icon: 'trophy' | 'people' }[
 ];
 
 const crumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
+// About banner backdrop (owner direction 2026-09-11): gallery-06,
+// owner-confirmed UKBT trophy-celebration photo (overrides
+// EV-20260826-030 §4 for this file — see MANIFEST). 1400x933,
+// 202KB. Photo is presentation wiring, not a gated fact.
+const bannerBackground = {
+  src: '/media/gallery-06.webp',
+  alt: 'UK Bangla Tigers squad celebrating with a trophy',
+  width: 1400,
+  height: 933,
+};
 // AboutPage graph via the central SEO emitter — org referenced by @id,
 // never repeated (see src/lib/seo.ts).
 const structuredData = aboutGraph({
@@ -62,7 +72,7 @@ const structuredData = aboutGraph({
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <PageBanner title="About Us" crumbs={crumbs} lede={about.heroSubline} />
+    <PageBanner title="About Us" crumbs={crumbs} lede={about.heroSubline} background={bannerBackground} />
 
     <Section density="compact">
       <MissionWelcome tagline={about.tagline} facts={about.missionFacts} />

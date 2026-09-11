@@ -155,9 +155,26 @@ the photo-test pins exactly these files.
 | `public/media/sayem-rahman.jpg` | `artifacts/brand/raw/images/leadership/sayem-rahman.jpg` (owner-supplied 2026-09-10) | Vice-chairman roster card portrait on `/about` | `EV-20260910-001` | Viewed at full resolution. Matches the Sayem Rahman depicted in management-team.webp (same person). Studio-style gradient backdrop, no watermark, no baked-in names. |
 | `public/media/shahidul-alam-ratan.webp` | `artifacts/brand/raw/images/leadership/MD Shahidul Alam Ratan.webp` (owner-supplied 2026-09-11) | Acting-chairman roster card portrait on `/about` | `EV-20260911-001` | Viewed at full resolution. Matches the MD Shahidul Alam Ratan depicted in management-team.webp (same person — suit, striped tie, greying temples). Neutral backdrop, no watermark, no baked-in names. Small lapel pins visible (personal dress pins, illegible at render size; disclosed per Amendment 01 rule 4, not scrubbed). |
 
+## About banner background (owner-authorised 2026-09-11)
+
+| Path | Source | Usage |
+|---|---|---|
+| `public/media/gallery-06.webp` | `artifacts/brand/raw/images/gallery/gallery-06.webp` (byte-identical, SHA256 `94D132BF…F168`, 1400x933, 202KB) | Photographic backdrop of the `/about` PageBanner under a token-navy shade |
+
+Authorisation is explicit owner direction (chat 2026-09-11): the owner
+confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
+first-party confirmation supersedes the "not confirmed" assessment in
+`EV-20260826-030` §4 second bullet **for this file only** (see the
+amendment appended to that record); `join-us.webp` and `home-hero.webp`
+findings are unchanged. Viewed at full resolution: squad trophy
+celebration in green/red kit; background event boards read
+approximately "Islami Bank ... Cup 2022" — disclosed as documentary
+background, not scrubbed; the banner's navy shade dims them behind the
+title. Renders on `/about` only.
+
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
-- `home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event
+- `home-hero.webp`, `join-us.webp` — team/event
   affiliation not confirmed as UK Bangla Tigers (`EV-20260826-030`).
 - `nordic-smash-slide.webp` — **removed after initial staging**: has
   "NIPO KHADEM / PORTUGAL" baked into the photo itself, which

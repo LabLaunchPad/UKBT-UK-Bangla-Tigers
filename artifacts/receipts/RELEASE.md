@@ -581,6 +581,35 @@ franchise-only warnings unchanged.
 RELEASE_STATUS = FAIL (perf css-weight only; content/functional gates PASS)
 ```
 
+## Update, 2026-09-11 — About banner backdrop gallery-06 (same `feature/about-refinements` branch)
+
+Owner direction: implement gallery-06 as the About banner background.
+Conflict handled explicitly, not silently: the file was banned from
+About (`about.spec.ts` excluded list) and assessed "likely a different
+club/tournament" (`EV-20260826-030` §4). Owner confirmed it depicts a
+UKBT team/event photo. Override recorded in three places: amendment
+appended to `EV-20260826-030` (this file only; join-us/home-hero
+findings unchanged), new MANIFEST section (byte-identical staging,
+SHA256 `94D132BF…F168`, 1400x933, 202KB; Islami Bank background
+boards disclosed as documentary background), and the spec allowlist
+with re-approval comment (other 3 exclusions kept).
+
+Implementation (minimum-change per component protocol): PageBanner
+gains an optional `background` prop (`src/alt/width/height`); default
+absent preserves plain-navy rendering on all other pages. Backdrop is
+a real `<img>` (fetchpriority high, explicit dims, no CLS) under a
+token-navy shade at fixed opacity — token-native, no literals — so
+gold title / white lede / breadcrumb keep the plain-navy contrast
+posture. Radius clip via `overflow:hidden` (no positioned-overflow
+children; safe).
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | About + cross-page | `CI=true playwright test tests/visual/about.spec.ts tests/visual/pages.spec.ts` | 0 | PASS — 96/96 (club-captain shared banner unaffected) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; 1440/390 reviewed — photo dimmed under navy, title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-06 202KB under warn threshold, no about page-image failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow

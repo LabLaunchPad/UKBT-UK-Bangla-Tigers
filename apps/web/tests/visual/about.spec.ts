@@ -97,7 +97,10 @@ test('excluded images are never referenced by the built About Us page', async ({
   const excluded = [
     'home-hero.webp',
     'join-us.webp',
-    'gallery-06.webp',
+    // gallery-06.webp REMOVED from this list 2026-09-11: owner explicitly
+    // confirmed it depicts a UKBT team/event photo (overrides
+    // EV-20260826-030 §4 for this file) and directed it as the About
+    // banner background. Explicit re-approval, not a weakening.
     'nordic-smash-slide.webp',
   ];
   for (const file of excluded) {
