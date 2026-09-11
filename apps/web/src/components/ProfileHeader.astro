@@ -19,8 +19,12 @@ interface Props {
   /** One concise identity line under the role (page-composed from gated
      values). Rendered only when provided. */
   identityLine?: string;
+  /** C2: omit the eyebrow pill where the page banner already carries the
+     identity (club-captain). Default true preserves current behavior;
+     single-consumer component, so no other route is affected either way. */
+  showEyebrow?: boolean;
 }
-const { name, role, facts, photo, layout = 'standard', identityLine } = Astro.props;
+const { name, role, facts, photo, layout = 'standard', identityLine, showEyebrow = true } = Astro.props;
 import SubHeading from './SubHeading.astro';
 ---
 
@@ -46,7 +50,7 @@ import SubHeading from './SubHeading.astro';
     )
   }
   <div class="ukbt-profile-header__content">
-    <SubHeading label="Club Captain" />
+    {showEyebrow && <SubHeading label="Club Captain" />}
     <h2 class="ukbt-profile-header__name">{name}</h2>
     <p class="ukbt-profile-header__role">{role}</p>
     {identityLine && <p class="ukbt-profile-header__identity">{identityLine}</p>}
@@ -140,14 +144,11 @@ import SubHeading from './SubHeading.astro';
       align-items: flex-start;
       text-align: left;
     }
-    .ukbt-profile-header__photo {
-      width: 100%;
-      max-width: 20rem;
-      height: 24rem;
-    }
-    /* Athlete frame must collapse like the standard one: the desktop
+    /* Athlete frame collapses exactly like the standard one (the desktop
        20rem rule is higher-specificity and would otherwise hold 320px
-       wide inside a 320px viewport (mobile-ux overflow). */
+       wide inside a 320px viewport). Merged selectors: identical
+       declarations, one rule. */
+    .ukbt-profile-header__photo,
     .ukbt-profile-header--athlete .ukbt-profile-header__photo {
       width: 100%;
       max-width: 20rem;
