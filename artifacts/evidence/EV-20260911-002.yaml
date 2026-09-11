@@ -1,0 +1,43 @@
+id: EV-20260911-002
+classification: FIRST_PARTY_CLIENT_SUPPLIED
+claim: >
+  Client direction supplied in chat on 2026-09-11 during review of the
+  /players Squad recomposition: Mohammad Chowdhury (Club Captain) and
+  Shakib Al Hasan are both all-rounders, and the squad UI should show
+  them as such. No batting/bowling classifications for any other player
+  were supplied; no other role, statistic, biography, or profile
+  information was asserted.
+source: "Client chat message, 2026-09-11 (squad review round): 'the club captain and shakib al hasan — both is all rounder'."
+source_type: first_party_client_supplied
+retrieved_at: 2026-09-11
+verified_at: 2026-09-11
+valid_until: null
+justification_for_null: >
+  Records a client-supplied playing-role classification, the same class
+  already accepted for gated content (EV-20260831-001, EV-20260831-002).
+  Corroboration is asymmetric and recorded honestly: Chowdhury's
+  all-rounder status is independently supported by his gated captain
+  record, which proves both a batting style (Right-Handed Top Order
+  Batter) and a bowling style (Right-Arm Off Spin Bowler) from EV-026 —
+  so the tag is over-determined for him. Shakib Al Hasan's tag rests on
+  this client direction alone; no second source was supplied or found,
+  and none is claimed.
+scope: "Players Profile squad recomposition — role tags for two named players only."
+method: Recorded the client's verbatim direction; cross-referenced Chowdhury against the gated captain record (captain-data.ts, EV-026) before applying; confirmed no other player role data exists in players-data.ts or any EV.
+result: |
+  Actionable for exactly two roster records: Mohammad Chowdhury and
+  Shakib Al Hasan each gain a verified 'All-Rounder' tag sourced to
+  this EV (in addition to their existing sources). No Batsmen/Bowlers
+  filter taxonomy may be derived from this record — two all-rounders do
+  not imply classifications for the remaining 56 players, and none are
+  recorded.
+related_files:
+  - apps/web/src/content/players-data.ts
+  - apps/web/src/content/captain-data.ts
+  - apps/web/src/components/SquadCard.astro
+  - apps/web/src/components/SquadGrid.astro
+relates_to: [EV-20260826-026, EV-20260831-001, EV-20260912-001]
+notes: >
+  If the club later supplies a full batting/bowling/all-rounder
+  taxonomy for the squad, it must arrive as its own evidenced record;
+  this EV must not be stretched to cover it.

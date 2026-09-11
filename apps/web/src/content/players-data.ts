@@ -39,6 +39,11 @@ const registry = createRegistry([
     tier: 'T1',
     url: 'artifacts/evidence/EV-20260912-001.yaml',
   },
+  {
+    id: 'EV-20260911-002',
+    tier: 'T1',
+    url: 'artifacts/evidence/EV-20260911-002.yaml',
+  },
 ]);
 const exemptFields = new Set<string>();
 const twoSourceFields = new Set<string>();
@@ -66,6 +71,11 @@ function slug(name: string): string {
 const UPPSALA_TAG = 'Also plays for Uppsala Tigers';
 const WK_TAG = 'Wicket-keeper';
 const U19_TAG = 'U-19';
+// All-Rounder is a verified tag ONLY for the two players named in
+// EV-20260911-002 (client direction 2026-09-11; Chowdhury additionally
+// corroborated by his gated batting+bowling styles). It must never be
+// set for any other player without its own evidenced record.
+const AR_TAG = 'All-Rounder';
 
 interface RawPlayer {
   name: string;
@@ -73,6 +83,8 @@ interface RawPlayer {
   alsoUppsala?: boolean;
   wicketKeeper?: boolean;
   under19?: boolean;
+  /** true only for Mohammad Chowdhury and Shakib Al Hasan (EV-20260911-002) */
+  allRounder?: boolean;
   /** matches apps/web/public/media/players/<slug>.webp (EV-20260912-001 set) */
   photoSlug?: string;
   /** true for the 16 names known only from the 2026-09-12 photo drop
@@ -85,12 +97,14 @@ const rawRoster: RawPlayer[] = [
     name: 'Mohammad Chowdhury',
     country: 'England',
     alsoUppsala: true,
+    allRounder: true,
     photoSlug: 'mohammad-chowdhury',
   },
   {
     name: 'Shakib Al Hasan',
     country: 'Bangladesh',
     alsoUppsala: true,
+    allRounder: true,
     photoSlug: 'shakib-al-hasan',
   },
   { name: 'Mark James', country: 'England', photoSlug: 'mark-james' },
@@ -280,6 +294,7 @@ function tagsFor(p: RawPlayer): string[] | undefined {
   if (p.alsoUppsala) tags.push(UPPSALA_TAG);
   if (p.wicketKeeper) tags.push(WK_TAG);
   if (p.under19) tags.push(U19_TAG);
+  if (p.allRounder) tags.push(AR_TAG);
   return tags.length > 0 ? tags : undefined;
 }
 
@@ -318,11 +333,16 @@ const roster: { field: string; value: RosterPlayer; sources: string[] }[] =
       photo: p.photoSlug ? `/media/players/${p.photoSlug}.webp` : undefined,
       photoAlt: p.photoSlug ? `${p.name} — UK Bangla Tigers` : undefined,
     },
-    sources: p.newFromPhotos
-      ? ['EV-20260912-001']
-      : p.photoSlug
-        ? ['EV-0831-05', 'EV-20260912-001']
-        : ['EV-0831-05'],
+    sources: [
+      ...(p.newFromPhotos
+        ? ['EV-20260912-001']
+        : p.photoSlug
+          ? ['EV-0831-05', 'EV-20260912-001']
+          : ['EV-0831-05']),
+      // The All-Rounder tag on the two EV-20260911-002 players carries
+      // its own source; every other record's source set is unchanged.
+      ...(p.allRounder ? ['EV-20260911-002'] : []),
+    ],
   }));
 
 gateRecords(roster);

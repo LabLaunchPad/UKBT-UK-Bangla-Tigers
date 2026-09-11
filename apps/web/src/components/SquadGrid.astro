@@ -1,0 +1,250 @@
+---
+// SquadGrid — filterable editorial roster grid for /players.
+//
+// Filter dimensions derive ONLY from verified RosterPlayer fields:
+// photo presence, Wicket-keeper tag, U-19 tag, Uppsala affiliation.
+// A filter renders only when at least one record matches it — no empty
+// categories, no invented counts. The reference's Batsmen/Bowlers/
+// All-Rounders filters are deliberately absent: the data model proves
+// no such taxonomy.
+//
+// Progressive enhancement: the filter bar is hidden until the
+// component script runs (data-squad-ready), so no-JS renders the full
+// roster with no dead controls. Filtering is vanilla DOM toggling —
+// no framework, no hydration cost.
+import type { RosterPlayer } from '../content/players-data';
+import SquadCard from './SquadCard.astro';
+
+interface Props {
+  players: RosterPlayer[];
+  /** 'player' | 'official' — forwarded to every SquadCard. */
+  variant?: 'player' | 'official';
+  /** Render the data-derived filter bar. Officials (4 records, role-led)
+      omit it. */
+  filters?: boolean;
+  /** aria-label for the filter group. */
+  filterLabel?: string;
+  /** Unit noun for the live count line ('Players' / 'Officials'). */
+  unit?: string;
+  /** Organisation for card alt fallbacks (see SquadCard). */
+  org?: string;
+  /** Root id for aria association. */
+  id?: string;
+}
+
+const {
+  players,
+  variant = 'player',
+  filters = true,
+  filterLabel = 'Filter squad',
+  unit = 'Players',
+  org = 'UK Bangla Tigers',
+  id = 'squad',
+} = Astro.props;
+
+interface Filter {
+  key: string;
+  label: string;
+  count: number;
+}
+
+const UPC_TAG = 'Also plays for Uppsala Tigers';
+// Single-letter filter keys keep the shipped HTML small; the script
+// below maps them back to DOM-derived card membership (photo presence,
+// badge text, affiliation line) so no per-card data attributes ship.
+const allFilters: Filter[] = [
+  { key: 'a', label: 'All', count: players.length },
+  {
+    key: 'p',
+    label: 'With Photos',
+    count: players.filter((p) => p.photo).length,
+  },
+  {
+    key: 'n',
+    label: 'No Photos',
+    count: players.filter((p) => !p.photo).length,
+  },
+  {
+    key: 'k',
+    label: 'Wicket-keepers',
+    // The Uppsala squad spells the verified tag 'Wicketkeeper' —
+    // counted together, badged identically (see SquadCard).
+    count: players.filter((p) =>
+      (p.tags ?? []).some(
+        (t) => t === 'Wicket-keeper' || t === 'Wicketkeeper',
+      ),
+    ).length,
+  },
+  {
+    key: 'r',
+    label: 'All-Rounders',
+    count: players.filter((p) => (p.tags ?? []).includes('All-Rounder'))
+      .length,
+  },
+  {
+    key: 'j',
+    label: 'U-19',
+    count: players.filter((p) => (p.tags ?? []).includes('U-19')).length,
+  },
+  {
+    key: 't',
+    label: 'Uppsala Tigers',
+    count: players.filter((p) => (p.tags ?? []).includes(UPC_TAG)).length,
+  },
+];
+// 'All' always renders; every other filter needs ≥1 real record.
+const visibleFilters = allFilters.filter((f) => f.key === 'a' || f.count > 0);
+---
+
+<div class="ukbt-squad" id={id} data-squad-grid>
+  {
+    filters && (
+      <div class="ukbt-squad__bar">
+        <div class="ukbt-squad__filters" role="group" aria-label={filterLabel}>
+          {visibleFilters.map((f, i) => (
+            <button
+              class="ukbt-squad__filter"
+              data-filter={f.key}
+              aria-pressed={i === 0 ? 'true' : undefined}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <p class="ukbt-squad__count" data-squad-count aria-live="polite">
+          {players.length} {unit}
+        </p>
+      </div>
+    )
+  }
+  <div class="ukbt-squad__grid">
+    {players.map((p) => (
+      <SquadCard player={p} variant={variant} org={org} />
+    ))}
+  </div>
+</div>
+
+<script>
+  // Scoped per grid instance. Membership is read from the rendered card
+  // (photo presence, badge text, affiliation line) — the only verified
+  // sources — so filtering needs no per-card data attributes.
+  for (const root of document.querySelectorAll('[data-squad-grid]')) {
+    const buttons = [...root.querySelectorAll('[data-filter]')];
+    if (buttons.length === 0) continue;
+    const cards = [...root.querySelectorAll('.ukbt-squad-card')];
+    const badge = (c: Element) =>
+      c.querySelector('.ukbt-squad-card__badge')?.textContent ?? '';
+    const affil = (c: Element) =>
+      c.querySelector('.ukbt-squad-card__affil') !== null;
+    const matches = (c: Element, key: string): boolean => {
+      if (key === 'a') return true;
+      if (key === 'p') return c.querySelector('img') !== null;
+      if (key === 'n') return c.querySelector('img') === null;
+      if (key === 'k') return badge(c).includes('Wicket-keeper');
+      if (key === 'r') return badge(c).includes('All-Rounder');
+      if (key === 'j') return badge(c).includes('U-19');
+      if (key === 't') return affil(c);
+      return true;
+    };
+    const count = root.querySelector('[data-squad-count]');
+    const total = cards.length;
+    const unit =
+      (count?.textContent ?? '').replace(/^\d+\s*/, '') || 'Players';
+    const apply = (key: string) => {
+      let shown = 0;
+      for (const card of cards) {
+        const show = matches(card, key);
+        card.toggleAttribute('hidden', !show);
+        if (show) shown += 1;
+      }
+      for (const b of buttons) {
+        b.setAttribute(
+          'aria-pressed',
+          b.getAttribute('data-filter') === key ? 'true' : 'false',
+        );
+      }
+      if (count) count.textContent = `${shown} of ${total} ${unit}`;
+    };
+    for (const b of buttons) {
+      b.addEventListener('click', () =>
+        apply(b.getAttribute('data-filter') ?? 'a'),
+      );
+    }
+    // Expose every toggle's state (and the total count) as soon as the
+    // script runs — initial HTML carries pressed only on 'All'.
+    apply('a');
+    root.setAttribute('data-squad-ready', 'true');
+  }
+</script>
+
+<style>
+  .ukbt-squad__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-3);
+    margin-bottom: var(--ukbt-space-6);
+  }
+  /* Hidden until the filter script runs — no-JS shows the full roster
+     with no dead controls. */
+  .ukbt-squad__filters {
+    display: none;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-2);
+  }
+  [data-squad-ready] .ukbt-squad__filters {
+    display: flex;
+  }
+  .ukbt-squad__filter {
+    appearance: none;
+    border: 1px solid var(--ukbt-color-neutral-200, #e5e0d2);
+    background: var(--ukbt-color-surface, #ffffff);
+    color: var(--ukbt-color-brand-primary);
+    border-radius: 999px;
+    /* ~39px tall: comfortably above the 24px minimum target with room
+       for touch use, while staying a compact control strip. */
+    padding: var(--ukbt-space-2) var(--ukbt-space-3);
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .ukbt-squad__filter[aria-pressed='true'] {
+    background: var(--ukbt-color-brand-primary);
+    border-color: var(--ukbt-color-brand-primary);
+    color: #ffffff;
+  }
+  .ukbt-squad__count {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-0);
+    white-space: nowrap;
+  }
+  .ukbt-squad__grid {
+    display: grid;
+    /* Base floor 7rem: two-up even at 320px — the container keeps
+       32px inline padding there, leaving ~256px, and 2×112px+gap fits.
+       2-up at 390, 4 at 768. ≥1100px steps up to five wider desktop
+       columns (see below). */
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: var(--ukbt-space-4);
+  }
+  /* Desktop comfort: the base floor reads narrow with long card
+     bodies on wide screens, so ≥1100px steps up to five wider
+     (~240px) columns. Small screens keep the base floor. */
+  @media screen and (min-width: 1100px) {
+    .ukbt-squad__grid {
+      grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+    }
+  }
+  /* Grid items are the SquadCard articles directly (no wrapper divs —
+     keeps players/index.html under the html-weight budget). */
+  .ukbt-squad__grid > article {
+    min-width: 0;
+  }
+  .ukbt-squad__grid > article[hidden] {
+    display: none;
+  }
+</style>

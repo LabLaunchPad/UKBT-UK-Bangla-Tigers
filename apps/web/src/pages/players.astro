@@ -13,7 +13,8 @@ import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
 import Section from '../components/Section.astro';
 import CaptainSpotlight from '../components/CaptainSpotlight.astro';
-import RosterGrid from '../components/RosterGrid.astro';
+import SquadGrid from '../components/SquadGrid.astro';
+import SquadHead from '../components/SquadHead.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
@@ -52,13 +53,23 @@ const bannerBackground = {
     </Section>
 
     <Section surface="alt">
-      <h2>Squad</h2>
-      <RosterGrid players={fullRoster} />
+      <SquadHead
+        eyebrow="Our Team"
+        heading="Squad"
+        count={`${fullRoster.length} Players · ${teamOfficials.length} Officials`}
+      />
+      <SquadGrid players={fullRoster} id="squad" />
     </Section>
 
     <Section>
-      <h2>Team Officials</h2>
-      <RosterGrid players={teamOfficials} />
+      <SquadHead eyebrow="Backroom" heading="Team Officials" sub />
+      <SquadGrid
+        players={teamOfficials}
+        variant="official"
+        filters={false}
+        id="team-officials"
+        unit="Officials"
+      />
     </Section>
 
     <Section paddingBottom="normal">
@@ -75,9 +86,6 @@ const bannerBackground = {
 </BaseLayout>
 
 <style>
-  h2 {
-    margin: 0 0 var(--ukbt-space-gap-5) 0;
-  }
   .ukbt-players-stat {
     display: flex;
     align-items: baseline;
