@@ -21,6 +21,7 @@ import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
 import { captainGraph } from '../lib/seo';
 import Link from '../components/Link.astro';
+import SubHeading from '../components/SubHeading.astro';
 
 const profileFacts = [
   { label: 'Date of Birth', value: captain.dob },
@@ -84,15 +85,18 @@ const structuredData = captainGraph({
         photo={captainPhoto}
         layout="athlete"
         identityLine={identityLine}
+        showEyebrow={false}
       />
     </Section>
 
     <Section surface="alt">
+      <div class="ukbt-captain-section-eyebrow"><SubHeading label="Career Path" /></div>
       <h2>Franchise History</h2>
       <FranchiseTimeline current={captain.currentFranchises} previous={captain.previousFranchises} />
     </Section>
 
     <Section>
+      <div class="ukbt-captain-section-eyebrow"><SubHeading label="Performance" /></div>
       <h2>Career Statistics</h2>
       <div class="ukbt-stats-stack">
         <StatsTable caption="Batting" headers={battingHeaders} rows={battingRows} />
@@ -132,8 +136,11 @@ const structuredData = captainGraph({
 </BaseLayout>
 
 <style>
+  /* Both section h2s carry a SubHeading eyebrow (C1), so the eyebrow gap
+     lives here once instead of a separate wrapper rule. The athlete
+     name keeps its own margin via its higher-specificity class rule. */
   h2 {
-    margin: 0 0 var(--ukbt-space-gap-5) 0;
+    margin: var(--ukbt-space-2) 0 var(--ukbt-space-gap-5) 0;
   }
   h3 {
     margin: 0 0 var(--ukbt-space-gap-2) 0;
@@ -146,6 +153,10 @@ const structuredData = captainGraph({
   .ukbt-captain-close {
     display: flex;
     justify-content: flex-start;
+    /* C3: deliberate terminal — gold top rule in the existing boundary
+       grammar (AboutCTA, FranchiseTeaser), no new content or CTA. */
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-6);
   }
   .ukbt-links-grid {
     display: grid;

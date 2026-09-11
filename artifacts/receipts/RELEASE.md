@@ -437,3 +437,27 @@ framing, recorded in roadmap §2.19. Geometry record unchanged
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — Captain enhancement C1–C3 (branch `feature/captain-enhancement`)
+
+Fresh runs on this branch (combined main + PR41 + PR42 baseline):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — all 13 gates; mid-work `css-weight` FAIL (56.1KB) root-caused and fixed by zero-change cuts only (selector/media merges, dead-rule removal, zero-consumer `centered` variant removal, footer list merge) — no budget change |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`) |
+| 15 | Capture specs | `homepage-delivery` + `screenshots` specs (`CI=true`) | 0 | PASS — 108 passed; only the 7 club-captain PNGs changed, all other routes byte-identical |
+| 16 | Visual comparison | transient full-page spec, 9 viewports incl 320/375/900 (deleted after review) | — | PASS — stutter removed, orientation pills, deliberate terminal; tables fit ≥768, lawful scroll-region below; no overflow at any viewport |
+
+Scope: C2/C1/C3 only (ProfileHeader opt-out, 2 SubHeadings +
+h2-gap fold, close rule) plus zero-change CSS dedup (SectionHeader,
+Footer, Section, ProfileHeader merges). No route, data, image,
+token-value, stat, or gated-copy change — C1 labels are
+presentational structure, recorded in roadmap §2.20. Geometry
+sectionCount still 5.
+
+## Verdict (Captain enhancement)
+
+```
+RELEASE_STATUS = PASS
+```

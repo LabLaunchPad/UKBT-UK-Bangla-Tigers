@@ -767,3 +767,33 @@ the PR41 baseline, which stays untouched for its own lock review):
 - Evidence: `deploy:verify` exit 0, e2e 328/1, capture specs 108
   passed, 9-viewport full-page review (320 measured), geometry
   sectionCount still 7. Awaiting human lock approval; Captain next.
+
+### 2.20 Captain enhancement implementation (2026-09-11, PR #43)
+
+Approved C1–C3 executed on `feature/captain-enhancement` (combined
+main + PR41 + PR42 baseline; ancestry reported before editing):
+
+- **C2 stutter removed.** `ProfileHeader` gains `showEyebrow`
+  (default true; single-consumer component); captain page passes
+  false. Banner H1 + name + gated role carry the identity; DOM/a11y
+  order unchanged.
+- **C1 orientation.** Franchise → "Career Path", Stats →
+  "Performance" SubHeadings (presentational structure, A2-class —
+  no new facts); links h3s already orient, left alone. Gap folded
+  into the page h2 rule instead of a new wrapper rule.
+- **C3 terminal.** Gold top rule + pad on the close block
+  (franchise-boundary precedent); no new CTA.
+- **Budget incident (recurrence, same protocol).** C-rules tipped
+  `css-weight` to 56.1KB. Fixed with zero-change cuts only:
+  merged identical photo-collapse selectors, merged duplicate media
+  blocks, removed dead 767 rule, removed `surface-default`
+  restatement — then, 55B short, removed the zero-consumer
+  `SectionHeader centered` variant (typecheck + no test + no
+  contract reference prove no consumer) and merged Footer's
+  identical list rules. No budget change. Net CSS below baseline.
+- Evidence: `deploy:verify` exit 0, e2e 328/1, capture specs 108
+  passed, 9-viewport full-page review incl 320 (transient spec
+  deleted). Only the 7 club-captain PNGs changed — every other
+  route byte-identical, proving the SectionHeader/Footer shared
+  edits are zero-drift. Geometry sectionCount still 5. Awaiting
+  human lock approval; merge order 41 → 42 → 43.

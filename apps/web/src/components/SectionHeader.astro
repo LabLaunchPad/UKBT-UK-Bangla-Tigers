@@ -10,8 +10,9 @@
 // eyebrows were already consolidated into SubHeading.astro this phase;
 // this stops the same thing happening to the row that contains it.
 //
-// `centered` mirrors `.heading-section-container` (column, centred,
-// max-width 65%), which the reference uses where a section has no CTA.
+// NOTE: a `centered` variant existed here with zero consumers — removed
+// with its CSS as dead weight (CSS budget). Re-add with consumers if a
+// centred header is ever actually needed.
 import Button from './Button.astro';
 import SubHeading from './SubHeading.astro';
 
@@ -24,24 +25,20 @@ interface Props {
   ctaHref?: string;
   /** Accent rule (default) or primary rule, matching the two reference variants. */
   rule?: 'accent' | 'primary' | 'none';
-  centered?: boolean;
   inverse?: boolean;
-}
-const {
+}const {
   eyebrow,
   heading,
   lede,
   ctaLabel,
   ctaHref,
   rule = 'accent',
-  centered = false,
   inverse = false,
 } = Astro.props;
 
 const cls = [
   'ukbt-section-header',
   `ukbt-section-header--rule-${rule}`,
-  centered ? 'ukbt-section-header--centered' : '',
   inverse ? 'ukbt-section-header--inverse' : '',
 ]
   .filter(Boolean)
@@ -107,26 +104,14 @@ const cls = [
     flex: none;
   }
 
-  /* Reference `.heading-section-container`: centred, max-width 65%. */
-  .ukbt-section-header--centered {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .ukbt-section-header--centered .ukbt-section-header__text {
-    align-items: center;
-    text-align: center;
-    max-width: 65%;
-  }
-
+  /* No centered variant: it had zero consumers (verified by typecheck
+     on removal — no route passes `centered`), so its rules were dead
+     weight against the CSS budget. Re-add with consumers if needed. */
   @media screen and (max-width: 1025px) {
     .ukbt-section-header {
       flex-direction: column;
       align-items: flex-start;
       gap: var(--ukbt-space-gap-3);
-    }
-    .ukbt-section-header--centered .ukbt-section-header__text {
-      max-width: 100%;
     }
   }
 </style>
