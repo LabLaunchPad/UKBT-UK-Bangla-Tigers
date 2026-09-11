@@ -886,3 +886,10 @@ no new branch — direct continuation):
     Calendar cross-checks the Mission record (no action). Perf: no
     new failure (230KB image under thresholds; CSS still 56.7KB
     known FAIL).
+11. **Contact banner backdrop gallery-04 (same branch, committed on
+    top).** Owner confirmed affiliation AND publication rights,
+    superseding the contact-sheet watermark hold for this file
+    (recorded; watermark disclosed). Same PageBanner prop, no
+    component change. Evidence: astro check 0 errors, contact
+    captures 7/7 reviewed at 1440/390. Perf: no new failure (67KB
+    image trivial; CSS still 56.7KB known FAIL).

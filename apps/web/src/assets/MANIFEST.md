@@ -162,6 +162,7 @@ the photo-test pins exactly these files.
 | `public/media/gallery-06.webp` | `artifacts/brand/raw/images/gallery/gallery-06.webp` (byte-identical, SHA256 `94D132BF…F168`, 1400x933, 202KB) | Photographic backdrop of the `/about` PageBanner under a token-navy shade |
 | `public/media/gallery-08.jpg` | `artifacts/brand/raw/images/gallery/gallery-08.jpg` (byte-identical, SHA256 `671717C2…7B7B`, 1400x783, 291KB) | Photographic backdrop of the `/players` PageBanner under a token-navy shade |
 | `public/media/gallery-10.webp` | `artifacts/brand/raw/images/gallery/gallery-10.webp` (byte-identical, SHA256 `E884D263…E160`, 1400x1002, 230KB) | Photographic backdrop of the `/tournaments` ("Events") PageBanner under a token-navy shade |
+| `public/media/gallery-04.webp` | `artifacts/brand/raw/images/gallery/gallery-04.webp` (byte-identical, SHA256 `BF01CC12…7503BF`, 1400x934, 67KB) | Photographic backdrop of the `/contact` ("Contact Us") PageBanner under a token-navy shade |
 
 Authorisation is explicit owner direction (chat 2026-09-11): the owner
 confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
@@ -176,7 +177,13 @@ squad photo. (Note: the "gallery-08/-10" labels in the contact-sheet
 review above refer to a different numbering — e.g. that review's
 gallery-08 carries a TOP-KNOCK watermark and Safari T20 sponsor bars,
 neither of which appears on the raw files staged here; the raw files
-are judged on their own pixels.) Viewed at full resolution: gallery-06 is a squad trophy
+are judged on their own pixels.) gallery-04 is the exception that
+proves the rule: the raw file visibly carries the same "FSR
+FOTOGRAFIA / www.fsabater.com" watermark the contact-sheet review
+describes, so that review's rights hold applied to this file — until
+the owner (same date) confirmed both UKBT affiliation and publication
+rights, superseding the hold for this file only. Viewed at full
+resolution: gallery-06 is a squad trophy
 celebration in green/red kit with background event boards reading
 approximately "Islami Bank ... Cup 2022"; gallery-08 is a squad team
 photo in light-blue kit whose chest branding matches the charity-event
@@ -184,7 +191,10 @@ marks described in `EV-20260826-030` §7 — disclosed as documentary
 background, not scrubbed. gallery-10 is a medal-winning
 squad in purple/orange tiger-stripe kit with RTSC European Cup event
 boards and STONE & CO./SOL kit marks, no crest visible — likewise
-disclosed, dimmed by the navy shade. Background boards/branding are
+disclosed, dimmed by the navy shade. gallery-04 is live match action
+(bowler delivering, batter set, stumps in frame) with the
+photographer's mark in the lower third — disclosed, not scrubbed;
+the shade dims it with the rest. Background boards/branding are
 dimmed by each banner's navy shade behind its title. Each file renders
 on its page only.
 

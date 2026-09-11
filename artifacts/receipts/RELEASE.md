@@ -657,6 +657,28 @@ the owner-confirmed Mission record — Upcoming Nordic Lights (Sept
 Completed Safari (Jul 2026), Nordic Smash (Jun 2026), Asian
 Challengers (Jan 2020).
 
+## Update, 2026-09-11 — Contact banner backdrop gallery-04 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Contact Us banner
+(route `/contact`) with gallery-04. Evidence status: unlike the
+prior three, the raw file visibly carries the "FSR FOTOGRAFIA /
+www.fsabater.com" photographer watermark the contact-sheet review
+describes — so that review's rights hold applied to this file. Owner
+explicitly confirmed BOTH UKBT affiliation and publication rights
+(chat 2026-09-11), superseding the hold for this file only; recorded
+in MANIFEST banner section (byte-identical staging, SHA256
+`BF01CC12…7503BF`, 1400x934, 67KB; watermark disclosed, not
+scrubbed — the navy shade dims it with the rest). Same
+`PageBanner[background]` prop, no component change. No spec change
+needed — no test bans gallery-04.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | covered by prior `pages.spec.ts` 89-pass run (contact route included; banner prop is additive/optional) | — | CARRIED (no banner-logic change since) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g contact` | 0 | PASS — 7/7; 1440/390 reviewed — match action dimmed under navy, gold title crisp, watermark dissolves into shade, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-04 67KB trivial, no contact page-image failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow
