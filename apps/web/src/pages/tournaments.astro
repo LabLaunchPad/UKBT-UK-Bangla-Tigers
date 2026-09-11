@@ -14,6 +14,16 @@ import Footer from '../components/Footer.astro';
 import FranchiseTeaser from '../components/FranchiseTeaser.astro';
 import { homepage } from '../content/homepage-data';
 import { completedTournaments, upcomingTournaments } from '../content/tournaments-data';
+// Events banner backdrop (owner direction 2026-09-11): gallery-10,
+// owner-confirmed UKBT squad photo (no prior EV finding for this file
+// — new owner-supplied drop, see MANIFEST). 1400x1002, 230KB.
+// Photo is presentation wiring, not a gated fact.
+const bannerBackground = {
+  src: '/media/gallery-10.webp',
+  alt: 'UK Bangla Tigers squad celebrating a cup win with medals and trophy',
+  width: 1400,
+  height: 1002,
+};
 ---
 
 <BaseLayout
@@ -26,6 +36,7 @@ import { completedTournaments, upcomingTournaments } from '../content/tournament
     <PageBanner
       title="Events"
       crumbs={[{ label: 'Home', href: '/' }, { label: 'Events' }]}
+      background={bannerBackground}
     />
 
     <Section>

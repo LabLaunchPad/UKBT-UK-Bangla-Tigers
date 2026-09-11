@@ -1,19 +1,18 @@
 ---
 // Mirrors the reference's "Team Section" layout grammar
 // (`.team-content-wrapper`: flex row, gap 100px — sticky title column +
-// card grid) with the reference's photo-overlay `.card-team` style
-// deliberately NOT ported: cards here are text-only (name + role), never
-// a placeholder photo standing in for a real person.
-//
-// Owner-authorised exception (About Phase 1, EV-20260910-001): exactly
-// two identified photographs render in this section — the
-// management-team graphic (all three leaders identified, baked-in
-// labels match the gated name/role strings) and Sayem Rahman's
-// supplied portrait (identity confirmed against the graphic). No other
-// leadership imagery is permitted; the test in about.spec.ts pins this.
+// card grid). Each roster card carries its member's cleared portrait
+// (owner direction 2026-09-11, EV-20260910-001 + EV-20260911-001);
+// the test in about.spec.ts pins exactly these files. No other
+// leadership imagery is permitted.
+// The title column carries the compressed leadership intro
+// (`org.leadership_intro`) — the managementStory passage compressed
+// for SEO/marketing, roster hedge kept. The full passage is NOT
+// rendered here (no duplicate copy on the page).
 interface Leader {
   name: string;
   role: string;
+  photo: Image;
 }
 interface Image {
   src: string;
@@ -23,26 +22,33 @@ interface Image {
 }
 interface Props {
   leaders: Leader[];
-  graphic?: Image;
-  spotlight?: { name: string; role: string; bio: string[]; photo: Image };
-  narrative?: string[];
+  intro: string;
 }
-const { leaders, graphic, spotlight, narrative } = Astro.props;
+const { leaders, intro } = Astro.props;
 import SubHeading from './SubHeading.astro';
 ---
 
-{narrative && (
-  <div class="ukbt-leadership__narrative">
-    {narrative.map((p) => <p>{p}</p>)}
-  </div>
-)}
 <div class="ukbt-leadership">
   <div class="ukbt-leadership__cards">
     {
-      leaders.map((l) => (
-        <div class="ukbt-leadership__card">
-          <h4>{l.name}</h4>
-          <p>{l.role}</p>
+      leaders.map((l, i) => (
+        <div class:list={['ukbt-leadership__card', i === 0 && 'ukbt-leadership__card--feature']}>
+          <img
+            src={l.photo.src}
+            width={l.photo.width}
+            height={l.photo.height}
+            alt={l.photo.alt}
+            loading="lazy"
+            class="ukbt-leadership__card-photo"
+          />
+          <div class="ukbt-leadership__card-body">
+            {/* h3, not h4: card names sit directly under the section
+               h2 — h4 skipped a level and failed axe heading-order +
+               the UI gate in CI (2026-09-11). Styling is explicit
+               below, so the swap is visually identical. */}
+            <h3>{l.name}</h3>
+            <p>{l.role}</p>
+          </div>
         </div>
       ))
     }
@@ -50,45 +56,9 @@ import SubHeading from './SubHeading.astro';
   <div class="ukbt-leadership__title">
     <SubHeading label="Our Leadership" />
     <h2>Meet the People Behind the Tigers</h2>
-    <p>
-      The committee and playing leadership guiding UK Bangla Tigers on and
-      off the pitch. The full committee roster is still being confirmed.
-    </p>
+    <p>{intro}</p>
   </div>
 </div>
-{
-  graphic && (
-    <figure class="ukbt-leadership__graphic">
-      <img
-        src={graphic.src}
-        width={graphic.width}
-        height={graphic.height}
-        alt={graphic.alt}
-        loading="lazy"
-      />
-    </figure>
-  )
-}
-{
-  spotlight && (
-    <div class="ukbt-leadership__spotlight">
-      <img
-        src={spotlight.photo.src}
-        width={spotlight.photo.width}
-        height={spotlight.photo.height}
-        alt={spotlight.photo.alt}
-        loading="lazy"
-      />
-      <div class="ukbt-leadership__spotlight-text">
-        <span class="ukbt-leadership__spotlight-name">{spotlight.name}</span>
-        <span class="ukbt-leadership__spotlight-role">{spotlight.role}</span>
-        {spotlight.bio.map((p) => (
-          <p class="ukbt-leadership__spotlight-bio">{p}</p>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 <style>
   /* .team-content-wrapper: flex row, gap 100px, align-items start */
@@ -104,15 +74,52 @@ import SubHeading from './SubHeading.astro';
     grid-template-columns: 1fr 1fr;
     gap: var(--ukbt-space-4);
   }
+  /* Bento roster (owner direction 2026-09-11, full-picture treatment):
+     photos bleed edge-to-edge across the card top (overflow clips the
+     top corners to the card radius), bodies share one rhythm below.
+     First card (Founder, semantic lead) spans two rows with a tall
+     crop; the pair stack beside it. This supersedes the A5 orphan
+     rule — the bento owns composition now, so that rule is deleted
+     below rather than left to fight the span. */
   .ukbt-leadership__card {
     background: var(--ukbt-color-surface-alt);
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-6) var(--ukbt-space-4);
+    border-radius: var(--ukbt-radius-ref-card);
+    overflow: hidden;
     text-align: center;
     border-top: 3px solid var(--ukbt-color-brand-accent);
+    display: flex;
+    flex-direction: column;
   }
-  .ukbt-leadership__card h4 {
-    margin: 0 0 var(--ukbt-space-1) 0;
+  .ukbt-leadership__card--feature {
+    grid-row: span 2;
+  }
+  /* Roster portraits: DEFINITE heights only. Intrinsic-driven sizing
+     (flex-fill, aspect-ratio) fails here: inside indefinite grid rows
+     the photos fall back to intrinsic heights (measured 1200px+
+     boxes, faces sliced by cover) instead of transferring ratio.
+     Fixed heights sidestep the trap entirely; the feature photo fills
+     its definite spanned area via flex. Face kept via top crop. */
+  .ukbt-leadership__card-photo {
+    display: block;
+    width: 100%;
+    height: 16rem;
+    flex: none;
+    object-fit: cover;
+    object-position: top;
+  }
+  .ukbt-leadership__card--feature .ukbt-leadership__card-photo {
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 20rem;
+  }
+  .ukbt-leadership__card-body {
+    padding: var(--ukbt-space-4) var(--ukbt-space-4) var(--ukbt-space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+  }
+  .ukbt-leadership__card-body h3 {
+    margin: 0;
     font-size: var(--ukbt-font-size-2);
     font-weight: var(--ukbt-font-weight-bold);
   }
@@ -122,12 +129,6 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-neutral-700);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-  }
-  /* A5: an odd roster orphans the last card in a half row — a
-     trailing odd card spans the full row (count-agnostic; no-op at
-     single-column mobile). */
-  .ukbt-leadership__card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
   }
   .ukbt-leadership__title {
     flex: 1 1 auto;
@@ -142,83 +143,6 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
   }
-  /* Management narrative (About Phase 1): full-width editorial intro
-     above the cards row. */
-  .ukbt-leadership__narrative {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-3);
-    max-width: 48rem;
-    margin-bottom: var(--ukbt-space-6);
-    color: var(--ukbt-color-neutral-700);
-    font-size: var(--ukbt-font-size-1);
-  }
-  .ukbt-leadership__narrative p {
-    margin: 0;
-  }
-  /* A3: opening paragraph takes the lede size (size-2, as in
-     ClubIntro/AboutCTA) so gated copy scans as intro + detail. */
-  .ukbt-leadership__narrative p:first-child {
-    font-size: var(--ukbt-font-size-2);
-  }
-  /* Owner-authorised leadership imagery (About Phase 1): the
-     management-team graphic, full width below the row, capped so the
-     portrait-oriented creative never dominates the section. */
-  .ukbt-leadership__graphic {
-    margin: var(--ukbt-space-8) auto 0 auto;
-    max-width: 30rem;
-  }
-  .ukbt-leadership__graphic img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: var(--ukbt-radius-ref-card);
-  }
-  /* Vice-chairman spotlight: portrait + name/role + distilled bio.
-     wrap: at extreme text scaling (200% root) the fixed photo + gaps
-     consume the row, so the text must wrap below instead of pushing
-     past the viewport (N2 audit). No-op at normal sizes. */
-  .ukbt-leadership__spotlight {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: var(--ukbt-space-4);
-    margin-top: var(--ukbt-space-6);
-    padding: var(--ukbt-space-4);
-    background: var(--ukbt-color-surface-alt);
-    border-radius: var(--ukbt-radius-ref-card);
-    border-top: 3px solid var(--ukbt-color-brand-accent);
-    max-width: 44rem;
-  }
-  .ukbt-leadership__spotlight img {
-    display: block;
-    width: 5rem;
-    height: 5rem;
-    object-fit: cover;
-    border-radius: var(--ukbt-radius-ref-card);
-    flex: none;
-  }
-  .ukbt-leadership__spotlight-text {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ukbt-space-1);
-  }
-  .ukbt-leadership__spotlight-name {
-    font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-1);
-    font-weight: var(--ukbt-font-weight-bold);
-  }
-  .ukbt-leadership__spotlight-role {
-    font-size: var(--ukbt-font-size-0);
-    color: var(--ukbt-color-neutral-700);
-  }
-  .ukbt-leadership__spotlight-bio {
-    margin: var(--ukbt-space-2) 0 0 0;
-    font-size: var(--ukbt-font-size-0);
-    color: var(--ukbt-color-neutral-700);
-  }
-
   /* Reference `.team-content-wrapper` at <=1025px: column-reverse, 50px gap. */  @media screen and (max-width: 1025px) {
     .ukbt-leadership {
       flex-direction: column-reverse;
@@ -232,6 +156,19 @@ import SubHeading from './SubHeading.astro';
   @media screen and (max-width: 767px) {
     .ukbt-leadership__cards {
       grid-template-columns: 1fr;
+    }
+    /* Mobile bento: single column with compact fixed crops — ratio
+       boxes fall into the same intrinsic-height trap, so definite
+       heights here too. Span reset so the feature card can't strand
+       a row. */
+    .ukbt-leadership__card--feature {
+      grid-row: auto;
+    }
+    .ukbt-leadership__card-photo,
+    .ukbt-leadership__card--feature .ukbt-leadership__card-photo {
+      flex: none;
+      height: 12rem;
+      min-height: 0;
     }
   }
 </style>

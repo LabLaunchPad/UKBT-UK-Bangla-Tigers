@@ -43,18 +43,27 @@ import SubHeading from './SubHeading.astro';
 </div>
 
 <style>
-  /* .welcome-about-wrapper: grid, 0.42fr/0.52fr, gap 100px */
+  /* Reference `.welcome-about-wrapper` is a 0.42fr/0.52fr end-aligned
+     heading/intro pair — but with a 4-line display H2 beside a
+     single-line lede it strands the tagline bottom-right,
+     disconnected from the heading it belongs to (render-verified at
+     1440). Deviation, owner direction 2026-09-11: stacked intro —
+     eyebrow + H2, then the lede full-width at paragraph measure.
+     Same grammar as every other section header on the page; the
+     ≤1025px stacking rule this replaces is now the only layout. */
   .ukbt-mission__intro {
-    display: grid;
-    grid-template-columns: 0.42fr 0.52fr;
-    gap: var(--ukbt-space-gap-100);
-    align-items: end;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-4);
   }
   .ukbt-mission__heading h2 {
     margin: var(--ukbt-space-2) 0 0 0;
+    text-wrap: balance;
   }
   .ukbt-mission__lede {
     margin: 0;
+    max-width: 48rem;
+    font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
   }
 
@@ -89,7 +98,6 @@ import SubHeading from './SubHeading.astro';
 
   @media screen and (max-width: 1025px) {
     .ukbt-mission__intro {
-      grid-template-columns: 1fr;
       gap: var(--ukbt-space-gap-5);
     }
   }

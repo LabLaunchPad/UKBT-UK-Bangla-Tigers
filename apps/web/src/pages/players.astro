@@ -16,6 +16,16 @@ import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
 import { fullRoster } from '../content/players-data';
+// Players banner backdrop (owner direction 2026-09-11): gallery-08,
+// owner-confirmed UKBT squad photo (no prior EV finding for this file
+// — new owner-supplied drop, see MANIFEST). 1400x783, 291KB.
+// Photo is presentation wiring, not a gated fact.
+const bannerBackground = {
+  src: '/media/gallery-08.jpg',
+  alt: 'UK Bangla Tigers squad posing for a team photo',
+  width: 1400,
+  height: 783,
+};
 ---
 
 <BaseLayout
@@ -28,6 +38,7 @@ import { fullRoster } from '../content/players-data';
     <PageBanner
       title="Players Profile"
       crumbs={[{ label: 'Home', href: '/' }, { label: 'Players Profile' }]}
+      background={bannerBackground}
     />
 
     <Section>

@@ -19,6 +19,17 @@ import Footer from '../components/Footer.astro';
 import AboutCTA from '../components/AboutCTA.astro';
 import { contact, homepage } from '../content/homepage-data';
 import SubHeading from '../components/SubHeading.astro';
+// Contact banner backdrop (owner direction 2026-09-11): gallery-04,
+// owner-confirmed UKBT match-action photo with publication rights
+// confirmed despite the visible FSR FOTOGRAFIA watermark (see
+// MANIFEST — watermark disclosed, not scrubbed). 1400x934, 67KB.
+// Photo is presentation wiring, not a gated fact.
+const bannerBackground = {
+  src: '/media/gallery-04.webp',
+  alt: 'UK Bangla Tigers match in progress, bowler delivering to the batter',
+  width: 1400,
+  height: 934,
+};
 ---
 
 <BaseLayout
@@ -31,6 +42,7 @@ import SubHeading from '../components/SubHeading.astro';
     <PageBanner
       title="Contact Us"
       crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact Us' }]}
+      background={bannerBackground}
     />
 
     <Section paddingBottom="normal">

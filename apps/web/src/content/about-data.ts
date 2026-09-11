@@ -132,6 +132,18 @@ const facts = {
     ],
     sources: ['EV-20260910-001', 'EV-20260910-002'],
   },
+  // Title-column intro (owner direction 2026-09-11): the managementStory
+  // passage compressed for SEO/marketing into the LeadershipGrid title
+  // column, replacing the hardcoded committee line. Same facts, same
+  // sources — a restatement, not a new claim. The roster hedge is kept
+  // ("More committee roles to be announced") so the three cards never
+  // read as a complete-committee claim.
+  leadershipIntro: {
+    field: 'org.leadership_intro',
+    value:
+      'Led by founder and CEO Mohammad Chowdhury, UK Bangla Tigers was founded in 2020 to open pathways for players to compete on international stages. Acting Chairman Shahidul Alam Ratan brings over 25 years of global cricket development; Vice-Chairman Sayem Rahman, a British-Bangladeshi entrepreneur and community leader, drives growth across business, media and sport. More committee roles to be announced.',
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
   viceChairmanBio: {
     field: 'org.leader.vice_chairman_bio',
     value: [
@@ -185,9 +197,33 @@ export const about = {
     `Founded in ${facts.founded.value} · registered as ${facts.legalEntity.value}, competing as a cricket franchise on the international stage while building a sister-franchise network with Uppsala Tigers in Sweden.`,
   ],
   leaders: [
-    facts.founderCeo.value,
-    facts.actingChairman.value,
-    facts.viceChairman.value,
+    {
+      ...facts.founderCeo.value,
+      photo: {
+        src: '/media/founder-trophy.webp',
+        alt: 'Mohammad Chowdhury, Founder and CEO of UK Bangla Tigers',
+        width: 1000,
+        height: 1252,
+      },
+    },
+    {
+      ...facts.actingChairman.value,
+      photo: {
+        src: '/media/shahidul-alam-ratan.webp',
+        alt: 'MD Shahidul Alam Ratan, Acting Chairman of UK Bangla Tigers',
+        width: 1321,
+        height: 1322,
+      },
+    },
+    {
+      ...facts.viceChairman.value,
+      photo: {
+        src: '/media/sayem-rahman.jpg',
+        alt: 'Sayem Rahman, Vice-Chairman of UK Bangla Tigers',
+        width: 1200,
+        height: 1200,
+      },
+    },
   ],
   leadershipGraphic: {
     src: '/media/management-team.webp',
@@ -219,6 +255,25 @@ export const about = {
       height: 1200,
     },
   },
+  // Acting-Chairman spotlight (EV-20260911-001, owner-supplied portrait).
+  // Name/role reuse the gated leader fields; photo is an ungated literal
+  // like sayem.photo. No bio was supplied — the card renders photo +
+  // name + role only (bio rows render only when present).
+  ratan: {
+    name: facts.actingChairman.value.name,
+    role: facts.actingChairman.value.role,
+    bio: [] as string[],
+    photo: {
+      src: '/media/shahidul-alam-ratan.webp',
+      alt: 'MD Shahidul Alam Ratan, Acting Chairman of UK Bangla Tigers',
+      width: 1321,
+      height: 1322,
+    },
+  },
   heroSubline: facts.heroSubline.value,
   managementStory: facts.managementStory.value,
+  // Compressed title-column intro (see fact comment above). managementStory
+  // is retained unrendered (same pattern as sayem/ratan/leadershipGraphic)
+  // so the full passage stays on record without duplicating page copy.
+  leadershipIntro: facts.leadershipIntro.value,
 };

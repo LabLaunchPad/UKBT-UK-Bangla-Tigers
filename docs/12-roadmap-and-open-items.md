@@ -797,3 +797,126 @@ main + PR41 + PR42 baseline; ancestry reported before editing):
   route byte-identical, proving the SectionHeader/Footer shared
   edits are zero-drift. Geometry sectionCount still 5. Awaiting
   human lock approval; merge order 41 → 42 → 43.
+
+### 2.21 About corrections round — roster photo cards (2026-09-11)
+
+Owner corrections on the about-refinements branch (same branch,
+no new branch — direct continuation):
+
+1. **Management-team graphic render removed** per owner direction.
+   File + EV-20260910-001 authorisation retained (MANIFEST notes
+   the removal); photo-pin test now asserts its absence.
+2. **Roster cards carry portraits.** Each of the 3 leadership cards
+   renders its member's cleared photo (Chowdhury via the
+   already-rendered founder-trophy asset, Ratan EV-20260911-001,
+   Sayem EV-20260910-001) — 5rem cover thumbs, card radius, face
+   kept via object-position top. No quote cards created (quotes
+   remain NOT VERIFIED across all layers).
+3. **Both standalone spotlights deleted** (Sayem bio card + Ratan
+   card) including all spotlight CSS (R-H superseded — presence now
+   comes from the roster photos). Sayem bio + leadershipGraphic +
+   sayem/ratan data exports retained in about-data (unrendered,
+   noted — not deleted in case bios return with a design).
+4. R-A founder icons + R-H intend kept (icons verified in crops;
+   7.5rem rule removed with its component).
+- Evidence: `deploy:verify` exit 0, e2e 328/1, capture specs 108
+  passed, full-page + targeted crops reviewed at 1440/768/390/320
+  (transient spec deleted). Only the 7 about PNGs changed.
+- Incidental: `gallery-02.webp` shows as deleted in the working
+  tree — NOT this workstream's change (owner-side file
+  organisation); left unstaged and untouched.
+5. **Bento recomposition (same branch, committed on top).** Founder
+   card spans 2 rows with a tall top-crop photo; Ratan + Sayem
+   stack beside it; mobile collapses to single-column compact
+   crops. A5 orphan rule deleted (superseded by the bento span).
+   Definite photo heights everywhere — transient diag spec
+   confirmed the intrinsic-height trap (flex-fill / aspect-ratio
+   fall back to 1200px+ intrinsic boxes, faces sliced, inside
+   indefinite grid rows). Evidence: about spec 6/6 (`CI=true`
+   against the managed chromium-1234 cache — the config's local
+   `/opt/pw-browsers/chromium` override does not exist on Windows),
+   `check-perf.mjs` PASS (CSS in 56KB budget), transient verify +
+   diag specs deleted, 7 about PNGs refreshed. Owner-side files
+   still untouched: gallery-02 deletion unstaged, the two `MD
+   Shahidul Alam Ratan.webp` raw drops (measured distinct
+   content, not a rename) untracked.
+6. **Leadership intro compression (same branch, committed on top).**
+   New `org.leadership_intro` gated fact compresses the
+   managementStory passage (same facts/sources, roster hedge kept)
+   into the grid title column, replacing the hardcoded committee
+   line; `narrative` prop + its CSS removed, full passage retained
+   unrendered (no duplicate page copy — the SEO rationale).
+   Evidence: astro check 0 errors, about spec 6/6, check-perf PASS
+   (net-negative CSS), about captures 7/7 reviewed at 1440/390.
+   Section audit: 1×h1 + section h2s, eyebrows/rhythm consistent;
+   open owner question (not changed): MissionWelcome fact cards vs
+   WhyChooseUs 01–04 restate the same four pillars.
+7. **WhyChooseUs removal + founder-stat restyle (same branch, committed
+   on top; owner decisions from six-agent joint review).** WhyChooseUs
+   removed from About (Mission cards own the pillars; kills the
+   byte-identical duplication + stale Nordic Smash/Asian Challengers
+   list — Mission list is the current record). 3-card bento kept.
+   Founder stats navy-ruled (personal) vs Story gold-ruled (club);
+   gated 40+ values untouched. Evidence: astro check 0 errors, about
+   spec 6/6, captures 7/7 reviewed.    Perf: FAIL recorded as-is —
+   56.7KB vs 56KB ceiling (baseline margin was only ~115B; removal
+   reshuffles +797B into index.css). Owner: no cuts for now, no
+   budget change; revisit is a separate re-approval event.
+8. **About banner backdrop gallery-06 (same branch, committed on top).**
+   Owner confirmed UKBT affiliation, explicitly overriding
+   EV-20260826-030 §4 for this file (amendment recorded; MANIFEST
+   section; spec allowlist updated with re-approval comment).
+   PageBanner gains optional `background` prop (default plain navy
+   elsewhere); token-navy shade preserves gold-on-dark contrast.
+   Evidence: astro check 0 errors, about+pages 96/96, captures 7/7
+   reviewed at 1440/390. Perf: no new failure (CSS still 56.7KB
+   known FAIL; 202KB image under thresholds).
+9. **Players banner backdrop gallery-08 (same branch, committed on
+   top).** Owner confirmed UKBT squad photo (new drop, no prior EV;
+   chest branding matches home-hero's flagged marks — disclosed).
+   Same PageBanner prop, no component change. Evidence: astro check
+   0 errors, pages.spec 89 passed + 1 unrelated timing flake,
+   players captures 7/7 reviewed at 1440/390. Perf: no new failure
+   (291KB image under thresholds; CSS still 56.7KB known FAIL).
+10. **Events banner backdrop gallery-10 (same branch, committed on
+    top).** Owner confirmed UKBT squad photo (no prior EV; MANIFEST
+    contact-sheet label is a different numbering — recorded).
+    Same PageBanner prop, no component change. Evidence: astro check
+    0 errors, tournaments captures 7/7 reviewed at 1440/390.
+    Calendar cross-checks the Mission record (no action). Perf: no
+    new failure (230KB image under thresholds; CSS still 56.7KB
+    known FAIL).
+11. **Contact banner backdrop gallery-04 (same branch, committed on
+    top).** Owner confirmed affiliation AND publication rights,
+    superseding the contact-sheet watermark hold for this file
+    (recorded; watermark disclosed). Same PageBanner prop, no
+    component change. Evidence: astro check 0 errors, contact
+    captures 7/7 reviewed at 1440/390. Perf: no new failure (67KB
+    image trivial; CSS still 56.7KB known FAIL).
+12. **Franchises banner backdrop nordic-smash-slide.jpg (same branch,
+    committed on top).** Owner waived CLIENT_REQ_008 for this banner
+    use only (baked-in excluded name; recorded in MANIFEST +
+    requirements inventory; DOM/alt name-free). Same PageBanner
+    prop, no component change. Evidence: astro check 0 errors,
+    pages.spec 90/90, franchises captures 14/14 reviewed at
+    1440/390. Perf: no new failure (202KB image under thresholds;
+    CSS still 56.7KB known FAIL).
+13. **Club Captain banner backdrop gallery-05 (same branch, committed
+    on top).** Owner confirmed UKBT award-presentation photo (no
+    prior record, no watermark). Same PageBanner prop, no component
+    change. Evidence: astro check 0 errors, club-captain route 1/1,
+    captures 7/7 reviewed at 1440/390. Perf: no new failure (56KB
+    image trivial; CSS still 56.7KB known FAIL).
+14. **Captain focal point + uniform banner heights + MissionWelcome
+    stacking (same branch, committed on top).** `background.focus`
+    prop (`50% 20%` on captain — both faces visible at 1440/768/
+    390); strict min-heights 544/432/340 measured pixel-identical
+    on all six banner pages; MissionWelcome intro stacked
+    (About-only). Evidence: astro check 0 errors, 96/96 specs,
+    about + captain captures reviewed. Perf: net-zero, still
+    56.7KB known FAIL.
+15. **CI gate fix: roster card headings h4→h3 (same branch, committed
+    on top).** CI failed axe heading-order + check-ui heading-order
+    on /about (card names under section h2). Fix is visually
+    identical (explicit size-2/bold kept). Verified: check-ui PASS,
+    mobile-axe + about 23/23, captures reviewed. Perf unchanged.

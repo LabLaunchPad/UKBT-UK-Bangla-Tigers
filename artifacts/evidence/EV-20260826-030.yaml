@@ -112,3 +112,16 @@ notes: >
   (not "unsupplied" — the available evidence has now been exhausted for
   what it can and cannot establish), and are non-critical for the
   Homepage specifically per that same framework.
+amendment_20260911_owner_override_gallery06:
+  date: 2026-09-11
+  scope: images/gallery/gallery-06.webp only (result §4, second bullet)
+  ruling: >
+    Owner explicitly confirmed gallery-06 depicts a UK Bangla Tigers
+    team/event photo and directed its use as the /about banner
+    background. This first-party confirmation supersedes the "likely a
+    different club/tournament entirely, not confirmed" assessment for
+    this file only. join-us.webp and home-hero.webp findings are
+    unchanged. Visible background boards ("Islami Bank ... Cup 2022")
+    are disclosed as documentary background, not scrubbed. Staged
+    byte-identical to apps/web/public/media/gallery-06.webp (1400x933,
+    202KB) for /about only.

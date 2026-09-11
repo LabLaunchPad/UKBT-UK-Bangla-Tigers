@@ -150,13 +150,73 @@ the photo-test pins exactly these files.
 
 | Path | Source | Usage | AUTHORISATION | INDEPENDENT_VERIFICATION |
 |---|---|---|---|---|
-| `public/media/management-team.webp` | `artifacts/brand/raw/images/leadership/management-team.webp` | Leadership section graphic on `/about` | `EV-20260910-001` | Viewed at full resolution. "INTRODUCING OUR MANAGEMENT TEAM": Mohammad Chowdhury (Founder & CEO), MD Shahidul Alam Ratan (Chairman in graphic; rendered title stays gated "Acting Chairman"), Sayem Rahman (Vice-Chairman). UKBT crest + Nordic Smash T20 event mark baked into the creative (third-party event mark, disclosed not scrubbed). |
+| `public/media/management-team.webp` | `artifacts/brand/raw/images/leadership/management-team.webp` | Leadership section graphic on `/about` | `EV-20260910-001` | Viewed at full resolution. "INTRODUCING OUR MANAGEMENT TEAM": Mohammad Chowdhury (Founder & CEO), MD Shahidul Alam Ratan (Chairman in graphic; rendered title stays gated "Acting Chairman"), Sayem Rahman (Vice-Chairman). UKBT crest + Nordic Smash T20 event mark baked into the creative (third-party event mark, disclosed not scrubbed). Render removed 2026-09-11 per owner direction (individual roster portraits instead); file + authorisation retained. |
 | `public/media/founder-trophy.webp` | `artifacts/brand/raw/images/leadership/management-portrait.webp` | FounderSpotlight side image on `/about` | `EV-20260910-001` | Viewed at full resolution. Mohammad Chowdhury holding the Safari T20 Cup trophy (airport terminal backdrop). Partial terminal signage in the background ("Metro", "Departures" — generic wayfinding, not a rights-holder mark). |
-| `public/media/sayem-rahman.jpg` | `artifacts/brand/raw/images/leadership/sayem-rahman.jpg` (owner-supplied 2026-09-10) | Vice-chairman spotlight mini-card on `/about` | `EV-20260910-001` | Viewed at full resolution. Matches the Sayem Rahman depicted in management-team.webp (same person). Studio-style gradient backdrop, no watermark, no baked-in names. |
+| `public/media/sayem-rahman.jpg` | `artifacts/brand/raw/images/leadership/sayem-rahman.jpg` (owner-supplied 2026-09-10) | Vice-chairman roster card portrait on `/about` | `EV-20260910-001` | Viewed at full resolution. Matches the Sayem Rahman depicted in management-team.webp (same person). Studio-style gradient backdrop, no watermark, no baked-in names. |
+| `public/media/shahidul-alam-ratan.webp` | `artifacts/brand/raw/images/leadership/MD Shahidul Alam Ratan.webp` (owner-supplied 2026-09-11) | Acting-chairman roster card portrait on `/about` | `EV-20260911-001` | Viewed at full resolution. Matches the MD Shahidul Alam Ratan depicted in management-team.webp (same person — suit, striped tie, greying temples). Neutral backdrop, no watermark, no baked-in names. Small lapel pins visible (personal dress pins, illegible at render size; disclosed per Amendment 01 rule 4, not scrubbed). |
+
+## About banner background (owner-authorised 2026-09-11)
+
+| Path | Source | Usage |
+|---|---|---|
+| `public/media/gallery-06.webp` | `artifacts/brand/raw/images/gallery/gallery-06.webp` (byte-identical, SHA256 `94D132BF…F168`, 1400x933, 202KB) | Photographic backdrop of the `/about` PageBanner under a token-navy shade |
+| `public/media/gallery-08.jpg` | `artifacts/brand/raw/images/gallery/gallery-08.jpg` (byte-identical, SHA256 `671717C2…7B7B`, 1400x783, 291KB) | Photographic backdrop of the `/players` PageBanner under a token-navy shade |
+| `public/media/gallery-10.webp` | `artifacts/brand/raw/images/gallery/gallery-10.webp` (byte-identical, SHA256 `E884D263…E160`, 1400x1002, 230KB) | Photographic backdrop of the `/tournaments` ("Events") PageBanner under a token-navy shade |
+| `public/media/gallery-04.webp` | `artifacts/brand/raw/images/gallery/gallery-04.webp` (byte-identical, SHA256 `BF01CC12…7503BF`, 1400x934, 67KB) | Photographic backdrop of the `/contact` ("Contact Us") PageBanner under a token-navy shade |
+| `public/media/nordic-smash-slide.jpg` | `artifacts/brand/raw/images/uppsala/nordic-smash-slide.jpg` (byte-identical, SHA256 `29AEE17B…13F2EE`, 1600x649, 202KB) | Graphic backdrop of the `/franchises` ("Our Franchises") PageBanner under a token-navy shade |
+| `public/media/gallery-05.webp` | `artifacts/brand/raw/images/gallery/gallery-05.webp` (byte-identical, SHA256 `7FD686A8…0F0BF52`, 1400x933, 56KB) | Photographic backdrop of the `/club-captain` ("Club Captain") PageBanner under a token-navy shade |
+
+Authorisation is explicit owner direction (chat 2026-09-11): the owner
+confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
+first-party confirmation supersedes the "not confirmed" assessment in
+`EV-20260826-030` §4 second bullet **for this file only** (see the
+amendment appended to that record); `join-us.webp` and `home-hero.webp`
+findings are unchanged. gallery-08 (same date) is a new owner-supplied
+drop with no prior EV finding; the owner confirmed it depicts a UKBT
+squad photo. gallery-10 (same date) is likewise a new owner-supplied
+drop with no prior EV finding; the owner confirmed it depicts a UKBT
+squad photo. gallery-05 (same date) is likewise a new owner-supplied
+drop with no prior EV finding — indoor award presentation (suited
+presenter handing a Safari plaque to a player in green/orange kit;
+no watermark, no crest legible) — the owner confirmed it depicts a
+UKBT player/official. (Note: the "gallery-08/-10" labels in the contact-sheet
+review above refer to a different numbering — e.g. that review's
+gallery-08 carries a TOP-KNOCK watermark and Safari T20 sponsor bars,
+neither of which appears on the raw files staged here; the raw files
+are judged on their own pixels.) gallery-04 is the exception that
+proves the rule: the raw file visibly carries the same "FSR
+FOTOGRAFIA / www.fsabater.com" watermark the contact-sheet review
+describes, so that review's rights hold applied to this file — until
+the owner (same date) confirmed both UKBT affiliation and publication
+rights, superseding the hold for this file only. Viewed at full
+resolution: gallery-06 is a squad trophy
+celebration in green/red kit with background event boards reading
+approximately "Islami Bank ... Cup 2022"; gallery-08 is a squad team
+photo in light-blue kit whose chest branding matches the charity-event
+marks described in `EV-20260826-030` §7 — disclosed as documentary
+background, not scrubbed. gallery-10 is a medal-winning
+squad in purple/orange tiger-stripe kit with RTSC European Cup event
+boards and STONE & CO./SOL kit marks, no crest visible — likewise
+disclosed, dimmed by the navy shade. gallery-04 is live match action
+(bowler delivering, batter set, stumps in frame) with the
+photographer's mark in the lower third — disclosed, not scrubbed;
+the shade dims it with the rest. nordic-smash-slide.jpg is a designed
+graphic (not a photograph): Uppsala Tigers overseas-signings panel
+for the Nordic Smash T20, six named players with country tags.
+**CLIENT_REQ_008 WAIVER (owner chat 2026-09-11, this file and this
+use only):** the graphic bakes in "NIPO KHADEM / PORTUGAL" (and faces
+for all six); the owner waived the exclusion for this banner use
+after the conflict was stated explicitly. The waiver does NOT extend
+to rosters, the `.webp` sibling (still excluded), or any other use —
+CLIENT_REQ_008 otherwise stands in full. Alt text and all DOM copy
+carry no names (contamination gates scan rendered HTML; baked-in
+pixel text must not enter the DOM). Background boards/branding are
+dimmed by each banner's navy shade behind its title. Each file renders
+on its page only.
 
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 
-- `home-hero.webp`, `join-us.webp`, `gallery-06.webp` — team/event
+- `home-hero.webp`, `join-us.webp` — team/event
   affiliation not confirmed as UK Bangla Tigers (`EV-20260826-030`).
 - `nordic-smash-slide.webp` — **removed after initial staging**: has
   "NIPO KHADEM / PORTUGAL" baked into the photo itself, which

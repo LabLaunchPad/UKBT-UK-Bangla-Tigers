@@ -461,3 +461,317 @@ sectionCount still 5.
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — About corrections round (same `feature/about-refinements` branch)
+
+Owner corrections + Ratan portrait integration, fresh runs:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — all 13 gates (includes Ratan 118KB portrait weight) |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`; includes rewritten leadership photo-pin test) |
+| 15 | Capture specs | `homepage-delivery` + `screenshots` specs (`CI=true`) | 0 | PASS — 108 passed; only the 7 about PNGs changed |
+| 16 | Visual comparison | transient full-page + targeted crops at 1440/768/390/320 (deleted after review) | — | PASS — photo cards equal + legible, founder icons quiet, mobile stacks clean, no overflow |
+
+Scope: management-team graphic render removed (file + authorisation
+retained), roster cards gain cleared portraits, both spotlights +
+their CSS deleted, R-A icons kept. No route, gated-copy, token, or
+stat change. Sayem bio + graphic data retained unrendered.
+Owner-input items closed: Ratan portrait (EV-20260911-001). Still
+open: 3 quotes, legacy story paragraph, legacy Join CTA (copy +
+photo) — all NOT VERIFIED, none published.
+
+## Verdict (About corrections round)
+
+```
+RELEASE_STATUS = PASS
+```
+
+## Update, 2026-09-11 — About bento roster grid (same `feature/about-refinements` branch)
+
+Bento recomposition of the leadership roster. Targeted runs only
+(the full gate was PASS on the parent commit `a380390`; this
+refinement re-runs the affected scope):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (axe, mobile nav, contamination, excluded-images, leadership photo-pin, overflow) |
+| 2 | Perf budget | `node scripts/check-perf.mjs` (fresh dist from the spec's webServer build) | 0 | PASS — CSS within 56KB; warnings pre-existing and franchises-only (crest 327KB, page images 1401KB) |
+| 3 | Visual comparison | transient bento verify (5 full-page viewports + 1440/390 leadership crops) + photo-geometry diag (both deleted after review) | — | PASS — founder feature card spans 2 rows with tall top-crop photo, Ratan/Sayem stack beside; mobile single-column compact crops; no overflow |
+
+Scope: `LeadershipGrid.astro` only (feature-card span, card-body
+wrap, full-bleed definite-height photos, A5 orphan rule deleted as
+superseded, mobile span reset) + 7 about PNGs. Definite photo
+heights everywhere — diag spec confirmed the intrinsic-height trap
+(flex-fill / aspect-ratio fall back to 1200px+ intrinsic boxes with
+faces sliced inside indefinite grid rows). No route, data,
+gated-copy, token, stat, or image-asset change. `gallery-02.webp`
+deletion still unstaged (owner-side file organisation); the two
+untracked `MD Shahidul Alam Ratan.webp` raw drops are MEASURED
+distinct content (SHA256 differs from gallery-02 at HEAD, same
+118230-byte size is coincidence) — left untracked and untouched.
+
+## Verdict (About bento roster grid)
+
+```
+RELEASE_STATUS = PASS (targeted scope; full gate PASS carried from parent commit)
+```
+
+## Update, 2026-09-11 — Leadership intro compression (same `feature/about-refinements` branch)
+
+Owner direction: the `org.management_story` passage compressed with
+SEO/marketing in mind into the LeadershipGrid title column, replacing
+the hardcoded committee line. Targeted runs only:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors (2 pre-existing hints in unrelated files) |
+| 2 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (photo-pin test unaffected: same 3 portraits) |
+| 3 | Perf budget | `node scripts/check-perf.mjs` (fresh dist) | 0 | PASS — CSS within 56KB (narrative CSS deleted, net negative); warnings pre-existing franchises-only |
+| 4 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; full-page review at 1440/390 confirms title-column intro + bento in one clean row, mobile stacks title-then-cards, no overflow |
+
+Scope: new `org.leadership_intro` gated fact (same facts/sources as
+managementStory — restatement, not a new claim; roster hedge kept as
+"More committee roles to be announced"), `LeadershipGrid` gains
+`intro` prop and loses the `narrative` prop + its CSS, `about.astro`
+stops passing `managementStory` (no duplicate copy on the page —
+the SEO rationale; full passage retained unrendered in about-data).
+No route, image-asset, token, or stat change.
+
+## Update, 2026-09-11 — WhyChooseUs removal + founder-stat restyle (same `feature/about-refinements` branch)
+
+Owner decisions from multi-agent joint review (agents: visual-forensics,
+UX+IA, design-system+frontend, content-truth+asset, responsive+a11y+perf+
+release, red-team+brand — all six passes converged, evidence ledger held):
+
+1. MissionWelcome cards own the four-pillar statement — WhyChooseUs
+   removed from About (import, section, `reasons` locals deleted; a record
+   comment remains in `about.astro`). Component untouched, still serves
+   the homepage. Kills the byte-identical duplication AND the stale
+   tournament list in one cut.
+2. Mission tournament list is the current publishable record (Nordic
+   Lights + Global T20 upcoming; Safari/Nordic Smash/Asian Challengers
+   completed) — no Mission copy change needed.
+3. 3-card leadership bento kept (founder double-use is distinct semantic
+   jobs: story vs roster membership).
+4. Dual 40+: values kept, presentation restyled — founder
+   (personal-scope) stats now use a navy top-rule, club-scope Story
+   stats keep gold. Gated numbers untouched. About-only component.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (no test pinned WhyChooseUs on About; axe clean without it) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; 1440/390 reviewed — page shorter, no duplication, stacks clean, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — `css-weight 56.7KB > 56KB`, deterministic across 3 clean builds |
+
+Perf note (root-caused, not waived): baseline at `8fce089` passes at
+55.9KB with only ~115B of margin (knife-edge, cf. the earlier 56.3KB
+zero-change incident). The mandated WhyChooseUs removal deterministically
+adds +797B net — attribution concentrates in `index.css` (+1796B) via
+Vite chunk reshuffle while `about.css` holds flat (+1B = the
+accent→primary token swap); comments compile away (verified absent from
+output). No zero-visual-impact saving exists. Owner direction 2026-09-11:
+"its ok for now, dont need to cut anything" — FAIL recorded as-is, no
+compensating cuts, no budget change. Budget revisit, if ever, is a
+separate explicit re-approval event, not a silent weakening. Pre-existing
+franchise-only warnings unchanged.
+
+```
+RELEASE_STATUS = FAIL (perf css-weight only; content/functional gates PASS)
+```
+
+## Update, 2026-09-11 — About banner backdrop gallery-06 (same `feature/about-refinements` branch)
+
+Owner direction: implement gallery-06 as the About banner background.
+Conflict handled explicitly, not silently: the file was banned from
+About (`about.spec.ts` excluded list) and assessed "likely a different
+club/tournament" (`EV-20260826-030` §4). Owner confirmed it depicts a
+UKBT team/event photo. Override recorded in three places: amendment
+appended to `EV-20260826-030` (this file only; join-us/home-hero
+findings unchanged), new MANIFEST section (byte-identical staging,
+SHA256 `94D132BF…F168`, 1400x933, 202KB; Islami Bank background
+boards disclosed as documentary background), and the spec allowlist
+with re-approval comment (other 3 exclusions kept).
+
+Implementation (minimum-change per component protocol): PageBanner
+gains an optional `background` prop (`src/alt/width/height`); default
+absent preserves plain-navy rendering on all other pages. Backdrop is
+a real `<img>` (fetchpriority high, explicit dims, no CLS) under a
+token-navy shade at fixed opacity — token-native, no literals — so
+gold title / white lede / breadcrumb keep the plain-navy contrast
+posture. Radius clip via `overflow:hidden` (no positioned-overflow
+children; safe).
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | About + cross-page | `CI=true playwright test tests/visual/about.spec.ts tests/visual/pages.spec.ts` | 0 | PASS — 96/96 (club-captain shared banner unaffected) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; 1440/390 reviewed — photo dimmed under navy, title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-06 202KB under warn threshold, no about page-image failure; known FAIL stands per owner direction) |
+
+## Update, 2026-09-11 — Players banner backdrop gallery-08 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for Players Profile with
+gallery-08. Evidence status differs from gallery-06: no prior EV
+finding for this file (new owner-supplied drop), but its chest
+branding matches the charity-event marks flagged unconfirmed on
+home-hero (`EV-20260826-030` §7) — so the gallery-06 confirmation
+does NOT transfer. Owner explicitly confirmed gallery-08 depicts a
+UKBT squad photo (chat 2026-09-11); recorded in MANIFEST banner
+section (byte-identical staging, SHA256 `671717C2…7B7B`,
+1400x783, 291KB; chest branding disclosed as documentary
+background). No spec change needed — no test bans gallery-08.
+Same `PageBanner[background]` prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | `CI=true playwright test tests/visual/pages.spec.ts` | 0 | PASS — 89 passed, 1 flaky (club-captain title/meta timing flake, unrelated to banner — no title/meta logic touched; passes on retry) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g players` | 0 | PASS — 7/7; 1440/390 reviewed — squad photo dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-08 291KB under warn threshold, no players page-image failure; known FAIL stands per owner direction) |
+
+## Update, 2026-09-11 — Events banner backdrop gallery-10 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Events banner (route
+`/tournaments`) with gallery-10. Evidence status: no prior EV finding
+for this raw file and no test ban; MANIFEST's contact-sheet
+"gallery-10" (European Cup 2025 banner, held back) is a different
+numbering — recorded as such, raw file judged on its own pixels.
+Owner explicitly confirmed gallery-10 depicts a UKBT squad photo
+(chat 2026-09-11); recorded in MANIFEST banner section
+(byte-identical staging, SHA256 `E884D263…E160`, 1400x1002, 230KB;
+RTSC board + STONE & CO./SOL marks disclosed as documentary
+background). Same `PageBanner[background]` prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | covered by prior `pages.spec.ts` 89-pass run (tournaments route included; banner prop is additive/optional) | — | CARRIED (no banner-logic change since) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g tournaments` | 0 | PASS — 7/7; 1440/390 reviewed — medal-winning squad dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-10 230KB under warn threshold, no tournaments page-image failure; known FAIL stands per owner direction) |
+
+Cross-check (no action): the rendered `/tournaments` calendar matches
+the owner-confirmed Mission record — Upcoming Nordic Lights (Sept
+2026, Norway) + Global T20 Championship (Oct 2026, Romania);
+Completed Safari (Jul 2026), Nordic Smash (Jun 2026), Asian
+Challengers (Jan 2020).
+
+## Update, 2026-09-11 — Contact banner backdrop gallery-04 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Contact Us banner
+(route `/contact`) with gallery-04. Evidence status: unlike the
+prior three, the raw file visibly carries the "FSR FOTOGRAFIA /
+www.fsabater.com" photographer watermark the contact-sheet review
+describes — so that review's rights hold applied to this file. Owner
+explicitly confirmed BOTH UKBT affiliation and publication rights
+(chat 2026-09-11), superseding the hold for this file only; recorded
+in MANIFEST banner section (byte-identical staging, SHA256
+`BF01CC12…7503BF`, 1400x934, 67KB; watermark disclosed, not
+scrubbed — the navy shade dims it with the rest). Same
+`PageBanner[background]` prop, no component change. No spec change
+needed — no test bans gallery-04.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | covered by prior `pages.spec.ts` 89-pass run (contact route included; banner prop is additive/optional) | — | CARRIED (no banner-logic change since) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g contact` | 0 | PASS — 7/7; 1440/390 reviewed — match action dimmed under navy, gold title crisp, watermark dissolves into shade, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-04 67KB trivial, no contact page-image failure; known FAIL stands per owner direction) |
+
+## Update, 2026-09-11 — Franchises banner backdrop nordic-smash-slide.jpg (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Our Franchises banner
+(route `/franchises`) with nordic-smash-slide.jpg. **Compliance
+conflict, resolved explicitly:** the graphic bakes in "NIPO KHADEM /
+PORTUGAL" — the person `CLIENT_REQ_008` requires excluded, whose
+`.webp` sibling was pulled from the Homepage for this exact reason.
+Owner waived the exclusion for this banner use only (chat
+2026-09-11) after the conflict was stated in full, including that
+gates scan HTML text and not pixels. Recorded in three places:
+MANIFEST banner row + waiver note, `CLIENT_REQ_008` row waiver
+annotation in CLIENT-REQUIREMENTS-INVENTORY.md (rosters, DOM copy,
+alt text, and the `.webp` sibling remain excluded). Alt text and all
+DOM copy carry no names. Same `PageBanner[background]` prop, no
+component change. No spec change needed — no test bans the `.jpg`.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page incl. contamination | `CI=true playwright test tests/visual/pages.spec.ts` | 0 | PASS — 90/90 (DOM name-free on `/franchises`) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g franchises` | 0 | PASS — 14/14 (landing + Uppsala detail); 1440/390 reviewed — graphic dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: slide 202KB under warn threshold, no franchises page-image failure; known FAIL stands per owner direction) |
+
+## Update, 2026-09-11 — Club Captain banner backdrop gallery-05 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Club Captain banner
+(route `/club-captain`) with gallery-05. Evidence status: no record
+anywhere for this file, no watermark, no test ban. Owner explicitly
+confirmed it depicts a UKBT player/official (chat 2026-09-11);
+recorded in MANIFEST banner section (byte-identical staging, SHA256
+`7FD686A8…0F0BF52`, 1400x933, 56KB). Same `PageBanner[background]`
+prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Route gate | `CI=true playwright test tests/visual/pages.spec.ts -g club-captain` | 0 | PASS — 1/1 (earlier title/meta timing flake not recurring) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g club-captain` | 0 | PASS — 7/7; 1440/390 reviewed — award presentation dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-05 56KB trivial, no captain page-image failure; known FAIL stands per owner direction) |
+
+## Update, 2026-09-11 — Captain face-crop focal point + strict uniform banner heights + MissionWelcome intro stacking (same `feature/about-refinements` branch)
+
+Three owner-directed refinements, one commit:
+
+1. **Captain faces cropped (reported with screenshot).** Root cause:
+   `object-position: center` cover-crops gallery-05's face band
+   (y≈13–37%) out of ~2.4:1 desktop slots. Fix per component
+   protocol (a prop, not a component): new optional
+   `background.focus` on PageBanner (default `center` — other five
+   banners byte-identical), captain passes `50% 20%`. Geometry
+   verified by reasoning across slot aspects (wide slots crop
+   vertically around the focal band; narrow slots barely crop
+   horizontally) and confirmed in captures at 1440/768/390 — both
+   faces fully visible everywhere.
+2. **Strict uniform banner heights.** Measured first (production
+   Chromium): About+lede 537 vs 493 others at 1440, 425 vs 381 at
+   768, 332 vs 264 at 390. Enforced via `min-height` (not `height` —
+   clips nothing under cross-browser text-metrics variance) +
+   centred content + balanced padding: 544px/64px desktop,
+   432px/48px ≤1025px, 340px/40px ≤767px. Re-measured: 544/432/340
+   pixel-identical across all six banner pages at all three
+   viewports. border-box confirmed, so min-height covers padding +
+   content; fixed header still cleared by outer margin.
+3. **MissionWelcome intro organisation (reported with screenshot).**
+   Root cause: 0.42fr/0.52fr end-aligned grid stranded the
+   single-line tagline bottom-right of a 4-line H2. Fix: stacked
+   intro (eyebrow + H2, lede full-width at 48rem/size-1 — the same
+   grammar as every other section header). About-only component;
+   fact rows and breakpoints untouched.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | `CI=true playwright test tests/visual/about.spec.ts tests/visual/pages.spec.ts` | 0 | PASS — 96/96 |
+| 3 | Captures | `screenshots -g about` 7/7 + `-g club-captain` 7/7 | 0 | PASS — about 1440/390 reviewed (stacked intro: one-line H2 + lede beneath, cards below); captain 1440/768/390 reviewed (both faces visible) |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (net-zero: new rules replace old; no new failure; known FAIL stands per owner direction) |
+
+Section-organisation audit (prior pass, still valid minus WhyChooseUs):
+page reads banner(h1) → welcome → sponsors → story → founder →
+leadership → follow CTA → footer; one h1 + section h2s, eyebrow
+dialect consistent, all-compact rhythm. The open pillar-duplication
+question is now closed by the removal above.
+
+## Update, 2026-09-11 — CI gate fix: roster card headings h4→h3 (same `feature/about-refinements` branch)
+
+CI on PR44 failed two jobs on one root cause — axe
+`heading-order` on /about (mobile-axe spec) + check-ui
+`heading-order` (about/index.html skips h2 to h4): roster card
+names sat directly under the section h2 as h4. Fix: h3 with the
+same explicit size-2/bold declarations — visually identical,
+outline correct. (AboutStory's h4 caption precedes its h2 in DOM
+after an h3 section, so it is outline-safe; left untouched per
+minimum change.) Verified locally the way CI runs it:
+`check-ui.mjs` UI_STATUS PASS (only pre-existing warnings),
+mobile-axe + about specs 23/23, about captures 7/7 reviewed
+(cards unchanged). Perf unchanged (still 56.7KB known FAIL).

@@ -97,7 +97,10 @@ test('excluded images are never referenced by the built About Us page', async ({
   const excluded = [
     'home-hero.webp',
     'join-us.webp',
-    'gallery-06.webp',
+    // gallery-06.webp REMOVED from this list 2026-09-11: owner explicitly
+    // confirmed it depicts a UKBT team/event photo (overrides
+    // EV-20260826-030 §4 for this file) and directed it as the About
+    // banner background. Explicit re-approval, not a weakening.
     'nordic-smash-slide.webp',
   ];
   for (const file of excluded) {
@@ -108,24 +111,32 @@ test('excluded images are never referenced by the built About Us page', async ({
   }
 });
 
-test('leadership imagery is limited to the two owner-authorised photographs', async ({
+test('leadership imagery is limited to the owner-authorised portraits', async ({
   page,
 }) => {
   await page.goto('/about');
-  // Cards stay text-only — the authorised photographs render outside
-  // the cards (About Phase 1, EV-20260910-001).
-  const cardImgs = await page.locator('.ukbt-leadership__card img').count();
+  // Owner direction 2026-09-11: the management-team graphic and the
+  // standalone spotlights are removed; each roster card carries its
+  // member's cleared portrait instead (Chowdhury via founder-trophy,
+  // Ratan EV-20260911-001, Sayem EV-20260910-001). Exactly this set
+  // renders — nothing else, no unconfirmed photos.
+  const html = await page.content();
   expect(
-    cardImgs,
-    'leadership cards must stay text-only, no unconfirmed photos',
+    html.includes('management-team.webp'),
+    'management-team graphic must not render anymore',
+  ).toBe(false);
+  expect(
+    await page.locator('.ukbt-leadership__spotlight').count(),
+    'no standalone spotlight blocks remain',
   ).toBe(0);
-  // Exactly the authorised set renders, nothing else.
-  const graphic = page.locator('.ukbt-leadership__graphic img');
-  await expect(graphic).toHaveCount(1);
-  await expect(graphic).toHaveAttribute('src', /management-team\.webp$/);
-  const spotlight = page.locator('.ukbt-leadership__spotlight img');
-  await expect(spotlight).toHaveCount(1);
-  await expect(spotlight).toHaveAttribute('src', /sayem-rahman\.jpg$/);
+  const cardImgs = page.locator('.ukbt-leadership__card img');
+  await expect(cardImgs).toHaveCount(3);
+  await expect(cardImgs.nth(0)).toHaveAttribute('src', /founder-trophy\.webp$/);
+  await expect(cardImgs.nth(1)).toHaveAttribute(
+    'src',
+    /shahidul-alam-ratan\.webp$/,
+  );
+  await expect(cardImgs.nth(2)).toHaveAttribute('src', /sayem-rahman\.jpg$/);
 });
 
 test('no horizontal overflow on the About Us page at any frozen viewport', async ({
