@@ -669,3 +669,40 @@ team-huddle in AboutCTA. "Acting Chairman" retained. Hero subline
 slot added to shared PageBanner (optional, other pages unaffected).
 Still out: full long-form bios, 13-item CV detail beyond the
 distillation (each needs its own evidence if ever rendered).
+
+### 2.17 About N2/N3 round-2 + 3-page enhancement (2026-09-10, PRs #35-#40)
+
+- **N2/N3 round-2 (PR #35).** Vice-chairman spotlight wraps below the
+  portrait at extreme text scaling (`flex-wrap`, verified `text200-over:
+  0` via a transient spec, since deleted); founder tablet cap lost its
+  `min-width` lower bound (448px verified at 700/766/768/1024).
+- **Phase 1 data-legal (PR #36, `EV-20260910-003`).**
+  `org.stat_active_players` 30+ → 40+ on direct owner instruction
+  (same supersession pattern as `EV-20260909-001`; T7 via
+  `EV-20260910-001` + `-003`). Owner-approved legal wording
+  "Founded in 2020 · registered as UK Bangla Tigers Cricket Club CIC"
+  renders identically on `/` and `/about`; no 2025 date published per
+  owner instruction. Both 40+ figures coexist with distinct
+  labels/sections (owner-confirmed, not a conflict).
+- **Phase 2 system (PR #37, additive, zero visual diff).** Optional
+  Hero eyebrow/secondary-CTA; AcademySection copy + light tone;
+  WhyChooseUs editorial variant; CaptainSpotlight density/identity/CTA;
+  ProfileHeader athlete layout/identity; new `FranchiseTimeline`
+  (current-emphasized / previous-subordinate spine, verbatim items).
+- **Phase 3 homepage (PR #38, `index.astro` only).** Hero eyebrow +
+  View-Tournaments CTA; editorial Why 01–04; editorial captain bridge
+  ("View full profile"). Order, surfaces, stats, imagery unchanged;
+  image duplicates kept deliberately (authorised, cache-shared,
+  distinctly cropped).
+- **Phase 4 about (PR #39).** Editorial values (one system, both
+  pages); leadership cards with larger names + micro-label roles
+  (text-only per photo-pin contract). Era-grouped story chrome
+  deferred — only 2020 is gated.
+- **Phase 5 captain (PR #40).** Athlete hero (20rem frame under the
+  640px source, identity line from verbatim gated values, meta grid);
+  franchise grid replaced by `FranchiseTimeline`; Back-to-Players
+  close. One real bug caught by the suite: the athlete frame's
+  higher-specificity desktop width held 320px at the 320 viewport —
+  fixed with an explicit mobile collapse rule.
+- Still out (unchanged): full long-form bios, 13-item CV detail,
+  Companies House number + 2025 entity date (internal-only per owner).
