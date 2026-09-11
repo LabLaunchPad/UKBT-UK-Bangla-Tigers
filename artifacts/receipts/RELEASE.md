@@ -461,3 +461,28 @@ sectionCount still 5.
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — About corrections round (same `feature/about-refinements` branch)
+
+Owner corrections + Ratan portrait integration, fresh runs:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — all 13 gates (includes Ratan 118KB portrait weight) |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`; includes rewritten leadership photo-pin test) |
+| 15 | Capture specs | `homepage-delivery` + `screenshots` specs (`CI=true`) | 0 | PASS — 108 passed; only the 7 about PNGs changed |
+| 16 | Visual comparison | transient full-page + targeted crops at 1440/768/390/320 (deleted after review) | — | PASS — photo cards equal + legible, founder icons quiet, mobile stacks clean, no overflow |
+
+Scope: management-team graphic render removed (file + authorisation
+retained), roster cards gain cleared portraits, both spotlights +
+their CSS deleted, R-A icons kept. No route, gated-copy, token, or
+stat change. Sayem bio + graphic data retained unrendered.
+Owner-input items closed: Ratan portrait (EV-20260911-001). Still
+open: 3 quotes, legacy story paragraph, legacy Join CTA (copy +
+photo) — all NOT VERIFIED, none published.
+
+## Verdict (About corrections round)
+
+```
+RELEASE_STATUS = PASS
+```

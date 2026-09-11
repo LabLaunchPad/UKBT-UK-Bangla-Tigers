@@ -662,7 +662,11 @@ const isActive = (href: string) =>
     min-width: 24px;
     min-height: 24px;
   }
-  .ukbt-header__dropdown-toggle svg {
+  /* Chevron rotation shared by the desktop dropdown toggle and the
+     mobile drawer accordion (identical transition; one rule for both —
+     deduped to fund evidence-backed rules within the CSS budget). */
+  .ukbt-header__dropdown-toggle svg,
+  .ukbt-header__drawer-accordion svg {
     transition: transform var(--ukbt-motion-duration-base)
       var(--ukbt-motion-easing-standard);
   }
@@ -924,10 +928,6 @@ const isActive = (href: string) =>
     padding: var(--ukbt-space-gap-2);
     cursor: pointer;
     line-height: 1;
-  }
-  .ukbt-header__drawer-accordion svg {
-    transition: transform var(--ukbt-motion-duration-base)
-      var(--ukbt-motion-easing-standard);
   }
   .ukbt-header__drawer-accordion[aria-expanded='true'] svg {
     transform: rotate(180deg);

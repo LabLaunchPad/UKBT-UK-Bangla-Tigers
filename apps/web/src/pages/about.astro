@@ -59,9 +59,11 @@ const storyStats = [
 // of the registered squad) — no T8 conflict by construction. Per
 // EV-20260910-003 both the club aggregate and the active subset read 40+
 // (growth, not a conflict); labels and sections stay distinct.
-const founderStats = [
-  { value: about.founder.stats.careerMatches, label: 'Career Matches' },
-  { value: about.founder.stats.activePlayers, label: 'Active Players' },
+// `icon` is presentation mapping for R-A (form restore of the legacy
+// stat cards) — not gated data; values stay canonical.
+const founderStats: { value: string; label: string; icon: 'trophy' | 'people' }[] = [
+  { value: about.founder.stats.careerMatches, label: 'Career Matches', icon: 'trophy' },
+  { value: about.founder.stats.activePlayers, label: 'Active Players', icon: 'people' },
 ];
 
 const crumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
@@ -119,8 +121,6 @@ const structuredData = aboutGraph({
       <LeadershipGrid
         leaders={about.leaders}
         narrative={about.managementStory}
-        graphic={about.leadershipGraphic}
-        spotlight={about.sayem}
       />
     </Section>
 

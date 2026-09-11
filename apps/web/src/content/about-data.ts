@@ -185,9 +185,33 @@ export const about = {
     `Founded in ${facts.founded.value} · registered as ${facts.legalEntity.value}, competing as a cricket franchise on the international stage while building a sister-franchise network with Uppsala Tigers in Sweden.`,
   ],
   leaders: [
-    facts.founderCeo.value,
-    facts.actingChairman.value,
-    facts.viceChairman.value,
+    {
+      ...facts.founderCeo.value,
+      photo: {
+        src: '/media/founder-trophy.webp',
+        alt: 'Mohammad Chowdhury, Founder and CEO of UK Bangla Tigers',
+        width: 1000,
+        height: 1252,
+      },
+    },
+    {
+      ...facts.actingChairman.value,
+      photo: {
+        src: '/media/shahidul-alam-ratan.webp',
+        alt: 'MD Shahidul Alam Ratan, Acting Chairman of UK Bangla Tigers',
+        width: 1321,
+        height: 1322,
+      },
+    },
+    {
+      ...facts.viceChairman.value,
+      photo: {
+        src: '/media/sayem-rahman.jpg',
+        alt: 'Sayem Rahman, Vice-Chairman of UK Bangla Tigers',
+        width: 1200,
+        height: 1200,
+      },
+    },
   ],
   leadershipGraphic: {
     src: '/media/management-team.webp',
@@ -217,6 +241,21 @@ export const about = {
       alt: 'Sayem Rahman, Vice-Chairman of UK Bangla Tigers',
       width: 1200,
       height: 1200,
+    },
+  },
+  // Acting-Chairman spotlight (EV-20260911-001, owner-supplied portrait).
+  // Name/role reuse the gated leader fields; photo is an ungated literal
+  // like sayem.photo. No bio was supplied — the card renders photo +
+  // name + role only (bio rows render only when present).
+  ratan: {
+    name: facts.actingChairman.value.name,
+    role: facts.actingChairman.value.role,
+    bio: [] as string[],
+    photo: {
+      src: '/media/shahidul-alam-ratan.webp',
+      alt: 'MD Shahidul Alam Ratan, Acting Chairman of UK Bangla Tigers',
+      width: 1321,
+      height: 1322,
     },
   },
   heroSubline: facts.heroSubline.value,

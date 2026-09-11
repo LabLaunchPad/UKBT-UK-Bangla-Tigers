@@ -11,6 +11,9 @@
 interface Stat {
   value: string;
   label: string;
+  /** R-A visual anchor only (presentation mapping in about.astro, not
+     gated data): trophy = career aggregate, people = active subset. */
+  icon?: 'trophy' | 'people';
 }
 interface Props {
   image: { src: string; alt: string; width: number; height: number };
@@ -56,6 +59,24 @@ import SubHeading from './SubHeading.astro';
       {
         stats.map((s) => (
           <div class="ukbt-founder__stat">
+            {s.icon === 'trophy' && (
+              <svg class="ukbt-founder__stat-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 4h10v5a5 5 0 0 1-10 0V4z" />
+                <path d="M7 5H4.5A1.5 1.5 0 0 0 3 6.5C3 8.5 4.5 10 6.6 10" />
+                <path d="M17 5h2.5A1.5 1.5 0 0 1 21 6.5C21 8.5 19.5 10 17.4 10" />
+                <path d="M12 14v4" />
+                <path d="M8.5 20h7" />
+                <path d="M10 18h4" />
+              </svg>
+            )}
+            {s.icon === 'people' && (
+              <svg class="ukbt-founder__stat-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="9" cy="8" r="3.2" />
+                <path d="M3.5 19c.8-3 2.9-4.6 5.5-4.6s4.7 1.6 5.5 4.6" />
+                <circle cx="16.8" cy="9" r="2.5" />
+                <path d="M16.2 14.6c2.4.4 4.1 2 4.6 4.4" />
+              </svg>
+            )}
             <span class="ukbt-founder__stat-value">{s.value}</span>
             <span class="ukbt-founder__stat-label">{s.label}</span>
           </div>
@@ -138,6 +159,15 @@ import SubHeading from './SubHeading.astro';
     gap: var(--ukbt-space-1);
     border-top: 2px solid var(--ukbt-color-brand-accent);
     padding-top: var(--ukbt-space-2);
+  }
+  /* R-A visual anchors: small quiet gold outline icons in the Button
+     stroke language (1.8, round caps). Decorative — aria-hidden in
+     markup — aligned to the value, never competing with it. */
+  .ukbt-founder__stat-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+    color: var(--ukbt-color-brand-accent);
   }
   .ukbt-founder__stat-value {
     font-family: var(--ukbt-font-family-heading);

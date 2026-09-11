@@ -797,3 +797,31 @@ main + PR41 + PR42 baseline; ancestry reported before editing):
   route byte-identical, proving the SectionHeader/Footer shared
   edits are zero-drift. Geometry sectionCount still 5. Awaiting
   human lock approval; merge order 41 → 42 → 43.
+
+### 2.21 About corrections round — roster photo cards (2026-09-11)
+
+Owner corrections on the about-refinements branch (same branch,
+no new branch — direct continuation):
+
+1. **Management-team graphic render removed** per owner direction.
+   File + EV-20260910-001 authorisation retained (MANIFEST notes
+   the removal); photo-pin test now asserts its absence.
+2. **Roster cards carry portraits.** Each of the 3 leadership cards
+   renders its member's cleared photo (Chowdhury via the
+   already-rendered founder-trophy asset, Ratan EV-20260911-001,
+   Sayem EV-20260910-001) — 5rem cover thumbs, card radius, face
+   kept via object-position top. No quote cards created (quotes
+   remain NOT VERIFIED across all layers).
+3. **Both standalone spotlights deleted** (Sayem bio card + Ratan
+   card) including all spotlight CSS (R-H superseded — presence now
+   comes from the roster photos). Sayem bio + leadershipGraphic +
+   sayem/ratan data exports retained in about-data (unrendered,
+   noted — not deleted in case bios return with a design).
+4. R-A founder icons + R-H intend kept (icons verified in crops;
+   7.5rem rule removed with its component).
+- Evidence: `deploy:verify` exit 0, e2e 328/1, capture specs 108
+  passed, full-page + targeted crops reviewed at 1440/768/390/320
+  (transient spec deleted). Only the 7 about PNGs changed.
+- Incidental: `gallery-02.webp` shows as deleted in the working
+  tree — NOT this workstream's change (owner-side file
+  organisation); left unstaged and untouched.
