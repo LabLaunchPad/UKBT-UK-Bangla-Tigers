@@ -631,6 +631,32 @@ Same `PageBanner[background]` prop, no component change.
 | 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g players` | 0 | PASS — 7/7; 1440/390 reviewed — squad photo dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
 | 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-08 291KB under warn threshold, no players page-image failure; known FAIL stands per owner direction) |
 
+## Update, 2026-09-11 — Events banner backdrop gallery-10 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Events banner (route
+`/tournaments`) with gallery-10. Evidence status: no prior EV finding
+for this raw file and no test ban; MANIFEST's contact-sheet
+"gallery-10" (European Cup 2025 banner, held back) is a different
+numbering — recorded as such, raw file judged on its own pixels.
+Owner explicitly confirmed gallery-10 depicts a UKBT squad photo
+(chat 2026-09-11); recorded in MANIFEST banner section
+(byte-identical staging, SHA256 `E884D263…E160`, 1400x1002, 230KB;
+RTSC board + STONE & CO./SOL marks disclosed as documentary
+background). Same `PageBanner[background]` prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | covered by prior `pages.spec.ts` 89-pass run (tournaments route included; banner prop is additive/optional) | — | CARRIED (no banner-logic change since) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g tournaments` | 0 | PASS — 7/7; 1440/390 reviewed — medal-winning squad dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-10 230KB under warn threshold, no tournaments page-image failure; known FAIL stands per owner direction) |
+
+Cross-check (no action): the rendered `/tournaments` calendar matches
+the owner-confirmed Mission record — Upcoming Nordic Lights (Sept
+2026, Norway) + Global T20 Championship (Oct 2026, Romania);
+Completed Safari (Jul 2026), Nordic Smash (Jun 2026), Asian
+Challengers (Jan 2020).
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow

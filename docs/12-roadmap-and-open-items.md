@@ -878,3 +878,11 @@ no new branch — direct continuation):
    0 errors, pages.spec 89 passed + 1 unrelated timing flake,
    players captures 7/7 reviewed at 1440/390. Perf: no new failure
    (291KB image under thresholds; CSS still 56.7KB known FAIL).
+10. **Events banner backdrop gallery-10 (same branch, committed on
+    top).** Owner confirmed UKBT squad photo (no prior EV; MANIFEST
+    contact-sheet label is a different numbering — recorded).
+    Same PageBanner prop, no component change. Evidence: astro check
+    0 errors, tournaments captures 7/7 reviewed at 1440/390.
+    Calendar cross-checks the Mission record (no action). Perf: no
+    new failure (230KB image under thresholds; CSS still 56.7KB
+    known FAIL).
