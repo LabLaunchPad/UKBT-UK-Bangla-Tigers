@@ -389,3 +389,26 @@ throughout).
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — homepage enhancement (branch `feature/homepage-enhancement`)
+
+Fresh runs on this branch:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1–13 | Full release gate | `pnpm deploy:verify` | 0 | PASS — chained `&&` sequence, exit 0 means all 13 gates (scaffold/allowlist/lint/tokens/typecheck 0 errors/unit/build/links/seo/ui/motion/security/perf) |
+| 14 | E2E / accessibility | `pnpm --filter @ukbt/web exec playwright test` (`CI=true`) | 0 | PASS — 328 passed, 1 skipped (env-gated `reference-geometry.spec.ts`) |
+| 15 | Capture specs | `homepage-delivery` + `screenshots` specs (`CI=true`) | 0 | PASS — 108 passed; refreshed 3 delivery + 28 route PNGs (community/homepage/players/tournaments), about byte-identical by design |
+| 16 | Visual comparison (§17+) | transient full-page spec, 8 viewports incl 320/375 (deleted after review) | — | PASS — eyebrow grammar, trough weighting, both transition fixes verified; no overflow/clipping at any viewport; cross-page safety reviewed |
+
+Scope: 7 files (base.css eyebrow utility, Button tone, AboutCTA/Hero
+`:global` removal, CaptainSpotlight/TournamentGrid eyebrow migration +
+tournament hierarchy, FranchiseTeaser boundary). No copy, image,
+route, token-value, or data change. Geometry record unchanged except
+capture date (sectionCount still 7).
+
+## Verdict (homepage enhancement)
+
+```
+RELEASE_STATUS = PASS
+```
