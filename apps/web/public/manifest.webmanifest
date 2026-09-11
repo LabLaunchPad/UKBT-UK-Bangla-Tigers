@@ -1,0 +1,22 @@
+{
+  "name": "UK Bangla Tigers",
+  "short_name": "UKBT",
+  "description": "UK Bangla Tigers Cricket Club — players, tournaments, franchises and community.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#001E3A",
+  "background_color": "#F8F4E8",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

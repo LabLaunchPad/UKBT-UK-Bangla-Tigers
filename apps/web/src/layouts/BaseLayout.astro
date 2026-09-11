@@ -99,6 +99,12 @@ const graphs = structuredData
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    {/*
+      No theme-color meta: manifest.webmanifest is the single source of
+      truth for theme (#001E3A). A duplicate meta would cost ~50B of
+      players/index.html weight, a page that lives 0.1KB under budget.
+    */}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />
@@ -115,6 +121,7 @@ const graphs = structuredData
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={ogImage.url} />
     <meta name="twitter:image:alt" content={ogImage.alt} />
+    <script src="/sw-register.js" defer></script>
 
     {
       graphs.map((g) => (
