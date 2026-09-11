@@ -41,7 +41,7 @@ const { taglineShort, social, eyebrow, secondaryCta } = Astro.props;
   <div class="ukbt-hero__scrim" aria-hidden="true"></div>
   <div class="ukbt-container ukbt-hero__inner">
     <div class="ukbt-hero__content">
-      {eyebrow && <p class="ukbt-hero__eyebrow">{eyebrow}</p>}
+      {eyebrow && <p class="ukbt-hero__eyebrow ukbt-eyebrow ukbt-eyebrow--on-dark">{eyebrow}</p>}
       <h1 class="ukbt-hero__headline">
         We're not just<br />a team.
       </h1>
@@ -233,32 +233,18 @@ const { taglineShort, social, eyebrow, secondaryCta } = Astro.props;
     align-items: center;
     gap: var(--ukbt-space-3);
   }
-  .ukbt-hero :global(.ukbt-button--primary) {
-    background: var(--ukbt-color-brand-accent);
-    border-color: var(--ukbt-color-brand-accent);
-    color: var(--ukbt-color-brand-accent-contrast);
-  }
-  .ukbt-hero :global(.ukbt-button--primary:hover) {
-    background: var(--ukbt-color-brand-accent-hover);
-    border-color: var(--ukbt-color-brand-accent-hover);
-  }
+  /* NOTE: a :global(.ukbt-button--primary) recolor lived here until the
+     homepage-enhancement pass — it restated Button's own default values
+     verbatim (gold pill), so deleting it is pixel-identical. Light-surface
+     navy pills are now Button tone="on-light", owned by the component. */
   .ukbt-hero__social {
     margin: var(--ukbt-space-4) 0 0 0;
   }
 
   @media screen and (max-width: 767px) {
-  /* Optional club-identity eyebrow: gold small-caps on the dark scrim
-     (gold-on-dark only, per the brand contrast rule). Renders nothing
-     when the prop is omitted. */
-  .ukbt-hero__eyebrow {
-    font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ukbt-color-brand-accent);
-    margin: 0;
-  }
+  /* Club-identity eyebrow: the shared on-dark eyebrow grammar (see
+     base.css); nothing local except the entrance delay above. Renders
+     nothing when the prop is omitted. */
   .ukbt-hero__headline {
       font-size: clamp(2rem, 1.2rem + 4vw, 3rem);
     }

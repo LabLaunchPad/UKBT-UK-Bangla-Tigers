@@ -15,6 +15,10 @@
 interface Props {
   label: string;
   variant?: 'primary' | 'secondary' | 'danger';
+  /** Surface tone. on-dark (default) preserves the established gold pill;
+     on-light renders the navy pill for light surfaces — replacing the
+     per-page :global recolors (AboutCTA) with a first-class prop. */
+  tone?: 'on-dark' | 'on-light';
   disabled?: boolean;
   href?: string;
   /** Trailing circular arrow affordance (reference `.icon-circle`). */
@@ -26,6 +30,7 @@ interface Props {
 const {
   label,
   variant = 'primary',
+  tone = 'on-dark',
   disabled = false,
   href,
   icon = true,
@@ -35,7 +40,7 @@ const Tag = href ? 'a' : 'button';
 ---
 
 <Tag
-  class={`ukbt-button ukbt-button--${variant}${icon ? ' ukbt-button--has-icon' : ''}`}
+  class={`ukbt-button ukbt-button--${variant}${icon ? ' ukbt-button--has-icon' : ''}${tone === 'on-light' ? ' ukbt-button--tone-on-light' : ''}`}
   href={href}
   target={href && external ? '_blank' : undefined}
   rel={href && external ? 'noopener noreferrer' : undefined}
@@ -109,6 +114,18 @@ const Tag = href ? 'a' : 'button';
   }
   .ukbt-button--primary:hover {
     background: var(--ukbt-color-brand-accent-hover);
+  }
+  /* Light-surface tone: navy pill. Values moved verbatim from AboutCTA's
+     former :global recolor (pixel-identical there); the icon circle keeps
+     its navy fill + gold ring, matching the approved rendering. */
+  .ukbt-button--tone-on-light {
+    background: var(--ukbt-color-brand-primary);
+    border-color: var(--ukbt-color-brand-primary);
+    color: var(--ukbt-color-brand-primary-contrast);
+  }
+  .ukbt-button--tone-on-light:hover {
+    background: var(--ukbt-color-brand-primary-hover);
+    border-color: var(--ukbt-color-brand-primary-hover);
   }
   /* Arrow micro-interaction grammar: the glyph shifts toward the action
      on hover, settles on leave. Press compresses the pill briefly —

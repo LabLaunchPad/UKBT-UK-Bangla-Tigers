@@ -33,18 +33,25 @@ const countryList =
 </div>
 
 <style>
+  /* Captain → Franchise transition fix: the flat-white teaser follows
+     the cream captain panel with only whitespace between them, which
+     read as a trough. A gold top rule (same grammar as AboutCTA's)
+     gives the network story a deliberate boundary without adding
+     weight elsewhere — crest scale +1rem completes the lockup. */
   .ukbt-franchise {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: var(--ukbt-space-gap-100);
+    border-top: 3px solid var(--ukbt-color-brand-accent);
+    padding-top: var(--ukbt-space-6);
   }
   .ukbt-franchise__crest {
     flex-shrink: 0;
   }
   .ukbt-franchise__crest img {
     display: block;
-    height: 8rem;
+    height: 9rem;
     width: auto;
   }
   .ukbt-franchise__content {

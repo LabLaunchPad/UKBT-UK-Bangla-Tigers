@@ -17,7 +17,7 @@ const { mainEvent, otherEvents } = Astro.props;
   <div class="ukbt-tournaments__main">
     <h2 class="ukbt-tournaments__title">{mainEvent.name}</h2>
     <div class="ukbt-tournaments__meta">
-      <span>{mainEvent.when}</span>
+      <span class="ukbt-tournaments__meta-when">{mainEvent.when}</span>
       <span class="ukbt-tournaments__sep" aria-hidden="true">&middot;</span>
       <span>{mainEvent.where}</span>
     </div>
@@ -25,7 +25,7 @@ const { mainEvent, otherEvents } = Astro.props;
   {
     otherEvents.length > 0 && (
       <div class="ukbt-tournaments__others">
-        <span class="ukbt-tournaments__eyebrow">Also Coming</span>
+        <span class="ukbt-tournaments__eyebrow ukbt-eyebrow">Also Coming</span>
         <ul class="ukbt-tournaments__list">
           {otherEvents.map((t) => (
             <li class="ukbt-tournaments__item">
@@ -54,32 +54,33 @@ const { mainEvent, otherEvents } = Astro.props;
     /* No top rule: on the homepage this grid sits directly under the
        SectionHeader's own accent rule — a second rule here rendered as
        a duplicated divider. This component is homepage-only, so no
-       other page loses a divider. */
-    padding-top: var(--ukbt-space-6);
+       other page loses a divider. Tightened top pad binds the main
+       event to that rule (Academy → Tournaments transition fix). */
+    padding-top: var(--ukbt-space-4);
   }
-  .ukbt-tournaments__eyebrow {
-    font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ukbt-color-brand-primary);
-  }
+  /* Eyebrow uses the shared .ukbt-eyebrow grammar (base.css); the local
+     class remains as the component hook + test selector. */
   .ukbt-tournaments__title {
     font-family: var(--ukbt-font-family-heading);
-    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.5rem);
+    font-size: clamp(2rem, 1.6rem + 2vw, 2.75rem);
     font-weight: 700;
     line-height: 1.1;
     margin: 0;
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
   .ukbt-tournaments__meta {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     gap: var(--ukbt-space-2);
     font-size: var(--ukbt-font-size-1);
     color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-tournaments__meta-when {
+    font-family: var(--ukbt-font-family-heading);
+    font-weight: 600;
+    color: var(--ukbt-color-brand-primary);
   }
   .ukbt-tournaments__sep {
     color: var(--ukbt-color-brand-primary);

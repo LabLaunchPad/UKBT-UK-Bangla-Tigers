@@ -125,6 +125,39 @@ p {
   }
 }
 
+/* Shared eyebrow grammar (homepage enhancement investigation P1).
+   Three bespoke eyebrow dialects (hero gold small-caps, captain navy
+   caps, tournament navy caps) performed one semantic role with three
+   implementations. This is the single contract: compact uppercase
+   label with a short gold tick, in on-light (navy text) and on-dark
+   (gold text, gold-on-dark only per the brand contrast rule) tones.
+   The SubHeading pill remains the separate header-row dialect used
+   inside SectionHeader — deliberately not unified with this. Token
+   values only, per contracts/CSS-CONTRACT.md. */
+.ukbt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ukbt-space-2);
+  margin: 0;
+  font-family: var(--ukbt-font-family-heading);
+  font-size: var(--ukbt-font-size-0);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  color: var(--ukbt-color-brand-primary);
+}
+.ukbt-eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: 2px;
+  flex: none;
+  background: var(--ukbt-color-brand-accent);
+}
+.ukbt-eyebrow--on-dark {
+  color: var(--ukbt-color-brand-accent);
+}
+
 /* contracts/ACCESSIBILITY-CONTRACT.md: visible focus indicator on every
    focusable element — never the invisible-outline SOURCE_DEFECT found in
    the Adelux reference (INTERACTION-FORENSICS.md).

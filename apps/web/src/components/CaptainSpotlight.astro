@@ -35,7 +35,7 @@ const { name, role, photo, density = 'compact', identityLine, ctaLabel = 'Full p
     )
   }
   <div class="ukbt-captain__body">
-    <span class="ukbt-captain__eyebrow">Club Captain</span>
+    <span class="ukbt-captain__eyebrow ukbt-eyebrow">Club Captain</span>
     <h2 class="ukbt-captain__headline">Leading from the Front</h2>
     <div class="ukbt-captain__info">
       <span class="ukbt-captain__name">{name}</span>
@@ -76,14 +76,8 @@ const { name, role, photo, density = 'compact', identityLine, ctaLabel = 'Full p
     gap: var(--ukbt-space-3);
     min-width: 0;
   }
-  .ukbt-captain__eyebrow {
-    font-family: var(--ukbt-font-family-heading);
-    font-size: var(--ukbt-font-size-0);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ukbt-color-brand-primary);
-  }
+  /* Eyebrow uses the shared .ukbt-eyebrow grammar (base.css); the local
+     class remains as the component hook. */
   .ukbt-captain__headline {
     font-family: var(--ukbt-font-family-heading);
     font-size: clamp(1.8rem, 1.2rem + 2vw, 2.5rem);

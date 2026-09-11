@@ -706,3 +706,30 @@ distillation (each needs its own evidence if ever rendered).
   fixed with an explicit mobile collapse rule.
 - Still out (unchanged): full long-form bios, 13-item CV detail,
   Companies House number + 2025 entity date (internal-only per owner).
+
+### 2.18 Homepage enhancement implementation (2026-09-11, PR #41)
+
+Executed the approved investigation (§2.17 lineage) as controlled
+implementation on `feature/homepage-enhancement`:
+
+- **Shared primitives first.** New `.ukbt-eyebrow` grammar in
+  `base.css` (uppercase + gold tick, on-light/on-dark) replaces three
+  bespoke dialects (hero, captain, tournament "Also Coming") — the
+  SubHeading pill stays the separate header-row dialect. `Button`
+  gains `tone="on-light"` (navy pill, values moved verbatim from
+  AboutCTA); both `:global` recolors deleted — Hero's was a provable
+  no-op, AboutCTA's is pixel-identical (about captures byte-identical).
+  `SectionHeader` deliberately untouched: no evidenced use for a new
+  tone/size, so generalizing it would have been speculation.
+- **Trough recomposition.** TournamentGrid: larger main-event title,
+  semibold navy date, tightened header bind (S4 trough lifted).
+  FranchiseTeaser: 9rem crest + gold top rule (Captain → Franchise
+  boundary fixed; same grammar as AboutCTA). No copy, image, route,
+  token, or data change anywhere.
+- **Evidence.** `deploy:verify` exit 0 (13/13), e2e 328/1, full-page
+  captures reviewed at all 8 viewports — 320/375 measured for the
+  first time (previously inferred). Cross-page safety: players
+  (eyebrow tick), community + tournaments (franchise rule) reviewed,
+  all intentional; about byte-identical. Geometry `sectionCount`
+  unchanged (7). Transient review spec deleted after use.
+- Awaiting human lock approval before About inherits the grammar.
