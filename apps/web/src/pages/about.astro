@@ -118,9 +118,16 @@ const structuredData = aboutGraph({
     </Section>
 
     <Section density="compact">
+      {/*
+        Leadership intro (owner direction 2026-09-11): the compressed
+        `org.leadership_intro` renders in the grid's title column. The
+        full `org.management_story` passage is deliberately NOT passed
+        (no duplicate copy on the page) — retained unrendered in
+        about-data for the record.
+      */}
       <LeadershipGrid
         leaders={about.leaders}
-        narrative={about.managementStory}
+        intro={about.leadershipIntro}
       />
     </Section>
 

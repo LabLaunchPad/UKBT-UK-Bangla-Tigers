@@ -516,3 +516,33 @@ distinct content (SHA256 differs from gallery-02 at HEAD, same
 ```
 RELEASE_STATUS = PASS (targeted scope; full gate PASS carried from parent commit)
 ```
+
+## Update, 2026-09-11 — Leadership intro compression (same `feature/about-refinements` branch)
+
+Owner direction: the `org.management_story` passage compressed with
+SEO/marketing in mind into the LeadershipGrid title column, replacing
+the hardcoded committee line. Targeted runs only:
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors (2 pre-existing hints in unrelated files) |
+| 2 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (photo-pin test unaffected: same 3 portraits) |
+| 3 | Perf budget | `node scripts/check-perf.mjs` (fresh dist) | 0 | PASS — CSS within 56KB (narrative CSS deleted, net negative); warnings pre-existing franchises-only |
+| 4 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; full-page review at 1440/390 confirms title-column intro + bento in one clean row, mobile stacks title-then-cards, no overflow |
+
+Scope: new `org.leadership_intro` gated fact (same facts/sources as
+managementStory — restatement, not a new claim; roster hedge kept as
+"More committee roles to be announced"), `LeadershipGrid` gains
+`intro` prop and loses the `narrative` prop + its CSS, `about.astro`
+stops passing `managementStory` (no duplicate copy on the page —
+the SEO rationale; full passage retained unrendered in about-data).
+No route, image-asset, token, or stat change.
+
+Section-organisation audit (same pass): page reads banner(h1) →
+welcome → sponsors → story → founder → values 01–04 → leadership →
+follow CTA → footer; one h1 + section h2s, eyebrow dialect
+consistent, all-compact rhythm. One finding for owner direction,
+NOT changed: MissionWelcome's 4 fact cards and WhyChooseUs 01–04
+restate the same four pillars (International / Learning /
+Franchise / Registered) — merge, differentiate, or keep is an
+owner call.

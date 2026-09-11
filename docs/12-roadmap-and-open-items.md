@@ -840,3 +840,14 @@ no new branch — direct continuation):
    still untouched: gallery-02 deletion unstaged, the two `MD
    Shahidul Alam Ratan.webp` raw drops (measured distinct
    content, not a rename) untracked.
+6. **Leadership intro compression (same branch, committed on top).**
+   New `org.leadership_intro` gated fact compresses the
+   managementStory passage (same facts/sources, roster hedge kept)
+   into the grid title column, replacing the hardcoded committee
+   line; `narrative` prop + its CSS removed, full passage retained
+   unrendered (no duplicate page copy — the SEO rationale).
+   Evidence: astro check 0 errors, about spec 6/6, check-perf PASS
+   (net-negative CSS), about captures 7/7 reviewed at 1440/390.
+   Section audit: 1×h1 + section h2s, eyebrows/rhythm consistent;
+   open owner question (not changed): MissionWelcome fact cards vs
+   WhyChooseUs 01–04 restate the same four pillars.

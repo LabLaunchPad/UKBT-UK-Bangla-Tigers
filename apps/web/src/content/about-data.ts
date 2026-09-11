@@ -132,6 +132,18 @@ const facts = {
     ],
     sources: ['EV-20260910-001', 'EV-20260910-002'],
   },
+  // Title-column intro (owner direction 2026-09-11): the managementStory
+  // passage compressed for SEO/marketing into the LeadershipGrid title
+  // column, replacing the hardcoded committee line. Same facts, same
+  // sources — a restatement, not a new claim. The roster hedge is kept
+  // ("More committee roles to be announced") so the three cards never
+  // read as a complete-committee claim.
+  leadershipIntro: {
+    field: 'org.leadership_intro',
+    value:
+      'Led by founder and CEO Mohammad Chowdhury, UK Bangla Tigers was founded in 2020 to open pathways for players to compete on international stages. Acting Chairman Shahidul Alam Ratan brings over 25 years of global cricket development; Vice-Chairman Sayem Rahman, a British-Bangladeshi entrepreneur and community leader, drives growth across business, media and sport. More committee roles to be announced.',
+    sources: ['EV-20260910-001', 'EV-20260910-002'],
+  },
   viceChairmanBio: {
     field: 'org.leader.vice_chairman_bio',
     value: [
@@ -260,4 +272,8 @@ export const about = {
   },
   heroSubline: facts.heroSubline.value,
   managementStory: facts.managementStory.value,
+  // Compressed title-column intro (see fact comment above). managementStory
+  // is retained unrendered (same pattern as sayem/ratan/leadershipGraphic)
+  // so the full passage stays on record without duplicating page copy.
+  leadershipIntro: facts.leadershipIntro.value,
 };
