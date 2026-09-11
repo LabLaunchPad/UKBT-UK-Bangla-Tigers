@@ -129,7 +129,11 @@ const rawRoster: RawPlayer[] = [
     photoSlug: 'roushan-singh',
   },
   { name: 'Juan Henry', country: 'Portugal', photoSlug: 'juan-henry' },
-  { name: 'Shabbir Rahman', country: 'Bangladesh', photoSlug: 'shabbir-rahman' },
+  {
+    name: 'Shabbir Rahman',
+    country: 'Bangladesh',
+    photoSlug: 'shabbir-rahman',
+  },
   { name: 'Kennar Lewis', country: 'West Indies', photoSlug: 'kennar-lewis' },
   {
     name: 'Jaspreet Singh',
@@ -234,7 +238,11 @@ const rawRoster: RawPlayer[] = [
   { name: 'Ayyan Warraich', newFromPhotos: true, photoSlug: 'ayyan-warraich' },
   { name: 'CP Rizwan', newFromPhotos: true, photoSlug: 'cp-rizwan' },
   { name: 'Danish Sarhadi', newFromPhotos: true, photoSlug: 'danish-sarhadi' },
-  { name: 'Ibrahim Maqsood', newFromPhotos: true, photoSlug: 'ibrahim-maqsood' },
+  {
+    name: 'Ibrahim Maqsood',
+    newFromPhotos: true,
+    photoSlug: 'ibrahim-maqsood',
+  },
   { name: 'Ibrar Ahmed', newFromPhotos: true, photoSlug: 'ibrar-ahmed' },
   { name: 'Jack Jakir', newFromPhotos: true, photoSlug: 'jack-jakir' },
   { name: 'Junaid Shamsu', newFromPhotos: true, photoSlug: 'junaid-shamsu' },
