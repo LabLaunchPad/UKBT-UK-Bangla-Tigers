@@ -775,3 +775,22 @@ minimum change.) Verified locally the way CI runs it:
 `check-ui.mjs` UI_STATUS PASS (only pre-existing warnings),
 mobile-axe + about specs 23/23, about captures 7/7 reviewed
 (cards unchanged). Perf unchanged (still 56.7KB known FAIL).
+
+## Update, 2026-09-11 — Named view transitions (`feature/view-transitions`, owner-approved plan)
+
+Global root transition KEPT; three semantic pairs added
+(`ukbt-site-logo`, `ukbt-captain-portrait`,
+`ukbt-franchise-crest`) + back-direction cue via
+`data-astro-transition`. No persist, no loader, no Astro upgrade
+(lockfile stays exactly 7.2.8). Reduced-motion layer untouched —
+named groups animate only through the VT pseudo-elements the kill
+already covers. Verified: `astro check` 0 errors; MOTION_STATUS
+PASS; UI_STATUS PASS; `motion.spec.ts` 8/8 (incl. ClientRouter
+logo-intro journeys); scratch nav matrix 9/9 with zero page
+errors (scratch specs deleted after the run); settled captures
+reviewed (captain 1440, players 1440, uppsala 390). One
+mid-transition frame confirmed the crest morph engages; settled
+states are pixel-correct. Perf: CSS 56.7KB → 57.7KB (+1.0KB —
+the base layer ships in every page bundle, so global VT rules
+multiply; comments are stripped from dist). Same accepted FAIL
+class per owner direction; no cuts, no budget change.

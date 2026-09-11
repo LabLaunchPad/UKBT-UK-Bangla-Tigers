@@ -920,3 +920,13 @@ no new branch — direct continuation):
     on /about (card names under section h2). Fix is visually
     identical (explicit size-2/bold kept). Verified: check-ui PASS,
     mobile-axe + about 23/23, captures reviewed. Perf unchanged.
+16. **Named view transitions (new branch `feature/view-transitions`,
+    owner-approved plan).** KEEP global root; 3 semantic pairs:
+    `ukbt-site-logo` (brand anchor, all pages), `ukbt-captain-portrait`
+    (same photo home/players/captain), `ukbt-franchise-crest` (same
+    file+220x220 franchises/detail); back-direction cue via
+    `data-astro-transition`. No persist/loader/upgrade. Evidence:
+    typecheck 0 errors, MOTION PASS, UI PASS, motion.spec 8/8,
+    scratch matrix 9/9 zero page errors, settled captures reviewed.
+    Perf: +1.0KB CSS (56.7→57.7KB, base layer duplicated across
+    bundles) — same accepted FAIL class, no cuts per direction.

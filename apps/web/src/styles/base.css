@@ -255,3 +255,28 @@ html.ukbt-motion-js [data-motion='reveal'].is-visible {
     transform: translateY(var(--ukbt-motion-distance-sm));
   }
 }
+
+/* Named shared-element pairs (logo everywhere; captain portrait
+   home/players/captain; Uppsala crest franchises/detail). Astro
+   crossfades each pair — this only pins groups to the root slow-token
+   rhythm. Reduced motion never reaches here: the kill above forces
+   `animation: none` on all VT pseudo-elements. */
+::view-transition-group(ukbt-site-logo),
+::view-transition-group(ukbt-captain-portrait),
+::view-transition-group(ukbt-franchise-crest) {
+  animation-duration: var(--ukbt-motion-duration-slow);
+}
+
+/* Back/forward orientation: the router tags <html> with
+   data-astro-transition during the swap. Forward keeps the baseline
+   rise; back settles from the opposite side. Same distance token —
+   direction only, no new motion language. */
+html[data-astro-transition='back']::view-transition-new(root) {
+  animation-name: ukbt-page-in-back;
+}
+@keyframes ukbt-page-in-back {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--ukbt-motion-distance-sm)));
+  }
+}

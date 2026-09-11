@@ -48,7 +48,20 @@ const bannerBackground = {
           ourFranchises.map((f) => (
             <a class="ukbt-franchise-card" href={`/franchises/${f.slug}`}>
               <div class="ukbt-franchise-card__crest-panel">
-                <img src={f.logo} width="220" height="220" alt={f.logoAlt} />
+                {/*
+                  Shared-element crest: same file, same 220x220 geometry as
+                  the Uppsala detail intro, so card → detail morphs one
+                  genuine object. Uppsala is currently the sole franchise
+                  with a detail page — a second one must use its own name,
+                  since a duplicated name silently disables the pair.
+                */}
+                <img
+                  src={f.logo}
+                  width="220"
+                  height="220"
+                  alt={f.logoAlt}
+                  transition:name="ukbt-franchise-crest"
+                />
               </div>
               <div class="ukbt-franchise-card__body">
                 <h2>{f.name}</h2>
