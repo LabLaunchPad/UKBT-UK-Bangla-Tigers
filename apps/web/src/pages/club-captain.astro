@@ -54,6 +54,16 @@ const bowlingRows = captain.bowlingStats.map((s) => [
 ]);
 
 const crumbs = [{ label: 'Home', href: '/' }, { label: 'Club Captain' }];
+// Captain banner backdrop (owner direction 2026-09-11): gallery-05,
+// owner-confirmed UKBT award-presentation photo (no prior EV finding
+// for this file — new owner-supplied drop, see MANIFEST). 1400x933,
+// 56KB. Photo is presentation wiring, not a gated fact.
+const bannerBackground = {
+  src: '/media/gallery-05.webp',
+  alt: 'UK Bangla Tigers player receiving an award plaque',
+  width: 1400,
+  height: 933,
+};
 // Athlete-hero identity line: verbatim gated values only (nationality +
 // batting style), no new claim composed.
 const identityLine = `${captain.nationality} · ${captain.battingStyle}`;
@@ -75,7 +85,7 @@ const structuredData = captainGraph({
   <Header nav={homepage.nav} cta={homepage.primaryCta} />
 
   <main id="main-content" tabindex="-1">
-    <PageBanner title="Club Captain" crumbs={crumbs} />
+    <PageBanner title="Club Captain" crumbs={crumbs} background={bannerBackground} />
 
     <Section>
       <ProfileHeader

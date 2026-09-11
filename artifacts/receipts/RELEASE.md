@@ -702,6 +702,23 @@ component change. No spec change needed — no test bans the `.jpg`.
 | 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g franchises` | 0 | PASS — 14/14 (landing + Uppsala detail); 1440/390 reviewed — graphic dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
 | 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: slide 202KB under warn threshold, no franchises page-image failure; known FAIL stands per owner direction) |
 
+## Update, 2026-09-11 — Club Captain banner backdrop gallery-05 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Club Captain banner
+(route `/club-captain`) with gallery-05. Evidence status: no record
+anywhere for this file, no watermark, no test ban. Owner explicitly
+confirmed it depicts a UKBT player/official (chat 2026-09-11);
+recorded in MANIFEST banner section (byte-identical staging, SHA256
+`7FD686A8…0F0BF52`, 1400x933, 56KB). Same `PageBanner[background]`
+prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Route gate | `CI=true playwright test tests/visual/pages.spec.ts -g club-captain` | 0 | PASS — 1/1 (earlier title/meta timing flake not recurring) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g club-captain` | 0 | PASS — 7/7; 1440/390 reviewed — award presentation dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-05 56KB trivial, no captain page-image failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow

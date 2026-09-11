@@ -164,6 +164,7 @@ the photo-test pins exactly these files.
 | `public/media/gallery-10.webp` | `artifacts/brand/raw/images/gallery/gallery-10.webp` (byte-identical, SHA256 `E884D263…E160`, 1400x1002, 230KB) | Photographic backdrop of the `/tournaments` ("Events") PageBanner under a token-navy shade |
 | `public/media/gallery-04.webp` | `artifacts/brand/raw/images/gallery/gallery-04.webp` (byte-identical, SHA256 `BF01CC12…7503BF`, 1400x934, 67KB) | Photographic backdrop of the `/contact` ("Contact Us") PageBanner under a token-navy shade |
 | `public/media/nordic-smash-slide.jpg` | `artifacts/brand/raw/images/uppsala/nordic-smash-slide.jpg` (byte-identical, SHA256 `29AEE17B…13F2EE`, 1600x649, 202KB) | Graphic backdrop of the `/franchises` ("Our Franchises") PageBanner under a token-navy shade |
+| `public/media/gallery-05.webp` | `artifacts/brand/raw/images/gallery/gallery-05.webp` (byte-identical, SHA256 `7FD686A8…0F0BF52`, 1400x933, 56KB) | Photographic backdrop of the `/club-captain` ("Club Captain") PageBanner under a token-navy shade |
 
 Authorisation is explicit owner direction (chat 2026-09-11): the owner
 confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
@@ -174,7 +175,11 @@ findings are unchanged. gallery-08 (same date) is a new owner-supplied
 drop with no prior EV finding; the owner confirmed it depicts a UKBT
 squad photo. gallery-10 (same date) is likewise a new owner-supplied
 drop with no prior EV finding; the owner confirmed it depicts a UKBT
-squad photo. (Note: the "gallery-08/-10" labels in the contact-sheet
+squad photo. gallery-05 (same date) is likewise a new owner-supplied
+drop with no prior EV finding — indoor award presentation (suited
+presenter handing a Safari plaque to a player in green/orange kit;
+no watermark, no crest legible) — the owner confirmed it depicts a
+UKBT player/official. (Note: the "gallery-08/-10" labels in the contact-sheet
 review above refer to a different numbering — e.g. that review's
 gallery-08 carries a TOP-KNOCK watermark and Safari T20 sponsor bars,
 neither of which appears on the raw files staged here; the raw files

@@ -901,3 +901,9 @@ no new branch — direct continuation):
     pages.spec 90/90, franchises captures 14/14 reviewed at
     1440/390. Perf: no new failure (202KB image under thresholds;
     CSS still 56.7KB known FAIL).
+13. **Club Captain banner backdrop gallery-05 (same branch, committed
+    on top).** Owner confirmed UKBT award-presentation photo (no
+    prior record, no watermark). Same PageBanner prop, no component
+    change. Evidence: astro check 0 errors, club-captain route 1/1,
+    captures 7/7 reviewed at 1440/390. Perf: no new failure (56KB
+    image trivial; CSS still 56.7KB known FAIL).
