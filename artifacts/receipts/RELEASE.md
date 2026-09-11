@@ -761,3 +761,17 @@ page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow
 dialect consistent, all-compact rhythm. The open pillar-duplication
 question is now closed by the removal above.
+
+## Update, 2026-09-11 — CI gate fix: roster card headings h4→h3 (same `feature/about-refinements` branch)
+
+CI on PR44 failed two jobs on one root cause — axe
+`heading-order` on /about (mobile-axe spec) + check-ui
+`heading-order` (about/index.html skips h2 to h4): roster card
+names sat directly under the section h2 as h4. Fix: h3 with the
+same explicit size-2/bold declarations — visually identical,
+outline correct. (AboutStory's h4 caption precedes its h2 in DOM
+after an h3 section, so it is outline-safe; left untouched per
+minimum change.) Verified locally the way CI runs it:
+`check-ui.mjs` UI_STATUS PASS (only pre-existing warnings),
+mobile-axe + about specs 23/23, about captures 7/7 reviewed
+(cards unchanged). Perf unchanged (still 56.7KB known FAIL).

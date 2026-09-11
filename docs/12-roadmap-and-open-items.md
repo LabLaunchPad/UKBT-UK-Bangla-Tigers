@@ -915,3 +915,8 @@ no new branch — direct continuation):
     (About-only). Evidence: astro check 0 errors, 96/96 specs,
     about + captain captures reviewed. Perf: net-zero, still
     56.7KB known FAIL.
+15. **CI gate fix: roster card headings h4→h3 (same branch, committed
+    on top).** CI failed axe heading-order + check-ui heading-order
+    on /about (card names under section h2). Fix is visually
+    identical (explicit size-2/bold kept). Verified: check-ui PASS,
+    mobile-axe + about 23/23, captures reviewed. Perf unchanged.

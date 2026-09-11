@@ -42,7 +42,11 @@ import SubHeading from './SubHeading.astro';
             class="ukbt-leadership__card-photo"
           />
           <div class="ukbt-leadership__card-body">
-            <h4>{l.name}</h4>
+            {/* h3, not h4: card names sit directly under the section
+               h2 — h4 skipped a level and failed axe heading-order +
+               the UI gate in CI (2026-09-11). Styling is explicit
+               below, so the swap is visually identical. */}
+            <h3>{l.name}</h3>
             <p>{l.role}</p>
           </div>
         </div>
@@ -114,7 +118,7 @@ import SubHeading from './SubHeading.astro';
     flex-direction: column;
     gap: var(--ukbt-space-1);
   }
-  .ukbt-leadership__card-body h4 {
+  .ukbt-leadership__card-body h3 {
     margin: 0;
     font-size: var(--ukbt-font-size-2);
     font-weight: var(--ukbt-font-weight-bold);
