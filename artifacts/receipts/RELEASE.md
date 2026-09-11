@@ -679,6 +679,29 @@ needed — no test bans gallery-04.
 | 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g contact` | 0 | PASS — 7/7; 1440/390 reviewed — match action dimmed under navy, gold title crisp, watermark dissolves into shade, radius intact, mobile stacks, no overflow |
 | 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-04 67KB trivial, no contact page-image failure; known FAIL stands per owner direction) |
 
+## Update, 2026-09-11 — Franchises banner backdrop nordic-smash-slide.jpg (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for the Our Franchises banner
+(route `/franchises`) with nordic-smash-slide.jpg. **Compliance
+conflict, resolved explicitly:** the graphic bakes in "NIPO KHADEM /
+PORTUGAL" — the person `CLIENT_REQ_008` requires excluded, whose
+`.webp` sibling was pulled from the Homepage for this exact reason.
+Owner waived the exclusion for this banner use only (chat
+2026-09-11) after the conflict was stated in full, including that
+gates scan HTML text and not pixels. Recorded in three places:
+MANIFEST banner row + waiver note, `CLIENT_REQ_008` row waiver
+annotation in CLIENT-REQUIREMENTS-INVENTORY.md (rosters, DOM copy,
+alt text, and the `.webp` sibling remain excluded). Alt text and all
+DOM copy carry no names. Same `PageBanner[background]` prop, no
+component change. No spec change needed — no test bans the `.jpg`.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page incl. contamination | `CI=true playwright test tests/visual/pages.spec.ts` | 0 | PASS — 90/90 (DOM name-free on `/franchises`) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g franchises` | 0 | PASS — 14/14 (landing + Uppsala detail); 1440/390 reviewed — graphic dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: slide 202KB under warn threshold, no franchises page-image failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow

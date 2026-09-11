@@ -163,6 +163,7 @@ the photo-test pins exactly these files.
 | `public/media/gallery-08.jpg` | `artifacts/brand/raw/images/gallery/gallery-08.jpg` (byte-identical, SHA256 `671717C2…7B7B`, 1400x783, 291KB) | Photographic backdrop of the `/players` PageBanner under a token-navy shade |
 | `public/media/gallery-10.webp` | `artifacts/brand/raw/images/gallery/gallery-10.webp` (byte-identical, SHA256 `E884D263…E160`, 1400x1002, 230KB) | Photographic backdrop of the `/tournaments` ("Events") PageBanner under a token-navy shade |
 | `public/media/gallery-04.webp` | `artifacts/brand/raw/images/gallery/gallery-04.webp` (byte-identical, SHA256 `BF01CC12…7503BF`, 1400x934, 67KB) | Photographic backdrop of the `/contact` ("Contact Us") PageBanner under a token-navy shade |
+| `public/media/nordic-smash-slide.jpg` | `artifacts/brand/raw/images/uppsala/nordic-smash-slide.jpg` (byte-identical, SHA256 `29AEE17B…13F2EE`, 1600x649, 202KB) | Graphic backdrop of the `/franchises` ("Our Franchises") PageBanner under a token-navy shade |
 
 Authorisation is explicit owner direction (chat 2026-09-11): the owner
 confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
@@ -194,7 +195,17 @@ boards and STONE & CO./SOL kit marks, no crest visible — likewise
 disclosed, dimmed by the navy shade. gallery-04 is live match action
 (bowler delivering, batter set, stumps in frame) with the
 photographer's mark in the lower third — disclosed, not scrubbed;
-the shade dims it with the rest. Background boards/branding are
+the shade dims it with the rest. nordic-smash-slide.jpg is a designed
+graphic (not a photograph): Uppsala Tigers overseas-signings panel
+for the Nordic Smash T20, six named players with country tags.
+**CLIENT_REQ_008 WAIVER (owner chat 2026-09-11, this file and this
+use only):** the graphic bakes in "NIPO KHADEM / PORTUGAL" (and faces
+for all six); the owner waived the exclusion for this banner use
+after the conflict was stated explicitly. The waiver does NOT extend
+to rosters, the `.webp` sibling (still excluded), or any other use —
+CLIENT_REQ_008 otherwise stands in full. Alt text and all DOM copy
+carry no names (contamination gates scan rendered HTML; baked-in
+pixel text must not enter the DOM). Background boards/branding are
 dimmed by each banner's navy shade behind its title. Each file renders
 on its page only.
 

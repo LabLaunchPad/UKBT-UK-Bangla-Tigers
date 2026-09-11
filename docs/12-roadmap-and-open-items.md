@@ -893,3 +893,11 @@ no new branch — direct continuation):
     component change. Evidence: astro check 0 errors, contact
     captures 7/7 reviewed at 1440/390. Perf: no new failure (67KB
     image trivial; CSS still 56.7KB known FAIL).
+12. **Franchises banner backdrop nordic-smash-slide.jpg (same branch,
+    committed on top).** Owner waived CLIENT_REQ_008 for this banner
+    use only (baked-in excluded name; recorded in MANIFEST +
+    requirements inventory; DOM/alt name-free). Same PageBanner
+    prop, no component change. Evidence: astro check 0 errors,
+    pages.spec 90/90, franchises captures 14/14 reviewed at
+    1440/390. Perf: no new failure (202KB image under thresholds;
+    CSS still 56.7KB known FAIL).
