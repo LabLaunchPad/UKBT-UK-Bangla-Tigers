@@ -93,9 +93,11 @@ import SubHeading from './SubHeading.astro';
       gap: var(--ukbt-space-gap-5);
     }
   }
-  @media screen and (max-width: 767px) {
+  /* A4: 4-up squeezes to micro-type at 768px (measured); 1024 fits
+     and <=767 already stacks, so 2-up applies only <=900px. */
+  @media screen and (max-width: 900px) {
     .ukbt-mission__facts {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media screen and (max-width: 479px) {

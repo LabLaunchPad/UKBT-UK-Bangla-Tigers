@@ -12,8 +12,11 @@ interface Props {
   /** editorial: display-scale numerals with a gold tick + larger titles
      (homepage identity narrative). default preserves current rendering. */
   variant?: 'default' | 'editorial';
+  /** Intro line. Defaults to the homepage wording; About passes its
+     own framing (A2). Items untouched either way. */
+  lede?: string;
 }
-const { reasons, variant = 'default' } = Astro.props;
+const { reasons, variant = 'default', lede = 'What the club is, stated from what is on record.' } = Astro.props;
 ---
 
 <div class:list={['ukbt-chooseus', variant === 'editorial' && 'ukbt-chooseus--editorial']}>
@@ -21,7 +24,7 @@ const { reasons, variant = 'default' } = Astro.props;
     <SectionHeader
       eyebrow="Why the Tigers"
       heading="A Club Built for the International Stage"
-      lede="What the club is, stated from what is on record."
+      lede={lede}
       rule="none"
     />
   </div>

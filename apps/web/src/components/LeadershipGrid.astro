@@ -123,6 +123,12 @@ import SubHeading from './SubHeading.astro';
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
+  /* A5: an odd roster orphans the last card in a half row — a
+     trailing odd card spans the full row (count-agnostic; no-op at
+     single-column mobile). */
+  .ukbt-leadership__card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
   .ukbt-leadership__title {
     flex: 1 1 auto;
     display: flex;
@@ -149,6 +155,11 @@ import SubHeading from './SubHeading.astro';
   }
   .ukbt-leadership__narrative p {
     margin: 0;
+  }
+  /* A3: opening paragraph takes the lede size (size-2, as in
+     ClubIntro/AboutCTA) so gated copy scans as intro + detail. */
+  .ukbt-leadership__narrative p:first-child {
+    font-size: var(--ukbt-font-size-2);
   }
   /* Owner-authorised leadership imagery (About Phase 1): the
      management-team graphic, full width below the row, capped so the

@@ -35,13 +35,6 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* Defensive: a proper noun longer than its container must wrap rather
-   than force page-level horizontal scroll on a narrow phone. Names are
-   client-supplied content, so this cannot be guaranteed by copy length. */
-h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
-
 h1 {
   font-size: var(--ukbt-font-heading-h1-size);
   font-weight: var(--ukbt-font-heading-h1-weight);
@@ -125,15 +118,10 @@ p {
   }
 }
 
-/* Shared eyebrow grammar (homepage enhancement investigation P1).
-   Three bespoke eyebrow dialects (hero gold small-caps, captain navy
-   caps, tournament navy caps) performed one semantic role with three
-   implementations. This is the single contract: compact uppercase
-   label with a short gold tick, in on-light (navy text) and on-dark
-   (gold text, gold-on-dark only per the brand contrast rule) tones.
-   The SubHeading pill remains the separate header-row dialect used
-   inside SectionHeader — deliberately not unified with this. Token
-   values only, per contracts/CSS-CONTRACT.md. */
+/* Shared eyebrow grammar: one compact uppercase label + short gold
+   tick, in on-light (navy) and on-dark (gold) tones. Replaces the
+   bespoke hero/captain/tournament eyebrows. The SubHeading pill stays
+   the separate header-row dialect. Token values only. */
 .ukbt-eyebrow {
   display: inline-flex;
   align-items: center;

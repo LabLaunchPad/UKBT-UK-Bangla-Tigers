@@ -62,10 +62,9 @@ const cls = [
   .ukbt-section--pb-none {
     padding-bottom: 0;
   }
-  .ukbt-section--surface-default {
-    background: var(--ukbt-color-surface-background);
-    color: var(--ukbt-color-surface-foreground);
-  }
+  /* No surface-default rule: it would restate the body
+     background/foreground verbatim (sections always render at page top
+     level, never inside a tinted ancestor), so the default inherits. */
   .ukbt-section--surface-alt {
     background: var(--ukbt-color-surface-alt);
     color: var(--ukbt-color-surface-foreground);
@@ -91,18 +90,15 @@ const cls = [
       margin-inline: var(--ukbt-space-section-wrapper-md);
     }
   }
-  @media screen and (max-width: 767px) {
-    .ukbt-section--wrapper {
-      margin-inline: var(--ukbt-space-section-wrapper-sm);
-    }
-  }
-
   /* NOTE: section block padding steps down on mobile for proportion.
      The reference holds 120px at all viewports, but UKBT's longer copy
      means the vertical space consumed by padding on small screens
      outweighs the proportion benefit. 80px preserves breathing room
-     while recovering usable content space. */
+     while recovering usable content space. Single <=767px block. */
   @media screen and (max-width: 767px) {
+    .ukbt-section--wrapper {
+      margin-inline: var(--ukbt-space-section-wrapper-sm);
+    }
     .ukbt-section {
       padding-block: 80px;
     }
