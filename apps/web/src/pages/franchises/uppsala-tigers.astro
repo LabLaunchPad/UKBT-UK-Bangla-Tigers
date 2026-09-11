@@ -55,7 +55,15 @@ if (!uppsala) {
     <Section>
       <div class="ukbt-franchise-intro">
         <div class="ukbt-franchise-intro__crest-panel">
-          <img src={uppsala.logo} width="220" height="220" alt={uppsala.logoAlt} />
+          {/* Pair to the franchise card crest on /franchises (same file,
+             same 220x220): list → detail continuity. */}
+          <img
+            src={uppsala.logo}
+            width="220"
+            height="220"
+            alt={uppsala.logoAlt}
+            transition:name="ukbt-franchise-crest"
+          />
         </div>
         <div>
           <SubHeading label="Sister Franchise" />

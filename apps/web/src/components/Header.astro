@@ -21,7 +21,20 @@ const isActive = (href: string) =>
 
 <header class="ukbt-header" id="ukbt-header">
   <div class="ukbt-container ukbt-header__bar">
-    <a href="/" class="ukbt-header__brand" aria-label="UK Bangla Tigers — home">
+    {/*
+      Shared-element brand continuity: the anchor (not the img) carries
+      the transition name, so exactly one `ukbt-site-logo` exists per
+      page — the drawer crest stays unnamed. Same geometry everywhere
+      (44x60 in a stable header bar), so the morph is a calm crossfade
+      that keeps the brand planted across navigation. Drawer
+      open/closed state still resets via the after-swap handler below.
+    */}
+    <a
+      href="/"
+      class="ukbt-header__brand"
+      aria-label="UK Bangla Tigers — home"
+      transition:name="ukbt-site-logo"
+    >
       <img
         src="/brand/crest-256.webp"
         width="44"

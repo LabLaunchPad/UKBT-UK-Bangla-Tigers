@@ -22,6 +22,12 @@ const { name, role, photo, density = 'compact', identityLine, ctaLabel = 'Full p
 ---
 
 <div class:list={['ukbt-captain', photo && 'ukbt-captain--with-photo', density === 'editorial' && 'ukbt-captain--editorial']}>
+  {/*
+    Shared-element portrait: the same captain photo renders here
+    (home, players) and in ProfileHeader (club-captain) — same file,
+    same 3:4 aspect — so this name genuinely pairs one semantic
+    object across those pages. Exactly one instance per page.
+  */}
   {
     photo && (
       <img
@@ -31,6 +37,7 @@ const { name, role, photo, density = 'compact', identityLine, ctaLabel = 'Full p
         alt={`${name}, ${role}`}
         loading="lazy"
         class="ukbt-captain__photo"
+        transition:name="ukbt-captain-portrait"
       />
     )
   }

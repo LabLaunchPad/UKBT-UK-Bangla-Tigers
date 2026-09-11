@@ -29,17 +29,22 @@ import SubHeading from './SubHeading.astro';
 ---
 
 <div class:list={['ukbt-profile-header', layout === 'athlete' && 'ukbt-profile-header--athlete']}>
-  {
-    photo ? (
-      <img
-        src={photo}
-        width="240"
-        height="320"
-        alt={`${name}, ${role}`}
-        class="ukbt-profile-header__photo"
-        fetchpriority="high"
-      />
-    ) : (
+  {/*
+    Pair to CaptainSpotlight's portrait (same photo, same aspect):
+    players/home card → captain profile across navigation. Name lives
+    only in the photo branch — the crest fallback must never claim it.
+  */}
+  {photo ? (
+    <img
+      src={photo}
+      width="240"
+      height="320"
+      alt={`${name}, ${role}`}
+      class="ukbt-profile-header__photo"
+      fetchpriority="high"
+      transition:name="ukbt-captain-portrait"
+    />
+  ) : (
       <img
         src="/brand/crest-512.png"
         width="120"
