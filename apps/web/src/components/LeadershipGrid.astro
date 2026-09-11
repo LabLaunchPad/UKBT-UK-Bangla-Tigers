@@ -32,8 +32,8 @@ import SubHeading from './SubHeading.astro';
 <div class="ukbt-leadership">
   <div class="ukbt-leadership__cards">
     {
-      leaders.map((l) => (
-        <div class="ukbt-leadership__card">
+      leaders.map((l, i) => (
+        <div class:list={['ukbt-leadership__card', i === 0 && 'ukbt-leadership__card--feature']}>
           <img
             src={l.photo.src}
             width={l.photo.width}
@@ -42,8 +42,10 @@ import SubHeading from './SubHeading.astro';
             loading="lazy"
             class="ukbt-leadership__card-photo"
           />
-          <h4>{l.name}</h4>
-          <p>{l.role}</p>
+          <div class="ukbt-leadership__card-body">
+            <h4>{l.name}</h4>
+            <p>{l.role}</p>
+          </div>
         </div>
       ))
     }
@@ -72,30 +74,54 @@ import SubHeading from './SubHeading.astro';
     grid-template-columns: 1fr 1fr;
     gap: var(--ukbt-space-4);
   }
+  /* Bento roster (owner direction 2026-09-11, full-picture treatment):
+     photos bleed edge-to-edge across the card top (overflow clips the
+     top corners to the card radius), bodies share one rhythm below.
+     First card (Founder, semantic lead) spans two rows with a tall
+     crop; the pair stack beside it. This supersedes the A5 orphan
+     rule — the bento owns composition now, so that rule is deleted
+     below rather than left to fight the span. */
   .ukbt-leadership__card {
     background: var(--ukbt-color-surface-alt);
-    border-radius: var(--ukbt-radius-lg);
-    padding: var(--ukbt-space-6) var(--ukbt-space-4);
+    border-radius: var(--ukbt-radius-ref-card);
+    overflow: hidden;
     text-align: center;
     border-top: 3px solid var(--ukbt-color-brand-accent);
+    display: flex;
+    flex-direction: column;
   }
-  .ukbt-leadership__card h4 {
-    margin: 0 0 var(--ukbt-space-1) 0;
-    font-size: var(--ukbt-font-size-2);
-    font-weight: var(--ukbt-font-weight-bold);
+  .ukbt-leadership__card--feature {
+    grid-row: span 2;
   }
-  /* Roster portraits (owner direction 2026-09-11): square cover thumbs,
-     face kept via object-position top, card radius per the site image
-     language, centred over the name. */
+  /* Roster portraits: DEFINITE heights only. Intrinsic-driven sizing
+     (flex-fill, aspect-ratio) fails here: inside indefinite grid rows
+     the photos fall back to intrinsic heights (measured 1200px+
+     boxes, faces sliced by cover) instead of transferring ratio.
+     Fixed heights sidestep the trap entirely; the feature photo fills
+     its definite spanned area via flex. Face kept via top crop. */
   .ukbt-leadership__card-photo {
     display: block;
-    width: 5rem;
-    height: 5rem;
+    width: 100%;
+    height: 16rem;
+    flex: none;
     object-fit: cover;
     object-position: top;
-    border-radius: var(--ukbt-radius-ref-card);
-    margin: 0 auto var(--ukbt-space-3) auto;
-    flex: none;
+  }
+  .ukbt-leadership__card--feature .ukbt-leadership__card-photo {
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 20rem;
+  }
+  .ukbt-leadership__card-body {
+    padding: var(--ukbt-space-4) var(--ukbt-space-4) var(--ukbt-space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-1);
+  }
+  .ukbt-leadership__card-body h4 {
+    margin: 0;
+    font-size: var(--ukbt-font-size-2);
+    font-weight: var(--ukbt-font-weight-bold);
   }
   .ukbt-leadership__card p {
     margin: 0;
@@ -103,12 +129,6 @@ import SubHeading from './SubHeading.astro';
     color: var(--ukbt-color-neutral-700);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-  }
-  /* A5: an odd roster orphans the last card in a half row — a
-     trailing odd card spans the full row (count-agnostic; no-op at
-     single-column mobile). */
-  .ukbt-leadership__card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
   }
   .ukbt-leadership__title {
     flex: 1 1 auto;
@@ -155,6 +175,19 @@ import SubHeading from './SubHeading.astro';
   @media screen and (max-width: 767px) {
     .ukbt-leadership__cards {
       grid-template-columns: 1fr;
+    }
+    /* Mobile bento: single column with compact fixed crops — ratio
+       boxes fall into the same intrinsic-height trap, so definite
+       heights here too. Span reset so the feature card can't strand
+       a row. */
+    .ukbt-leadership__card--feature {
+      grid-row: auto;
+    }
+    .ukbt-leadership__card-photo,
+    .ukbt-leadership__card--feature .ukbt-leadership__card-photo {
+      flex: none;
+      height: 12rem;
+      min-height: 0;
     }
   }
 </style>

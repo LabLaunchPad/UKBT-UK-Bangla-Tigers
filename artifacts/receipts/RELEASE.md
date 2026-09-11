@@ -486,3 +486,33 @@ photo) — all NOT VERIFIED, none published.
 ```
 RELEASE_STATUS = PASS
 ```
+
+## Update, 2026-09-11 — About bento roster grid (same `feature/about-refinements` branch)
+
+Bento recomposition of the leadership roster. Targeted runs only
+(the full gate was PASS on the parent commit `a380390`; this
+refinement re-runs the affected scope):
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | About visual/accessibility | `CI=true playwright test tests/visual/about.spec.ts` | 0 | PASS — 6/6 (axe, mobile nav, contamination, excluded-images, leadership photo-pin, overflow) |
+| 2 | Perf budget | `node scripts/check-perf.mjs` (fresh dist from the spec's webServer build) | 0 | PASS — CSS within 56KB; warnings pre-existing and franchises-only (crest 327KB, page images 1401KB) |
+| 3 | Visual comparison | transient bento verify (5 full-page viewports + 1440/390 leadership crops) + photo-geometry diag (both deleted after review) | — | PASS — founder feature card spans 2 rows with tall top-crop photo, Ratan/Sayem stack beside; mobile single-column compact crops; no overflow |
+
+Scope: `LeadershipGrid.astro` only (feature-card span, card-body
+wrap, full-bleed definite-height photos, A5 orphan rule deleted as
+superseded, mobile span reset) + 7 about PNGs. Definite photo
+heights everywhere — diag spec confirmed the intrinsic-height trap
+(flex-fill / aspect-ratio fall back to 1200px+ intrinsic boxes with
+faces sliced inside indefinite grid rows). No route, data,
+gated-copy, token, stat, or image-asset change. `gallery-02.webp`
+deletion still unstaged (owner-side file organisation); the two
+untracked `MD Shahidul Alam Ratan.webp` raw drops are MEASURED
+distinct content (SHA256 differs from gallery-02 at HEAD, same
+118230-byte size is coincidence) — left untracked and untouched.
+
+## Verdict (About bento roster grid)
+
+```
+RELEASE_STATUS = PASS (targeted scope; full gate PASS carried from parent commit)
+```

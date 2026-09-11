@@ -825,3 +825,18 @@ no new branch — direct continuation):
 - Incidental: `gallery-02.webp` shows as deleted in the working
   tree — NOT this workstream's change (owner-side file
   organisation); left unstaged and untouched.
+5. **Bento recomposition (same branch, committed on top).** Founder
+   card spans 2 rows with a tall top-crop photo; Ratan + Sayem
+   stack beside it; mobile collapses to single-column compact
+   crops. A5 orphan rule deleted (superseded by the bento span).
+   Definite photo heights everywhere — transient diag spec
+   confirmed the intrinsic-height trap (flex-fill / aspect-ratio
+   fall back to 1200px+ intrinsic boxes, faces sliced, inside
+   indefinite grid rows). Evidence: about spec 6/6 (`CI=true`
+   against the managed chromium-1234 cache — the config's local
+   `/opt/pw-browsers/chromium` override does not exist on Windows),
+   `check-perf.mjs` PASS (CSS in 56KB budget), transient verify +
+   diag specs deleted, 7 about PNGs refreshed. Owner-side files
+   still untouched: gallery-02 deletion unstaged, the two `MD
+   Shahidul Alam Ratan.webp` raw drops (measured distinct
+   content, not a rename) untracked.
