@@ -71,6 +71,9 @@ const { name, role, photo, density = 'compact', identityLine, ctaLabel = 'Full p
   }
   .ukbt-captain__photo {
     width: 10.5rem;
+    /* height:auto so aspect-ratio (not the height="" attribute) governs
+       the frame at every width — same defect class as the roster cards. */
+    height: auto;
     aspect-ratio: 3 / 4;
     object-fit: cover;
     object-position: top;

@@ -1,0 +1,59 @@
+---
+// SquadHead — editorial section header shared by the /players Squad and
+// the Uppsala Tigers squad: eyebrow → oversized heading → computed
+// count line. Copy stays within verified content: the eyebrow names an
+// evidenced side, the count is computed from the roster data — no
+// marketing paragraph is invented.
+interface Props {
+  /** Evidenced side/section kicker (e.g. 'Our Team'). Omit to render
+      a bare heading (avoids inventing a kicker where none fits). */
+  eyebrow?: string;
+  heading: string;
+  /** Computed count line (e.g. '58 Players · 4 Officials'). */
+  count?: string;
+  /** Smaller display size for secondary blocks (Team Officials). */
+  sub?: boolean;
+}
+
+const { eyebrow, heading, count, sub = false } = Astro.props;
+---
+
+<div class="ukbt-squad-head">
+  {eyebrow && <p class="ukbt-eyebrow">{eyebrow}</p>}
+  <h2
+    class:list={[
+      'ukbt-squad-head__heading',
+      sub && 'ukbt-squad-head__heading--sub',
+    ]}
+  >
+    {heading}
+  </h2>
+  {count && <p class="ukbt-squad-head__count">{count}</p>}
+</div>
+
+<style>
+  .ukbt-squad-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-2);
+    max-width: 40rem;
+    margin-bottom: var(--ukbt-space-6);
+  }
+  .ukbt-squad-head__heading {
+    margin: 0;
+    font-family: var(--ukbt-font-family-heading);
+    font-size: clamp(2.75rem, 1.9rem + 3.4vw, 4.25rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-squad-head__heading--sub {
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  }
+  .ukbt-squad-head__count {
+    margin: 0;
+    color: var(--ukbt-color-neutral-700);
+    font-size: var(--ukbt-font-size-1);
+  }
+</style>

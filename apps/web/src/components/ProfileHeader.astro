@@ -88,6 +88,9 @@ import SubHeading from './SubHeading.astro';
      Same card radius as the site's editorial imagery (ClubIntro). */
   .ukbt-profile-header__photo {
     width: 15rem;
+    /* height:auto so aspect-ratio (not the height="" attribute) governs
+       the frame at every width — same defect class as the roster cards. */
+    height: auto;
     aspect-ratio: 3 / 4;
     object-fit: cover;
     object-position: top;
