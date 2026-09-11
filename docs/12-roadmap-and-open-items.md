@@ -871,3 +871,10 @@ no new branch — direct continuation):
    Evidence: astro check 0 errors, about+pages 96/96, captures 7/7
    reviewed at 1440/390. Perf: no new failure (CSS still 56.7KB
    known FAIL; 202KB image under thresholds).
+9. **Players banner backdrop gallery-08 (same branch, committed on
+   top).** Owner confirmed UKBT squad photo (new drop, no prior EV;
+   chest branding matches home-hero's flagged marks — disclosed).
+   Same PageBanner prop, no component change. Evidence: astro check
+   0 errors, pages.spec 89 passed + 1 unrelated timing flake,
+   players captures 7/7 reviewed at 1440/390. Perf: no new failure
+   (291KB image under thresholds; CSS still 56.7KB known FAIL).

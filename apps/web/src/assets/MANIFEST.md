@@ -160,17 +160,23 @@ the photo-test pins exactly these files.
 | Path | Source | Usage |
 |---|---|---|
 | `public/media/gallery-06.webp` | `artifacts/brand/raw/images/gallery/gallery-06.webp` (byte-identical, SHA256 `94D132BF…F168`, 1400x933, 202KB) | Photographic backdrop of the `/about` PageBanner under a token-navy shade |
+| `public/media/gallery-08.jpg` | `artifacts/brand/raw/images/gallery/gallery-08.jpg` (byte-identical, SHA256 `671717C2…7B7B`, 1400x783, 291KB) | Photographic backdrop of the `/players` PageBanner under a token-navy shade |
 
 Authorisation is explicit owner direction (chat 2026-09-11): the owner
 confirmed gallery-06 depicts a UK Bangla Tigers team/event photo. This
 first-party confirmation supersedes the "not confirmed" assessment in
 `EV-20260826-030` §4 second bullet **for this file only** (see the
 amendment appended to that record); `join-us.webp` and `home-hero.webp`
-findings are unchanged. Viewed at full resolution: squad trophy
-celebration in green/red kit; background event boards read
-approximately "Islami Bank ... Cup 2022" — disclosed as documentary
-background, not scrubbed; the banner's navy shade dims them behind the
-title. Renders on `/about` only.
+findings are unchanged. gallery-08 (same date) is a new owner-supplied
+drop with no prior EV finding; the owner confirmed it depicts a UKBT
+squad photo. Viewed at full resolution: gallery-06 is a squad trophy
+celebration in green/red kit with background event boards reading
+approximately "Islami Bank ... Cup 2022"; gallery-08 is a squad team
+photo in light-blue kit whose chest branding matches the charity-event
+marks described in `EV-20260826-030` §7 — both disclosed as
+documentary background, not scrubbed. Background boards/branding are
+dimmed by each banner's navy shade behind its title. Each renders on
+its page only.
 
 ## Explicitly NOT staged to production (per Stage 7G exclusions, extended)
 

@@ -610,6 +610,27 @@ children; safe).
 | 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g about` | 0 | PASS — 7/7; 1440/390 reviewed — photo dimmed under navy, title crisp, radius intact, mobile stacks, no overflow |
 | 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-06 202KB under warn threshold, no about page-image failure; known FAIL stands per owner direction) |
 
+## Update, 2026-09-11 — Players banner backdrop gallery-08 (same `feature/about-refinements` branch)
+
+Owner direction: same banner treatment for Players Profile with
+gallery-08. Evidence status differs from gallery-06: no prior EV
+finding for this file (new owner-supplied drop), but its chest
+branding matches the charity-event marks flagged unconfirmed on
+home-hero (`EV-20260826-030` §7) — so the gallery-06 confirmation
+does NOT transfer. Owner explicitly confirmed gallery-08 depicts a
+UKBT squad photo (chat 2026-09-11); recorded in MANIFEST banner
+section (byte-identical staging, SHA256 `671717C2…7B7B`,
+1400x783, 291KB; chest branding disclosed as documentary
+background). No spec change needed — no test bans gallery-08.
+Same `PageBanner[background]` prop, no component change.
+
+| # | Category | Command | Exit | Result |
+|---|---|---|---|---|
+| 1 | Typecheck | `astro check` | 0 | PASS — 0 errors, 0 warnings (2 pre-existing hints) |
+| 2 | Cross-page | `CI=true playwright test tests/visual/pages.spec.ts` | 0 | PASS — 89 passed, 1 flaky (club-captain title/meta timing flake, unrelated to banner — no title/meta logic touched; passes on retry) |
+| 3 | Captures | `CI=true playwright test tests/visual/screenshots.spec.ts -g players` | 0 | PASS — 7/7; 1440/390 reviewed — squad photo dimmed under navy, gold title crisp, radius intact, mobile stacks, no overflow |
+| 4 | Perf budget | `node scripts/check-perf.mjs` (sanctioned `pnpm build`) | 1 | FAIL — css-weight still exactly 56.7KB (no new failure: gallery-08 291KB under warn threshold, no players page-image failure; known FAIL stands per owner direction) |
+
 Section-organisation audit (prior pass, still valid minus WhyChooseUs):
 page reads banner(h1) → welcome → sponsors → story → founder →
 leadership → follow CTA → footer; one h1 + section h2s, eyebrow
