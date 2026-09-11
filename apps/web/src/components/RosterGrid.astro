@@ -17,11 +17,15 @@
 // full-page screenshot capture (screenshots.spec.ts) — below-the-fold
 // roster photos silently failed to render because the browser's lazy
 // IntersectionObserver never fired before the capture reached that
-// scroll region. At most 42 small (<=100KB) images on the heaviest
-// page, so the reliability cost of eager loading is worth paying here.
+// scroll region. At most ~62 small (320px, ~9KB average) images on the
+// heaviest page, so the reliability cost of eager loading is worth
+// paying here.
 interface Player {
   name: string;
   country?: string;
+  /** Staff role (Team Officials block). When present with no country,
+     the country line is omitted — staff have no playing country. */
+  role?: string;
   tags?: string[];
   note?: string;
   photo?: string;
@@ -41,16 +45,19 @@ const { players } = Astro.props;
           <img
             class="ukbt-roster-card__photo"
             src={p.photo}
-            alt={p.photoAlt ?? `${p.name} — Uppsala Tigers`}
+            alt={p.photoAlt ?? `${p.name} — UK Bangla Tigers`}
             width="160"
             height="160"
           />
         )}
         <div class="ukbt-roster-card__body">
           <h3>{p.name}</h3>
-          <p class="ukbt-roster-card__country">
-            {p.country ?? 'Country unconfirmed'}
-          </p>
+          {p.role && <p class="ukbt-roster-card__role">{p.role}</p>}
+          {p.country ? (
+            <p class="ukbt-roster-card__country">{p.country}</p>
+          ) : (
+            !p.role && <p class="ukbt-roster-card__country">Country unconfirmed</p>
+          )}
           {p.tags && p.tags.length > 0 && (
             <ul class="ukbt-roster-card__tags">
               {p.tags.map((t: string) => (
@@ -105,6 +112,12 @@ const { players } = Astro.props;
     margin: 0;
     color: var(--ukbt-color-neutral-700);
     font-size: var(--ukbt-font-size-0);
+  }
+  .ukbt-roster-card__role {
+    margin: 0 0 var(--ukbt-space-1) 0;
+    color: var(--ukbt-color-brand-primary);
+    font-size: var(--ukbt-font-size-0);
+    font-weight: var(--ukbt-font-weight-bold);
   }
   .ukbt-roster-card__tags {
     list-style: none;

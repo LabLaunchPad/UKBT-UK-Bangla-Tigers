@@ -1,11 +1,13 @@
 ---
-// Players Profile page. The full 42-name roster is real evidence
-// (EV-20260831-005). 19 of the 42 (the ones who also play for Uppsala
-// Tigers) now have a photo too (EV-20260831-008, reused from that same
-// squad's photography â€” same person, same photo). Individual full
-// profiles (bio, stats) beyond the Club Captain remain UNKNOWN and are
-// stated as such rather than invented; per CLIENT_REQ_006 the roster
-// renders name + country (+ photo where supplied) and no stats table.
+// Players Profile page. The roster combines the 42-name evidence roster
+// (EV-20260831-005) with the owner-supplied 2026-09-12 photo drop:
+// 59 portraits + the Players & Managements List PDF (EV-20260912-001).
+// 58 players (4 renamed per owner direction, 16 new from filenames) +
+// 4 team officials, pictured with uniform 320px thumbnails; 8 names
+// without photos stay text-only. Individual full profiles (bio, stats)
+// beyond the Club Captain remain UNKNOWN and are stated as such rather
+// than invented; per CLIENT_REQ_006 the roster renders name + country
+// (+ photo where supplied) and no stats table.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageBanner from '../components/PageBanner.astro';
@@ -15,7 +17,7 @@ import RosterGrid from '../components/RosterGrid.astro';
 import Footer from '../components/Footer.astro';
 import { homepage } from '../content/homepage-data';
 import { captain, captainPhoto } from '../content/captain-data';
-import { fullRoster } from '../content/players-data';
+import { fullRoster, teamOfficials } from '../content/players-data';
 // Players banner backdrop (owner direction 2026-09-11): gallery-08,
 // owner-confirmed UKBT squad photo (no prior EV finding for this file
 // — new owner-supplied drop, see MANIFEST). 1400x783, 291KB.
@@ -52,6 +54,11 @@ const bannerBackground = {
     <Section surface="alt">
       <h2>Squad</h2>
       <RosterGrid players={fullRoster} />
+    </Section>
+
+    <Section>
+      <h2>Team Officials</h2>
+      <RosterGrid players={teamOfficials} />
     </Section>
 
     <Section paddingBottom="normal">

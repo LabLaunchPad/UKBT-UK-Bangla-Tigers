@@ -930,3 +930,12 @@ no new branch — direct continuation):
     scratch matrix 9/9 zero page errors, settled captures reviewed.
     Perf: +1.0KB CSS (56.7→57.7KB, base layer duplicated across
     bundles) — same accepted FAIL class, no cuts per direction.
+18. **Player roster photos (new branch `feature/players-roster-photos`,
+    owner direction 2026-09-12).** 59 portraits + PDF list
+    (EV-20260912-001): 58 players (4 renamed, 16 new) + 4 officials on
+    /players, uniform 320px WebP thumbs (54 files, 485KB). HEIF decoded
+    via Temp-only heic-convert (never staged). UUID file excluded (no
+    name). Evidence: typecheck 0 errors (truth gate passes all 62
+    records), MOTION/UI PASS, motion+pages 98/98, players captures 7/7
+    reviewed at 1440/390. Perf: no new failure (players page under the
+    page-image budget).
