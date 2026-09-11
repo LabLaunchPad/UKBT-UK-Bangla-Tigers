@@ -930,3 +930,8 @@ no new branch — direct continuation):
     scratch matrix 9/9 zero page errors, settled captures reviewed.
     Perf: +1.0KB CSS (56.7→57.7KB, base layer duplicated across
     bundles) — same accepted FAIL class, no cuts per direction.
+17. **Release Baseline v1.0 LOCKED (2026-09-11).** PR45 merged as
+    `9a5de98`, deployed, verified on production (all 6 routes, 390–1440,
+    reduced-motion, motion battery, zero page errors). Full lock record:
+    `artifacts/receipts/RELEASE-V1.0.md`. No further UI/CSS/motion/copy
+    work without a new evidence-backed change request against `9a5de98`.
