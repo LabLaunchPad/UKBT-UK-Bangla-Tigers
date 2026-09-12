@@ -81,6 +81,8 @@ export const SEO_ROUTES: SeoRoute[] = [
   { path: '/services', indexable: false },
   { path: '/membership', indexable: false },
   { path: '/join', indexable: false },
+  // Offline shell (PWA-lite): not public content.
+  { path: '/offline', indexable: false },
   // Internal verification page, not public content.
   { path: '/design-system', indexable: false },
 ];

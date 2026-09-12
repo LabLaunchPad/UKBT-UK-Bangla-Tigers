@@ -1,0 +1,71 @@
+---
+// Offline fallback (PWA-lite). Rendered by the service worker when a
+// navigation fails with no cached page available. Deliberately static:
+// branding, a concise message, and retry navigation — no live scores,
+// fixtures, or player data (fabricating those offline would be false
+// content). noindex: an offline shell is not public content.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageBanner from '../components/PageBanner.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import Footer from '../components/Footer.astro';
+import { homepage } from '../content/homepage-data';
+---
+
+<BaseLayout
+  title="Offline — UK Bangla Tigers"
+  description="You are offline. Reconnect to browse UK Bangla Tigers."
+  noindex={true}
+>
+  <Header nav={homepage.nav} cta={homepage.primaryCta} />
+
+  <main id="main-content" tabindex="-1">
+    <PageBanner
+      title="You're offline"
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Offline' }]}
+    />
+
+    <Section>
+      <div class="ukbt-offline">
+        <h2 class="ukbt-offline__heading">No connection</h2>
+        <p class="ukbt-offline__message">
+          No internet connection. Pages and photos you have already
+          visited are still available; everything else returns when you
+          reconnect.
+        </p>
+        <div class="ukbt-offline__actions">
+          <Button label="Try again" href="/" variant="primary" />
+          <Button label="View squad" href="/players/" variant="secondary" />
+        </div>
+      </div>
+    </Section>
+  </main>
+
+  <Footer social={homepage.social} nav={homepage.nav} secondaryNav={homepage.secondaryNav} />
+</BaseLayout>
+
+<style>
+  .ukbt-offline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ukbt-space-6);
+    max-width: 36rem;
+  }
+  .ukbt-offline__heading {
+    margin: 0;
+    font-family: var(--ukbt-font-family-heading);
+    font-size: var(--ukbt-font-size-3);
+    color: var(--ukbt-color-brand-primary);
+  }
+  .ukbt-offline__message {
+    margin: 0;
+    font-size: var(--ukbt-font-size-1);
+    color: var(--ukbt-color-neutral-700);
+  }
+  .ukbt-offline__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ukbt-space-3);
+  }
+</style>
