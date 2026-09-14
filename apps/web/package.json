@@ -21,7 +21,7 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/cloudflare": "^14.2.5",
     "@axe-core/playwright": "^4.10.1",
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22.10.2",
     "typescript": "^5.7.2",
     "wrangler": "^4.126.0"
