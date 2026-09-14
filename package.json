@@ -36,7 +36,7 @@
     "deploy:verify": "pnpm run check:governance-scaffold && pnpm run check:deps && pnpm lint && pnpm run tokens:build && pnpm typecheck && pnpm test:unit && pnpm run build && pnpm run check:links && pnpm run check:seo && pnpm run check:ui && pnpm run check:motion && pnpm run check:security && pnpm run check:perf"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.5.13",
     "typescript": "^5.7.2",
     "wrangler": "^4.126.0"
   }
